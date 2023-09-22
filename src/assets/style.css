@@ -1,0 +1,277 @@
+header {
+  width: 100vw;
+  display: inline-block;
+}
+
+.head-top-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  width: 100vw;
+  background: #ff5e33;
+}
+
+/* 로고 부분 */
+.head-logo-container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  height: 80px;
+  margin-top: 20px;
+  background-color: white;
+}
+
+.head-logo {
+  display: flex;
+}
+
+.head-logo img {
+  width: 130px;
+  height: 80px;
+  padding-right: 10px;
+}
+
+.head-logo a {
+  text-decoration: none;
+  display: flex;
+}
+
+.head-logo-container #title {
+  font-size: 35px;
+  line-height: 80px;
+  color: #ff5e33;
+  font-family: "Luckiest Guy", cursive;
+  text-shadow: 2px 2px 3px rgb(66, 61, 61);
+}
+
+/* 오른쪽 */
+.head-right {
+  position: absolute;
+  right: 0;
+  margin-right: 50px;
+  line-height: 80px;
+  overflow: hidden;
+  white-space: nowrap; /*줄바꿈 막기*/
+  /* background-color: #f8cdc1; */
+}
+
+.head-right li {
+  display: inline-block;
+  font-family: "omyu_pretty";
+  font-size: 20px;
+  line-height: 35px;
+  padding: 0 10px;
+}
+
+.head-right li a {
+  text-decoration: none;
+  color: #ff5e33;
+}
+
+.head-right li a:hover {
+  color: #ff5e33;
+}
+
+/* 메뉴 */
+.head-menu {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #f8cdc1;
+}
+
+.head-menu ul {
+  display: inline-block;
+}
+
+.head-menu li {
+  display: inline-block;
+  align-items: center;
+  padding: 0 30px;
+  line-height: 50px;
+}
+
+.head-menu li a {
+  text-decoration: none;
+  color: #ff5e33;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.head-menu li a:hover {
+  background-color: #ff5e33;
+  color: white;
+  line-height: 50px;
+}
+
+.head-menu span {
+  font-family: "omyu_pretty";
+  font-size: 1.5rem;
+}
+
+.head-menu input {
+  border: none;
+  background-color: #fcf1f1;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+}
+
+.search-btn i {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6.5px;
+  color: #666;
+}
+
+.search-btn button {
+  background: #e2d5d5;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* 메인페이지 */
+main {
+  padding-top: 82px;
+  width: 100vw;
+}
+
+.mainpage {
+  height: calc(100vh - 150px); /*뷰포트높이-헤더높이*/
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 30px;
+}
+
+#slide {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  overflow: hidden;
+  gap: 10px;
+  position: relative;
+}
+
+#slide img {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  border-radius: 10%;
+  display: block;
+}
+
+#slide .slide-btn-container {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  margin-bottom: 10px;
+}
+
+#slide .slide-btn {
+  border: none;
+  padding: 7px;
+  background-color: #f8cdc1;
+  border-radius: 50%;
+}
+
+#slide .slide-btn:hover {
+  background-color: #ff5e33;
+  color: white;
+}
+
+#slide .slide-btn.active {
+  background-color: #ff5e33;
+  color: white;
+}
+
+#category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 200px;
+  background-color: #f8cdc1;
+  gap: 120px;
+}
+
+.category-content {
+  position: relative;
+}
+
+.category-link {
+  text-decoration: none;
+  color: white;
+  font-family: "omyu_pretty";
+  font-size: 2rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.category-image {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  display: block;
+}
+
+.category-text {
+  display: block;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 3px 3px 4px black;
+}
+
+main #top {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-radius: 50%;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+#top a {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+main #section1 {
+  background-color: rgb(238, 200, 200);
+}
+
+@media screen and(min-width: 600px) {
+  .head-menu {
+  }
+}
