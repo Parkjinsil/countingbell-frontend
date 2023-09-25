@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "../assets/LOGO.png";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -49,7 +51,7 @@ const HeadLogo = styled.div`
 const HeadRight = styled.div`
   position: absolute;
   right: 0;
-  margin-right: 50px;
+  margin-right: 70px;
   line-height: 80px;
   overflow: hidden;
   white-space: nowrap;
@@ -59,14 +61,92 @@ const HeadRight = styled.div`
     font-family: "omyu_pretty";
     font-size: 20px;
     line-height: 35px;
-    padding: 0 10px;
+    padding: 0 15px;
+
+    a {
+      text-decoration: none;
+      color: rgb(255, 94, 51, 0.7);
+
+      &:hover {
+        color: #ff5e33;
+      }
+    }
+  }
+`;
+
+const HeadMenu = styled.div`
+  padding-top: 100px;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 50px;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #f8cdc1;
+  transition: transform 0.3s;
+
+  &.hidden {
+    transform: translateY(-100%);
+  }
+
+  ul {
+    display: inline-block;
+  }
+
+  li {
+    display: inline-block;
+    align-items: center;
+    padding: 0 30px;
+    line-height: 50px;
 
     a {
       text-decoration: none;
       color: #ff5e33;
+      padding: 10px;
+      border-radius: 5px;
 
       &:hover {
-        color: #ff5e33;
+        background-color: #ff5e33;
+        color: white;
+        line-height: 50px;
+      }
+
+      span {
+        font-family: "omyu_pretty";
+        font-size: 1.5rem;
+        padding: 0 30px;
+      }
+    }
+
+    &.search-btn {
+      display: flex;
+      align-items: center;
+    }
+
+    #search {
+      border: none;
+      background-color: #fcf1f1;
+      padding: 11px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background: #e2d5d5;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+
+      #icon {
+        font-size: 15px;
+        cursor: pointer;
+        color: #666;
       }
     }
   }
@@ -107,6 +187,55 @@ const Header = () => {
           </HeadRight>
         </HeadLogoContainer>
       </HeadTopContainer>
+      <HeadMenu>
+        <nav>
+          <ul>
+            <li>
+              <a href="#">
+                <span>카테고리</span>
+              </a>
+            </li>
+            <li>
+              <a href="#section1">
+                <span>온라인 줄서기</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>빠른예약</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>EVENT</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>고객센터</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span>마이페이지</span>
+              </a>
+            </li>
+            <li>
+              <div className="search-btn">
+                <input
+                  type="search"
+                  name="search"
+                  id="search"
+                  placeholder="검색"
+                />
+                <button type="submit">
+                  <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
+                </button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </HeadMenu>
     </HeaderContainer>
   );
 };

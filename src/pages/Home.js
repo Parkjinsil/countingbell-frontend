@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import image1 from "../assets/111.jpg";
 import image2 from "../assets/222.jpg";
@@ -10,71 +8,23 @@ import image4 from "../assets/444.jpg";
 import image5 from "../assets/555.jpg";
 
 const Main = styled.main`
-  padding-top: 100px;
-  width: 100vw;
+  background-color: white;
 `;
 
-const HeadMenu = styled.div`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  line-height: 50px;
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
-  background-color: #f8cdc1;
-
-  ul {
-    display: inline-block;
-  }
-
-  li {
-    display: inline-block;
-
-    a {
-      text-decoration: none;
-      color: #ff5e33;
-    }
-  }
-
-  span {
-    font-family: "omyu_pretty";
-    font-size: 1.5rem;
-    padding: 0 30px;
-  }
-
-  input {
-    border: none;
-    background-color: #fcf1f1;
-    padding: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-
-  .search-btn {
+const Section = styled.section`
+  &.mainpage {
+    height: calc(100vh - 168px);
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
   }
 
-  i {
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px;
-    color: #666;
+  &.section1 {
+    background-color: rgb(238, 200, 200);
+    height: calc(100vh - 117px);
   }
-
-  button {
-    background: #e2d5d5;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-`;
-
-const Section = styled.div`
-  height: calc(100vh - 218px);
 `;
 
 const Slide = styled.div`
@@ -83,12 +33,39 @@ const Slide = styled.div`
   width: 100vw;
   overflow: hidden;
   gap: 10px;
+  position: relative;
 
   img {
     width: 100%;
     max-width: 800px;
-    height: 450px;
+    height: 500px;
     border-radius: 10%;
+    display: block;
+  }
+
+  .slide-btn-container {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    margin-bottom: 10px;
+  }
+
+  .slide-btn {
+    border: none;
+    padding: 7px;
+    background-color: #f8cdc1;
+    border-radius: 50%;
+    margin: 2px;
+
+    &:hover {
+      background-color: #ff5e33;
+      color: white;
+    }
+
+    &.active {
+      background-color: #ff5e33;
+      color: white;
+    }
   }
 `;
 
@@ -157,59 +134,7 @@ const ScrollToTop = styled.div`
 const Home = () => {
   return (
     <Main>
-      <div class="head-bottom-container">
-        <HeadMenu>
-          <nav>
-            <ul>
-              <li>
-                <a href="#">
-                  <span>카테고리</span>
-                </a>
-              </li>
-              <li>
-                <a href="#section1">
-                  <span>온라인 줄서기</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span>빠른예약</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span>EVENT</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span>고객센터</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span>마이페이지</span>
-                </a>
-              </li>
-              <li>
-                <div className="search-btn">
-                  <input
-                    type="search"
-                    name="search"
-                    id="search"
-                    placeholder="검색"
-                  />
-                  <button>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </HeadMenu>
-      </div>
-
-      <Section class="mainpage">
+      <Section className="mainpage">
         <Slide id="slide">
           <img src={image1} alt="image1" />
           <img src={image2} alt="image2" />
@@ -224,7 +149,7 @@ const Home = () => {
         </Slide>
 
         <Category id="category">
-          <a href="#section1" className="category-link">
+          <a href="/.section1" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">내위치</span>
           </a>
@@ -253,6 +178,16 @@ const Home = () => {
             </span>
           </a>
         </Category>
+      </Section>
+
+      <Section className="section1">
+        <h2>section1</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
+          libero minima! Placeat fuga quibusdam culpa a modi? Perspiciatis,
+          dolores libero ipsa dignissimos voluptas, magni eos id minima, ut
+          doloribus necessitatibus?
+        </p>
       </Section>
 
       <ScrollToTop id="top">
