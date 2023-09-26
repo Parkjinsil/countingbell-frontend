@@ -19,58 +19,90 @@ const LoginBox = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  height: 400px;
+  height: 450px;
 `;
 
 const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-`;
+  display: flex;
+  height: 100px;
+  margin-top: 20px;
+  /* background-color: blue; */
 
-const Logo = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 10px;
-`;
-
-const Title = styled.p`
-  font-size: 2rem;
-  color: #ff5e33;
-  font-family: "Luckiest Guy", cursive;
-  text-shadow: 2px 2px 3px rgb(66, 61, 61);
+  img {
+    width: 130px;
+    height: 110px;
+    padding-right: 12px;
+  }
+  a {
+    text-decoration: none;
+    display: flex;
+  }
+  P {
+    font-size: 35px;
+    line-height: 100px;
+    color: #ff5e33;
+    font-family: "Luckiest Guy", cursive;
+    text-shadow: 2px 2px 3px rgb(66, 61, 61);
+  }
 `;
 
 const InputContainer = styled.div`
   text-align: center;
-  margin-bottom: 10px;
+  padding: 15px 20px;
+  line-height: 30px;
+  /* background-color: aqua; */
 
-  label {
-    display: flex;
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-align: center;
+  div {
+    margin: 15px 10px;
+    padding-right: 10px;
+  }
+
+  span {
+    padding: 15px;
+    /* background-color: antiquewhite; */
   }
 
   input {
-    width: 100%;
-    padding: 10px;
+    width: 350px;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: aliceblue;
   }
 `;
 
+const BottomContainer = styled.div`
+  width: 500px;
+  padding: 15px 0;
+`;
+
 const Button = styled.button`
-  width: 100%;
+  width: 430px;
   padding: 10px;
   background-color: #ff5e33;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.5rem;
+`;
+
+const LoginBottom = styled.div`
+  padding-top: 30px;
+  display: inline-block;
+
+  span {
+    margin-right: 25px;
+  }
+
+  a {
+    color: black;
+
+    &:hover {
+      color: #ff5e33;
+    }
+  }
 `;
 
 const Login = () => {
@@ -78,22 +110,40 @@ const Login = () => {
     <Container>
       <LoginBox>
         <LogoContainer>
-          <Logo src={logo} alt="Logo" />
-          <Title>COUNTINGBELL</Title>
+          <a href="#">
+            <img src={logo} />
+            <p id="title">COUNTINGBELL</p>
+          </a>
         </LogoContainer>
-        <form action="signIn" id="signIn" name="signIn" method="POST">
-          <InputContainer>
-            <label htmlFor="id">
-              <FontAwesomeIcon icon={faUser} />
-              <input type="text" name="id" id="id" />
-            </label>
-            <label htmlFor="password">
-              <FontAwesomeIcon icon={faLock} />
-              <input type="password" name="password" id="password" />
-            </label>
-          </InputContainer>
+        <InputContainer>
+          <div className="idBox">
+            <span>
+              <FontAwesomeIcon icon={faUser} id="icon" />
+            </span>
+            <input type="text" name="id" id="id" autofocus></input>
+          </div>
+          <div className="pwdBox">
+            <span>
+              <FontAwesomeIcon icon={faLock} id="icon" />
+            </span>
+            <input type="password" name="password" id="password" />
+          </div>
+        </InputContainer>
+        <BottomContainer>
           <Button type="submit">로그인</Button>
-        </form>
+
+          <LoginBottom>
+            <span>
+              <a href="#">비밀번호 찾기</a>
+            </span>
+            <span>
+              <a href="#">아이디 찾기</a>
+            </span>
+            <span>
+              <a href="#">회원가입</a>
+            </span>
+          </LoginBottom>
+        </BottomContainer>
       </LoginBox>
     </Container>
   );
