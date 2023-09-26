@@ -106,45 +106,72 @@ const LoginBottom = styled.div`
 `;
 
 const Login = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  // 비밀번호 찾기 페이지로 이동
+  const handleFindPassword = (event) => {
+    event.preventDefault();
+  };
+
+  // 아이디 찾기 페이지로 이동
+  const handelFindId = (event) => {
+    event.preventDefault();
+  };
+
+  // 회원가입 페이지로 이동
+  const handelRegister = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Container>
-      <LoginBox>
-        <LogoContainer>
-          <a href="#">
-            <img src={logo} />
-            <p id="title">COUNTINGBELL</p>
-          </a>
-        </LogoContainer>
-        <InputContainer>
-          <div className="idBox">
-            <span>
-              <FontAwesomeIcon icon={faUser} id="icon" />
-            </span>
-            <input type="text" name="id" id="id" autofocus></input>
-          </div>
-          <div className="pwdBox">
-            <span>
-              <FontAwesomeIcon icon={faLock} id="icon" />
-            </span>
-            <input type="password" name="password" id="password" />
-          </div>
-        </InputContainer>
-        <BottomContainer>
-          <Button type="submit">로그인</Button>
+      <form onSubmit={handleSubmit}>
+        <LoginBox>
+          <LogoContainer>
+            <a href="/">
+              <img src={logo} />
+              <p id="title">COUNTINGBELL</p>
+            </a>
+          </LogoContainer>
+          <InputContainer>
+            <div className="idBox">
+              <span>
+                <FontAwesomeIcon icon={faUser} id="icon" />
+              </span>
+              <input type="text" name="id" id="id" autofocus></input>
+            </div>
+            <div className="pwdBox">
+              <span>
+                <FontAwesomeIcon icon={faLock} id="icon" />
+              </span>
+              <input type="password" name="password" id="password" />
+            </div>
+          </InputContainer>
+          <BottomContainer>
+            <Button type="submit">로그인</Button>
 
-          <LoginBottom>
-            <span>
-              <a href="#">비밀번호 찾기</a>
-            </span>
-            <span>
-              <a href="#">아이디 찾기</a>
-            </span>
-            <span>
-              <a href="#">회원가입</a>
-            </span>
-          </LoginBottom>
-        </BottomContainer>
-      </LoginBox>
+            <LoginBottom>
+              <span>
+                <a href="#" onClick={handleFindPassword}>
+                  비밀번호 찾기
+                </a>
+              </span>
+              <span>
+                <a href="#" onClick={handelFindId}>
+                  아이디 찾기
+                </a>
+              </span>
+              <span>
+                <a href="#" onClick={handelRegister}>
+                  회원가입
+                </a>
+              </span>
+            </LoginBottom>
+          </BottomContainer>
+        </LoginBox>
+      </form>
     </Container>
   );
 };

@@ -159,7 +159,7 @@ const Header = () => {
         <div className="head-bar"></div>
         <HeadLogoContainer>
           <HeadLogo>
-            <a href="#">
+            <a href="/">
               <img src={logo} />
               <p id="title">COUNTINGBELL</p>
             </a>
@@ -168,12 +168,12 @@ const Header = () => {
             <nav>
               <ul>
                 <li>
-                  <a href="#section1">
+                  <a href="section1">
                     <span>최근본가게</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="login">
                     <span>로그인</span>
                   </a>
                 </li>
@@ -196,7 +196,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#section1">
+              <a href="section1">
                 <span>온라인 줄서기</span>
               </a>
             </li>

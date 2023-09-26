@@ -149,7 +149,7 @@ const Home = () => {
         </Slide>
 
         <Category id="category">
-          <a href="/.section1" className="category-link">
+          <a href=".section1" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">내위치</span>
           </a>

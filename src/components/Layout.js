@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Header from "./Header";
 
-const Layout = () => {
+const Layout = ({ header, children }) => {
   return (
     <>
-      <Header />
+      {header}
       <Outlet />
     </>
   );
