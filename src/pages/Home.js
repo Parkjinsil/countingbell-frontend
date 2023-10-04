@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
 import image1 from "../assets/111.jpg";
@@ -34,21 +34,24 @@ const Slide = styled.div`
   overflow: hidden;
   gap: 10px;
   position: relative;
+  transition: transform 0.3s ease;
 
   img {
-    width: 100%;
-    max-width: 800px;
+    max-width: 100%;
     height: 500px;
     border-radius: 10%;
     display: block;
+    transition: transform 0.3s ease;
   }
+`;
 
-  .slide-btn-container {
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    margin-bottom: 10px;
-  }
+const ButtonContainer = styled.div`
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  bottom: 270px;
+  left: 50%;
+  transform: translateX(-50%);
 
   .slide-btn {
     border: none;
@@ -132,6 +135,13 @@ const ScrollToTop = styled.div`
 `;
 
 const Home = () => {
+  const buttons = [0, 1, 2, 3, 4];
+
+  const [currentSlide, setCurrentSlide] = useState(2);
+
+  const handleSlideChange = (index) => {
+    setCurrentSlide(index);
+  };
   return (
     <Main>
       <Section className="mainpage">
@@ -139,14 +149,20 @@ const Home = () => {
           <img src={image1} alt="image1" />
           <img src={image2} alt="image2" />
           <img src={image3} alt="image3" />
-          <div className="slide-btn-container">
-            <button type="button" className="slide-btn"></button>
-            <button type="button" className="slide-btn"></button>
-            <button type="button" className="slide-btn active"></button>
-            <button type="button" className="slide-btn"></button>
-            <button type="button" className="slide-btn"></button>
-          </div>
+          <img src={image4} alt="image4" />
+          <img src={image5} alt="image5" />
         </Slide>
+
+        <ButtonContainer>
+          {buttons.map((index) => (
+            <button
+              key={index}
+              type="button"
+              className={`slide-btn ${currentSlide === index ? "active" : ""}`}
+              onClick={() => handleSlideChange(index)}
+            ></button>
+          ))}
+        </ButtonContainer>
 
         <Category id="category">
           <a href=".section1" className="category-link">

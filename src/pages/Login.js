@@ -3,6 +3,7 @@ import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -106,23 +107,27 @@ const LoginBottom = styled.div`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    navigate("/");
   };
 
   // 비밀번호 찾기 페이지로 이동
-  const handleFindPassword = (event) => {
+  const handleFindPwd = (event) => {
     event.preventDefault();
   };
 
   // 아이디 찾기 페이지로 이동
-  const handelFindId = (event) => {
+  const handleFindId = (event) => {
     event.preventDefault();
   };
 
   // 회원가입 페이지로 이동
-  const handelRegister = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
+    navigate("/signUp");
   };
 
   return (
@@ -154,17 +159,17 @@ const Login = () => {
 
             <LoginBottom>
               <span>
-                <a href="#" onClick={handleFindPassword}>
+                <a href="#" onClick={handleFindPwd}>
                   비밀번호 찾기
                 </a>
               </span>
               <span>
-                <a href="#" onClick={handelFindId}>
+                <a href="#" onClick={handleFindId}>
                   아이디 찾기
                 </a>
               </span>
               <span>
-                <a href="#" onClick={handelRegister}>
+                <a href="/signUp" onClick={handleRegister}>
                   회원가입
                 </a>
               </span>

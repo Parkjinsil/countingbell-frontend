@@ -178,7 +178,7 @@ const Header = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="signUp">
                     <span>회원가입</span>
                   </a>
                 </li>
