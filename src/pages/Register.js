@@ -37,8 +37,6 @@ const InputContainer = styled.div`
   justify-content: center;
   font-family: "omyu_pretty";
 
-  /* background-color: bisque; */
-
   p {
     margin: 5px 0;
     font-size: 1.2rem;
@@ -128,8 +126,8 @@ const Register = () => {
 
     try {
       await addMember(formData);
-      console.log("회원 등록 성공");
-      navigate("/");
+      alert("회원 가입 성공. 로그인해주세요.");
+      navigate("/login");
     } catch (error) {
       console.error("회원 등록 실패:", error);
       alert("회원 등록에 실패했습니다. 다시 시도해주세요.");

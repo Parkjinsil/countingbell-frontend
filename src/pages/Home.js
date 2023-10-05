@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 import image1 from "../assets/111.jpg";
@@ -27,31 +27,47 @@ const Section = styled.section`
   }
 `;
 
-const Slide = styled.div`
-  display: flex;
+const SliderContainer = styled.div`
+  /* display: flex;
   justify-content: center;
   width: 100vw;
   overflow: hidden;
   gap: 10px;
   position: relative;
-  transition: transform 0.3s ease;
 
   img {
     max-width: 100%;
     height: 500px;
     border-radius: 10%;
     display: block;
-    transition: transform 0.3s ease;
+  } */
+
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 10px;
+    width: 100vw;
+  }
+
+  .slides img {
+    /* width: 100%; */
+    height: 500px;
+    border-radius: 10%;
+    display: block;
   }
 `;
 
 const ButtonContainer = styled.div`
   position: absolute;
   z-index: 2;
-  display: flex;
-  bottom: 270px;
   left: 50%;
-  transform: translateX(-50%);
+  bottom: 270px;
+  transform: translateX(-100%);
 
   .slide-btn {
     border: none;
@@ -135,23 +151,48 @@ const ScrollToTop = styled.div`
 `;
 
 const Home = () => {
+  const images = [image1, image2, image3, image4, image5];
   const buttons = [0, 1, 2, 3, 4];
-
   const [currentSlide, setCurrentSlide] = useState(2);
 
-  const handleSlideChange = (index) => {
-    setCurrentSlide(index);
+  const onClick = (index) => {
+    // setCurrentSlide(index);
+    if (index < 0) {
+      setCurrentSlide(images.length - 1);
+    } else if (index >= images.length) {
+      setCurrentSlide(0);
+    } else {
+      setCurrentSlide(index);
+    }
   };
+
   return (
     <Main>
       <Section className="mainpage">
-        <Slide id="slide">
-          <img src={image1} alt="image1" />
-          <img src={image2} alt="image2" />
-          <img src={image3} alt="image3" />
-          <img src={image4} alt="image4" />
-          <img src={image5} alt="image5" />
-        </Slide>
+        <SliderContainer>
+          <div className="slider">
+            <div
+              className="slides"
+              style={{ transform: `translateX(-${currentSlide * 50}%)` }}
+            >
+              {/* <img src={image1} alt="image1" />
+              <img src={image2} alt="image2" />
+              <img src={image3} alt="image3" />
+              <img src={image4} alt="image4" />
+              <img src={image5} alt="image5" /> */}
+              {[images[images.length - 1], ...images, images[0], images[1]].map(
+                (image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`image${(index % images.length) + 1}`}
+                    className="slide"
+                  />
+                )
+              )}
+            </div>
+          </div>
+        </SliderContainer>
 
         <ButtonContainer>
           {buttons.map((index) => (
@@ -159,7 +200,7 @@ const Home = () => {
               key={index}
               type="button"
               className={`slide-btn ${currentSlide === index ? "active" : ""}`}
-              onClick={() => handleSlideChange(index)}
+              onClick={() => onClick(index)}
             ></button>
           ))}
         </ButtonContainer>

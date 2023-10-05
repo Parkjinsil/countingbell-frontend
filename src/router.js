@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import Header2 from "./components/Header2";
 import Register from "./pages/Register";
+import Find from "./pages/Find";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "signUp",
+    path: "register",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -32,6 +33,16 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "find",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Find />,
+      },
+    ],
   },
 ]);
 export default router;

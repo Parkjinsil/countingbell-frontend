@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ const LoginBox = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  height: 450px;
+  height: 460px;
 `;
 
 const LogoContainer = styled.div`
@@ -50,18 +51,20 @@ const LogoContainer = styled.div`
 
 const InputContainer = styled.div`
   text-align: center;
-  padding: 15px 20px;
+  padding-right: 10px;
   line-height: 30px;
-  /* background-color: aqua; */
 
   div {
-    margin: 15px 10px;
-    padding-right: 10px;
+    margin: 5px 0;
+    padding: 15px 0;
   }
 
   span {
     padding: 15px;
-    /* background-color: antiquewhite; */
+  }
+
+  #icon {
+    margin-right: 5px;
   }
 
   input {
@@ -74,13 +77,16 @@ const InputContainer = styled.div`
 `;
 
 const BottomContainer = styled.div`
-  width: 500px;
-  padding: 15px 0;
+  display: inline-block;
+  margin-left: 10px;
+  width: 450px;
+  padding: 15px 5px;
 `;
 
 const Button = styled.button`
   width: 430px;
   padding: 10px;
+  margin-top: 10px;
   background-color: #ff5e33;
   color: #fff;
   border: none;
@@ -91,10 +97,10 @@ const Button = styled.button`
 
 const LoginBottom = styled.div`
   padding-top: 30px;
-  display: inline-block;
+  display: flex;
 
   span {
-    margin-right: 25px;
+    margin: 0 50px;
   }
 
   a {
@@ -109,36 +115,21 @@ const LoginBottom = styled.div`
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  // 홈으로 이동
+  const onSubmit = (event) => {
     event.preventDefault();
     navigate("/");
   };
 
-  // 비밀번호 찾기 페이지로 이동
-  const handleFindPwd = (event) => {
-    event.preventDefault();
-  };
-
-  // 아이디 찾기 페이지로 이동
-  const handleFindId = (event) => {
-    event.preventDefault();
-  };
-
-  // 회원가입 페이지로 이동
-  const handleRegister = (event) => {
-    event.preventDefault();
-    navigate("/signUp");
-  };
-
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <LoginBox>
           <LogoContainer>
-            <a href="/">
+            <Link to="/">
               <img src={logo} />
               <p id="title">COUNTINGBELL</p>
-            </a>
+            </Link>
           </LogoContainer>
           <InputContainer>
             <div className="idBox">
@@ -159,19 +150,10 @@ const Login = () => {
 
             <LoginBottom>
               <span>
-                <a href="#" onClick={handleFindPwd}>
-                  비밀번호 찾기
-                </a>
+                <Link to="/find">아이디/비밀번호 찾기</Link>
               </span>
               <span>
-                <a href="#" onClick={handleFindId}>
-                  아이디 찾기
-                </a>
-              </span>
-              <span>
-                <a href="/signUp" onClick={handleRegister}>
-                  회원가입
-                </a>
+                <Link to="/register">회원가입</Link>
               </span>
             </LoginBottom>
           </BottomContainer>
