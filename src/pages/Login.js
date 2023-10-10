@@ -23,7 +23,7 @@ const LoginBox = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  height: 460px;
+  height: 500px;
 `;
 
 const LogoContainer = styled.div`

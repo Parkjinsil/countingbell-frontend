@@ -206,29 +206,29 @@ const Home = () => {
         </ButtonContainer>
 
         <Category id="category">
-          <a href=".section1" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">내위치</span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="인기순" className="category-image" />
               <span className="category-text">인기순</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image4} alt="음식별" className="category-image" />
               <span className="category-text">음식별</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="리뷰순" className="category-image" />
               <span className="category-text">리뷰순</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />
               <span className="category-text">기타</span>

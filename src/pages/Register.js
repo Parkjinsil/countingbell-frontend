@@ -9,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: azure;
+  padding-top: 100px;
 `;
 
 const Wrapper = styled.div`
@@ -17,9 +18,9 @@ const Wrapper = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
+  /* max-width: 700px; */
   width: 100%;
-  height: 580px;
+  height: 720px;
 `;
 
 const Title = styled.div`
@@ -29,13 +30,16 @@ const Title = styled.div`
   /* background-color: aqua; */
 
   padding: 10px;
-  margin-bottom: 10px;
 `;
 
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
   font-family: "omyu_pretty";
+
+  div {
+    padding: 3px 0;
+  }
 
   p {
     margin: 5px 0;
@@ -68,7 +72,7 @@ const BtnArea = styled.div`
   justify-content: center;
   width: 100%;
 
-  margin: 15px;
+  margin: 10px 0;
   padding: 10px;
 
   button {

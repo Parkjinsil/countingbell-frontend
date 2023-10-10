@@ -1,4 +1,3 @@
-
 import React from "react";
 import logo from "../assets/LOGO.png";
 import styled from "styled-components";
@@ -93,19 +92,20 @@ const HeadMenu = styled.div`
   background-color: #f8cdc1;
   transition: transform 0.3s;
 
-  &.hidden {
+  /* &.hidden {
     transform: translateY(-100%);
-  }
+  } */
 
   ul {
     display: inline-block;
+    height: 50px;
   }
 
   li {
     display: inline-block;
     align-items: center;
     padding: 0 30px;
-    line-height: 50px;
+    line-height: 40px;
 
     a {
       text-decoration: none;
@@ -126,32 +126,31 @@ const HeadMenu = styled.div`
       }
     }
 
-    &.search-btn {
+    .search-btn {
       display: flex;
       align-items: center;
-    }
+      padding: 5px;
 
-    #search {
-      border: none;
-      background-color: #fcf1f1;
-      padding: 11px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
+      #search {
+        border: none;
+        background-color: #fcf1f1;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
 
-    button {
-      padding: 10px;
-      background: #e2d5d5;
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-
-      #icon {
-        font-size: 15px;
+      button {
+        background: #e2d5d5;
+        border: none;
         cursor: pointer;
-        color: #666;
+        font-size: 15px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        #icon {
+          font-size: 20px;
+          cursor: pointer;
+          color: #666;
+        }
       }
     }
   }
