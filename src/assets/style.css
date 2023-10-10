@@ -586,3 +586,154 @@ ul {
   display: flex;
   align-items: center;
 }
+/* 준혁 */
+html,
+body {
+  font-size: 13px;
+  line-height: 13px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕",
+    helvetica, "Apple SD Gothic Neo", sans-serif;
+}
+form,
+ul {
+  margin: 0;
+  padding: 0;
+}
+#wrap {
+  text-align: center;
+}
+#wrap .reserve {
+  display: inline -block;
+  width: 1270px;
+}
+.reserve-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1.5px solid #ffac95;
+  margin-bottom: 10px;
+}
+.reserve-header img {
+  width: 80px;
+  height: 75px;
+  margin: 0 20px;
+}
+.reserve-header > div {
+  height: 65px;
+  color: #ff5e33;
+  font-size: 22px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reserve-center-header {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+.reserve-center-header button {
+  width: 82px;
+  position: relative;
+  display: flex;
+  margin: 0 20px;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: transparent;
+  background-color: #ffede9;
+  border: 1px solid white;
+  margin-top: 20px;
+  font-size: 20px;
+  justify-content: center;
+}
+.reserve-center-header button:hover {
+  border: 1px solid #ff5e33;
+}
+.reserve-center-header button:focus {
+  filter: brightness(0.9);
+}
+.reserve-center-header button span:first-child {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+}
+.reserve-center-header .dot {
+  margin-left: 21px;
+}
+.reserve-center-header .dot::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background-color: #686969;
+  margin: 9px 7px 0;
+  border-radius: 50%;
+  vertical-align: 5px;
+}
+.reserve-main {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+.reserve-main-type {
+  display: flex;
+  flex-flow: column;
+  height: 900px;
+  border: 2px solid #ff5e33;
+  border-radius: 10px;
+  margin: 20px;
+  width: 236px;
+}
+.reserve-main-type span {
+  margin: 20px;
+  color: #ff5e33;
+  font-size: 25px;
+  font-weight: bold;
+}
+.reserve-main-type button {
+  margin: 10px 20px;
+  padding: 10px 0;
+  background-color: #ffede9;
+  border: 1px solid white;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.reserve-main-type button:hover {
+  cursor: pointer;
+  border: 1px solid #ff5e33;
+}
+.reserve-main-type button:focus {
+  filter: brightness(0.9);
+}
+.reserve-grid {
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(11, 1fr);
+  grid-template-columns: 1fr 1fr;
+}
+.reserve-grid button {
+  margin: 0 5px;
+  padding: 16px 9px;
+}
+.reserve-center-footer a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  text-decoration: none;
+  border: 2px solid #ff5e33;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.reserve-center-footer a:visited {
+  color: black;
+}
+.reserve-center-footer a:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
+}
