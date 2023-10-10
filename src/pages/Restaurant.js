@@ -198,7 +198,7 @@ const StyleReview = styled.section`
 const Restaurant = () => {
   return (
     <div>
-      <section className="container">
+      <section className="container" style={{marginTop: '80px'}}>
         <div className="row">
           <div className="col-4">
             <img
