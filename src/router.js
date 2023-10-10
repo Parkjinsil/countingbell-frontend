@@ -10,6 +10,12 @@ import Find from "./pages/Find";
 import RecentList from "./pages/RecentList";
 import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
+import Restaurant from "./pages/Restaurant";
+import Layout from "./components/Layout";
+import NotFound from "./pages/NotFound";
+import ReservationCom from "./pages/ReservationCom";
+import Review from "./pages/Review";
+
 
 const router = createBrowserRouter([
   {
@@ -77,5 +83,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "reservationcom",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ReservationCom />,
+      },
+    ],
+  },
+  {
+    path: "review",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Review />,
+      },
+    ],
+  },
 ]);
+
 export default router;

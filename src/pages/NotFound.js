@@ -1,3 +1,4 @@
+
 import React from "react";
 import errorImg from "../assets/error.jpg";
 import styled from "styled-components";
