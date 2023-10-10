@@ -112,8 +112,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "Reservation",
-    element: <Layout header={<Header />} />,
+    path: "reservation",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -122,3 +122,4 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+export default router;
