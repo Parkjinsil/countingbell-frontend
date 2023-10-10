@@ -13,6 +13,7 @@ import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
 import Review from "./pages/Review";
+import Reservation from "./pages/Reservation";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,14 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "Reservation",
+    element: <Layout header={<Header />} />,
+    children: [
+      {
+        index: true,
+        element: <Reservation />,
+      },
+    ],
+  },
 ]);
-
-export default router;
