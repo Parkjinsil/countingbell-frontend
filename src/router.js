@@ -11,11 +11,8 @@ import RecentList from "./pages/RecentList";
 import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
-import Layout from "./components/Layout";
-import NotFound from "./pages/NotFound";
 import ReservationCom from "./pages/ReservationCom";
 import Review from "./pages/Review";
-
 
 const router = createBrowserRouter([
   {
@@ -100,6 +97,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Review />,
+      },
+    ],
+  },
+  {
+    path: "restaurant",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Restaurant />,
       },
     ],
   },
