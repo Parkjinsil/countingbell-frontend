@@ -342,7 +342,7 @@ const Restaurant = () => {
             className="scrollspy-example bg-body p-3 rounded m-1-2"
             tabindex="0"
           >
-            <section className="container mb-5" id="scrollspyHeading1">
+            <section className="container mb-5" id="scrollspyHeading1" >
               <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
                 <div className="col-2 text-center">
                   <StarFill
@@ -585,7 +585,7 @@ const Restaurant = () => {
             </section>
 
             <StyleReview>
-              <section className="container mb-5" id="scrollspyHeading2">
+              <section className="container mb-5" id="scrollspyHeading2" >
                 <div className="container">
                   <div className="row align-items-center">
                     <div className="col-3 text-center">
@@ -1327,7 +1327,7 @@ const Restaurant = () => {
               </section>
             </StyleReview>
 
-            <section className="cantainer" id="scrollspyHeading3">
+            <section className="cantainer" id="scrollspyHeading3" >
               <div className="container text-center mt-lg-0">
                 <div className="row">
                   <div className="col">
