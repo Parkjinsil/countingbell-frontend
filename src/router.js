@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Header2 from "./components/Header2";
 import Register from "./pages/Register";
 import Find from "./pages/Find";
+import RecentList from "./pages/RecentList";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Find />,
+      },
+    ],
+  },
+  {
+    path: "recentList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <RecentList />,
       },
     ],
   },

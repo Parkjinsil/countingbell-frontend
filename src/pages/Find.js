@@ -127,11 +127,16 @@ const Find = () => {
     const name = document.getElementById("inputName").value;
     const phone = document.getElementById("inputPhone").value;
 
-    // alert(name + "님의 아이디는 " + id);
+    alert(name + "님의 아이디는 ");
   };
 
   const searchPwd = (event) => {
     event.preventDefault();
+
+    const id = document.getElementById("inputId").value;
+    const email = document.getElementById("inputEmail").value;
+
+    alert(id + "님의 비밀번호는 ");
   };
 
   return (

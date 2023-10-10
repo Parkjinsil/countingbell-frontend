@@ -3,6 +3,10 @@ import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { userSave, userLogout } from "../store/userSlice";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -153,6 +157,26 @@ const HeadMenu = styled.div`
 `;
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
+  const logout = () => {
+    console.log("logout!");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(userLogout());
+  };
+
   return (
     <HeaderContainer>
       <HeadTopContainer>
@@ -165,25 +189,40 @@ const Header = () => {
             </a>
           </HeadLogo>
           <HeadRight>
-            <nav>
-              <ul>
-                <li>
-                  <a href="section1">
-                    <span>최근본가게</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="login">
-                    <span>로그인</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="signUp">
-                    <span>회원가입</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {Object.keys(user).length === 0 ? (
+              <nav>
+                <ul>
+                  <li>
+                    <Link to="recentList">
+                      <span>최근본가게</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="login">
+                      <span>로그인</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="register">
+                      <span>회원가입</span>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            ) : (
+              <nav>
+                <ul>
+                  <li>
+                    <Link to="recentList">
+                      <span>최근본가게</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={logout}>로그아웃</button>
+                  </li>
+                </ul>
+              </nav>
+            )}
           </HeadRight>
         </HeadLogoContainer>
       </HeadTopContainer>

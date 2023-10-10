@@ -4,6 +4,6 @@ const instance = axios.create({
   baseURL: "http://localhost:3000/api/",
 });
 
-export const addMember = async (Formdata) => {
-  return await instance.post("member", Formdata);
+export const addMember = async (data) => {
+  return await instance.post("member", data);
 };

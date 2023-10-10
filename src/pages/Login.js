@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { asyncLogin } from "../store/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -113,11 +115,15 @@ const LoginBottom = styled.div`
 `;
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // 홈으로 이동
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const id = e.target.password.value;
+    const password = e.target.password.value;
+    dispatch(asyncLogin({ id, password }));
     navigate("/");
   };
 
@@ -136,13 +142,13 @@ const Login = () => {
               <span>
                 <FontAwesomeIcon icon={faUser} id="icon" />
               </span>
-              <input type="text" name="id" id="id" autofocus></input>
+              <input type="text" name="id" autofocus></input>
             </div>
             <div className="pwdBox">
               <span>
                 <FontAwesomeIcon icon={faLock} id="icon" />
               </span>
-              <input type="password" name="password" id="password" />
+              <input type="password" name="password" />
             </div>
           </InputContainer>
           <BottomContainer>

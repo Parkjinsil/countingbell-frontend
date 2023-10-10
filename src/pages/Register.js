@@ -109,7 +109,7 @@ const Register = () => {
     });
   };
 
-  const registerSubmit = async () => {
+  const onSubmit = async () => {
     const formData = new FormData();
     formData.append("id", formData.id);
     formData.append("password", formData.password);
@@ -122,7 +122,7 @@ const Register = () => {
     const birth = `${formData.birth_yy}-${formData.birth_mm}-${formData.birth_dd}`;
     formData.append("birth", birth);
 
-    addMember(formData);
+    // addMember(formData);
 
     try {
       await addMember(formData);
@@ -136,7 +136,7 @@ const Register = () => {
 
   return (
     <Container>
-      <form onSubmit={registerSubmit}>
+      <form onSubmit={onSubmit}>
         <Wrapper>
           <Title>
             <h1>회원가입</h1>
