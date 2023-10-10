@@ -275,3 +275,314 @@ main #section1 {
   .head-menu {
   }
 }
+/* 진실 css */
+html,
+body {
+  font-size: 13px;
+  line-height: 13px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕",
+    helvetica, "Apple SD Gothic Neo", sans-serif;
+}
+form,
+ul {
+  margin: 0;
+  padding: 0;
+}
+#wrap {
+  text-align: center;
+}
+#wrap section {
+  display: inline-block;
+  width: 1270px;
+  margin-bottom: 30px;
+}
+.menu-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #ffac95;
+  margin-bottom: 10px;
+}
+.menu-header img {
+  width: 80px;
+  height: 75px;
+  margin: 0 20px;
+}
+.menu-header .menu-name {
+  height: 65px;
+  color: #ff5e33;
+  font-size: 22px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-header a {
+  width: 80px;
+  height: 75;
+  font-size: 12px;
+  margin-top: 5px;
+  position: relative;
+  color: rgba(8, 8, 8, 0.5);
+  font-weight: 800;
+}
+.menu-header a span::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 72px;
+  right: 0;
+  bottom: 0;
+  background-image: url(/images/sp_main.png);
+  background-size: 435px 414px;
+  background-position: -35px -402px;
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 12px;
+  margin: auto;
+}
+.menu-header a span::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 61px;
+  right: 0;
+  bottom: 0;
+  background-image: url(/images/sp_main.png);
+  background-size: 435px 414px;
+  background-position: -35px -402px;
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 12px;
+  margin: auto;
+}
+.menu li {
+  list-style-type: none;
+  float: left;
+}
+.menu a {
+  text-decoration: none;
+}
+.menu a:visited {
+  color: black;
+}
+.menu a:hover {
+  text-decoration: underline;
+}
+.menu-img img {
+  width: 214px;
+  height: 185px;
+  background-color: #ffac95;
+  margin: 10px 20px;
+  border-radius: 15px;
+}
+.menu-img img:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
+  filter: brightness(0.9);
+}
+.menu-footer {
+  margin: 0 20px;
+  position: relative;
+}
+.restaurant-name {
+  font-weight: bold;
+  margin-bottom: 1px;
+}
+.menu-footer img {
+  position: absolute;
+  top: 17px;
+  left: 23px;
+}
+.menu-footer span:nth-of-type(2) {
+  margin-left: 19px;
+  font-weight: bold;
+}
+.menu-footer .dot {
+  color: rgba(8, 8, 8, 0.5);
+  font-weight: 800;
+}
+.menu-footer span:nth-of-type(3) {
+  color: #686969;
+}
+.menu-footer .dot::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background-color: #686969;
+  margin: 9px 7px 0;
+  border-radius: 50%;
+  vertical-align: 5px;
+}
+/* 식당 리스트 화면 */
+html,
+body {
+  font-size: 13px;
+  line-height: 13px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕",
+    helvetica, "Apple SD Gothic Neo", sans-serif;
+}
+form,
+ul {
+  margin: 0;
+  padding: 0;
+}
+#wrap {
+  text-align: center;
+}
+#wrap .restaurant-list {
+  display: inline-block;
+  width: 1270px;
+}
+.restaurant-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1.5px solid #ffac95;
+  margin-bottom: 10px;
+}
+.restaurant-list-header img {
+  width: 80px;
+  height: 75px;
+  margin: 0 20px;
+}
+.restaurant-list-header > div {
+  height: 65px;
+  color: #ff5e33;
+  font-size: 22px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.restaurant-list-body {
+  width: 1270px;
+  display: flex;
+  justify-content: center;
+}
+.restaurant-list-body li {
+  width: 468px;
+  height: 200px;
+  margin-bottom: 25px;
+  list-style-type: none;
+  border-radius: 10px;
+}
+.restaurant-list-body li {
+  border: 2px solid white;
+}
+.restaurant-list-body li:hover {
+  border: 2px solid #ffae96;
+}
+.restaurant-list-body li:last-child {
+  margin-bottom: 10px;
+}
+.restaurant-list-body a {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+.restaurant-list-body a:visited {
+  color: black;
+}
+.restaurant-list-body li img {
+  width: 214px;
+  height: 185px;
+  border-radius: 15px;
+  margin: 8px 0 0 8px;
+}
+.restaurant-list-desc {
+  width: 250px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 20px 0;
+  border: 0px solid white;
+}
+.restaurant-list-desc span:first-child {
+  height: 25px;
+}
+.restaurant-list-desc div {
+  display: flex;
+}
+.restaurant-list-desc div img {
+  margin-left: -5px;
+  margin-top: 2px;
+  width: 20px;
+}
+.restaurant-list-desc div span {
+  width: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  font-weight: 410;
+  font-size: 19px;
+}
+.restaurant-name {
+  font-weight: 530;
+  font-size: 23px;
+  align-items: center;
+}
+.last-line,
+.dot {
+  padding-top: 4px;
+}
+.restaurant-list-footer {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  margin: 0 540px;
+  height: 36px;
+  padding-bottom: 30px;
+}
+.restaurant-list-footer div {
+  position: relative;
+  padding: 20px;
+}
+.restaurant-list-footer .prev,
+.restaurant-list-footer .next {
+  background: none;
+  border: none;
+  content: "";
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dadcdf;
+  background-color: #fff;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  vertical-align: top;
+  cursor: pointer;
+  margin-top: 3px;
+}
+.restaurant-list-footer .prev::before,
+.restaurant-list-footer .next::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(/images/sp_main.png);
+  background-size: 435px 414px;
+  background-position: -35px -402px;
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 12px;
+  margin: auto;
+}
+.restaurant-list-footer .prev::before {
+  transform: rotate(180deg);
+}
+.restaurant-list-footer .text {
+  display: flex;
+  align-items: center;
+}

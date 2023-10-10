@@ -8,6 +8,8 @@ import Header2 from "./components/Header2";
 import Register from "./pages/Register";
 import Find from "./pages/Find";
 import RecentList from "./pages/RecentList";
+import Menu from "./pages/Menu";
+import RestaurantList from "./pages/RestaurantList";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,26 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <RecentList />,
+      },
+    ],
+  },
+  {
+    path: "menu",
+    // element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Menu />,
+      },
+    ],
+  },
+  {
+    path: "restaurantList",
+    // element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <RestaurantList />,
       },
     ],
   },
