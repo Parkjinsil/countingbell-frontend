@@ -59,7 +59,7 @@ const router = createBrowserRouter([
   },
   {
     path: "menu",
-    // element: <Layout header={<Header2 />} />,
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
   },
   {
     path: "restaurantList",
-    // element: <Layout header={<Header2 />} />,
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
