@@ -240,7 +240,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="reservation">
                 <span>빠른예약</span>
               </a>
             </li>
