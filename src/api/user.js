@@ -1,18 +1,14 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api/user",
+  baseURL: "http://localhost:8080/api/user/",
 });
 
 export const login = async (data) => {
   return await instance.post("signin", data);
 };
 
-export const addMember = async (formData) => {
-  try {
-    const response = await axios.post("register", formData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const addMember = async (data) => {
+  console.log("회원가입 axios call!!");
+  return await instance.post("signup", data);
 };

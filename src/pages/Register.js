@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { addMember } from "../api/user";
 import { useNavigate } from "react-router-dom";
@@ -93,6 +93,25 @@ const BtnArea = styled.div`
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
+  useEffect(() => {
+    console.log(user);
+    if (user !== null && Object.keys(user).length !== 0) {
+      console.log("회원가입 성공! 로그인해 주세요.");
+      navigate("/");
+    } else {
+      if (user === null) {
+        console.log("중복 가입");
+        alert("이미 가입된 회원입니다.");
+        dispatch(userReset());
+      }
+      navigate("/user/signup");
+    }
+  }, [user]);
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -102,11 +121,11 @@ const Register = () => {
     birth_yy: "",
     birth_mm: "",
     birth_dd: "",
-    email: "",
-    emailSelect: "",
-    phoneNum: "",
-    gender: "",
     NickName: "",
+    email: "",
+    emailSelect: "이메일 선택",
+    phone: "",
+    gender: "성별",
   });
 
   const onChange = (e) => {
@@ -117,15 +136,12 @@ const Register = () => {
     });
   };
 
-  const onSubmit = async (e) => {
-    console.log("로그인시도!");
+  const registerHandler = async (e) => {
     e.preventDefault();
-    // const birth = `${formData.birth_yy}-${formData.birth_mm}-${formData.birth_dd}`;
-    // const email = `${formData.email}@${formData.emailSelect}`;
-    // const updatedFormData = { ...formData, birth, email };
 
     try {
-      const response = await addMember(formData);
+      await addMember(formData); // await를 사용하여 비동기 함수를 기다립니다.
+      console.log("데이터 전송 성공!");
       alert("회원 가입 성공. 로그인해주세요.");
       navigate("/login");
     } catch (error) {
@@ -136,7 +152,7 @@ const Register = () => {
 
   return (
     <Container>
-      <form onSubmit={onSubmit}>
+      <form className="registerForm" onSubmit={registerHandler}>
         <Wrapper>
           <Title>
             <h1>회원가입</h1>
@@ -279,19 +295,19 @@ const Register = () => {
               </label>
               <div className="emailError"></div>
             </div>
-            <div className="phoneNum">
+            <div className="phone">
               <p>전화번호("-" 제외)</p>
               <label>
                 <input
-                  id="phoneNum"
-                  value={formData.phoneNum}
+                  id="phone"
+                  value={formData.phone}
                   type="text"
                   placeholder="전화번호를 입력해주세요."
                   onChange={onChange}
                   required
                 />
               </label>
-              <div className="phoneNumError"></div>
+              <div className="phoneError"></div>
             </div>
             <div>
               <div className="gender">
