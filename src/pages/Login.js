@@ -159,7 +159,7 @@ const Login = () => {
                 <Link to="/find">아이디/비밀번호 찾기</Link>
               </span>
               <span>
-                <Link to="/register">회원가입</Link>
+                <Link to="/signup">회원가입</Link>
               </span>
             </LoginBottom>
           </BottomContainer>

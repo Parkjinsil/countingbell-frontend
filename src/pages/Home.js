@@ -55,7 +55,7 @@ const SliderContainer = styled.div`
   }
 
   .slides img {
-    /* width: 100%; */
+    /* width: 800px; */
     height: 500px;
     border-radius: 10%;
     display: block;

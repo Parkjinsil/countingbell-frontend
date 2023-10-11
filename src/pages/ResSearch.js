@@ -1,4 +1,6 @@
 import React from "react";
 
-const ResSearch = () => {};
+const ResSearch = () => {
+    
+};
 export default ResSearch;

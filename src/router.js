@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "register",
+    path: "signup",
     element: <Layout header={<Header2 />} />,
     children: [
       {
