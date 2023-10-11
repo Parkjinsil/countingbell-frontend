@@ -235,7 +235,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="section1">
+              <a href="waiting">
                 <span>온라인 줄서기</span>
               </a>
             </li>

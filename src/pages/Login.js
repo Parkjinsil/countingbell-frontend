@@ -121,7 +121,7 @@ const Login = () => {
   // 홈으로 이동
   const onSubmit = (e) => {
     e.preventDefault();
-    const id = e.target.password.value;
+    const id = e.target.id.value;
     const password = e.target.password.value;
     dispatch(asyncLogin({ id, password }));
     navigate("/");

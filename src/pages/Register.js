@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { addMember } from "../api/Member";
+import { addMember } from "../api/user";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -20,12 +20,12 @@ const Wrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
   width: 100%;
-  height: 720px;
+  height: 800px;
 `;
 
 const Title = styled.div`
   text-align: center;
-  font-family: "omyu_pretty";
+
   font-size: 2.5rem;
   /* background-color: aqua; */
 
@@ -35,7 +35,6 @@ const Title = styled.div`
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
-  font-family: "omyu_pretty";
 
   div {
     padding: 3px 0;
@@ -43,15 +42,15 @@ const InputContainer = styled.div`
 
   p {
     margin: 5px 0;
-    font-size: 1.2rem;
-    /* font-weight: bold;
-    font-family: "omyu_pretty"; */
+    font-size: 1rem;
+    font-weight: bold;
+    /* font-family: "omyu_pretty"; */ */
   }
 
   input,
   select {
     width: 100%;
-    padding: 7px;
+    padding: 5px ;
   }
 
   label {
@@ -82,7 +81,7 @@ const BtnArea = styled.div`
     border: none;
     cursor: pointer;
     background-color: #f8cdc1;
-    font-family: "omyu_pretty";
+    /* font-family: "omyu_pretty"; */
     font-size: 1.5rem;
 
     &:hover {
@@ -94,46 +93,43 @@ const BtnArea = styled.div`
 
 const Register = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    id: "",
+    userId: "",
     password: "",
+    pwdCheck: "",
     userName: "",
     birth_yy: "",
     birth_mm: "",
     birth_dd: "",
     email: "",
-    phone: "",
+    emailSelect: "",
+    phoneNum: "",
     gender: "",
+    NickName: "",
   });
 
   const onChange = (e) => {
+    console.log(formData);
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
 
-  const onSubmit = async () => {
-    const formData = new FormData();
-    formData.append("id", formData.id);
-    formData.append("password", formData.password);
-    formData.append("userName", formData.userName);
-
-    formData.append("email", formData.email);
-    formData.append("phone", formData.phone);
-    formData.append("gender", formData.gender);
-
-    const birth = `${formData.birth_yy}-${formData.birth_mm}-${formData.birth_dd}`;
-    formData.append("birth", birth);
-
-    // addMember(formData);
+  const onSubmit = async (e) => {
+    console.log("로그인시도!");
+    e.preventDefault();
+    // const birth = `${formData.birth_yy}-${formData.birth_mm}-${formData.birth_dd}`;
+    // const email = `${formData.email}@${formData.emailSelect}`;
+    // const updatedFormData = { ...formData, birth, email };
 
     try {
-      await addMember(formData);
+      const response = await addMember(formData);
       alert("회원 가입 성공. 로그인해주세요.");
       navigate("/login");
     } catch (error) {
-      console.error("회원 등록 실패:", error);
+      console.error("회원가입 실패:", error);
       alert("회원 등록에 실패했습니다. 다시 시도해주세요.");
     }
   };
@@ -150,15 +146,15 @@ const Register = () => {
               <p>아이디</p>
               <label>
                 <input
-                  id="id"
-                  value={formData.id}
+                  id="userId"
+                  value={formData.userId}
                   type="text"
                   placeholder="아이디를 입력해주세요."
                   onChange={onChange}
                   required
                 ></input>
               </label>
-              <div className="idError"></div>
+              <div className="userIdError"></div>
             </div>
 
             <div className="password">
@@ -182,6 +178,7 @@ const Register = () => {
                   id="pwdCheck"
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
+                  value={formData.pwdCheck}
                   onChange={onChange}
                   required
                 ></input>
@@ -243,6 +240,21 @@ const Register = () => {
               <div className="birthError"></div>
             </div>
 
+            <div className="NickName">
+              <p>이름</p>
+              <label>
+                <input
+                  id="NickName"
+                  value={formData.NickName}
+                  type="text"
+                  placeholder="닉네임을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="nickNameError"></div>
+            </div>
+
             <div className="email">
               <p>이메일</p>
               <label>
@@ -253,22 +265,33 @@ const Register = () => {
                   placeholder="이메일을 입력해주세요."
                   onChange={onChange}
                 ></input>
+                <span> @ </span>
+                <select
+                  id="emailSelect"
+                  value={formData.emailSelect}
+                  onChange={onChange}
+                >
+                  <option>이메일 선택</option>
+                  <option>naver.com</option>
+                  <option>gmail.com</option>
+                  <option>daum.net</option>
+                </select>
               </label>
               <div className="emailError"></div>
             </div>
-            <div className="phone">
-              <p>전화번호</p>
+            <div className="phoneNum">
+              <p>전화번호("-" 제외)</p>
               <label>
                 <input
-                  id="phone"
-                  value={formData.phone}
+                  id="phoneNum"
+                  value={formData.phoneNum}
                   type="text"
                   placeholder="전화번호를 입력해주세요."
                   onChange={onChange}
                   required
                 />
               </label>
-              <div className="phoneError"></div>
+              <div className="phoneNumError"></div>
             </div>
             <div>
               <div className="gender">
