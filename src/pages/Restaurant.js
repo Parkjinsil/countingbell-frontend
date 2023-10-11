@@ -198,7 +198,7 @@ const StyleReview = styled.section`
 const Restaurant = () => {
   return (
     <div>
-      <section className="container" style={{marginTop: '80px'}}>
+      <section className="container mb-5" style={{marginTop: '80px'}}>
         <div className="row">
           <div className="col-4">
             <img
@@ -208,7 +208,7 @@ const Restaurant = () => {
               style={{ height: "300px", width: "282px" }}
             />
           </div>
-          <div className="col-4">
+          <div className="col-5">
             <div className="res11 py-3 mb-3">
               <h2 className="res111 fw-bold fs-2">
                 레스토랑스
@@ -235,15 +235,15 @@ const Restaurant = () => {
               <tbody>
                 <tr>
                   <td>주소</td>
-                  <td colSpan="2">서울특별시 서초구 강남대로</td>
+                  <td colSpan="3">서울특별시 서초구 강남대로</td>
                 </tr>
                 <tr>
                   <td>영업시간</td>
-                  <td colSpan="2">월11:30 - 14:30</td>
+                  <td colSpan="3">월11:30 - 14:30</td>
                 </tr>
                 <tr>
                   <td>전화번호</td>
-                  <td colSpan="2">02-1234-5678</td>
+                  <td colSpan="3">02-1234-5678</td>
                 </tr>
                 <tr>
                   <td className="align-top">주차</td>
@@ -260,11 +260,21 @@ const Restaurant = () => {
                       예약
                     </button>
                   </td>
+                  <td><button
+                      type="button"
+                      className="btn text-white fw-bold"
+                      style={{
+                        borderRadius: "50%",
+                        backgroundColor: "#FF6B01",
+                      }}
+                    >
+                      줄서기
+                    </button></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className="col-4">
+          <div className="col-3">
             <img
               src="img/map1.png"
               className="rounded m-1 mx-auto d-block"
@@ -275,66 +285,32 @@ const Restaurant = () => {
         </div>
       </section>
 
+
+
+                 
       <StyleNav>
-        <div>
-          <nav
-            id="navbar-example2"
-            className="row navbar sticky-top bg-body mt-4 px-3 justify-content-center"
-          >
-            <ul
-              className="col-lg-9 nav nav-pills"
-              style={{ borderBottom: "2px solid #ddd" }}
-              data-bs-spy="scroll"
-              data-bs-target="#scrollspyHeading1"
-            >
-              <li className="col nav-item text-center">
-                <a
-                  className="nav-link active fs-3 fw-semibold"
-                  href="#scrollspyHeading1"
-                  style={{ color: "#868383", padding: "15px" }}
-                >
-                  <img
-                    src="img/stick2.png"
-                    alt=""
-                    height="28px"
-                    style={{ paddingTop: "5px" }}
-                  />{" "}
-                  메뉴
-                </a>
-              </li>
-              <li className="col nav-item text-center">
-                <a
-                  className="nav-link fs-3 fw-semibold "
-                  href="#scrollspyHeading2"
-                  style={{ color: "#868383", padding: "15px" }}
-                >
-                  <img
-                    src="img/stick2.png"
-                    alt=""
-                    height="28px"
-                    style={{ paddingTop: "5px" }}
-                  />{" "}
-                  리뷰
-                </a>
-              </li>
-              <li className="col nav-item text-center">
-                <a
-                  className="nav-link fs-3 fw-semibold"
-                  href="#scrollspyHeading3"
-                  style={{ color: "#868383", padding: "15px" }}
-                >
-                  <img
-                    src="img/stick2.png"
-                    alt=""
-                    height="28px"
-                    style={{ paddingTop: "5px" }}
-                  />{" "}
-                  사진
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div
+        
+      <div>
+      <nav id="navbar-example2" className="row navbar sticky-top bg-body mt-4 px-3 justify-content-center">
+  <ul className="col-lg-9 nav nav-pills" style={{ borderBottom: "2px solid #ddd" }} >
+    <li className="col nav-item text-center">
+      <a className="nav-link active fs-3 fw-semibold" href="#scrollspyHeading1" style={{ color: "#868383", padding: "15px" }}>
+        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 메뉴
+      </a>
+    </li>
+    <li className="col nav-item text-center">
+      <a className="nav-link fs-3 fw-semibold" href="#scrollspyHeading2" style={{ color: "#868383", padding: "15px" }}>
+        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 리뷰
+      </a>
+    </li>
+    <li className="col nav-item text-center">
+      <a className="nav-link fs-3 fw-semibold" href="#scrollspyHeading3" style={{ color: "#868383", padding: "15px" }}>
+        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 사진
+      </a>
+    </li>
+  </ul>
+</nav>
+  <div
             data-bs-spy="scroll"
             data-bs-target="#navbar-example2"
             data-bs-root-margin="0px 0px -40%"
@@ -342,7 +318,8 @@ const Restaurant = () => {
             className="scrollspy-example bg-body p-3 rounded m-1-2"
             tabindex="0"
           >
-            <section className="container mb-5" id="scrollspyHeading1" >
+          
+             <section className="container" id="scrollspyHeading1" style={{paddingTop: '100px'}} >
               <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
                 <div className="col-2 text-center">
                   <StarFill
@@ -585,7 +562,7 @@ const Restaurant = () => {
             </section>
 
             <StyleReview>
-              <section className="container mb-5" id="scrollspyHeading2" >
+              <section className="container" id="scrollspyHeading2" style={{paddingTop: '100px'}} >
                 <div className="container">
                   <div className="row align-items-center">
                     <div className="col-3 text-center">
@@ -1327,7 +1304,7 @@ const Restaurant = () => {
               </section>
             </StyleReview>
 
-            <section className="cantainer" id="scrollspyHeading3" >
+            <section className="cantainer" id="scrollspyHeading3" style={{paddingTop: '100px'}}  >
               <div className="container text-center mt-lg-0">
                 <div className="row">
                   <div className="col">
@@ -1420,8 +1397,10 @@ const Restaurant = () => {
                 </ul>
               </div>
             </section>
+          
+            </div>
           </div>
-        </div>
+      
       </StyleNav>
     </div>
   );
