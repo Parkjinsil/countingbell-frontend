@@ -75,6 +75,16 @@ const HeadRight = styled.div`
         color: #ff5e33;
       }
     }
+
+    button {
+      border: none;
+      color: rgb(255, 94, 51, 0.7);
+      background-color: white;
+
+      &:hover {
+        color: #ff5e33;
+      }
+    }
   }
 `;
 

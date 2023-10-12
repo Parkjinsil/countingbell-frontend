@@ -9,13 +9,13 @@ const asyncLogin = createAsyncThunk("userSlice/asyncLogin", async (data) => {
 const asyncRegister = createAsyncThunk(
   "userSlice/asyncRegister",
   async (data) => {
-    const response = await addMember(data);
-    return response.data;
+    const result = await addMember(data);
+    return result.data;
   }
 );
 
 const userSlice = createSlice({
-  name: "loginSlice",
+  name: "userSlice",
   initialState: {},
   reducers: {
     userSave: (state, action) => {
@@ -27,11 +27,13 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(asyncRegister.pending, (state, action) => {})
+      // .addCase(asyncRegister.pending, (state, action) => {})
       .addCase(asyncRegister.rejected, (state, action) => {
-        return null;
+        return alert("회원 등록에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncRegister.fulfilled, (state, action) => {
+        alert("회원 가입 성공. 로그인해주세요.");
+
         return action.payload;
       });
 

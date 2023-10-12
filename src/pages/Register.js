@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { addMember } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { asyncRegister } from "../store/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const Title = styled.div`
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
+  width: 400px;
 
   div {
     padding: 3px 0;
@@ -94,62 +96,45 @@ const BtnArea = styled.div`
 
 const Register = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const user = useSelector((state) => {
-  //   return state.user;
-  // });
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   if (user !== null && Object.keys(user).length !== 0) {
-  //     console.log("회원가입 성공! 로그인해 주세요.");
-  //     navigate("/");
-  //   } else {
-  //     if (user === null) {
-  //       console.log("중복 가입");
-  //       alert("이미 가입된 회원입니다.");
-  //       dispatch(userReset());
-  //     }
-  //     navigate("/user/signup");
-  //   }
-  // }, [user]);
-
+  // 초기값 세팅
   const [formData, setFormData] = useState({
-    userId: "",
+    id: "",
     password: "",
     pwdCheck: "",
-    userName: "",
-    birth_yy: "",
-    birth_mm: "",
-    birth_dd: "",
-    NickName: "",
+    name: "",
+    age: "",
+    nickName: "",
     email: "",
-    emailSelect: "이메일 선택",
     phone: "",
     gender: "성별",
+    role: "고객",
   });
 
   const onChange = (e) => {
-    console.log(formData);
+    const { id, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value,
+      [id]: value,
     });
   };
 
   const registerHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      await addMember(formData); // await를 사용하여 비동기 함수를 기다립니다.
-      console.log("데이터 전송 성공!");
-      alert("회원 가입 성공. 로그인해주세요.");
-      navigate("/login");
-    } catch (error) {
-      console.error("회원가입 실패:", error);
-      alert("회원 등록에 실패했습니다. 다시 시도해주세요.");
-    }
+    // registerHandler 함수 내부에서 상태 변수로 접근
+    const { id, password, name, age, nickName, email, phone, gender, role } =
+      formData;
+
+    console.log(formData);
+
+    dispatch(asyncRegister(formData));
+    navigate("/login");
   };
 
   return (
@@ -164,15 +149,15 @@ const Register = () => {
               <p>아이디</p>
               <label>
                 <input
-                  id="userId"
-                  value={formData.userId}
+                  id="id"
+                  value={formData.id}
                   type="text"
                   placeholder="아이디를 입력해주세요."
                   onChange={onChange}
                   required
                 ></input>
               </label>
-              <div className="userIdError"></div>
+              <div className="idError"></div>
             </div>
 
             <div className="password">
@@ -207,70 +192,41 @@ const Register = () => {
               <p>이름</p>
               <label>
                 <input
-                  id="userName"
-                  value={formData.userName}
+                  id="name"
+                  value={formData.name}
                   type="text"
                   placeholder="이름을 입력해주세요."
                   onChange={onChange}
                   required
                 ></input>
               </label>
-              <div className="nameError"></div>
             </div>
 
-            <div className="birth">
-              <p>생년월일</p>
-              <label id="birthBox">
+            <div className="age">
+              <p>나이</p>
+              <label id="ageBox">
                 <input
-                  id="birth_yy"
+                  id="age"
                   type="text"
-                  placeholder="년(4자)"
-                  value={formData.birth_yy}
+                  placeholder="나이를 입력해주세요."
+                  value={formData.age}
                   onChange={onChange}
                 ></input>
-                <select
-                  id="birth_mm"
-                  value={formData.birth_mm}
-                  onChange={onChange}
-                >
-                  <option>월</option>
-                  <option value="01">1</option>
-                  <option value="02">2</option>
-                  <option value="03">3</option>
-                  <option value="04">4</option>
-                  <option value="05">5</option>
-                  <option value="06">6</option>
-                  <option value="07">7</option>
-                  <option value="08">8</option>
-                  <option value="09">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
-                <input
-                  type="text"
-                  id="birth_dd"
-                  placeholder="일"
-                  value={formData.birth_dd}
-                  onChange={onChange}
-                />
               </label>
-              <div className="birthError"></div>
             </div>
 
-            <div className="NickName">
-              <p>이름</p>
+            <div className="nickName">
+              <p>닉네임</p>
               <label>
                 <input
-                  id="NickName"
-                  value={formData.NickName}
+                  id="nickName"
+                  value={formData.nickName}
                   type="text"
                   placeholder="닉네임을 입력해주세요."
                   onChange={onChange}
                   required
                 ></input>
               </label>
-              <div className="nickNameError"></div>
             </div>
 
             <div className="email">
@@ -283,17 +239,6 @@ const Register = () => {
                   placeholder="이메일을 입력해주세요."
                   onChange={onChange}
                 ></input>
-                <span> @ </span>
-                <select
-                  id="emailSelect"
-                  value={formData.emailSelect}
-                  onChange={onChange}
-                >
-                  <option>이메일 선택</option>
-                  <option>naver.com</option>
-                  <option>gmail.com</option>
-                  <option>daum.net</option>
-                </select>
               </label>
               <div className="emailError"></div>
             </div>
@@ -309,7 +254,6 @@ const Register = () => {
                   required
                 />
               </label>
-              <div className="phoneError"></div>
             </div>
             <div>
               <div className="gender">
@@ -325,7 +269,19 @@ const Register = () => {
                     <option value="woman">여성</option>
                   </select>
                 </label>
-                <div id="genderError" className="error"></div>
+              </div>
+            </div>
+            <div>
+              <div className="role">
+                <p>구분</p>
+                <label>
+                  <select id="role" value={formData.role} onChange={onChange}>
+                    <option value="role1" defaultValue>
+                      고객
+                    </option>
+                    <option value="role2">사장</option>
+                  </select>
+                </label>
               </div>
             </div>
           </InputContainer>

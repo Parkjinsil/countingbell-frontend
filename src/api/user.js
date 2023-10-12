@@ -10,5 +10,6 @@ export const login = async (data) => {
 
 export const addMember = async (data) => {
   console.log("회원가입 axios call!!");
+  console.log(data);
   return await instance.post("user/signup", data);
 };

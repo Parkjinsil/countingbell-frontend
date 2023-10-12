@@ -7,6 +7,10 @@ import image3 from "../assets/333.jpg";
 import image4 from "../assets/444.jpg";
 import image5 from "../assets/555.jpg";
 
+import {} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 const Main = styled.main`
   background-color: white;
 `;
