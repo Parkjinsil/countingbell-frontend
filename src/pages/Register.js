@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { addMember } from "../api/user";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -93,25 +94,26 @@ const BtnArea = styled.div`
 
 const Register = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => {
-    return state.user;
-  });
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(user);
-    if (user !== null && Object.keys(user).length !== 0) {
-      console.log("회원가입 성공! 로그인해 주세요.");
-      navigate("/");
-    } else {
-      if (user === null) {
-        console.log("중복 가입");
-        alert("이미 가입된 회원입니다.");
-        dispatch(userReset());
-      }
-      navigate("/user/signup");
-    }
-  }, [user]);
+  // const user = useSelector((state) => {
+  //   return state.user;
+  // });
+
+  // useEffect(() => {
+  //   console.log(user);
+  //   if (user !== null && Object.keys(user).length !== 0) {
+  //     console.log("회원가입 성공! 로그인해 주세요.");
+  //     navigate("/");
+  //   } else {
+  //     if (user === null) {
+  //       console.log("중복 가입");
+  //       alert("이미 가입된 회원입니다.");
+  //       dispatch(userReset());
+  //     }
+  //     navigate("/user/signup");
+  //   }
+  // }, [user]);
 
   const [formData, setFormData] = useState({
     userId: "",

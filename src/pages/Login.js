@@ -142,7 +142,7 @@ const Login = () => {
               <span>
                 <FontAwesomeIcon icon={faUser} id="icon" />
               </span>
-              <input type="text" name="id" autofocus></input>
+              <input type="text" name="id" autoFocus></input>
             </div>
             <div className="pwdBox">
               <span>

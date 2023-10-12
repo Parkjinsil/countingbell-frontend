@@ -189,14 +189,15 @@ const Header = () => {
             </a>
           </HeadLogo>
           <HeadRight>
-            {Object.keys(user).length === 0 ? (
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="recentList">
-                      <span>최근본가게</span>
-                    </Link>
-                  </li>
+            <ul>
+              <li>
+                <Link to="recentList">
+                  <span>최근본가게</span>
+                </Link>
+              </li>
+
+              {Object.keys(user).length === 0 ? (
+                <>
                   <li>
                     <Link to="login">
                       <span>로그인</span>
@@ -207,22 +208,13 @@ const Header = () => {
                       <span>회원가입</span>
                     </Link>
                   </li>
-                </ul>
-              </nav>
-            ) : (
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="recentList">
-                      <span>최근본가게</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <button onClick={logout}>로그아웃</button>
-                  </li>
-                </ul>
-              </nav>
-            )}
+                </>
+              ) : (
+                <li>
+                  <button onClick={logout}>로그아웃</button>
+                </li>
+              )}
+            </ul>
           </HeadRight>
         </HeadLogoContainer>
       </HeadTopContainer>
