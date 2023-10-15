@@ -1,84 +1,38 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+// import styled from "styled-components";
 
-class YourComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ratingValue: 0,
-    };
-    this.myRef = React.createRef();
-  }
+const Review = () => {
+  const [starRating, setStarRating] = useState(0);
+  const [contents, setContents] = useState("");
 
-  mouseOverHandler = (e) => {
-    const dataValue = e.target.dataset.value;
-    const targetList = e.target.parentNode.childNodes;
-    for (let i = 0; i < dataValue; i++) {
-      targetList[i].style.color = "red";
-    }
+  const handleStarRatingChange = (event) => {
+    setStarRating(event.target.value);
   };
 
-  mouseLeaveHandler = (e) => {
-    const targetList = e.target.parentNode.childNodes;
-    for (let i = 0; i < targetList.length; i++) {
-      targetList[i].style = "";
-    }
+  const handleContentsChange = (event) => {
+    setContents(event.target.value);
   };
 
-  getRating = (e) => {
-    const dataValue = Number(e.target.dataset.value);
-    const targetList = e.target.parentNode.childNodes;
-    const node = this.myRef.current;
-    for (let i = 0; i < targetList.length; i++) {
-      if (targetList[i].className.includes("redstar")) {
-        targetList[i].className = "fas fa-star";
-      } else {
-        for (let i = 0; i < dataValue; i++) {
-          targetList[i].className = "fas fa-star redstar";
-        }
-      }
-    }
-    this.setState({
-      ratingValue: dataValue,
-    });
+  return (
+    <div>
+      <label>별점: </label>
+      <input
+        type="number"
+        min="1"
+        max="5"
+        value={starRating}
+        onChange={handleStarRatingChange}
+      />
 
-    switch (Number(dataValue)) {
-      case 1:
-        node.style.color = "red";
-        node.innerHTML = "<span>1점</span> (별로예요😡)";
-        break;
-      case 2:
-        node.style.color = "red";
-        node.innerHTML = "<span>2점</span> (그저그래요🙁)";
-        break;
-      case 3:
-        node.style.color = "red";
-        node.innerHTML = "<span>3점</span> (괜찮아요👌)";
-        break;
-      case 4:
-        node.style.color = "red";
-        node.innerHTML = "<span>4점</span> (좋아요😄)";
-        break;
-      case 5:
-        node.style.color = "red";
-        node.innerHTML = "<span>5점</span> (최고예요👍)";
-        break;
-      default:
-        node.innerHTML = "선택하세요";
-        break;
-    }
-  };
+      <label>리뷰 내용: </label>
+      <textarea value={contents} onChange={handleContentsChange} />
 
-  render() {
-    return (
-      <div>
-        {/* Your component JSX here */}
-        <div ref={this.myRef}></div>
-      </div>
-    );
-  }
-}
+      <button>리뷰 작성</button>
+    </div>
+  );
+};
 
-export default YourComponent;
+export default Review;

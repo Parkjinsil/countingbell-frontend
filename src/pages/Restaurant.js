@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {} from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
 
 const StyleNav = styled.div`
-  .nav-pills > .nav-item > .active {
+  .nav-pills > .nav-item.active > .nav-link {
     background-color: #fcac6b !important;
   }
 `;
@@ -196,9 +196,15 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
+  const [activeTab, setActiveTab] = useState("menu");
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div>
-      <section className="container mb-5" style={{marginTop: '80px'}}>
+      <section className="container mb-5" style={{ marginTop: "80px" }}>
         <div className="row">
           <div className="col-4">
             <img
@@ -260,7 +266,8 @@ const Restaurant = () => {
                       예약
                     </button>
                   </td>
-                  <td><button
+                  <td>
+                    <button
                       type="button"
                       className="btn text-white fw-bold"
                       style={{
@@ -269,7 +276,8 @@ const Restaurant = () => {
                       }}
                     >
                       줄서기
-                    </button></td>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -285,1122 +293,1228 @@ const Restaurant = () => {
         </div>
       </section>
 
-
-
-                 
       <StyleNav>
-        
-      <div>
-      <nav id="navbar-example2" className="row navbar sticky-top bg-body mt-4 px-3 justify-content-center">
-  <ul className="col-lg-9 nav nav-pills" style={{ borderBottom: "2px solid #ddd" }} >
-    <li className="col nav-item text-center">
-      <a className="nav-link active fs-3 fw-semibold" href="#scrollspyHeading1" style={{ color: "#868383", padding: "15px" }}>
-        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 메뉴
-      </a>
-    </li>
-    <li className="col nav-item text-center">
-      <a className="nav-link fs-3 fw-semibold" href="#scrollspyHeading2" style={{ color: "#868383", padding: "15px" }}>
-        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 리뷰
-      </a>
-    </li>
-    <li className="col nav-item text-center">
-      <a className="nav-link fs-3 fw-semibold" href="#scrollspyHeading3" style={{ color: "#868383", padding: "15px" }}>
-        <img src="img/stick2.png" alt="" height="28px" style={{ paddingTop: "5px" }} /> 사진
-      </a>
-    </li>
-  </ul>
-</nav>
-  <div
-            data-bs-spy="scroll"
-            data-bs-target="#navbar-example2"
-            data-bs-root-margin="0px 0px -40%"
-            data-bs-smooth-scroll="true"
-            className="scrollspy-example bg-body p-3 rounded m-1-2"
-            tabindex="0"
+        <nav
+          id="navbar-example2"
+          className="row navbar sticky-top bg-body mt-4 px-3 justify-content-center"
+        >
+          <ul
+            className="col-lg-9 nav nav-pills"
+            style={{ borderBottom: "2px solid #ddd" }}
           >
-          
-             <section className="container" id="scrollspyHeading1" style={{paddingTop: '100px'}} >
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div className="col-2 text-center">
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#fbe94b",
-                      margin: "3px",
-                    }}
-                  />{" "}
-                  인기메뉴
-                </div>
-                <div className="col-2 mb-2">
-                  <img
-                    src="img/pasta.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-3">토마토 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>11,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineHeight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta3.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    height="150px"
-                    width="150px"
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">알리올리오 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>9,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineHeight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza2.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza4.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">토마토 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>11,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta3.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">알리올리오 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>9,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza2.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza4.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <StyleReview>
-              <section className="container" id="scrollspyHeading2" style={{paddingTop: '100px'}} >
-                <div className="container">
-                  <div className="row align-items-center">
-                    <div className="col-3 text-center">
-                      <h2 className="fs-1">3.8</h2>
-                      <StarFill
-                        className="bi bi-star-fill"
-                        style={{
-                          fontSize: "1.3rem",
-                          color: "#fbe94b",
-                          margin: "3px",
-                        }}
-                      />
-                      <StarFill
-                        className="bi bi-star-fill"
-                        style={{
-                          fontSize: "1.3rem",
-                          color: "#fbe94b",
-                          margin: "3px",
-                        }}
-                      />
-                      <StarFill
-                        className="bi bi-star-fill"
-                        style={{
-                          fontSize: "1.3rem",
-                          color: "#fbe94b",
-                          margin: "3px",
-                        }}
-                      />
-                      <StarFill
-                        className="bi bi-star-fill"
-                        style={{
-                          fontSize: "1.3rem",
-                          color: "#fbe94b",
-                          margin: "3px",
-                        }}
-                      />
-                      <StarFill
-                        className="bi bi-star-fill"
-                        style={{
-                          fontSize: "1.3rem",
-                          color: "#fbe94b",
-                          margin: "3px",
-                        }}
-                      />
-                      <button
-                        className="btn mt-3"
-                        type="button"
-                        style={{
-                          height: "50px",
-                          width: "200px",
-                          backgroundColor: "#ff6b01",
-                          color: "white",
-                        }}
-                      >
-                        리뷰쓰기
-                      </button>
-                    </div>
-                    <div className="col-9">
-                      <div
-                        className="row align-items-center"
-                        style={{ marginBottom: "1%" }}
-                      >
-                        <div className="col-1">5점</div>
-                        <div className="col-10">
-                          <div className="progress">
-                            <div
-                              className="progress-bar bg-warning"
-                              style={{ width: "60%" }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="col-1">12명</div>
-                      </div>
-                      <div
-                        className="row align-items-center"
-                        style={{ marginBottom: "1%" }}
-                      >
-                        <div className="col-1">4점</div>
-                        <div className="col-10">
-                          <div className="progress">
-                            <div
-                              className="progress-bar bg-warning"
-                              style={{ width: "10%" }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="col-1">2명</div>
-                      </div>
-                      <div
-                        className="row align-items-center"
-                        style={{ marginBottom: "1%" }}
-                      >
-                        <div className="col-1">3점</div>
-                        <div className="col-10">
-                          <div className="progress">
-                            <div
-                              className="progress-bar bg-warning"
-                              style={{ width: "0%" }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="col-1">0명</div>
-                      </div>
-                      <div
-                        className="row align-items-center"
-                        style={{ marginBottom: "1%" }}
-                      >
-                        <div className="col-1">2점</div>
-                        <div className="col-10">
-                          <div className="progress">
-                            <div
-                              className="progress-bar bg-warning"
-                              style={{ width: "20%" }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="col-1">4명</div>
-                      </div>
-                      <div
-                        className="row align-items-center "
-                        style={{ marginBottom: "1%" }}
-                      >
-                        <div className="col-1">0점</div>
-                        <div className="col-10">
-                          <div className="progress">
-                            <div
-                              className="progress-bar bg-warning"
-                              style={{ width: "10%" }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="col-1">2명</div>
-                      </div>
-                    </div>
+            <li
+              className={`col nav-item text-center ${
+                activeTab === "menu" ? "active" : ""
+              }`}
+            >
+              <a
+                className="nav-link fs-3 fw-semibold"
+                href="#scrollspyHeading1"
+                style={{ color: "#868383", padding: "15px" }}
+                onClick={() => handleTabClick("menu")}
+              >
+                <img
+                  src="img/stick2.png"
+                  alt=""
+                  height="28px"
+                  style={{ paddingTop: "5px" }}
+                />{" "}
+                메뉴
+              </a>
+            </li>
+            <li
+              className={`col nav-item text-center ${
+                activeTab === "review" ? "active" : ""
+              }`}
+            >
+              <a
+                className="nav-link fs-3 fw-semibold"
+                href="#scrollspyHeading2"
+                style={{ color: "#868383", padding: "15px" }}
+                onClick={() => handleTabClick("review")}
+              >
+                <img
+                  src="img/stick2.png"
+                  alt=""
+                  height="28px"
+                  style={{ paddingTop: "5px" }}
+                />{" "}
+                리뷰
+              </a>
+            </li>
+            <li
+              className={`col nav-item text-center ${
+                activeTab === "photo" ? "active" : ""
+              }`}
+            >
+              <a
+                className="nav-link fs-3 fw-semibold"
+                href="#scrollspyHeading3"
+                style={{ color: "#868383", padding: "15px" }}
+                onClick={() => handleTabClick("photo")}
+              >
+                <img
+                  src="img/stick2.png"
+                  alt=""
+                  height="28px"
+                  style={{ paddingTop: "5px" }}
+                />{" "}
+                사진
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div className="tab-content">
+          {/* <div
+              data-bs-spy="scroll"
+              data-bs-target="#navbar-example2"
+              data-bs-root-margin="0px 0px -40%"
+              data-bs-offset="0"
+              data-bs-smooth-scroll="true"
+              className="scrollspy-example bg-body p-3 rounded m-1-2"
+              tabindex="0"
+            > */}
+          {activeTab === "menu" && (
+            <div>
+              <section
+                className="container"
+                id="scrollspyHeading1"
+                style={{ paddingTop: "100px" }}
+              >
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div className="col-2 text-center">
+                    <StarFill
+                      className="bi bi-star-fill"
+                      style={{
+                        fontSize: "1.3rem",
+                        color: "#fbe94b",
+                        margin: "3px",
+                      }}
+                    />{" "}
+                    인기메뉴
                   </div>
+                  <div className="col-2 mb-2">
+                    <img
+                      src="img/pasta.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-3">토마토 파스타</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>11,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
                   <div
-                    className="eee"
-                    style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
+                    className="col-2 text-center"
+                    style={{ lineHeight: "150px" }}
                   ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pasta3.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      height="150px"
+                      width="150px"
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">
+                        알리올리오 파스타
+                      </div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>9,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
-                  <div className="container mt-3 mb-4">
-                    <div className="col">
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                            <table className="table manage-candidates-top mb-0">
-                              <thead>
-                                <tr>
-                                  <th className="fw-bold">리뷰 116건</th>
-                                  <th className="text-center fw-bold">
-                                    최신순
-                                  </th>
-                                  <th className="text-center fw-bold">
-                                    평점높은순
-                                  </th>
-                                  <th className="text-center fw-bold">
-                                    평점낮은순
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/lesser_panda.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          세레나
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                        <img
-                                          src="img/pizza2.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        맛있어요~!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineHeight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pizza2.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>19,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/giraffe.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          기린
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineheight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pizza4.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>19,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        매일매일 먹고싶은 맛!!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/panda.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          팬더
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                        <img
-                                          src="img/pizza2.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        맛있어요~!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineheight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pasta.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">토마토 파스타</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>11,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/cat.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          야옹이
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta4.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineheight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pasta3.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">
+                        알리올리오 파스타
+                      </div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>9,900 원</div>
+                    </span>
+                  </div>
+                </div>
 
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        매일매일 먹고싶은 맛!!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/panda.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          팬더
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineheight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pizza2.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>19,900 원</div>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+                  <div
+                    className="col-2 text-center"
+                    style={{ lineheight: "150px" }}
+                  ></div>
+                  <div className="col-2 mt-2 mb-2">
+                    <img
+                      src="img/pizza4.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>19,900 원</div>
+                    </span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          <StyleReview>
+            {activeTab === "review" && (
+              <div>
+                <section
+                  className="container"
+                  id="scrollspyHeading2"
+                  style={{ paddingTop: "100px" }}
+                >
+                  <div className="container">
+                    <div className="row align-items-center">
+                      <div className="col-3 text-center">
+                        <h2 className="fs-1">3.8</h2>
+                        <StarFill
+                          className="bi bi-star-fill"
+                          style={{
+                            fontSize: "1.3rem",
+                            color: "#fbe94b",
+                            margin: "3px",
+                          }}
+                        />
+                        <StarFill
+                          className="bi bi-star-fill"
+                          style={{
+                            fontSize: "1.3rem",
+                            color: "#fbe94b",
+                            margin: "3px",
+                          }}
+                        />
+                        <StarFill
+                          className="bi bi-star-fill"
+                          style={{
+                            fontSize: "1.3rem",
+                            color: "#fbe94b",
+                            margin: "3px",
+                          }}
+                        />
+                        <StarFill
+                          className="bi bi-star-fill"
+                          style={{
+                            fontSize: "1.3rem",
+                            color: "#fbe94b",
+                            margin: "3px",
+                          }}
+                        />
+                        <StarFill
+                          className="bi bi-star-fill"
+                          style={{
+                            fontSize: "1.3rem",
+                            color: "#fbe94b",
+                            margin: "3px",
+                          }}
+                        />
+                        <button
+                          className="btn mt-3"
+                          type="button"
+                          style={{
+                            height: "50px",
+                            width: "200px",
+                            backgroundColor: "#ff6b01",
+                            color: "white",
+                          }}
+                        >
+                          리뷰쓰기
+                        </button>
+                      </div>
+                      <div className="col-9">
+                        <div
+                          className="row align-items-center"
+                          style={{ marginBottom: "1%" }}
+                        >
+                          <div className="col-1">5점</div>
+                          <div className="col-10">
+                            <div className="progress">
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{ width: "60%" }}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="col-1">12명</div>
+                        </div>
+                        <div
+                          className="row align-items-center"
+                          style={{ marginBottom: "1%" }}
+                        >
+                          <div className="col-1">4점</div>
+                          <div className="col-10">
+                            <div className="progress">
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{ width: "10%" }}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="col-1">2명</div>
+                        </div>
+                        <div
+                          className="row align-items-center"
+                          style={{ marginBottom: "1%" }}
+                        >
+                          <div className="col-1">3점</div>
+                          <div className="col-10">
+                            <div className="progress">
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{ width: "0%" }}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="col-1">0명</div>
+                        </div>
+                        <div
+                          className="row align-items-center"
+                          style={{ marginBottom: "1%" }}
+                        >
+                          <div className="col-1">2점</div>
+                          <div className="col-10">
+                            <div className="progress">
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{ width: "20%" }}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="col-1">4명</div>
+                        </div>
+                        <div
+                          className="row align-items-center "
+                          style={{ marginBottom: "1%" }}
+                        >
+                          <div className="col-1">0점</div>
+                          <div className="col-10">
+                            <div className="progress">
+                              <div
+                                className="progress-bar bg-warning"
+                                style={{ width: "10%" }}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="col-1">2명</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      className="eee"
+                      style={{
+                        borderTop: "2px solid #ddd",
+                        marginTop: "50px",
+                      }}
+                    ></div>
+
+                    <div className="container mt-3 mb-4">
+                      <div className="col">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                              <table className="table manage-candidates-top mb-0">
+                                <thead>
+                                  <tr>
+                                    <th className="fw-bold">리뷰 116건</th>
+                                    <th className="text-center fw-bold">
+                                      최신순
+                                    </th>
+                                    <th className="text-center fw-bold">
+                                      평점높은순
+                                    </th>
+                                    <th className="text-center fw-bold">
+                                      평점낮은순
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    className="candidates-list"
+                                    style={{
+                                      borderBottom: "1px solid #ddd",
+                                    }}
+                                  >
+                                    <td className="title">
+                                      <div className="thumb">
                                         <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
+                                          className="rounded-circle"
+                                          src="img/lesser_panda.jpg"
                                           alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
                                         />
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            세레나
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <ul className="candidate-list-favourite-time text-center">
+                                          <li className="menu">
+                                            토마토 파스타
+                                          </li>
+                                          <li className="menu">
+                                            페퍼로니 피자
+                                          </li>
+                                          <li className="data">2023.8.23</li>
+                                        </ul>
+                                        <div
+                                          className="text-center"
+                                          style={{
+                                            margin: "0px 10px 10px 50px",
+                                          }}
+                                        >
+                                          <img
+                                            src="img/pasta.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                          <img
+                                            src="img/pizza2.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          맛있어요~!
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+
+                                  <tr
+                                    className="candidates-list"
+                                    style={{
+                                      borderBottom: "1px solid #ddd",
+                                    }}
+                                  >
+                                    <td className="title">
+                                      <div className="thumb">
                                         <img
-                                          src="img/pizza2.jpg"
-                                          className="rounded m-1"
+                                          className="rounded-circle"
+                                          src="img/giraffe.jpg"
                                           alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
                                         />
                                       </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        맛있어요~!
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            기린
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                        </div>
                                       </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div className="text-center mt-3 mt-sm-3">
-                              <ul className="pagination pagination-lg justify-content-center mb-0">
-                                <li className="page-item disabled">
-                                  <span className="page-link">Prev</span>
-                                </li>
-                                <li
-                                  className="page-item active"
-                                  aria-current="page"
-                                >
-                                  <span className="page-link">1 </span>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    2
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    3
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    4
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    5
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    Next
-                                  </a>
-                                </li>
-                              </ul>
+                                      <div className="candidate-list-details">
+                                        <ul className="candidate-list-favourite-time text-center">
+                                          <li className="menu">
+                                            토마토 파스타
+                                          </li>
+                                          <li className="data">2023.8.23</li>
+                                        </ul>
+                                        <div
+                                          className="text-center"
+                                          style={{
+                                            margin: "0px 10px 10px 50px",
+                                          }}
+                                        >
+                                          <img
+                                            src="img/pasta.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          매일매일 먹고싶은 맛!!
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                  <tr
+                                    className="candidates-list"
+                                    style={{
+                                      borderBottom: "1px solid #ddd",
+                                    }}
+                                  >
+                                    <td className="title">
+                                      <div className="thumb">
+                                        <img
+                                          className="rounded-circle"
+                                          src="img/panda.jpg"
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            팬더
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <ul className="candidate-list-favourite-time text-center">
+                                          <li className="menu">
+                                            토마토 파스타
+                                          </li>
+                                          <li className="menu">
+                                            페퍼로니 피자
+                                          </li>
+                                          <li className="data">2023.8.23</li>
+                                        </ul>
+                                        <div
+                                          className="text-center"
+                                          style={{
+                                            margin: "0px 10px 10px 50px",
+                                          }}
+                                        >
+                                          <img
+                                            src="img/pasta.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                          <img
+                                            src="img/pizza2.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          맛있어요~!
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+
+                                  <tr
+                                    className="candidates-list"
+                                    style={{
+                                      borderBottom: "1px solid #ddd",
+                                    }}
+                                  >
+                                    <td className="title">
+                                      <div className="thumb">
+                                        <img
+                                          className="rounded-circle"
+                                          src="img/cat.jpg"
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            야옹이
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <ul className="candidate-list-favourite-time text-center">
+                                          <li className="menu">
+                                            토마토 파스타
+                                          </li>
+                                          <li className="data">2023.8.23</li>
+                                        </ul>
+                                        <div
+                                          className="text-center"
+                                          style={{
+                                            margin: "0px 10px 10px 50px",
+                                          }}
+                                        >
+                                          <img
+                                            src="img/pasta4.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          매일매일 먹고싶은 맛!!
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                  <tr
+                                    className="candidates-list"
+                                    style={{
+                                      borderBottom: "1px solid #ddd",
+                                    }}
+                                  >
+                                    <td className="title">
+                                      <div className="thumb">
+                                        <img
+                                          className="rounded-circle"
+                                          src="img/panda.jpg"
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            팬더
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                          <StarFill
+                                            className="bi bi-star-fill"
+                                            style={{
+                                              fontSize: "1.2rem",
+                                              color: "#fbe94b",
+                                              margin: "2px",
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="candidate-list-details">
+                                        <ul className="candidate-list-favourite-time text-center">
+                                          <li className="menu">
+                                            토마토 파스타
+                                          </li>
+                                          <li className="menu">
+                                            페퍼로니 피자
+                                          </li>
+                                          <li className="data">2023.8.23</li>
+                                        </ul>
+                                        <div
+                                          className="text-center"
+                                          style={{
+                                            margin: "0px 10px 10px 50px",
+                                          }}
+                                        >
+                                          <img
+                                            src="img/pasta.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                          <img
+                                            src="img/pizza2.jpg"
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          맛있어요~!
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div className="text-center mt-3 mt-sm-3">
+                                <ul className="pagination pagination-lg justify-content-center mb-0">
+                                  <li className="page-item disabled">
+                                    <span className="page-link">Prev</span>
+                                  </li>
+                                  <li
+                                    className="page-item active"
+                                    aria-current="page"
+                                  >
+                                    <span className="page-link">1 </span>
+                                  </li>
+                                  <li className="page-item">
+                                    <a className="page-link" href="#">
+                                      2
+                                    </a>
+                                  </li>
+                                  <li className="page-item">
+                                    <a className="page-link" href="#">
+                                      3
+                                    </a>
+                                  </li>
+                                  <li className="page-item">
+                                    <a className="page-link" href="#">
+                                      4
+                                    </a>
+                                  </li>
+                                  <li className="page-item">
+                                    <a className="page-link" href="#">
+                                      5
+                                    </a>
+                                  </li>
+                                  <li className="page-item">
+                                    <a className="page-link" href="#">
+                                      Next
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </section>
+              </div>
+            )}
+          </StyleReview>
+
+          {activeTab === "photo" && (
+            <div>
+              <section
+                className="cantainer"
+                id="scrollspyHeading3"
+                style={{ paddingTop: "100px" }}
+              >
+                <div className="container text-center mt-lg-0">
+                  <div className="row">
+                    <div className="col">
+                      <img src="img/album1.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album2.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album1.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album2.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album1.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album2.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album1.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album2.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album1.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album2.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                    <div className="col">
+                      <img src="img/album3.jpg" alt="" />
+                    </div>
+                  </div>
+                  <div
+                    className="eee"
+                    style={{
+                      borderTop: "2px solid #ddd",
+                      marginTop: "50px",
+                    }}
+                  ></div>
+                </div>
+                <div className="text-center mt-3 mt-sm-3">
+                  <ul className="pagination pagination-lg justify-content-center mb-0">
+                    <li className="page-item disabled">
+                      <span className="page-link">Prev</span>
+                    </li>
+                    <li className="page-item active" aria-current="page">
+                      <span className="page-link">1 </span>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        2
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        3
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        4
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        5
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a className="page-link" href="#">
+                        Next
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </section>
-            </StyleReview>
-
-            <section className="cantainer" id="scrollspyHeading3" style={{paddingTop: '100px'}}  >
-              <div className="container text-center mt-lg-0">
-                <div className="row">
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                </div>
-                <div
-                  className="eee"
-                  style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
-                ></div>
-              </div>
-              <div className="text-center mt-3 mt-sm-3">
-                <ul className="pagination pagination-lg justify-content-center mb-0">
-                  <li className="page-item disabled">
-                    <span className="page-link">Prev</span>
-                  </li>
-                  <li className="page-item active" aria-current="page">
-                    <span className="page-link">1 </span>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      4
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      5
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </section>
-          
             </div>
-          </div>
-      
+          )}
+        </div>
+
+        {/* </div> */}
       </StyleNav>
     </div>
   );
