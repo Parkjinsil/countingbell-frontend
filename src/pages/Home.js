@@ -7,6 +7,10 @@ import image3 from "../assets/333.jpg";
 import image4 from "../assets/444.jpg";
 import image5 from "../assets/555.jpg";
 
+import {} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 const Main = styled.main`
   background-color: white;
 `;
@@ -55,7 +59,7 @@ const SliderContainer = styled.div`
   }
 
   .slides img {
-    /* width: 100%; */
+    /* width: 800px; */
     height: 500px;
     border-radius: 10%;
     display: block;
@@ -206,29 +210,29 @@ const Home = () => {
         </ButtonContainer>
 
         <Category id="category">
-          <a href=".section1" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">내위치</span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="인기순" className="category-image" />
               <span className="category-text">인기순</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image4} alt="음식별" className="category-image" />
               <span className="category-text">음식별</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="리뷰순" className="category-image" />
               <span className="category-text">리뷰순</span>
             </span>
           </a>
-          <a href="#" className="category-link">
+          <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />
               <span className="category-text">기타</span>
