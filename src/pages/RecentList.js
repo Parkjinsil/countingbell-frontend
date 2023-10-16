@@ -40,7 +40,10 @@ const Bottom = styled.div`
   justify-content: center;
   padding-top: 20px;
 `;
-const RecentList = () => {
+const RecentList = ({ list }) => {
+  // const onClick = (event) => {
+  //   addRestaurant(event.target.id);
+  // };
   return (
     <Container>
       <Top>
@@ -55,55 +58,29 @@ const RecentList = () => {
           <table style={{ borderCollapse: "collapse" }}>
             <thead>
               <tr>
-                <th scope="col">번호</th>
-                <th scope="col">이미지</th>
-                <th scope="col">식당명</th>
-                <th scope="col">예약</th>
+                <th>번호</th>
+                <th>이미지</th>
+                <th>식당명</th>
+                <th>예약</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <img
-                    src={image1}
-                    alt="image1"
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </td>
-                <td>식당1</td>
-                <td>
-                  <button> 예약 </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>
-                  <img
-                    src={image1}
-                    alt="image1"
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </td>
-                <td>식당2</td>
-                <td>
-                  <button> 예약 </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>
-                  <img
-                    src={image1}
-                    alt="image1"
-                    style={{ width: "50px", height: "50px" }}
-                  />
-                </td>
-                <td>식당3</td>
-                <td>
-                  <button> 예약 </button>
-                </td>
-              </tr>
+              {list.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>
+                    <img
+                      src={image1}
+                      alt="image1"
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                  </td>
+                  <td>{item.title}</td>
+                  <td>
+                    <button id={item.id}>예약</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

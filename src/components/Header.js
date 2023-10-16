@@ -75,6 +75,16 @@ const HeadRight = styled.div`
         color: #ff5e33;
       }
     }
+
+    button {
+      border: none;
+      color: rgb(255, 94, 51, 0.7);
+      background-color: white;
+
+      &:hover {
+        color: #ff5e33;
+      }
+    }
   }
 `;
 
@@ -92,19 +102,20 @@ const HeadMenu = styled.div`
   background-color: #f8cdc1;
   transition: transform 0.3s;
 
-  &.hidden {
+  /* &.hidden {
     transform: translateY(-100%);
-  }
+  } */
 
   ul {
     display: inline-block;
+    height: 50px;
   }
 
   li {
     display: inline-block;
     align-items: center;
     padding: 0 30px;
-    line-height: 50px;
+    line-height: 40px;
 
     a {
       text-decoration: none;
@@ -125,32 +136,31 @@ const HeadMenu = styled.div`
       }
     }
 
-    &.search-btn {
+    .search-btn {
       display: flex;
       align-items: center;
-    }
+      padding: 5px;
 
-    #search {
-      border: none;
-      background-color: #fcf1f1;
-      padding: 11px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
+      #search {
+        border: none;
+        background-color: #fcf1f1;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
 
-    button {
-      padding: 10px;
-      background: #e2d5d5;
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-
-      #icon {
-        font-size: 15px;
+      button {
+        background: #e2d5d5;
+        border: none;
         cursor: pointer;
-        color: #666;
+        font-size: 15px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        #icon {
+          font-size: 20px;
+          cursor: pointer;
+          color: #666;
+        }
       }
     }
   }
@@ -189,40 +199,32 @@ const Header = () => {
             </a>
           </HeadLogo>
           <HeadRight>
-            {Object.keys(user).length === 0 ? (
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="recentList">
-                      <span>최근본가게</span>
-                    </Link>
-                  </li>
+            <ul>
+              <li>
+                <Link to="recentList">
+                  <span>최근본가게</span>
+                </Link>
+              </li>
+
+              {Object.keys(user).length === 0 ? (
+                <>
                   <li>
                     <Link to="login">
                       <span>로그인</span>
                     </Link>
                   </li>
                   <li>
-                    <Link to="register">
+                    <Link to="signup">
                       <span>회원가입</span>
                     </Link>
                   </li>
-                </ul>
-              </nav>
-            ) : (
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="recentList">
-                      <span>최근본가게</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <button onClick={logout}>로그아웃</button>
-                  </li>
-                </ul>
-              </nav>
-            )}
+                </>
+              ) : (
+                <li>
+                  <button onClick={logout}>로그아웃</button>
+                </li>
+              )}
+            </ul>
           </HeadRight>
         </HeadLogoContainer>
       </HeadTopContainer>
@@ -235,7 +237,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="section1">
+              <a href="waiting">
                 <span>온라인 줄서기</span>
               </a>
             </li>
