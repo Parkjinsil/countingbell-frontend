@@ -16,6 +16,7 @@ import Review from "./pages/Review";
 import Reservation from "./pages/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
+import MyPage from "./pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ResSearch />,
+      },
+    ],
+  },
+  {
+    path: "myPage",
+    children: [
+      {
+        index: true,
+        element: <MyPage />,
       },
     ],
   },
