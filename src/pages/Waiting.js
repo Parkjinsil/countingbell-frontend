@@ -71,24 +71,125 @@ const MenuBodyFooter = styled.div`
 
 const Waiting = () => {
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
-  const [restaurantList, setRestaurantList] = useState([]); // 검색된 식당 리스트 상태 추가
+  const [restaurantList, setRestaurantList] = useState([
+    {
+      resCode: 1,
+      resName: "식당1",
+      resAddr: "식당1",
+      resPhone: "22221",
+      resOpenHour: "8:00",
+      resClose: "18:00",
+      resDesc: "주차공간 없음",
+      location: {
+        localCode: 1,
+        localName: "서울",
+      },
+      food: {
+        foodCode: 1,
+        foodType: "한식",
+      },
+      member: {
+        id: "user1",
+        password:
+          "$2a$10$mJcZEvAwyovolgFS.Vc.6ekD6eZRdALj3NNdG8JegeqVTXJbcq8ra",
+        name: "user1",
+        phone: "010-1111-1111",
+        nickname: "user1",
+        gender: "F         ",
+        age: 20,
+        email: "user1@naver.com",
+        role: "고객",
+      },
+    },
+    {
+      resCode: 2,
+      resName: "식당2",
+      resAddr: "식당2",
+      resPhone: "22221",
+      resOpenHour: "8:00",
+      resClose: "18:00",
+      resDesc: "주차공간 없음",
+      location: {
+        localCode: 1,
+        localName: "서울",
+      },
+      food: {
+        foodCode: 1,
+        foodType: "한식",
+      },
+      member: {
+        id: "user1",
+        password:
+          "$2a$10$mJcZEvAwyovolgFS.Vc.6ekD6eZRdALj3NNdG8JegeqVTXJbcq8ra",
+        name: "user1",
+        phone: "010-1111-1111",
+        nickname: "user1",
+        gender: "F         ",
+        age: 20,
+        email: "user1@naver.com",
+        role: "고객",
+      },
+    },
+    {
+      resCode: 3,
+      resName: "식당3",
+      resAddr: "식당3",
+      resPhone: "22221",
+      resOpenHour: "8:00",
+      resClose: "18:00",
+      resDesc: "주차공간 없음",
+      location: {
+        localCode: 1,
+        localName: "서울",
+      },
+      food: {
+        foodCode: 1,
+        foodType: "한식",
+      },
+      member: {
+        id: "user1",
+        password:
+          "$2a$10$mJcZEvAwyovolgFS.Vc.6ekD6eZRdALj3NNdG8JegeqVTXJbcq8ra",
+        name: "user1",
+        phone: "010-1111-1111",
+        nickname: "user1",
+        gender: "F         ",
+        age: 20,
+        email: "user1@naver.com",
+        role: "고객",
+      },
+    },
+  ]); // 검색된 식당 리스트 상태 추가
+
+  const [filteredRestaurantList, setFilteredRestaurantList] = useState([
+    ...restaurantList,
+  ]);
 
   const searchValue = (e) => {
     e.preventDefault();
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`API_ENDPOINT?q=${searchTerm}`); // 예시: API 호출
-      const data = await response.json(); // API 응답을 JSON으로 파싱
-
-      setRestaurantList(data.results); // 검색된 식당 리스트 업데이트
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    const newList = restaurantList.filter((item) =>
+      item.resName.toLowerCase().includes(searchTerm)
+    );
+    console.log(newList);
+    setFilteredRestaurantList(newList);
   };
+
+  // const handleSearch = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(`API_ENDPOINT?q=${searchTerm}`); // 예시: API 호출
+  //     const data = await response.json(); // API 응답을 JSON으로 파싱
+
+  //     setRestaurantList(data.results); // 검색된 식당 리스트 업데이트
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   return (
     <Container>
@@ -103,10 +204,10 @@ const Waiting = () => {
               <h1></h1>
             </div>
 
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="식당명 검색"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
@@ -114,58 +215,22 @@ const Waiting = () => {
                 onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
               />
               <button
-                class="btn btn-outline-secondary"
+                className="btn btn-outline-secondary"
                 type="submit"
                 id="button-addon2"
               >
                 검색
               </button>
             </div>
+            <div className="resListContainer">
+              <ul>
+                {filteredRestaurantList.map((restaurant, index) => (
+                  <li key={index}>{restaurant.resName}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </form>
-
-        <div className="resListContainer">
-          <ul>
-            <li>
-              <a href="#">
-                <div className="menu-img">
-                  <img src={image3} alt="" style={{ width: "100px" }} />
-                </div>
-                <MenuBodyFooter className="menu-footer">
-                  <span className="restaurant-name">
-                    레스토랑스 강남점
-                    <br />
-                  </span>
-                  <span>4.6</span>
-                  <span>이탈리아 음식</span>
-                  <span className="dot">강남</span>
-                </MenuBodyFooter>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div className="menu-img">
-                  <img src={image3} alt="" style={{ width: "100px" }} />
-                </div>
-                <MenuBodyFooter className="menu-footer">
-                  <span className="restaurant-name">
-                    레스토랑스 강남점
-                    <br />
-                  </span>
-
-                  <span>4.6</span>
-                  <span>이탈리아 음식</span>
-                  <span className="dot">강남</span>
-                </MenuBodyFooter>
-              </a>
-            </li>
-          </ul>
-          {/* <ul>
-            {restaurantList.map((restaurant, index) => (
-              <li key={index}>{restaurant.resName}</li> // 식당 리스트 렌더링
-            ))}
-          </ul> */}
-        </div>
       </Main>
     </Container>
   );
