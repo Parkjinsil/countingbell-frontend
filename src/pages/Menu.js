@@ -7,13 +7,13 @@ import image33 from "../assets/333.png";
 
 const Wrap = styled.div`
   text-align: center;
-  padding-top: 100px;
+  padding-top: 70px;
 `;
 
 const Section = styled.section`
   display: inline-block;
   width: 1270px;
-  margin-bottom: 30px;
+  margin-bottom: 11px;
 `;
 
 const MenuHeader = styled.div`

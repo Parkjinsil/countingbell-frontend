@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 700px;
   width: 100%;
-  height: 410px;
+  height: 500px;
 `;
 
 const Title = styled.div`
@@ -43,6 +43,10 @@ const Radio = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: 15px;
+
+  label {
+    padding: 0 5px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -120,6 +124,7 @@ const Find = () => {
     setSelectedOption(event.target.value);
   };
 
+  // 아이디 찾기
   const searchId = (event) => {
     event.preventDefault();
 
@@ -130,6 +135,7 @@ const Find = () => {
     alert(name + "님의 아이디는 ");
   };
 
+  // 비밀번호 찾기
   const searchPwd = (event) => {
     event.preventDefault();
 
