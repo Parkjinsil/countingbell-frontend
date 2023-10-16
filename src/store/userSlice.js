@@ -37,11 +37,15 @@ const userSlice = createSlice({
         return action.payload;
       });
 
-    builder.addCase(asyncLogin.fulfilled, (state, action) => {
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      return action.payload;
-    });
+    builder
+      .addCase(asyncLogin.rejected, (state, action) => {
+        return alert("회원 등록에 실패했습니다. 다시 시도해주세요.");
+      })
+      .addCase(asyncLogin.fulfilled, (state, action) => {
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        return action.payload;
+      });
   },
 });
 

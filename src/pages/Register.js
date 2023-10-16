@@ -116,6 +116,19 @@ const Register = () => {
     role: "고객",
   });
 
+  const {
+    id,
+    password,
+    pwdCheck,
+    name,
+    age,
+    nickName,
+    email,
+    phone,
+    gender,
+    role,
+  } = formData;
+
   const onChange = (e) => {
     const { id, value } = e.target;
     setFormData({
@@ -126,10 +139,6 @@ const Register = () => {
 
   const registerHandler = async (e) => {
     e.preventDefault();
-
-    // registerHandler 함수 내부에서 상태 변수로 접근
-    const { id, password, name, age, nickName, email, phone, gender, role } =
-      formData;
 
     console.log(formData);
 
@@ -150,7 +159,7 @@ const Register = () => {
               <label>
                 <input
                   id="id"
-                  value={formData.id}
+                  value={id}
                   type="text"
                   placeholder="아이디를 입력해주세요."
                   onChange={onChange}
@@ -165,7 +174,7 @@ const Register = () => {
               <label>
                 <input
                   id="password"
-                  value={formData.password}
+                  value={password}
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
                   onChange={onChange}
@@ -181,7 +190,7 @@ const Register = () => {
                   id="pwdCheck"
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
-                  value={formData.pwdCheck}
+                  value={pwdCheck}
                   onChange={onChange}
                   required
                 ></input>
@@ -193,7 +202,7 @@ const Register = () => {
               <label>
                 <input
                   id="name"
-                  value={formData.name}
+                  value={name}
                   type="text"
                   placeholder="이름을 입력해주세요."
                   onChange={onChange}
@@ -209,7 +218,7 @@ const Register = () => {
                   id="age"
                   type="text"
                   placeholder="나이를 입력해주세요."
-                  value={formData.age}
+                  value={age}
                   onChange={onChange}
                 ></input>
               </label>
@@ -220,7 +229,7 @@ const Register = () => {
               <label>
                 <input
                   id="nickName"
-                  value={formData.nickName}
+                  value={nickName}
                   type="text"
                   placeholder="닉네임을 입력해주세요."
                   onChange={onChange}
@@ -235,7 +244,7 @@ const Register = () => {
                 <input
                   id="email"
                   type="text"
-                  value={formData.email}
+                  value={email}
                   placeholder="이메일을 입력해주세요."
                   onChange={onChange}
                 ></input>
@@ -247,7 +256,7 @@ const Register = () => {
               <label>
                 <input
                   id="phone"
-                  value={formData.phone}
+                  value={phone}
                   type="text"
                   placeholder="전화번호를 입력해주세요."
                   onChange={onChange}
@@ -259,14 +268,10 @@ const Register = () => {
               <div className="gender">
                 <p>성별</p>
                 <label>
-                  <select
-                    id="gender"
-                    value={formData.gender}
-                    onChange={onChange}
-                  >
+                  <select id="gender" value={gender} onChange={onChange}>
                     <option>성별</option>
-                    <option value="man">남성</option>
-                    <option value="woman">여성</option>
+                    <option value="M">남성</option>
+                    <option value="F">여성</option>
                   </select>
                 </label>
               </div>
@@ -275,7 +280,7 @@ const Register = () => {
               <div className="role">
                 <p>구분</p>
                 <label>
-                  <select id="role" value={formData.role} onChange={onChange}>
+                  <select id="role" value={role} onChange={onChange}>
                     <option value="role1" defaultValue>
                       고객
                     </option>
