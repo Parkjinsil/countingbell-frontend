@@ -257,7 +257,7 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="myPage">
                 <span>마이페이지</span>
               </a>
             </li>
