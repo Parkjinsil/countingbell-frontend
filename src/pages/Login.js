@@ -23,7 +23,7 @@ const LoginBox = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  height: 460px;
+  height: 500px;
 `;
 
 const LogoContainer = styled.div`
@@ -121,7 +121,7 @@ const Login = () => {
   // 홈으로 이동
   const onSubmit = (e) => {
     e.preventDefault();
-    const id = e.target.password.value;
+    const id = e.target.id.value;
     const password = e.target.password.value;
     dispatch(asyncLogin({ id, password }));
     navigate("/");
@@ -142,7 +142,7 @@ const Login = () => {
               <span>
                 <FontAwesomeIcon icon={faUser} id="icon" />
               </span>
-              <input type="text" name="id" autofocus></input>
+              <input type="text" name="id" autoFocus></input>
             </div>
             <div className="pwdBox">
               <span>
@@ -159,7 +159,7 @@ const Login = () => {
                 <Link to="/find">아이디/비밀번호 찾기</Link>
               </span>
               <span>
-                <Link to="/register">회원가입</Link>
+                <Link to="/signup">회원가입</Link>
               </span>
             </LoginBottom>
           </BottomContainer>

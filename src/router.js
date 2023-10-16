@@ -14,6 +14,8 @@ import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
 import Review from "./pages/Review";
 import Reservation from "./pages/Reservation";
+import Waiting from "./pages/Waiting";
+import ResSearch from "./pages/ResSearch";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "register",
+    path: "signup",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -118,6 +120,21 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Reservation />,
+      },
+    ],
+  },
+
+  {
+    path: "waiting",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Waiting />,
+      },
+      {
+        index: true,
+        element: <ResSearch />,
       },
     ],
   },
