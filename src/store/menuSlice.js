@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addMenu } from "../api/menu";
+import { addMenu, getMenus as fetchMenus, deleteMenu } from "../api/menu";
 
 const asyncAddMenu = createAsyncThunk(
   "menuSlice/asyncAddMenu",
@@ -9,10 +9,30 @@ const asyncAddMenu = createAsyncThunk(
   }
 );
 
+const asyncGetMenus = createAsyncThunk(
+  "menuSlice/asyncGetMenus",
+  async (page, restaurant) => {
+    const result = await fetchMenus(page, restaurant);
+    return result.data;
+  }
+);
+
+// const asyncDeleteMenu = createAsyncThunk(
+//   "menuSlice/asyncDeleteMenu",
+//   async (id) => {
+//     const result = await deleteMenu(id);
+//     return result.data;
+//   }
+// );
+
 const menuSlice = createSlice({
   name: "menuSlice",
-  initialState: {},
-  reducers: {},
+  initialState: [], // 메뉴 항목을 저장할 빈 배열 추가
+  reducers: {
+    setMenuList: (state, action) => {
+      state.menuList = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // .addCase(asyncRegister.pending, (state, action) => {})
@@ -21,11 +41,14 @@ const menuSlice = createSlice({
       })
       .addCase(asyncAddMenu.fulfilled, (state, action) => {
         alert("메뉴 등록 성공");
-
-        return action.payload;
+        state.menuList.push(action.payload);
+      })
+      .addCase(asyncGetMenus.fulfilled, (state, action) => {
+        state.menuList = action.payload;
       });
   },
 });
 
 export default menuSlice;
-export { asyncAddMenu };
+export { asyncAddMenu, asyncGetMenus };
+export const { setMenuList } = menuSlice.actions;
