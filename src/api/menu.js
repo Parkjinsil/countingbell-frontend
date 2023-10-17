@@ -5,14 +5,13 @@ const instance = axios.create({
 });
 
 export const addMenu = async (data) => {
-  return await instance.post("menu", data);
+  console.log("메뉴추가 axios call!!");
+  return await instance.post("public/menu", data);
 };
 
-export const getMenus = async (page, restaurant) => {
+export const getMenus = async (page) => {
+  console.log("메뉴전체보기 axios call!!");
   let url = `public/menu?page=${page}`;
-  if (restaurant !== null) {
-    url += `$restaurant=${restaurant}`;
-  }
   return await instance.get(url);
 };
 

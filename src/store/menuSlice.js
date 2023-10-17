@@ -11,23 +11,15 @@ const asyncAddMenu = createAsyncThunk(
 
 const asyncGetMenus = createAsyncThunk(
   "menuSlice/asyncGetMenus",
-  async (page, restaurant) => {
-    const result = await fetchMenus(page, restaurant);
+  async (page) => {
+    const result = await fetchMenus(page);
     return result.data;
   }
 );
 
-// const asyncDeleteMenu = createAsyncThunk(
-//   "menuSlice/asyncDeleteMenu",
-//   async (id) => {
-//     const result = await deleteMenu(id);
-//     return result.data;
-//   }
-// );
-
 const menuSlice = createSlice({
   name: "menuSlice",
-  initialState: [], // 메뉴 항목을 저장할 빈 배열 추가
+  initialState: { menuList: [] }, // 초기 상태를 객체로 설정
   reducers: {
     setMenuList: (state, action) => {
       state.menuList = action.payload;
