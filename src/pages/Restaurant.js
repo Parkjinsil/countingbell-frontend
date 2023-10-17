@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {} from "react-bootstrap";
-import { StarFill } from "react-bootstrap-icons";
+import { StarFill, SuitHeart } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
@@ -201,6 +201,10 @@ const Restaurant = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+  
+  //하트눌렀을때 색변경되는거
+  // const []
+  
 
   return (
     <div>
@@ -215,12 +219,17 @@ const Restaurant = () => {
             />
           </div>
           <div className="col-5">
-            <div className="res11 py-3 mb-3">
+            <div className="res11 py-3 mb-1">
               <h2 className="res111 fw-bold fs-2">
                 레스토랑스
-                <span
+              </h2>
+              <div className="res11 fs-6 mt-2">
+                이탈리아 음식 ㆍ강남
+              </div>
+              <div className="additional mt-3">
+              <span
                   className="res2 fs-5 fw-bold text-muted"
-                  style={{ margin: "0px 10px 0px 50px" }}
+                  style={{  }}
                 >
                   <StarFill
                     className="bi bi-star-fill mb-1"
@@ -228,13 +237,15 @@ const Restaurant = () => {
                   />{" "}
                   4.6
                 </span>
-                <span className="res3 fs-6 fw-bold text-muted">
+                <span className="res3 fs-6 fw-bold text-muted m-3">
                   ㆍ리뷰 36 개
                 </span>
-              </h2>
-              <div className="res11 fs-6 fw-medium text-muted mt-2">
-                이탈리아 음식 ㆍ강남
+                <span className="get" style={{paddingLeft:'10px'}}>
+                <SuitHeart class="bi bi-suit-heart"></SuitHeart>
+                {" "}찜하기
+              </span>
               </div>
+
             </div>
 
             <table className="table table-borderless ">

@@ -17,6 +17,7 @@ import Reservation from "./pages/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
+import Discount from "./pages/Discount";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ResSearch />,
+      },
+    ],
+  },
+  {
+    path: "discount",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Discount />,
       },
     ],
   },
