@@ -17,6 +17,7 @@ import Reservation from "./pages/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
+import AddMenu from "./pages/menus/AddMenu";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +146,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MyPage />,
+      },
+    ],
+  },
+  {
+    path: "addmenus",
+    children: [
+      {
+        index: true,
+        element: <AddMenu />,
       },
     ],
   },
