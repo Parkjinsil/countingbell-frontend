@@ -25,6 +25,7 @@ const MenuBoard = () => {
   // const menuList = useSelector((state) => state.menu.menuList);
 
   const [menus, setMenus] = useState([]);
+  const [id, setId] = useState(1);
   const [page, setPage] = useState(1); // 페이지 초기값은 1로 설정
 
   const menuAPI = async () => {
