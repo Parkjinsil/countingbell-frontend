@@ -49,6 +49,7 @@ const Discount = () => {
             <Form.Group className="mb-3">
               <button type="submit" className="btn btn-primary">할인등록</button>
             </Form.Group>
+            
           </Form>
         </Container>
         </div>
