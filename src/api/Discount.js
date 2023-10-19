@@ -14,13 +14,13 @@ export const getDiscounts = async (page) => {
 };
 
 export const getDiscount = async (id) => {
-  return await instance.get("discount" + id);
+  return await instance.get("discount/" + id);
 };
 
-export const postDiscount = async (data) => {
+export const putDiscount = async (data) => {
   return await instance.put("discount", data);
 };
 
 export const delDiscount = async (id) => {
-  return await instance.delete("discount" + id);
+  return await instance.delete("discount/" + id);
 };

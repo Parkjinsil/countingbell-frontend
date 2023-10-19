@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import {
   asyncAddDiscount,
-  //asyncViewDiscounts,
   asyncViewDiscount,
   asyncUpdateDiscount,
   asyncDeleteDiscount,
@@ -21,45 +20,41 @@ const H1 = styled.h1`
 
 const Discount = () => {
   const dispatch = useDispatch();
+  const [disDesc, setDisDesc] = useState(""); // 할인설명 상태
+  const [disPeriod, setDisPeriod] = useState(""); // 할인기간 상태
+  const [resCode, setResCode] = useState(""); // 식당코드 상태
+  const [disCode, setDisCode] = useState(""); // 할인코드 상태
 
   const onAddDiscount = (e) => {
-    e.preventDefault(); //폼 제출을 중지하여 페이지가 다시 로드되지 않게
+    e.preventDefault();
 
     const formData = new FormData();
-    formData.append("disDesc", e.target.disDesc.value);
-    formData.append("disPeriod", e.target.disPeriod.value);
-    formData.append("resCode", e.target.resCode.value);
-
-    console.log(formData);
+    formData.append("disDesc", disDesc);
+    formData.append("disPeriod", disPeriod);
+    formData.append("resCode", resCode);
 
     dispatch(asyncAddDiscount(formData));
   };
 
   const onSearchDiscount = (e) => {
     e.preventDefault();
-    // 할인 조회 기능을 구현합니다.
-    // 예를 들어, 입력된 식당 코드 (e.target.resCode.value)를 사용하여 할인 정보를 조회할 수 있습니다.
-    dispatch(asyncViewDiscount(e.target.resCode.value));
+    dispatch(asyncViewDiscount(disCode));
   };
 
   const onUpdateDiscount = (e) => {
     e.preventDefault();
-    // 할인 수정 기능을 구현합니다.
-    // 예를 들어, 입력된 할인 설명, 기간 등을 사용하여 해당 할인을 업데이트할 수 있습니다.
     dispatch(
       asyncUpdateDiscount({
-        disDesc: e.target.disDesc.value,
-        disPeriod: e.target.disPeriod.value,
-        resCode: e.target.resCode.value,
+        disCode: disCode,
+        disDesc: disDesc,
+        disPeriod: disPeriod,
       })
     );
   };
 
   const onCancelDiscount = (e) => {
     e.preventDefault();
-    // 할인 취소 기능을 구현합니다.
-    // 예를 들어, 입력된 식당 코드 (e.target.resCode.value)를 사용하여 해당 식당의 할인을 취소할 수 있습니다.
-    dispatch(asyncDeleteDiscount(e.target.resCode.value));
+    dispatch(asyncDeleteDiscount(disCode));
   };
 
   return (
@@ -71,63 +66,82 @@ const Discount = () => {
         <Container>
           <H1>할인</H1>
           <Form
+            onSubmit={onAddDiscount}
             style={{ width: "600px", margin: "0 auto" }}
-            onSubmit={onSearchDiscount}
           >
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="할인설명" name="disDesc" />
+              <Form.Control
+                type="text"
+                placeholder="할인설명 : 할인등록, 할인수정시 작성해주세요."
+                name="disDesc"
+                value={disDesc}
+                onChange={(e) => setDisDesc(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="할인기간"
+                placeholder="할인기간 : 할인등록, 할인수정시 작성해주세요."
                 name="disPeriod"
+                value={disPeriod}
+                onChange={(e) => setDisPeriod(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="식당코드" name="resCode" />
+              <Form.Control
+                type="text"
+                placeholder="식당코드 : 할인등록시 작성해주세요."
+                name="resCode"
+                value={resCode}
+                onChange={(e) => setResCode(e.target.value)}
+              />
             </Form.Group>
-            <Form.Group className="mb-3" style={{ width: "700px" }}>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="할인코드 : 할인조회, 할인수정, 할인삭제시 작성해주세요."
+                name="disCode"
+                value={disCode}
+                onChange={(e) => setDisCode(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
               <span className="btn1" style={{ paddingRight: "25px" }}>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  onClick={onAddDiscount}
-                >
+                <button type="submit" className="btn btn-primary">
                   할인등록
                 </button>
               </span>
-              <span className="btn2" style={{ paddingRight: "25px" }}>
-                <button type="submit" className="btn btn-primary">
-                  할인전체조회
-                </button>
-              </span>
               <span className="btn3" style={{ paddingRight: "25px" }}>
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="button"
+                  className="btn btn-primary 1"
+                  onClick={onSearchDiscount}
+                >
                   할인조회
                 </button>
               </span>
               <span className="btn4" style={{ paddingRight: "25px" }}>
                 <button
-                  type="submit"
-                  className="btn btn-primary"
+                  type="button"
+                  className="btn btn-primary 2"
                   onClick={onUpdateDiscount}
                 >
-                  할인등록수정
+                  할인수정
                 </button>
               </span>
               <span className="btn5">
                 <button
-                  type="submit"
-                  className="btn btn-primary"
+                  type="button"
+                  className="btn btn-primary 3"
                   onClick={onCancelDiscount}
                 >
-                  할인등록취소
+                  할인삭제
                 </button>
               </span>
             </Form.Group>
           </Form>
         </Container>
+        <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5"></div>
       </div>
     </div>
   );

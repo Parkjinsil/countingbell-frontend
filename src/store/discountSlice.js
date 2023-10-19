@@ -3,7 +3,7 @@ import {
   addDiscount,
   getDiscounts,
   getDiscount,
-  postDiscount,
+  putDiscount,
   delDiscount,
 } from "../api/Discount";
 
@@ -42,7 +42,7 @@ const asyncViewDiscount = createAsyncThunk(
 const asyncUpdateDiscount = createAsyncThunk(
   "discountSlice/asyncUpdateDiscount",
   async (data) => {
-    const result = await postDiscount(data);
+    const result = await putDiscount(data);
     return result.data;
   }
 );
