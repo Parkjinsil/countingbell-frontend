@@ -91,19 +91,31 @@ const MenuBoard = () => {
               <td>{menu.menuCode}</td>
               <td>{menu.menuName}</td>
               <td>{menu.menuPrice}</td>
-              <td>{menu.menuPicture}</td>
+              <td>
+                <img src={menu.menuPicture} />
+              </td>
               <td>{menu.restaurant.resCode}</td>
               <td>
-                <button onClick={() => onUpdate(menu.menuCode)}>수정</button>
+                <button
+                  class="btn btn-outline-primary"
+                  onClick={() => onUpdate(menu.menuCode)}
+                >
+                  수정
+                </button>
               </td>
               <td>
-                <button onClick={() => onDelete(menu.menuCode)}>삭제</button>
+                <button
+                  class="btn btn-outline-danger"
+                  onClick={() => onDelete(menu.menuCode)}
+                >
+                  삭제
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button>
+      <button class="btn btn-outline-warning">
         <Link to="/addmenu">추가</Link>
       </button>
 
@@ -115,15 +127,42 @@ const MenuBoard = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
       />
-      <button type="button" id="searchBtn" onClick={handleSearch}>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="searchBtn"
+        onClick={handleSearch}
+      >
         <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
       </button>
       <PagingStyle>
-        {/* <div>
-          <a href="#"> Prev</a>
-          <a href="#">Num</a>
-          <a href="#">Next</a>
-        </div> */}
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </PagingStyle>
     </Container>
   );
