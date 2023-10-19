@@ -9,6 +9,7 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const H1 = styled.h1`
   font-size: 20px;
@@ -19,6 +20,7 @@ const H1 = styled.h1`
 
 const AddMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ const AddMenu = () => {
       .then(() => {
         // 메뉴 등록이 성공하면 메뉴 목록을 다시 불러와서 업데이트합니다.
         dispatch(asyncGetMenus(1, null));
+        navigate("/menuboard");
       })
       .catch((error) => {
         console.error(error);

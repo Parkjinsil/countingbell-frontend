@@ -38,9 +38,13 @@ const MenuBoard = () => {
     menuAPI();
   }, []);
 
-  const handleDelete = (id) => {
-    // 여기에 삭제 로직을 구현합니다.
-    alert(`ID가 ${id}인 메뉴를 삭제합니다.`);
+  const handleDelete = (menuCode) => {
+    const newList = menus.filter(
+      (item) => item.menuCode !== parseInt(menuCode)
+    );
+
+    setMenus(newList);
+    alert(`메뉴를 삭제합니다.`);
   };
 
   return (
@@ -58,14 +62,16 @@ const MenuBoard = () => {
         </thead>
         <tbody>
           {menus.map((menu) => (
-            <tr key={menu.id}>
-              <td>{menu.id}</td>
+            <tr key={menu.menuCode}>
+              <td>{menu.menuCode}</td>
               <td>{menu.menuName}</td>
               <td>{menu.menuPrice}</td>
               <td>{menu.menuPicture}</td>
               <td>{menu.resCode}</td>
               <td>
-                <button onClick={() => handleDelete(menu.id)}>삭제</button>
+                <button onClick={() => handleDelete(menu.menuCode)}>
+                  삭제
+                </button>
               </td>
             </tr>
           ))}

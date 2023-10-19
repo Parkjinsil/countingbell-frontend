@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const addMenu = async (data) => {
   console.log("메뉴추가 axios call!!");
-  return await instance.post("public/menu", data);
+  return await instance.post("menu", data);
 };
 
 export const getMenus = async (page) => {
