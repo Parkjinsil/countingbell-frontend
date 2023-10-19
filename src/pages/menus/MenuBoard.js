@@ -3,14 +3,13 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-
-import { getMenus, updateMenu } from "../../api/menu";
+import { useDispatch, useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { asyncDeleteMenu, asyncGetMenus } from "../../store/menuSlice";
 
 const PagingStyle = styled.div`
   display: flex;
@@ -29,45 +28,39 @@ const MenuBoard = () => {
   // 검색어
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = async () => {
-    const result = await getMenus(page, searchTerm); // 검색어를 API로 전달
-    setMenus(result.data);
-  };
+  // const handleSearch = async () => {
+  //   const result = await getMenus(page, searchTerm); // 검색어를 API로 전달
+  //   setMenus(result.data);
+  // };
 
-  // const menuList = useSelector((state) => state.menu.menuList);
-
-  const [menus, setMenus] = useState([]);
-  const [id, setId] = useState(1);
-  const [page, setPage] = useState(1); // 페이지 초기값은 1로 설정
-
-  const menuAPI = async () => {
-    const result = await getMenus(page);
-    console.log(result.data);
-    setMenus([...menus, ...result.data]);
-  };
+  const menus = useSelector((state) => state.menu.menuList);
 
   useEffect(() => {
-    menuAPI();
-  }, []);
+    dispatch(asyncGetMenus(1)); // 페이지 번호를 전달하여 초기 메뉴 목록 불러오기
+  }, [dispatch]);
+
+  const [page, setPage] = useState(1); // 페이지 초기값은 1로 설정
+
+  const [menu, setMenu] = useState([]);
 
   const onDelete = (menuCode) => {
+    // dispatch(asyncDeleteMenu(menu.menuCode));
     const newList = menus.filter(
       (item) => item.menuCode !== parseInt(menuCode)
     );
-
-    setMenus(newList);
+    setMenu(newList);
     alert(`메뉴를 삭제합니다.`);
   };
 
   const onUpdate = () => {
-    dispatch(
-      updateMenu({
-        resCode: menus.resCode,
-        menuName: menus.menuName,
-        menuPrice: menus.menuPrice,
-        menuPicture: menus.menuPicture,
-      })
-    );
+    // dispatch(
+    //   updateMenu({
+    //     resCode: menus.resCode,
+    //     menuName: menus.menuName,
+    //     menuPrice: menus.menuPrice,
+    //     menuPicture: menus.menuPicture,
+    //   })
+    // );
     navigate("/updatemenu");
   };
 
@@ -97,7 +90,7 @@ const MenuBoard = () => {
               <td>{menu.restaurant.resCode}</td>
               <td>
                 <button
-                  class="btn btn-outline-primary"
+                  className="btn btn-outline-primary"
                   onClick={() => onUpdate(menu.menuCode)}
                 >
                   수정
@@ -105,7 +98,7 @@ const MenuBoard = () => {
               </td>
               <td>
                 <button
-                  class="btn btn-outline-danger"
+                  className="btn btn-outline-danger"
                   onClick={() => onDelete(menu.menuCode)}
                 >
                   삭제
@@ -115,7 +108,7 @@ const MenuBoard = () => {
           ))}
         </tbody>
       </table>
-      <button class="btn btn-outline-warning">
+      <button className="btn btn-outline-warning">
         <Link to="/addmenu">추가</Link>
       </button>
 
@@ -129,35 +122,35 @@ const MenuBoard = () => {
       />
       <button
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary"
         id="searchBtn"
-        onClick={handleSearch}
+        // onClick={handleSearch}
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
       </button>
       <PagingStyle>
         <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
+          <ul className="pagination">
+            <li className="page-item disabled">
+              <a className="page-link">Previous</a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
+            <li className="page-item">
+              <a className="page-link" href="#">
                 1
               </a>
             </li>
-            <li class="page-item active" aria-current="page">
-              <a class="page-link" href="#">
+            <li className="page-item active" aria-current="page">
+              <a className="page-link" href="#">
                 2
               </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
+            <li className="page-item">
+              <a className="page-link" href="#">
                 3
               </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
+            <li className="page-item">
+              <a className="page-link" href="#">
                 Next
               </a>
             </li>

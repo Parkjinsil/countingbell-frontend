@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addMenu,
-  getMenus as fetchMenus,
+  getMenus,
   updateMenu,
   getMenu,
   deleteMenu,
@@ -18,7 +18,7 @@ const asyncAddMenu = createAsyncThunk(
 const asyncGetMenus = createAsyncThunk(
   "menuSlice/asyncGetMenus",
   async (page) => {
-    const result = await fetchMenus(page);
+    const result = await getMenus(page);
     return result.data;
   }
 );
@@ -44,6 +44,14 @@ const asyncUpdateMenu = createAsyncThunk(
     return result.data;
   }
 );
+
+// const asyncDeleteMenu = createAsyncThunk(
+//   "menuSlice/asyncDeleteMenu",
+//   async (data) => {
+//     const result = await deleteMenu(data);
+//     return result.data;
+//   }
+// );
 
 const menuSlice = createSlice({
   name: "menuSlice",
@@ -95,6 +103,17 @@ const menuSlice = createSlice({
 
         alert("메뉴 수정 성공");
       });
+
+    //  메뉴 삭제
+    // .addCase(asyncDeleteMenu.fulfilled, (state, action) => {
+    //   const deletedMenuCode = action.payload;
+    //   state.menuList = state.menuList.filter(
+    //     (item) => item.menuCode !== deletedMenuCode
+    //   );
+    // })
+    // .addCase(asyncDeleteMenu.rejected, (state, action) => {
+    //   return alert("메뉴 삭제에 실패했습니다.");
+    // });
   },
 });
 

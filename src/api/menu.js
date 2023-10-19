@@ -16,7 +16,9 @@ export const getMenus = async (page) => {
 };
 
 export const getMenu = async (id) => {
-  return await instance.get("public/menu/" + id);
+  console.log("메뉴 1개보기 axios call!!");
+  let url = `public/menu/${id}`;
+  return await instance.get(url);
 };
 
 export const updateMenu = async (data) => {
@@ -24,6 +26,6 @@ export const updateMenu = async (data) => {
   return await instance.put("menu", data);
 };
 
-export const deleteMenu = async (id) => {
-  return await instance.delete("menu/" + id);
-};
+// export const deleteMenu = async (id) => {
+//   return await instance.delete("menu/" + id);
+// };
