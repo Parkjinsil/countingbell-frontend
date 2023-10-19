@@ -19,6 +19,11 @@ export const getMenu = async (id) => {
   return await instance.get("public/menu/" + id);
 };
 
-// export const deleteMenu = async (id) => {
-//   return await instance.delete("menu/" + id);
-// };
+export const updateMenu = async (data) => {
+  console.log("메뉴수정 axios call!!");
+  return await instance.put("menu", data);
+};
+
+export const deleteMenu = async (id) => {
+  return await instance.delete("menu/" + id);
+};

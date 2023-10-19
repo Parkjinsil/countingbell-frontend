@@ -19,6 +19,7 @@ import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
 import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
+import MenuUpdate from "./pages/menus/MenuUpdate";
 
 const router = createBrowserRouter([
   {
@@ -156,6 +157,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AddMenu />,
+      },
+    ],
+  },
+  {
+    path: "updatemenu",
+    children: [
+      {
+        index: true,
+        element: <MenuUpdate />,
       },
     ],
   },
