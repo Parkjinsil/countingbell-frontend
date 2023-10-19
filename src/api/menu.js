@@ -26,6 +26,6 @@ export const updateMenu = async (data) => {
   return await instance.put("menu", data);
 };
 
-// export const deleteMenu = async (id) => {
-//   return await instance.delete("menu/" + id);
-// };
+export const deleteMenu = async (id) => {
+  return await instance.delete("menu/" + id);
+};

@@ -4,12 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { deleteMenu } from "../../api/menu";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { asyncDeleteMenu, asyncGetMenus } from "../../store/menuSlice";
+import {
+  asyncDeleteMenu,
+  asyncGetMenus,
+  setMenuList,
+} from "../../store/menuSlice";
 
 const PagingStyle = styled.div`
   display: flex;
@@ -37,19 +41,23 @@ const MenuBoard = () => {
 
   useEffect(() => {
     dispatch(asyncGetMenus(1)); // 페이지 번호를 전달하여 초기 메뉴 목록 불러오기
+    const updatedMenuList = []; // 업데이트된 메뉴 목록
+    dispatch(setMenuList(updatedMenuList)); // Redux 상태 업데이트
   }, [dispatch]);
 
   const [page, setPage] = useState(1); // 페이지 초기값은 1로 설정
 
-  const [menu, setMenu] = useState([]);
+  // const [menu, setMenu] = useState([]);
 
-  const onDelete = (menuCode) => {
-    // dispatch(asyncDeleteMenu(menu.menuCode));
-    const newList = menus.filter(
-      (item) => item.menuCode !== parseInt(menuCode)
-    );
-    setMenu(newList);
-    alert(`메뉴를 삭제합니다.`);
+  const onDelete = async (menuCode) => {
+    try {
+      await deleteMenu(menuCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
+      alert(`메뉴를 삭제했습니다.`);
+
+      await dispatch(asyncGetMenus(1)); // Redux 상태 업데이트
+    } catch (error) {
+      alert(`메뉴 삭제에 실패했습니다. 에러: ${error.message}`);
+    }
   };
 
   const onUpdate = () => {
