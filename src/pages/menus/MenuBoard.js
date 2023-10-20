@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { deleteMenu } from "../../api/menu";
+import { deleteMenu, updateMenu } from "../../api/menu";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -60,16 +59,14 @@ const MenuBoard = () => {
     }
   };
 
-  const onUpdate = () => {
-    // dispatch(
-    //   updateMenu({
-    //     resCode: menus.resCode,
-    //     menuName: menus.menuName,
-    //     menuPrice: menus.menuPrice,
-    //     menuPicture: menus.menuPicture,
-    //   })
-    // );
-    navigate("/updatemenu");
+  const onUpdate = async (menuCode) => {
+    try {
+      await updateMenu(menuCode);
+      await dispatch(asyncGetMenus(1));
+    } catch (error) {
+      alert(`메뉴 수정에 실패했습니다. 에러: ${error.message}`);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -98,11 +95,125 @@ const MenuBoard = () => {
               <td>{menu.restaurant.resCode}</td>
               <td>
                 <button
-                  className="btn btn-outline-primary"
-                  onClick={() => onUpdate(menu.menuCode)}
+                  type="button"
+                  className="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#exampleModal${menu.menuCode}`}
+                  data-bs-whatever="@mdo"
                 >
                   수정
                 </button>
+                <div
+                  className="modal fade"
+                  id={`exampleModal${menu.menuCode}`}
+                  tabIndex="-1"
+                  aria-labelledby={`exampleModalLabel${menu.menuCode}`}
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
+                          메뉴 수정하기
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <form>
+                          <div className="mb-3">
+                            <label htmlFor="resCode" className="col-form-label">
+                              식당코드 :
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="resCode"
+                              value={menu.restaurant.resCode}
+                              readOnly
+                            />
+                          </div>
+                          <div className="mb-3" hidden>
+                            <label
+                              htmlFor="menuCode"
+                              className="col-form-label"
+                            >
+                              메뉴코드 :
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="menuCode"
+                              value={menu.menuCode}
+                              readOnly
+                            />
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="menuName"
+                              className="col-form-label"
+                            >
+                              메뉴명 :
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="menuName"
+                              placeholder={menu.menuName}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="menuPrice"
+                              className="col-form-label"
+                            >
+                              가격 :
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="menuPrice"
+                              placeholder={menu.menuPrice}
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="menuPicture"
+                              className="col-form-label"
+                            >
+                              이미지 :
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              id="menuPicture"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          취소
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => onUpdate(menu.menuCode)}
+                        >
+                          확인
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
               <td>
                 <button
