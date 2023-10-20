@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // useSelector 추가
 import { asyncUpdateMenu, asyncGetMenus } from "../../store/menuSlice";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,26 +17,25 @@ const H1 = styled.h1`
 const MenuUpdate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const menu = useSelector((state) => state.menu); // menu 상태 추가
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("resCode", formData.resCode);
-    formData.append("menuName", formData.menuName);
-    formData.append("menuPrice", formData.menuPrice);
-    formData.append("menuPicture", formData.menuPicture);
-    console.log(formData);
-
-    dispatch(asyncUpdateMenu(formData))
-      .then(() => {
-        // 메뉴 등록이 성공하면 메뉴 목록을 다시 불러와서 업데이트합니다.
-        dispatch(asyncGetMenus(1, null));
-        navigate("/menuboard");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // e.preventDefault();
+    // const updatedMenu = {
+    //   menuCode: e.target.resCode.value, // 수정
+    //   menuName: e.target.menuName.value,
+    //   menuPrice: e.target.menuPrice.value,
+    //   menuPicture: e.target.menuPicture.files[0],
+    //   resCode: e.target.menu.restaurant.resCode.value,
+    // };
+    // dispatch(asyncUpdateMenu(updatedMenu))
+    //   .then(() => {
+    //     dispatch(asyncGetMenus(1, null));
+    //     navigate("/menuboard");
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   return (
@@ -44,19 +43,35 @@ const MenuUpdate = () => {
       <H1>메뉴 수정</H1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="식당 코드" name="resCode" />
+          <Form.Control
+            type="text"
+            placeholder="식당 코드"
+            name="resCode"
+            value={menu.restaurant.resCode}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="메뉴명" name="menuName" />
+          <Form.Control
+            type="text"
+            placeholder="메뉴명"
+            name="menuName"
+            value={menu.menuName}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="메뉴가격" name="menuPrice" />
+          <Form.Control
+            type="text"
+            placeholder="메뉴가격"
+            name="menuPrice"
+            value={menu.menuPrice}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control
             type="file"
             placeholder="메뉴 사진"
             name="menuPicture"
+            value={menu.menuPicture}
           />
         </Form.Group>
         <Form.Group className="mb-3">

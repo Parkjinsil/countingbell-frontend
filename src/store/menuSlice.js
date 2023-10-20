@@ -31,16 +31,16 @@ const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
 // const asyncUpdateMenu = createAsyncThunk(
 //   "menuSlice/asyncUpdateMenu",
 //   async ({ id, updatedData }) => {
-//     // 수정할 메뉴의 id와 업데이트된 데이터를 받습니다.
+//    // 수정할 메뉴의 id와 업데이트된 데이터를 받습니다.
 //     const result = await updateMenu(id, updatedData); // updateMenu 함수에 id와 업데이트된 데이터를 전달합니다.
 //     return result.data;
-//   }
+//    }
 // );
 
 const asyncUpdateMenu = createAsyncThunk(
   "menuSlice/asyncUpdateMenu",
   async (data) => {
-    const result = await updateMenu(data); //
+    const result = await updateMenu(data);
     return result.data;
   }
 );
@@ -97,9 +97,9 @@ const menuSlice = createSlice({
         const updatedMenu = action.payload; // 업데이트된 메뉴 정보를 받아옵니다.
 
         // 기존 메뉴를 찾아 업데이트합니다.
-        state.menuList = state.menuList.map((menu) =>
-          menu.id === updatedMenu.id ? updatedMenu : menu
-        );
+        // state.menuList = state.menuList.map((menu) =>
+        //   menu.id === updatedMenu.id ? updatedMenu : menu
+        // );
 
         alert("메뉴 수정 성공");
       });

@@ -11,6 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {
   asyncDeleteMenu,
   asyncGetMenus,
+  asyncUpdateMenu,
   setMenuList,
 } from "../../store/menuSlice";
 
@@ -25,6 +26,12 @@ const PagingStyle = styled.div`
 `;
 
 const MenuBoard = () => {
+  const [menuName, setMenuName] = useState("");
+  const [menuPrice, setMenuPrice] = useState("");
+  const [menuPicture, setMenuPicture] = useState("");
+  const [menuCode, setMenuCode] = useState("");
+  const [resCode, setResCode] = useState("");
+  //const [item, setItem] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -59,14 +66,44 @@ const MenuBoard = () => {
     }
   };
 
-  const onUpdate = async (menuCode) => {
-    try {
-      await updateMenu(menuCode);
-      await dispatch(asyncGetMenus(1));
-    } catch (error) {
-      alert(`메뉴 수정에 실패했습니다. 에러: ${error.message}`);
-      console.log(error.message);
-    }
+  const onUpdate = async () => {
+    console.log(menuName);
+    console.log(menuPrice);
+    console.log(menuPicture);
+    console.log(menuCode);
+    console.log(resCode);
+
+    //console.log(e.target.value.menuName);
+    //const menuName = document.querySelector("#menuName");
+    //console.log(menuName);
+    //console.log(menuName.value);
+    //console.log(menuName);
+    //console.log(e.target.menuName); // 데이터 옴
+
+    const formData = new FormData();
+    formData.append("menuName", menuName);
+    formData.append("menuPrice", menuPrice);
+    formData.append("menuPicture", menuPicture);
+    formData.append("menuCode", menuCode);
+    formData.append("resCode", resCode);
+
+    console.log(formData);
+
+    //dispatch(asyncUpdateMenu(formData))
+    //  .then(() => {
+    //    dispatch(asyncGetMenus(1, null));
+    //  })
+    //  .catch((error) => {
+    //    console.error(error);
+    // });
+
+    //try {
+    //  await dispatch(asyncUpdateMenu(formData));
+
+    // dispatch(asyncGetMenus(1));
+    //} catch (error) {
+    // alert(`메뉴 업데이트에 실패했습니다. 에러: ${error.message}`);
+    //}
   };
 
   return (
@@ -93,6 +130,7 @@ const MenuBoard = () => {
                 <img src={menu.menuPicture} />
               </td>
               <td>{menu.restaurant.resCode}</td>
+
               <td>
                 <button
                   type="button"
@@ -100,6 +138,14 @@ const MenuBoard = () => {
                   data-bs-toggle="modal"
                   data-bs-target={`#exampleModal${menu.menuCode}`}
                   data-bs-whatever="@mdo"
+                  onClick={() => {
+                    //setItem(menu);
+                    setMenuName(menu.menuName);
+                    setMenuPrice(menu.menuPrice);
+                    setMenuPicture(menu.menuPicture);
+                    setMenuCode(menu.menuCode);
+                    setResCode(menu.restaurant.resCode);
+                  }}
                 >
                   수정
                 </button>
@@ -125,7 +171,7 @@ const MenuBoard = () => {
                       </div>
                       <div className="modal-body">
                         <form>
-                          <div className="mb-3">
+                          <div className="mb-3" hidden>
                             <label htmlFor="resCode" className="col-form-label">
                               식당코드 :
                             </label>
@@ -134,6 +180,9 @@ const MenuBoard = () => {
                               className="form-control"
                               id="resCode"
                               value={menu.restaurant.resCode}
+                              onChange={(e) => {
+                                setResCode(e.target.value);
+                              }}
                               readOnly
                             />
                           </div>
@@ -149,6 +198,9 @@ const MenuBoard = () => {
                               className="form-control"
                               id="menuCode"
                               value={menu.menuCode}
+                              onChange={(e) => {
+                                setMenuCode(e.target.value);
+                              }}
                               readOnly
                             />
                           </div>
@@ -164,6 +216,10 @@ const MenuBoard = () => {
                               className="form-control"
                               id="menuName"
                               placeholder={menu.menuName}
+                              value={menuName}
+                              onChange={(e) => {
+                                setMenuName(e.target.value);
+                              }}
                             />
                           </div>
                           <div className="mb-3">
@@ -178,6 +234,9 @@ const MenuBoard = () => {
                               className="form-control"
                               id="menuPrice"
                               placeholder={menu.menuPrice}
+                              onChange={(e) => {
+                                setMenuPrice(e.target.value);
+                              }}
                             />
                           </div>
                           <div className="mb-3">
@@ -191,6 +250,10 @@ const MenuBoard = () => {
                               type="file"
                               className="form-control"
                               id="menuPicture"
+                              placeholder={menu.menuPicture}
+                              onChange={(e) => {
+                                setMenuPicture(e.target.value);
+                              }}
                             />
                           </div>
                         </form>
@@ -206,7 +269,8 @@ const MenuBoard = () => {
                         <button
                           type="button"
                           className="btn btn-primary"
-                          onClick={() => onUpdate(menu.menuCode)}
+                          onClick={onUpdate}
+                          value={menu}
                         >
                           확인
                         </button>
