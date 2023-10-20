@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // useSelector를 사용하여 Redux 스토어의 상태를 읽어옵니다.
 import {
   asyncAddDiscount,
   asyncViewDiscount,
@@ -24,6 +24,16 @@ const Discount = () => {
   const [disPeriod, setDisPeriod] = useState(""); // 할인기간 상태
   const [resCode, setResCode] = useState(""); // 식당코드 상태
   const [disCode, setDisCode] = useState(""); // 할인코드 상태
+
+  //성공 및 에러 메시지에 대한 별도의 상태 
+  //const [successMessage, setSuccessMessage] = useState(null);
+  //const [errorMessage, setErrorMessage] = useState(null);
+
+
+  //Redux 스토어에서 할인 정보를 선택하고 이를 useState를 사용하여 로컬 상태에 저장
+  const discountError = useSelector(state => state.discount.error);
+  const discountSuccess = useSelector(state => state.discount.success);
+  const discountData = useSelector(state => state.discount.data);
 
   const onAddDiscount = (e) => {
     e.preventDefault();
@@ -48,6 +58,7 @@ const Discount = () => {
         disCode: disCode,
         disDesc: disDesc,
         disPeriod: disPeriod,
+        resCode: resCode,
       })
     );
   };
@@ -90,7 +101,7 @@ const Discount = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="식당코드 : 할인등록시 작성해주세요."
+                placeholder="식당코드 : 할인등록, 할인수정시 작성해주세요."
                 name="resCode"
                 value={resCode}
                 onChange={(e) => setResCode(e.target.value)}
@@ -141,7 +152,18 @@ const Discount = () => {
             </Form.Group>
           </Form>
         </Container>
-        <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5"></div>
+        <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
+          {discountError && <p>{discountError}</p>} 
+          {discountSuccess && <p>{discountSuccess}</p>} 
+          {discountData && (
+              <div>
+                <p>할인 코드: {discountData.disCode}</p>
+                <p>할인 설명: {discountData.disDesc}</p>
+                <p>할인 기간: {discountData.disPeriod}</p>
+                {discountData.restaurant && (<p>식당 코드: {discountData.restaurant.resCode}</p>)}
+              </div>
+            )}
+          </div>
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ const asyncDeleteDiscount = createAsyncThunk(
 
 const discountSlice = createSlice({
   name: "discountSlice",
-  initialState: { data: null, error: null, loading: false },
+  initialState: { data: null, error: null, success: null, loading: false },
   reducers: {},
   extraReducers: (builder) => {
     // 할인 추가 액션 성공,실패,로딩시 상태 업데이트
@@ -70,6 +70,7 @@ const discountSlice = createSlice({
       })
       // 액션이 성공한 경우- 데이터 저장
       .addCase(asyncAddDiscount.fulfilled, (state, action) => {
+        state.success = "할인이 성공적으로 등록되었습니다.";
         state.data = action.payload;
         state.loading = false;
       })
@@ -99,6 +100,7 @@ const discountSlice = createSlice({
         state.loading = false;
       })
       .addCase(asyncViewDiscount.fulfilled, (state, action) => {
+        state.success = "요청하신 할인 정보가 조회되었습니다.";
         state.data = action.payload;
         state.loading = false;
       })
@@ -113,6 +115,7 @@ const discountSlice = createSlice({
         state.loading = false;
       })
       .addCase(asyncUpdateDiscount.fulfilled, (state, action) => {
+        state.success = "할인 수정이 성공적으로 완료되었습니다.";
         state.data = action.payload;
         state.loading = false;
       })
@@ -123,10 +126,11 @@ const discountSlice = createSlice({
     // 할인 삭제 액션 성공,실패,로딩시 상태 업데이트
     builder
       .addCase(asyncDeleteDiscount.rejected, (state, action) => {
-        state.error = "할인 수정에 실패했습니다. 다시 시도해주세요.";
+        state.error = "할인 삭제에 실패했습니다. 다시 시도해주세요.";
         state.loading = false;
       })
       .addCase(asyncDeleteDiscount.fulfilled, (state, action) => {
+        state.success = "할인 삭제가 성공적으로 완료되었습니다.";
         state.data = action.payload;
         state.loading = false;
       })
