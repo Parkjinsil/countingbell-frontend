@@ -201,10 +201,9 @@ const Restaurant = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-  
+
   //하트눌렀을때 색변경되는거
   // const []
-  
 
   return (
     <div>
@@ -220,17 +219,10 @@ const Restaurant = () => {
           </div>
           <div className="col-5">
             <div className="res11 py-3 mb-1">
-              <h2 className="res111 fw-bold fs-2">
-                레스토랑스
-              </h2>
-              <div className="res11 fs-6 mt-2">
-                이탈리아 음식 ㆍ강남
-              </div>
+              <h2 className="res111 fw-bold fs-2">레스토랑스</h2>
+              <div className="res11 fs-6 mt-2">이탈리아 음식 ㆍ강남</div>
               <div className="additional mt-3">
-              <span
-                  className="res2 fs-5 fw-bold text-muted"
-                  style={{  }}
-                >
+                <span className="res2 fs-5 fw-bold text-muted" style={{}}>
                   <StarFill
                     className="bi bi-star-fill mb-1"
                     style={{ fontSize: "1.5rem", color: "#FBE94B" }}
@@ -240,12 +232,10 @@ const Restaurant = () => {
                 <span className="res3 fs-6 fw-bold text-muted m-3">
                   ㆍ리뷰 36 개
                 </span>
-                <span className="get" style={{paddingLeft:'10px'}}>
-                <SuitHeart class="bi bi-suit-heart"></SuitHeart>
-                {" "}찜하기
-              </span>
+                <span className="get" style={{ paddingLeft: "10px" }}>
+                  <SuitHeart class="bi bi-suit-heart"></SuitHeart> 찜하기
+                </span>
               </div>
-
             </div>
 
             <table className="table table-borderless ">
@@ -289,6 +279,10 @@ const Restaurant = () => {
                       줄서기
                     </button>
                   </td>
+                </tr>
+                <tr>
+                  <td>할인 :</td>
+                  <td colSpan="3"></td>
                 </tr>
               </tbody>
             </table>
