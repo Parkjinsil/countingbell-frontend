@@ -59,7 +59,14 @@ const asyncDeleteDiscount = createAsyncThunk(
 const discountSlice = createSlice({
   name: "discountSlice",
   initialState: { data: null, error: null, success: null, loading: false },
-  reducers: {},
+  reducers: {
+    resetState: (state) => {
+      state.data = null;
+      state.error = null;
+      state.success = null;
+      state.loading = false;
+    },
+  },
   extraReducers: (builder) => {
     // 할인 추가 액션 성공,실패,로딩시 상태 업데이트
     builder
