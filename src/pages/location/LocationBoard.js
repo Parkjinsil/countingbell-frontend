@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { asyncAddLocation, asyncGetLocations } from "../../store/locationSlice";
+import {
+  asyncAddLocation,
+  asyncGetLocations,
+  asyncUpdateLocation,
+} from "../../store/locationSlice";
 import { setLocationList } from "../../store/locationSlice";
 import { useState } from "react";
 import { deleteLocation } from "../../api/location";
@@ -24,14 +29,13 @@ const LocaionBoard = () => {
     dispatch(setLocationList(updatedLocationList));
   }, [dispatch]);
 
+  // 지역 등록
   const [showAddTable, setShowAddTable] = useState(false);
-
   const toggleAddTable = () => {
     setShowAddTable(!showAddTable);
   };
 
-  // 지역 등록
-  const onUpdate = (e) => {
+  const onAddLocation = (e) => {
     e.preventDefault();
 
     console.log(e.target.localCode.value);
@@ -41,6 +45,26 @@ const LocaionBoard = () => {
 
     console.log(formData);
     dispatch(asyncAddLocation(formData)).then(() =>
+      dispatch(asyncGetLocations(1, null))
+    );
+  };
+
+  // 지역 수정
+  const [showUpdateTable, setShowUpdateTable] = useState(false);
+  const toggleUpdateTable = () => {
+    setShowUpdateTable(!showUpdateTable);
+  };
+
+  const onUpdateLocation = (e) => {
+    e.preventDefault();
+
+    console.log(e.target.localCode.value);
+    console.log(e.target.localName.value);
+
+    const formData = { localCode, localName };
+
+    console.log(formData);
+    dispatch(asyncUpdateLocation(formData)).then(() =>
       dispatch(asyncGetLocations(1, null))
     );
   };
@@ -69,24 +93,16 @@ const LocaionBoard = () => {
               <tr>
                 <th>구분</th>
                 <th>위치</th>
-                <th>수정</th>
+
                 <th>삭제</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations.map((location) => (
+              {locations.map((location, index) => (
                 <tr key={location.localCode}>
                   <td>{location.localCode}</td>
                   <td>{location.localName}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      // onClick={() => onUpdate(location.localCode)}
-                    >
-                      수정
-                    </button>
-                  </td>
+
                   <td>
                     <button
                       className="btn btn-outline-danger"
@@ -107,15 +123,22 @@ const LocaionBoard = () => {
           >
             추가
           </button>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={toggleUpdateTable}
+          >
+            수정
+          </button>
+
           <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
             {showAddTable && (
-              <Form onSubmit={onUpdate}>
+              <Form onSubmit={onAddLocation}>
                 <Form.Group className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder="위치 코드"
                     name="localCode"
-                    //readOnly
                     hidden
                   />
                 </Form.Group>
@@ -132,6 +155,34 @@ const LocaionBoard = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Control type="submit" value="위치 등록" />
+                </Form.Group>
+              </Form>
+            )}
+            {showUpdateTable && (
+              <Form onSubmit={onUpdateLocation}>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    placeholder="위치 코드"
+                    name="localCode"
+                    onChange={(e) => {
+                      setLocalCode(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    placeholder="위치 입력"
+                    name="localName"
+                    onChange={(e) => {
+                      setLocalName(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Control type="submit" value="위치 수정" />
                 </Form.Group>
               </Form>
             )}
