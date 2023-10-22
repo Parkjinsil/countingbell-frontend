@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { asyncAddLocation, asyncGetLocations } from "../../store/locationSlice";
 import { setLocationList } from "../../store/locationSlice";
 import { useState } from "react";
+import { deleteLocation } from "../../api/location";
 
 const LocaionBoard = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const LocaionBoard = () => {
     setShowAddTable(!showAddTable);
   };
 
+  // 지역 등록
   const onUpdate = (e) => {
     e.preventDefault();
 
@@ -37,13 +39,22 @@ const LocaionBoard = () => {
 
     const formData = { localCode, localName };
 
-    // const formData = new FormData();
-    //formData.append("localCode", e.target.localCode.value);
-    //formData.append("localName", e.target.localName.value);
     console.log(formData);
     dispatch(asyncAddLocation(formData)).then(() =>
       dispatch(asyncGetLocations(1, null))
     );
+  };
+
+  // 지역 삭제
+  const onDelete = async (localCode) => {
+    try {
+      await deleteLocation(localCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
+      alert(`지역을 삭제했습니다.`);
+
+      await dispatch(asyncGetLocations(1)); // Redux 상태 업데이트
+    } catch (error) {
+      alert(`지역 삭제에 실패했습니다. 에러: ${error.message}`);
+    }
   };
 
   return (
@@ -79,7 +90,7 @@ const LocaionBoard = () => {
                   <td>
                     <button
                       className="btn btn-outline-danger"
-                      //   onClick={() => onDelete(location.localCode)}
+                      onClick={() => onDelete(location.localCode)}
                     >
                       삭제
                     </button>
