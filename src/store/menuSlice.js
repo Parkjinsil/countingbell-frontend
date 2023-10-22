@@ -28,30 +28,13 @@ const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
   return result.data;
 });
 
-// const asyncUpdateMenu = createAsyncThunk(
-//   "menuSlice/asyncUpdateMenu",
-//   async ({ id, updatedData }) => {
-//    // 수정할 메뉴의 id와 업데이트된 데이터를 받습니다.
-//     const result = await updateMenu(id, updatedData); // updateMenu 함수에 id와 업데이트된 데이터를 전달합니다.
-//     return result.data;
-//    }
-// );
-
 const asyncUpdateMenu = createAsyncThunk(
   "menuSlice/asyncUpdateMenu",
-  async (data) => {
-    const result = await updateMenu(data);
+  async (formData) => {
+    const result = await updateMenu(formData);
     return result.data;
   }
 );
-
-// const asyncDeleteMenu = createAsyncThunk(
-//   "menuSlice/asyncDeleteMenu",
-//   async (data) => {
-//     const result = await deleteMenu(data);
-//     return result.data;
-//   }
-// );
 
 const menuSlice = createSlice({
   name: "menuSlice",
@@ -94,26 +77,10 @@ const menuSlice = createSlice({
         return alert("메뉴 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateMenu.fulfilled, (state, action) => {
-        const updatedMenu = action.payload; // 업데이트된 메뉴 정보를 받아옵니다.
-
-        // 기존 메뉴를 찾아 업데이트합니다.
-        // state.menuList = state.menuList.map((menu) =>
-        //   menu.id === updatedMenu.id ? updatedMenu : menu
-        // );
+        state.selectedMenu.push(action.payload); // 업데이트된 메뉴 정보를 받아옵니다.
 
         alert("메뉴 수정 성공");
       });
-
-    //  메뉴 삭제
-    // .addCase(asyncDeleteMenu.fulfilled, (state, action) => {
-    //   const deletedMenuCode = action.payload;
-    //   state.menuList = state.menuList.filter(
-    //     (item) => item.menuCode !== deletedMenuCode
-    //   );
-    // })
-    // .addCase(asyncDeleteMenu.rejected, (state, action) => {
-    //   return alert("메뉴 삭제에 실패했습니다.");
-    // });
   },
 });
 

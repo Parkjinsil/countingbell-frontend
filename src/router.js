@@ -20,6 +20,7 @@ import MyPage from "./pages/MyPage";
 import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
+import LocationBoard from "./pages/location/LocationBoard";
 
 const router = createBrowserRouter([
   {
@@ -175,6 +176,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MenuBoard />,
+      },
+    ],
+  },
+  {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
       },
     ],
   },

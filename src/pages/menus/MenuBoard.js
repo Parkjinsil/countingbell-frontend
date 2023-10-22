@@ -73,37 +73,17 @@ const MenuBoard = () => {
     console.log(menuCode);
     console.log(resCode);
 
-    //console.log(e.target.value.menuName);
-    //const menuName = document.querySelector("#menuName");
-    //console.log(menuName);
-    //console.log(menuName.value);
-    //console.log(menuName);
-    //console.log(e.target.menuName); // 데이터 옴
-
-    const formData = new FormData();
-    formData.append("menuName", menuName);
-    formData.append("menuPrice", menuPrice);
-    formData.append("menuPicture", menuPicture);
-    formData.append("menuCode", menuCode);
-    formData.append("resCode", resCode);
-
+    const formData = { menuName, menuPrice, menuPicture, menuCode, resCode };
     console.log(formData);
 
-    //dispatch(asyncUpdateMenu(formData))
-    //  .then(() => {
-    //    dispatch(asyncGetMenus(1, null));
-    //  })
-    //  .catch((error) => {
-    //    console.error(error);
-    // });
+    // const formData = new FormData();  //formData에 값 안들어와...
+    // formData.append("menuName", menuName);
+    // formData.append("menuPrice", menuPrice);
+    // formData.append("menuPicture", menuPicture);
+    // formData.append("menuCode", menuCode);
+    // formData.append("resCode", resCode);
 
-    //try {
-    //  await dispatch(asyncUpdateMenu(formData));
-
-    // dispatch(asyncGetMenus(1));
-    //} catch (error) {
-    // alert(`메뉴 업데이트에 실패했습니다. 에러: ${error.message}`);
-    //}
+    dispatch(asyncUpdateMenu(formData)); // 계속 400에러떠 ㅂㄷㅂㄷ
   };
 
   return (
@@ -120,7 +100,7 @@ const MenuBoard = () => {
             <th>삭제</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-group-divider">
           {menus.map((menu) => (
             <tr key={menu.menuCode}>
               <td>{menu.menuCode}</td>
