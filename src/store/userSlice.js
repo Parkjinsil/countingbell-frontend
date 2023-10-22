@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addMember, login } from "../api/user";
+import { addMember, login, searchId } from "../api/user";
 
 const asyncLogin = createAsyncThunk("userSlice/asyncLogin", async (data) => {
   const result = await login(data);
@@ -10,6 +10,15 @@ const asyncRegister = createAsyncThunk(
   "userSlice/asyncRegister",
   async (data) => {
     const result = await addMember(data);
+    return result.data;
+  }
+);
+
+// 아이디 찾기
+const asyncSearchId = createAsyncThunk(
+  "userSlice/asyncSearchId",
+  async (data) => {
+    const result = await searchId(data);
     return result.data;
   }
 );
@@ -25,6 +34,7 @@ const userSlice = createSlice({
       return {};
     },
   },
+
   extraReducers: (builder) => {
     builder
       // .addCase(asyncRegister.pending, (state, action) => {})
@@ -46,9 +56,13 @@ const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(action.payload));
         return action.payload;
       });
+
+    builder.addCase(asyncSearchId.fulfilled, (state, action) => {
+      return action.payload;
+    });
   },
 });
 
 export default userSlice;
-export { asyncRegister, asyncLogin };
+export { asyncRegister, asyncLogin, asyncSearchId };
 export const { userSave, userLogout } = userSlice.actions;

@@ -14,6 +14,9 @@ import { setLocationList } from "../../store/locationSlice";
 import { useState } from "react";
 import { deleteLocation } from "../../api/location";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 const LocaionBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,6 +47,11 @@ const LocaionBoard = () => {
     console.log(e.target.localCode.value);
     console.log(e.target.localName.value);
 
+    if (!localName) {
+      alert("모든 필드를 입력해주세요."); // 빈 필드가 있을 경우 알림 표시
+      return;
+    }
+
     const formData = { localCode, localName };
 
     console.log(formData);
@@ -69,27 +77,26 @@ const LocaionBoard = () => {
     const updatedLocalCode = e.target.localCode.value;
     const updatedLocalName = e.target.localName.value;
 
-    console.log(updatedLocalCode);
-    console.log(updatedLocalName);
+    if (!updatedLocalCode || !updatedLocalName) {
+      alert("모든 필드를 입력해주세요."); // 빈 필드가 있을 경우 알림 표시
+      return;
+    }
 
     const formData = {
       localCode: updatedLocalCode,
       localName: updatedLocalName,
     };
-
     console.log(formData);
 
-    console.log("formData이후 : " + localCode);
-    console.log("formData이후 : " + localName);
-    dispatch(asyncUpdateLocation(formData)).then(() => {
-      dispatch(asyncGetLocations(1, null));
-
-      setLocalCode(""); // localCode 초기화
-      setLocalName(""); // localName 초기화
-
-      console.log("초기화 이후 : " + localCode);
-      console.log("초기화 이후 : " + localName);
-    });
+    dispatch(asyncUpdateLocation(formData))
+      .then(() => {
+        dispatch(asyncGetLocations(1, null));
+        setShowUpdateTable(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("위치 수정에 실패했습니다. 다시 시도해주세요.");
+      });
   };
 
   // 지역 삭제
@@ -103,6 +110,9 @@ const LocaionBoard = () => {
       alert(`지역 삭제에 실패했습니다. 에러: ${error.message}`);
     }
   };
+
+  // 지역 검색
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="container my-5">
@@ -120,8 +130,8 @@ const LocaionBoard = () => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations.map((location, index) => (
-                <tr key={index}>
+              {locations.map((location) => (
+                <tr key={location.localCode}>
                   <td>{location.localCode}</td>
                   <td>{location.localName}</td>
                   <td>
@@ -136,79 +146,114 @@ const LocaionBoard = () => {
               ))}
             </tbody>
           </table>
-
-          <button
-            type="button"
-            className="btn btn-outline-warning"
-            onClick={toggleAddTable}
-          >
-            추가
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={toggleUpdateTable}
-          >
-            수정
-          </button>
-
-          <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
-            {showAddTable && (
-              <Form onSubmit={onAddLocation}>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="위치 코드"
-                    name="localCode"
-                    hidden
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="위치 입력"
-                    name="localName"
-                    onChange={(e) => {
-                      setLocalName(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Control type="submit" value="위치 등록" />
-                </Form.Group>
-              </Form>
-            )}
-            {showUpdateTable && (
-              <Form onSubmit={onUpdateLocation}>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="위치 코드"
-                    name="localCode"
-                    onChange={(e) => {
-                      setLocalCode(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="위치 입력"
-                    name="localName"
-                    onChange={(e) => {
-                      setLocalName(e.target.value);
-                    }}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Control type="submit" value="위치 수정" />
-                </Form.Group>
-              </Form>
-            )}
-          </div>
         </Container>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "end",
+          gap: "10px",
+          marginTop: "10px",
+        }}
+      >
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={toggleAddTable}
+          style={{}}
+        >
+          추가
+        </button>
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={toggleUpdateTable}
+        >
+          수정
+        </button>
+
+        <div
+          class="input-group mb-3"
+          style={{ width: "300px", alignItems: "center", marginTop: "15px" }}
+        >
+          <input
+            type="search"
+            class="form-control"
+            name="search"
+            id="search"
+            placeholder="검색"
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
+          />
+
+          <button
+            type="button"
+            className="btn btn-primary"
+            id="searchBtn"
+            // onClick={handleSearch}
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
+          </button>
+        </div>
+      </div>
+      <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
+        {showAddTable && (
+          <Form onSubmit={onAddLocation}>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="위치 코드"
+                name="localCode"
+                hidden
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="위치 입력"
+                name="localName"
+                onChange={(e) => {
+                  setLocalName(e.target.value);
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control type="submit" value="위치 등록" />
+            </Form.Group>
+          </Form>
+        )}
+        {showUpdateTable && (
+          <Form onSubmit={onUpdateLocation}>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="위치 코드"
+                name="localCode"
+                onChange={(e) => {
+                  setLocalCode(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="위치 입력"
+                name="localName"
+                onChange={(e) => {
+                  setLocalName(e.target.value);
+                }}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control type="submit" value="위치 수정" />
+            </Form.Group>
+          </Form>
+        )}
       </div>
     </div>
   );

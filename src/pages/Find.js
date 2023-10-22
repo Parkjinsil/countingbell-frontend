@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncSearchId } from "../store/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -106,33 +108,62 @@ const Bottom = styled.div`
 
 const Find = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // 로그인 찾기 페이지로 이동
-  const handleLogin = (event) => {
-    event.preventDefault();
+  const user = useSelector((state) => state.user);
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setId(user.id);
+    }
+    console.log("아이디는:" + user);
+  }, [user]);
+
+  // 로그인 페이지로 이동
+  const handleLogin = (e) => {
+    e.preventDefault();
     navigate("/login");
   };
 
   // 회원가입 페이지로 이동
-  const handleRegister = (event) => {
-    event.preventDefault();
+  const handleRegister = (e) => {
+    e.preventDefault();
     navigate("/register");
   };
   const [selectedOption, setSelectedOption] = useState("findId");
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
   // 아이디 찾기
-  const searchId = (event) => {
-    event.preventDefault();
+  const inputNameRef = useRef(null);
+  const inputPhoneRef = useRef(null);
+
+  const [inputName, setInputName] = useState("");
+  const [inputPhone, setInputPhone] = useState("");
+
+  const searchId = (e) => {
+    e.preventDefault();
 
     // 이름과 핸드폰 번호 가져오기
-    const name = document.getElementById("inputName").value;
-    const phone = document.getElementById("inputPhone").value;
+    const name = inputNameRef.current.value;
+    const phone = inputPhoneRef.current.value;
 
-    alert(name + "님의 아이디는 ");
+    const formData = {
+      name: name,
+      phone: phone,
+    };
+
+    console.log(formData);
+    dispatch(asyncSearchId(formData));
+
+    if (user) {
+      alert(`${name}님의 아이디는 ${user} 입니다.`);
+    } else {
+      alert(`${name}님의 아이디를 찾을 수 없습니다.`);
+    }
   };
 
   // 비밀번호 찾기
@@ -188,6 +219,7 @@ const Find = () => {
                       type="text"
                       id="inputName"
                       name="inputName"
+                      ref={inputNameRef}
                       placeholder="이름을 입력하세요"
                     ></input>
                   </div>
@@ -199,6 +231,7 @@ const Find = () => {
                       type="text"
                       id="inputPhone"
                       name="inputPhone"
+                      ref={inputPhoneRef}
                       placeholder="ex) 010-1234-5678"
                     ></input>
                   </div>
