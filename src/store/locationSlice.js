@@ -55,7 +55,7 @@ const locationSlice = createSlice({
         state.locationList = action.payload;
       })
 
-      // 메뉴수정
+      // 위치수정
       .addCase(asyncUpdateLocation.rejected, (state, action) => {
         return alert("위치 수정에 실패했습니다. 다시 시도해주세요.");
       })

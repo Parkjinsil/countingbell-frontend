@@ -33,6 +33,9 @@ const LocaionBoard = () => {
   const [showAddTable, setShowAddTable] = useState(false);
   const toggleAddTable = () => {
     setShowAddTable(!showAddTable);
+    if (showUpdateTable) {
+      setShowUpdateTable(false); // 수정 폼 닫기
+    }
   };
 
   const onAddLocation = (e) => {
@@ -44,29 +47,49 @@ const LocaionBoard = () => {
     const formData = { localCode, localName };
 
     console.log(formData);
-    dispatch(asyncAddLocation(formData)).then(() =>
-      dispatch(asyncGetLocations(1, null))
-    );
+    dispatch(asyncAddLocation(formData)).then(() => {
+      dispatch(asyncGetLocations(1, null));
+      setLocalCode(""); // localCode 초기화
+      setLocalName(""); // localName 초기화
+    });
   };
 
   // 지역 수정
   const [showUpdateTable, setShowUpdateTable] = useState(false);
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
+    if (showAddTable) {
+      setShowAddTable(false); // 추가 폼 닫기
+    }
   };
 
   const onUpdateLocation = (e) => {
     e.preventDefault();
 
-    console.log(e.target.localCode.value);
-    console.log(e.target.localName.value);
+    const updatedLocalCode = e.target.localCode.value;
+    const updatedLocalName = e.target.localName.value;
 
-    const formData = { localCode, localName };
+    console.log(updatedLocalCode);
+    console.log(updatedLocalName);
+
+    const formData = {
+      localCode: updatedLocalCode,
+      localName: updatedLocalName,
+    };
 
     console.log(formData);
-    dispatch(asyncUpdateLocation(formData)).then(() =>
-      dispatch(asyncGetLocations(1, null))
-    );
+
+    console.log("formData이후 : " + localCode);
+    console.log("formData이후 : " + localName);
+    dispatch(asyncUpdateLocation(formData)).then(() => {
+      dispatch(asyncGetLocations(1, null));
+
+      setLocalCode(""); // localCode 초기화
+      setLocalName(""); // localName 초기화
+
+      console.log("초기화 이후 : " + localCode);
+      console.log("초기화 이후 : " + localName);
+    });
   };
 
   // 지역 삭제
@@ -93,16 +116,14 @@ const LocaionBoard = () => {
               <tr>
                 <th>구분</th>
                 <th>위치</th>
-
                 <th>삭제</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
               {locations.map((location, index) => (
-                <tr key={location.localCode}>
+                <tr key={index}>
                   <td>{location.localCode}</td>
                   <td>{location.localName}</td>
-
                   <td>
                     <button
                       className="btn btn-outline-danger"

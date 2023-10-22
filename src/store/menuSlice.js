@@ -77,7 +77,7 @@ const menuSlice = createSlice({
         return alert("메뉴 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateMenu.fulfilled, (state, action) => {
-        state.selectedMenu.push(action.payload); // 업데이트된 메뉴 정보를 받아옵니다.
+        state.menuList.push(action.payload); // 업데이트된 메뉴 정보를 받아옵니다.
 
         alert("메뉴 수정 성공");
       });

@@ -66,7 +66,8 @@ const MenuBoard = () => {
     }
   };
 
-  const onUpdate = async () => {
+  const onUpdate = async (e) => {
+    e.preventDefault();
     console.log(menuName);
     console.log(menuPrice);
     console.log(menuPicture);
@@ -76,14 +77,9 @@ const MenuBoard = () => {
     const formData = { menuName, menuPrice, menuPicture, menuCode, resCode };
     console.log(formData);
 
-    // const formData = new FormData();  //formData에 값 안들어와...
-    // formData.append("menuName", menuName);
-    // formData.append("menuPrice", menuPrice);
-    // formData.append("menuPicture", menuPicture);
-    // formData.append("menuCode", menuCode);
-    // formData.append("resCode", resCode);
-
-    dispatch(asyncUpdateMenu(formData)); // 계속 400에러떠 ㅂㄷㅂㄷ
+    dispatch(asyncUpdateMenu(formData)).then(() => {
+      dispatch(asyncGetMenus(1, null));
+    }); // 계속 400에러떠 ㅂㄷㅂㄷ
   };
 
   return (
