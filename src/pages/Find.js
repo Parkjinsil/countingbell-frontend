@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncSearchId } from "../store/userSlice";
+import { asyncSearchId, userSave } from "../store/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -111,6 +111,7 @@ const Find = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
+  // const [user, setUser] = useState("");
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -131,6 +132,7 @@ const Find = () => {
     e.preventDefault();
     navigate("/register");
   };
+
   const [selectedOption, setSelectedOption] = useState("findId");
 
   const handleOptionChange = (e) => {
@@ -140,9 +142,6 @@ const Find = () => {
   // 아이디 찾기
   const inputNameRef = useRef(null);
   const inputPhoneRef = useRef(null);
-
-  const [inputName, setInputName] = useState("");
-  const [inputPhone, setInputPhone] = useState("");
 
   const searchId = (e) => {
     e.preventDefault();
