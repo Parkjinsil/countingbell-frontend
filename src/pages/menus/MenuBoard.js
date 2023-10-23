@@ -75,14 +75,24 @@ const MenuBoard = () => {
     console.log(menuCode);
     console.log(resCode);
 
-    const formData = { menuName, menuPrice, menuPicture, menuCode, resCode };
+    const formData = new FormData();
+
+    formData.append("menuCode", menuCode);
+    formData.append("menuName", menuName);
+    formData.append("menuPrice", menuPrice);
+    formData.append("menuPicture", menuPicture);
+    formData.append("resCode", resCode);
+
+    //const formData2 = {
+    //  menuName,
+    // menuPrice,
+    // menuPicture,
+    //  menuCode,
+    //  resCode,
+    // };
     console.log(formData);
 
-    const index = menus.findIndex(
-      (menu) => menu.menuCode === Number(formData.menuCode)
-    );
-
-    dispatch(asyncUpdateMenu(formData, index)); // 계속 400에러떠 ㅂㄷㅂㄷ
+    dispatch(asyncUpdateMenu(formData));
   };
 
   return (
@@ -135,7 +145,10 @@ const MenuBoard = () => {
                   <td>{menu.menuName}</td>
                   <td>{menu.menuPrice}</td>
                   <td>
-                    <img src={menu.menuPicture} />
+                    <img
+                      src={"/upload/" + menu.menuPicture}
+                      style={{ width: "100px" }}
+                    />
                   </td>
                   <td>{menu.restaurant.resCode}</td>
 
@@ -264,7 +277,8 @@ const MenuBoard = () => {
                                   id="menuPicture"
                                   placeholder={menu.menuPicture}
                                   onChange={(e) => {
-                                    setMenuPicture(e.target.value);
+                                    console.log(e.target);
+                                    setMenuPicture(e.target.files[0]);
                                   }}
                                 />
                               </div>
