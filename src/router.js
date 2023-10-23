@@ -17,6 +17,11 @@ import Reservation from "./pages/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
+import AddMenu from "./pages/menus/AddMenu";
+import MenuBoard from "./pages/menus/MenuBoard";
+import MenuUpdate from "./pages/menus/MenuUpdate";
+import AddRestaurant from "./pages/restaurants/AddRestaurant";
+import LocationBoard from "./pages/location/LocationBoard";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +150,51 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MyPage />,
+      },
+    ],
+  },
+  {
+    path: "addmenu",
+    children: [
+      {
+        index: true,
+        element: <AddMenu />,
+      },
+    ],
+  },
+  {
+    path: "updatemenu",
+    children: [
+      {
+        index: true,
+        element: <MenuUpdate />,
+      },
+    ],
+  },
+  {
+    path: "menuboard",
+    children: [
+      {
+        index: true,
+        element: <MenuBoard />,
+      },
+    ],
+  },
+  {
+    path: "addRestaurant",
+    children: [
+      {
+        index: true,
+        element: <AddRestaurant />,
+      }
+    ]
+  },
+  {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
       },
     ],
   },
