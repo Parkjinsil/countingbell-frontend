@@ -13,3 +13,8 @@ export const getRestaurantByName = async (resName) => {
 export const getRestaurantByFood = async (foodCode) => {
   return await instance.get(`search?foodCode=${foodCode}`);
 };
+
+// 식당 등록
+export const addRestaurant = async (data) => {
+  return await instance.post("restaurant", data);
+};
