@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {} from "react-bootstrap";
 import { StarFill, SuitHeart } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -202,9 +202,6 @@ const Restaurant = () => {
     setActiveTab(tab);
   };
 
-  //하트눌렀을때 색변경되는거
-  // const []
-
   return (
     <div>
       <section className="container mb-5" style={{ marginTop: "80px" }}>
@@ -233,7 +230,7 @@ const Restaurant = () => {
                   ㆍ리뷰 36 개
                 </span>
                 <span className="get" style={{ paddingLeft: "10px" }}>
-                  <SuitHeart class="bi bi-suit-heart"></SuitHeart> 찜하기
+                  <SuitHeart className="bi bi-suit-heart"></SuitHeart> 찜하기
                 </span>
               </div>
             </div>
@@ -281,7 +278,7 @@ const Restaurant = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>할인 :</td>
+                  <td>할인</td>
                   <td colSpan="3"></td>
                 </tr>
               </tbody>

@@ -36,7 +36,7 @@ const Discount = () => {
 
   const resetState = () => {
     return {
-      type: "discountSlice/resetState", // 실제 액션 타입과 일치해야 합니다.
+      type: "discountSlice/resetState",
     };
   };
 
