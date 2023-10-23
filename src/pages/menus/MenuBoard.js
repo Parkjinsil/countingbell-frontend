@@ -89,10 +89,10 @@ const MenuBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        <div class="input-group mb-3" style={{ width: "300px" }}>
+        <div className="input-group mb-3" style={{ width: "300px" }}>
           <input
             type="search"
-            class="form-control"
+            className="form-control"
             name="search"
             id="search"
             placeholder="검색"
@@ -222,7 +222,7 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuName"
-                                  placeholder={menu.menuName}
+                                  // placeholder={menu.menuName}
                                   value={menuName}
                                   onChange={(e) => {
                                     setMenuName(e.target.value);
@@ -240,7 +240,8 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuPrice"
-                                  placeholder={menu.menuPrice}
+                                  // placeholder={menu.menuPrice}
+                                  value={menuPrice}
                                   onChange={(e) => {
                                     setMenuPrice(e.target.value);
                                   }}

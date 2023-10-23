@@ -30,8 +30,8 @@ const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
 
 const asyncUpdateMenu = createAsyncThunk(
   "menuSlice/asyncUpdateMenu",
-  async (formData) => {
-    const result = await updateMenu(formData);
+  async (data) => {
+    const result = await updateMenu(data);
     return result.data;
   }
 );
@@ -77,8 +77,7 @@ const menuSlice = createSlice({
         return alert("메뉴 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateMenu.fulfilled, (state, action) => {
-        state.menuList.push(action.payload); // 업데이트된 메뉴 정보를 받아옵니다.
-
+        state.menuList.push(action.payload); // 업데이트된 메뉴 정보를 받아오기
         alert("메뉴 수정 성공");
       });
   },

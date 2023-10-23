@@ -52,7 +52,7 @@ const locationSlice = createSlice({
       })
       .addCase(asyncAddLocation.fulfilled, (state, action) => {
         alert("위치 등록에 성공했습니다");
-        state.locationList = action.payload;
+        state.locationList.unshift(action.payload);
       })
 
       // 위치수정
@@ -60,8 +60,7 @@ const locationSlice = createSlice({
         return alert("위치 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateLocation.fulfilled, (state, action) => {
-        state.locationList.push(action.payload); // 업데이트된 메뉴 정보를 받아옵니다.
-
+        state.locationList.push(action.payload); // 업데이트된 메뉴 정보를 받아오기
         alert("위치 수정에 성공했습니다.");
       });
   },

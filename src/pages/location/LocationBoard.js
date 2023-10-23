@@ -55,12 +55,11 @@ const LocaionBoard = () => {
     const formData = { localCode, localName };
 
     console.log(formData);
-    dispatch(asyncAddLocation(formData)).then(() => {
-      dispatch(asyncGetLocations(1, null));
-      setLocalCode(""); // localCode 초기화
-      setLocalName(""); // localName 초기화
-    });
+    dispatch(asyncAddLocation(formData));
+    setLocalName(""); // localName 초기화
   };
+
+  // useEffect(() => {}, [locations]);
 
   // 지역 수정
   const [showUpdateTable, setShowUpdateTable] = useState(false);
@@ -88,15 +87,8 @@ const LocaionBoard = () => {
     };
     console.log(formData);
 
-    dispatch(asyncUpdateLocation(formData))
-      .then(() => {
-        dispatch(asyncGetLocations(1, null));
-        setShowUpdateTable(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("위치 수정에 실패했습니다. 다시 시도해주세요.");
-      });
+    dispatch(asyncUpdateLocation(formData));
+    setShowUpdateTable(false);
   };
 
   // 지역 삭제
@@ -130,7 +122,7 @@ const LocaionBoard = () => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations.map((location) => (
+              {locations?.map((location) => (
                 <tr key={location.localCode}>
                   <td>{location.localCode}</td>
                   <td>{location.localName}</td>
@@ -174,12 +166,12 @@ const LocaionBoard = () => {
         </button>
 
         <div
-          class="input-group mb-3"
+          className="input-group mb-3"
           style={{ width: "300px", alignItems: "center", marginTop: "15px" }}
         >
           <input
             type="search"
-            class="form-control"
+            className="form-control"
             name="search"
             id="search"
             placeholder="검색"
@@ -199,22 +191,24 @@ const LocaionBoard = () => {
           </button>
         </div>
       </div>
+
       <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
         {showAddTable && (
           <Form onSubmit={onAddLocation}>
             <Form.Group className="mb-3">
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 placeholder="위치 코드"
                 name="localCode"
                 hidden
-              />
+              /> */}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
                 placeholder="위치 입력"
                 name="localName"
+                value={localName}
                 onChange={(e) => {
                   setLocalName(e.target.value);
                 }}
@@ -233,6 +227,7 @@ const LocaionBoard = () => {
                 type="text"
                 placeholder="위치 코드"
                 name="localCode"
+                value={localCode}
                 onChange={(e) => {
                   setLocalCode(e.target.value);
                 }}
@@ -243,6 +238,7 @@ const LocaionBoard = () => {
                 type="text"
                 placeholder="위치 입력"
                 name="localName"
+                value={localName}
                 onChange={(e) => {
                   setLocalName(e.target.value);
                 }}

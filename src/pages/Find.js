@@ -111,16 +111,18 @@ const Find = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  // const [user, setUser] = useState("");
-  const [id, setId] = useState("");
 
+  //const [id, setId] = useState("");
+  //const [name, setName] = useState("");
+
+  /*
   useEffect(() => {
     if (user) {
       setId(user.id);
     }
     console.log("아이디는:" + user);
-  }, [user]);
-
+  }, [user.id]);
+  */
   // 로그인 페이지로 이동
   const handleLogin = (e) => {
     e.preventDefault();
@@ -143,12 +145,22 @@ const Find = () => {
   const inputNameRef = useRef(null);
   const inputPhoneRef = useRef(null);
 
-  const searchId = (e) => {
+  const [id, setId] = useState(null);
+  const [name, setName] = useState("");
+
+  const [inputName, setInputName] = useState("");
+  const [inputPhone, setInputPhone] = useState("");
+
+  const searchId = async (e) => {
     e.preventDefault();
 
     // 이름과 핸드폰 번호 가져오기
-    const name = inputNameRef.current.value;
-    const phone = inputPhoneRef.current.value;
+
+    const name = document.querySelector("#inputName").value;
+    const phone = document.querySelector("#inputPhone").value;
+    setName(name);
+    // const name = e.target.inputName.value;
+    // const phone = e.target.inputPhone.value;
 
     const formData = {
       name: name,
@@ -156,23 +168,28 @@ const Find = () => {
     };
 
     console.log(formData);
-    dispatch(asyncSearchId(formData));
-
-    if (user) {
-      alert(`${name}님의 아이디는 ${user} 입니다.`);
-    } else {
-      alert(`${name}님의 아이디를 찾을 수 없습니다.`);
-    }
+    const result = await dispatch(await asyncSearchId(formData));
+    setId(result.payload);
   };
 
+  useEffect(() => {
+    if (id != null) {
+      if (id) {
+        alert(`${name}님의 아이디는 ${id} 입니다.`);
+        setName("");
+      } else {
+        alert(`${name}님의 아이디를 찾을 수 없습니다.`);
+      }
+      const inputNameTest = document.querySelector("#inputName");
+      inputNameTest.value = "";
+      const inputPhoneTest = document.querySelector("#inputPhone");
+      inputPhoneTest.value = "";
+    }
+  }, [id]);
+
   // 비밀번호 찾기
-  const searchPwd = (event) => {
-    event.preventDefault();
-
-    const id = document.getElementById("inputId").value;
-    const email = document.getElementById("inputEmail").value;
-
-    alert(id + "님의 비밀번호는 ");
+  const searchPwd = (e) => {
+    e.preventDefault();
   };
 
   return (
