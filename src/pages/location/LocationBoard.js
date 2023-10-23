@@ -74,6 +74,12 @@ const LocaionBoard = () => {
     }
   };
 
+  // 클릭한 행값 가져오기
+  const takeValueclick = (location) => {
+    setLocalCode(location.localCode);
+  };
+
+  // 수정 로직
   const onUpdateLocation = (e) => {
     e.preventDefault();
 
@@ -119,7 +125,7 @@ const LocaionBoard = () => {
         style={{ marginTop: "100px" }}
       >
         <Container>
-          <table className="table table-hover">
+          <table className="table table-hover" id="tableValue">
             <thead>
               <tr>
                 <th>구분</th>
@@ -131,7 +137,10 @@ const LocaionBoard = () => {
             </thead>
             <tbody className="table-group-divider">
               {locations?.map((location, index) => (
-                <tr key={location.localCode}>
+                <tr
+                  key={location.localCode}
+                  onClick={() => takeValueclick(location)}
+                >
                   <td>{locations.length - index}</td>
                   <td>{location.localName}</td>
                   <td>{location.localCode}</td>

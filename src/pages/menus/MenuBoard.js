@@ -75,6 +75,7 @@ const MenuBoard = () => {
     console.log(menuCode);
     console.log(resCode);
 
+    // 객체 formData.append 방식으로 넘기기
     const formData = new FormData();
 
     formData.append("menuCode", menuCode);
@@ -83,13 +84,6 @@ const MenuBoard = () => {
     formData.append("menuPicture", menuPicture);
     formData.append("resCode", resCode);
 
-    //const formData2 = {
-    //  menuName,
-    // menuPrice,
-    // menuPicture,
-    //  menuCode,
-    //  resCode,
-    // };
     console.log(formData);
 
     dispatch(asyncUpdateMenu(formData));
@@ -101,7 +95,10 @@ const MenuBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        <div className="input-group mb-3" style={{ width: "300px" }}>
+        <div
+          className="input-group mb-3"
+          style={{ width: "300px", marginLeft: "900px" }}
+        >
           <input
             type="search"
             className="form-control"
@@ -124,7 +121,7 @@ const MenuBoard = () => {
           </button>
         </div>
         <Container>
-          <table className="table table-hover">
+          <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
               <tr>
                 <th>구분</th>
@@ -137,17 +134,24 @@ const MenuBoard = () => {
                 <th>삭제</th>
               </tr>
             </thead>
-            <tbody className="table-group-divider">
+            <tbody
+              className="table-group-divider"
+              style={{ lineHeight: " 100px" }}
+            >
               {menus.map((menu, index) => (
-                <tr key={menu.menuCode}>
+                <tr key={menu.menuCode} style={{ lineHeight: "150px" }}>
                   <td>{menus.length - index}</td>
                   <td>{menu.menuCode}</td>
                   <td>{menu.menuName}</td>
                   <td>{menu.menuPrice}</td>
-                  <td>
+                  <td style={{ alignItems: "center" }}>
                     <img
                       src={"/upload/" + menu.menuPicture}
-                      style={{ width: "100px" }}
+                      style={{
+                        width: "150px",
+                        height: "100px",
+                        borderRadius: "10%",
+                      }}
                     />
                   </td>
                   <td>{menu.restaurant.resCode}</td>

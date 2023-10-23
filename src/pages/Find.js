@@ -132,7 +132,7 @@ const Find = () => {
   // 회원가입 페이지로 이동
   const handleRegister = (e) => {
     e.preventDefault();
-    navigate("/register");
+    navigate("/signup");
   };
 
   const [selectedOption, setSelectedOption] = useState("findId");
