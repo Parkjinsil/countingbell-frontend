@@ -18,6 +18,7 @@ import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
 import Discount from "./pages/Discount";
+import Pick from "./pages/Pick";
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Discount />,
+      },
+    ],
+  },
+  {
+    path: "pick",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Pick />,
       },
     ],
   },
