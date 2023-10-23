@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {} from "react-bootstrap";
-import { StarFill, SuitHeart } from "react-bootstrap-icons";
+import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncViewDiscount } from "../store/discountSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item.active > .nav-link {
@@ -196,6 +198,45 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
+  const [isHearted, setIsHearted] = useState(false);
+  const [heartCount, setHeartCount] = useState(0);
+  const styleGray = { color: "#aaa" };
+  const styleRed = { color: "red" };
+  const [style1, setStyle1] = useState(styleGray);
+
+  const onRatings = (event) => {
+    switch (eval(event.currentTarget.value)) {
+      case 1:
+        setStyle1(styleRed);
+        break;
+      default:
+        setStyle1(styleGray);
+    }
+  };
+
+  const onHeartClick = () => {
+    if (isHearted) {
+      setHeartCount(heartCount - 1);
+    } else {
+      setHeartCount(heartCount + 1);
+    }
+    setIsHearted(!isHearted);
+  };
+
+  const id = "42";
+
+  const dispatch = useDispatch();
+
+  // Redux 스토어에서 할인 정보를 가져오기 위해 useSelector를 사용합니다.
+  const discountData = useSelector((state) => state.discount.data);
+
+  // useEffect를 사용하여 초기 렌더링 시에 할인 정보를 가져오는 비동기 작업을 수행합니다.
+  useEffect(() => {
+    if (id) {
+      dispatch(asyncViewDiscount(id));
+    }
+  }, [id, dispatch]);
+
   const [activeTab, setActiveTab] = useState("menu");
 
   const handleTabClick = (tab) => {
@@ -204,7 +245,7 @@ const Restaurant = () => {
 
   return (
     <div>
-      <section className="container mb-5" style={{ marginTop: "80px" }}>
+      <section className="container mb-4" style={{ marginTop: "80px" }}>
         <div className="row">
           <div className="col-4">
             <img
@@ -230,7 +271,12 @@ const Restaurant = () => {
                   ㆍ리뷰 36 개
                 </span>
                 <span className="get" style={{ paddingLeft: "10px" }}>
-                  <SuitHeart className="bi bi-suit-heart"></SuitHeart> 찜하기
+                  <SuitHeartFill
+                    className="bi bi-suit-heart"
+                    style={{ color: isHearted ? "red" : "#aaa" }}
+                    onClick={onHeartClick}
+                  />{" "}
+                  ({heartCount}) 찜하기
                 </span>
               </div>
             </div>
@@ -278,8 +324,14 @@ const Restaurant = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>할인</td>
-                  <td colSpan="3"></td>
+                  <td colSpan="4">
+                    {discountData && (
+                      <div className="position-relative p-3 text-center text-muted bg-body border border-dashed rounded-3">
+                        <p> {discountData.disDesc}</p>
+                        <p> {discountData.disPeriod}</p>
+                      </div>
+                    )}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -298,7 +350,7 @@ const Restaurant = () => {
       <StyleNav>
         <nav
           id="navbar-example2"
-          className="row navbar sticky-top bg-body mt-4 px-3 justify-content-center"
+          className="row navbar sticky-top bg-body mt-1 px-3 justify-content-center"
         >
           <ul
             className="col-lg-9 nav nav-pills"
@@ -367,15 +419,6 @@ const Restaurant = () => {
           </ul>
         </nav>
         <div className="tab-content">
-          {/* <div
-              data-bs-spy="scroll"
-              data-bs-target="#navbar-example2"
-              data-bs-root-margin="0px 0px -40%"
-              data-bs-offset="0"
-              data-bs-smooth-scroll="true"
-              className="scrollspy-example bg-body p-3 rounded m-1-2"
-              tabindex="0"
-            > */}
           {activeTab === "menu" && (
             <div>
               <section

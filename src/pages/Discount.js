@@ -28,6 +28,7 @@ const Discount = () => {
   const [disPeriod, setDisPeriod] = useState(""); // 할인기간 상태
   const [resCode, setResCode] = useState(""); // 식당코드 상태
   const [disCode, setDisCode] = useState(""); // 할인코드 상태
+  const [activeForm, setActiveForm] = useState("add"); // 활성 폼 상태 추가
 
   //Redux 스토어에서 할인 정보를 선택하고 이를 useState를 사용하여 로컬 상태에 저장
   const discountError = useSelector((state) => state.discount.error);
