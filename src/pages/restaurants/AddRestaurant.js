@@ -98,6 +98,10 @@ const AddRestaurant = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const location = { localCode : ""};
+    const food = { foodCode: ""};
+    const member = { id: ""};
+
     const [formData, setFormData] = useState({
         resName: "",
         resAddr: "",
@@ -105,9 +109,9 @@ const AddRestaurant = () => {
         resOpenHour: "",
         resClose: "",
         resDesc: "",
-        localCode: "",
-        foodCode: "",
-        id: "",
+        location,
+        food,
+        member,
     });
 
     const {
@@ -117,9 +121,9 @@ const AddRestaurant = () => {
         resOpenHour,
         resClose,
         resDesc,
-        localCode,
-        foodCode,
-        id,
+        location: {localCode},
+        food: {foodCode},
+        member: {id},
     } = formData;
 
     const onChange = (e) => {
@@ -263,6 +267,7 @@ const AddRestaurant = () => {
                                 <p>음식 종류</p>
                                 <label>
                                     <select id="foodCode" value={foodCode} onChange={onChange}>
+                                        <option>음식 종류</option>
                                         <option value="1">한식</option>
                                         <option value="2">일식</option>
                                         <option value="3">중식</option>
