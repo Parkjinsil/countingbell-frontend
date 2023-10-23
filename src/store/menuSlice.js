@@ -49,6 +49,7 @@ const menuSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // 메뉴등록
       // .addCase(asyncRegister.pending, (state, action) => {})
       .addCase(asyncAddMenu.rejected, (state, action) => {
         return alert("메뉴 등록에 실패했습니다. 다시 시도해주세요.");
@@ -56,23 +57,25 @@ const menuSlice = createSlice({
       .addCase(asyncAddMenu.fulfilled, (state, action) => {
         alert("메뉴 등록 성공");
         state.menuList.push(action.payload);
-      })
+      });
 
-      // 메뉴목록
-      .addCase(asyncGetMenus.fulfilled, (state, action) => {
-        state.menuList = action.payload;
-      })
+    // 메뉴목록
+    builder.addCase(asyncGetMenus.fulfilled, (state, action) => {
+      state.menuList = action.payload;
+    });
 
-      // 메뉴 1개
+    // 메뉴 1개
+    builder
       .addCase(asyncGetMenu.fulfilled, (state, action) => {
         alert("메뉴검색에 성공했습니다.");
         state.selectedMenu = action.payload;
       })
       .addCase(asyncGetMenu.rejected, (state, action) => {
         return alert("메뉴검색에 실패했습니다.");
-      })
+      });
 
-      // 메뉴수정
+    // 메뉴수정
+    builder
       .addCase(asyncUpdateMenu.rejected, (state, action) => {
         return alert("메뉴 수정에 실패했습니다. 다시 시도해주세요.");
       })

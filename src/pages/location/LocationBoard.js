@@ -24,6 +24,11 @@ const LocaionBoard = () => {
   const [localCode, setLocalCode] = useState("");
   const [localName, setLocalName] = useState("");
 
+  const [showAddTable, setShowAddTable] = useState(false);
+  const [showUpdateTable, setShowUpdateTable] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
   const locations = useSelector((state) => state.location.locationList);
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const LocaionBoard = () => {
   }, [dispatch]);
 
   // 지역 등록
-  const [showAddTable, setShowAddTable] = useState(false);
+
   const toggleAddTable = () => {
     setShowAddTable(!showAddTable);
     if (showUpdateTable) {
@@ -56,15 +61,14 @@ const LocaionBoard = () => {
 
     console.log(formData);
     dispatch(asyncAddLocation(formData));
+    setLocalCode("");
     setLocalName(""); // localName 초기화
   };
 
-  // useEffect(() => {}, [locations]);
-
   // 지역 수정
-  const [showUpdateTable, setShowUpdateTable] = useState(false);
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
+
     if (showAddTable) {
       setShowAddTable(false); // 추가 폼 닫기
     }
@@ -85,9 +89,12 @@ const LocaionBoard = () => {
       localCode: updatedLocalCode,
       localName: updatedLocalName,
     };
+
     console.log(formData);
 
     dispatch(asyncUpdateLocation(formData));
+    setLocalCode("");
+    setLocalName("");
     setShowUpdateTable(false);
   };
 
@@ -104,7 +111,6 @@ const LocaionBoard = () => {
   };
 
   // 지역 검색
-  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="container my-5">
@@ -118,14 +124,26 @@ const LocaionBoard = () => {
               <tr>
                 <th>구분</th>
                 <th>위치</th>
+                <th>위치코드</th>
+                <th>수정</th>
                 <th>삭제</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations?.map((location) => (
+              {locations?.map((location, index) => (
                 <tr key={location.localCode}>
-                  <td>{location.localCode}</td>
+                  <td>{locations.length - index}</td>
                   <td>{location.localName}</td>
+                  <td>{location.localCode}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      onClick={toggleUpdateTable}
+                    >
+                      수정
+                    </button>
+                  </td>
                   <td>
                     <button
                       className="btn btn-outline-danger"
@@ -153,16 +171,8 @@ const LocaionBoard = () => {
           type="button"
           className="btn btn-outline-warning"
           onClick={toggleAddTable}
-          style={{}}
         >
           추가
-        </button>
-        <button
-          type="button"
-          className="btn btn-outline-primary"
-          onClick={toggleUpdateTable}
-        >
-          수정
         </button>
 
         <div
@@ -196,12 +206,13 @@ const LocaionBoard = () => {
         {showAddTable && (
           <Form onSubmit={onAddLocation}>
             <Form.Group className="mb-3">
-              {/* <Form.Control
+              <Form.Control
                 type="text"
                 placeholder="위치 코드"
                 name="localCode"
+                // defaultValue={localCode}
                 hidden
-              /> */}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control

@@ -60,8 +60,31 @@ const locationSlice = createSlice({
         return alert("위치 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateLocation.fulfilled, (state, action) => {
-        state.locationList.push(action.payload); // 업데이트된 메뉴 정보를 받아오기
-        alert("위치 수정에 성공했습니다.");
+        // 인덱스 찾기!
+        const index = state.locationList.findIndex(
+          (location) => location.localCode === action.payload.localCode
+        );
+
+        // 위치를 찾았음! -> 업데이트된 정보 때려넣기!
+        state.locationList.splice(index, 1, action.payload);
+
+        //state.locationList.splice(action.payload.index, 1, action.payload.data); // 업데이트된 메뉴 정보를 받아오기
+        // state.locationList.unshift(action.payload);
+        //alert("위치 수정에 성공했습니다.");
+        //return state.locationList = [...state.locationList, ac]
+        //const index = locations.findIndex(
+        // (location) => location.localCode === Number(formData.localCode)
+        //);
+        // const updatedLocations = [...locations];
+        // console.log(updatedLocations);
+        // console.log("index: " + index); // 일치하지 않으면 -1 반환
+        // if (index !== -1) {
+        //   // 일치하는 항목이 있으면
+        //   updatedLocations[index] = formData;
+        //   dispatch(setLocationList(updatedLocations));
+        //   alert("위치 수정에 성공했습니다.");
+        // }
+        //
       });
   },
 });

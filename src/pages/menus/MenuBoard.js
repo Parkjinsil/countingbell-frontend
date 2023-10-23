@@ -78,9 +78,11 @@ const MenuBoard = () => {
     const formData = { menuName, menuPrice, menuPicture, menuCode, resCode };
     console.log(formData);
 
-    dispatch(asyncUpdateMenu(formData)).then(() => {
-      dispatch(asyncGetMenus(1, null));
-    }); // 계속 400에러떠 ㅂㄷㅂㄷ
+    const index = menus.findIndex(
+      (menu) => menu.menuCode === Number(formData.menuCode)
+    );
+
+    dispatch(asyncUpdateMenu(formData, index)); // 계속 400에러떠 ㅂㄷㅂㄷ
   };
 
   return (
@@ -116,6 +118,7 @@ const MenuBoard = () => {
             <thead>
               <tr>
                 <th>구분</th>
+                <th>메뉴코드</th>
                 <th>메뉴명</th>
                 <th>가격</th>
                 <th>이미지</th>
@@ -125,8 +128,9 @@ const MenuBoard = () => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {menus.map((menu) => (
+              {menus.map((menu, index) => (
                 <tr key={menu.menuCode}>
+                  <td>{menus.length - index}</td>
                   <td>{menu.menuCode}</td>
                   <td>{menu.menuName}</td>
                   <td>{menu.menuPrice}</td>
@@ -138,7 +142,7 @@ const MenuBoard = () => {
                   <td>
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-outline-primary"
                       data-bs-toggle="modal"
                       data-bs-target={`#exampleModal${menu.menuCode}`}
                       data-bs-whatever="@mdo"

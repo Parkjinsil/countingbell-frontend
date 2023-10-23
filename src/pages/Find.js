@@ -155,12 +155,9 @@ const Find = () => {
     e.preventDefault();
 
     // 이름과 핸드폰 번호 가져오기
-
     const name = document.querySelector("#inputName").value;
     const phone = document.querySelector("#inputPhone").value;
     setName(name);
-    // const name = e.target.inputName.value;
-    // const phone = e.target.inputPhone.value;
 
     const formData = {
       name: name,
@@ -181,7 +178,7 @@ const Find = () => {
         alert(`${name}님의 아이디를 찾을 수 없습니다.`);
       }
       const inputNameTest = document.querySelector("#inputName");
-      inputNameTest.value = "";
+      inputNameTest.value = ""; // 초기화
       const inputPhoneTest = document.querySelector("#inputPhone");
       inputPhoneTest.value = "";
     }
