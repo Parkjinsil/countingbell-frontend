@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncSearchId, userSave } from "../store/userSlice";
+import { asyncSearchId, asyncSearchPwd, userSave } from "../store/userSlice";
 
 const Container = styled.div`
   display: flex;
@@ -141,9 +141,11 @@ const Find = () => {
     setSelectedOption(e.target.value);
   };
 
-  // 아이디 찾기
+  // 아이디 / 패스워드 찾기
   const inputNameRef = useRef(null);
   const inputPhoneRef = useRef(null);
+  const inputIdRef = useRef(null);
+  const inputEmailRef = useRef(null);
 
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
@@ -187,6 +189,19 @@ const Find = () => {
   // 비밀번호 찾기
   const searchPwd = (e) => {
     e.preventDefault();
+    // 이름과 핸드폰 번호 가져오기
+    const id = document.querySelector("#inputId").value;
+    const email = document.querySelector("#inputEmail").value;
+
+    const formData = {
+      id: id,
+      email: email,
+    };
+
+    console.log(formData);
+
+    dispatch(asyncSearchPwd(formData));
+    alert("이메일로 임시비밀번호가 발송되었습니다.");
   };
 
   return (
@@ -266,6 +281,7 @@ const Find = () => {
                       type="text"
                       id="inputId"
                       name="inputId"
+                      ref={inputIdRef}
                       placeholder="아이디를 입력하세요"
                     ></input>
                   </div>
@@ -277,6 +293,7 @@ const Find = () => {
                       type="text"
                       id="inputEmail"
                       name="inputEmail"
+                      ref={inputEmailRef}
                       placeholder="이메일을 입력하세요"
                     ></input>
                   </div>

@@ -17,6 +17,28 @@ import { deleteLocation } from "../../api/location";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
+const Nav = styled.div`
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  height: 56px;
+
+  padding-left: 15px;
+
+  a {
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    line-height: 56px;
+    margin: 5px;
+
+    &.active {
+      background-color: black;
+      color: white;
+    }
+  }
+`;
+
 const LocaionBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,8 +48,7 @@ const LocaionBoard = () => {
 
   const [showAddTable, setShowAddTable] = useState(false);
   const [showUpdateTable, setShowUpdateTable] = useState(false);
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const locations = useSelector((state) => state.location.locationList);
 
@@ -68,6 +89,7 @@ const LocaionBoard = () => {
   // 지역 수정
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
+    setLocalCode(""); //  초기화
 
     if (showAddTable) {
       setShowAddTable(false); // 추가 폼 닫기
@@ -104,6 +126,14 @@ const LocaionBoard = () => {
     setShowUpdateTable(false);
   };
 
+  // 지역별 식당찾기
+  const findRestaurant = () => {
+    // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
+    if (!showUpdateTable && !showAddTable) {
+      navigate("/restaurantList");
+    }
+  };
+
   // 지역 삭제
   const onDelete = async (localCode) => {
     try {
@@ -116,57 +146,84 @@ const LocaionBoard = () => {
     }
   };
 
-  // 지역 검색
-
   return (
     <div className="container my-5">
       <div
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
+        {/* <div class="btn-group">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="inside"
+            aria-expanded="false"
+          >
+            서울
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+                onClick={() => setSelectedCategory("용인")}
+              >
+                용인
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+                onClick={() => setSelectedCategory("선릉")}
+              >
+                선릉
+              </a>
+            </li>
+          </ul>
+        </div> */}
         <Container>
           <table className="table table-hover" id="tableValue">
             <thead>
               <tr>
                 <th>구분</th>
                 <th>위치</th>
-                <th>위치코드</th>
-                <th>수정</th>
                 <th>삭제</th>
+                <th hidden>위치코드</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations?.map((location, index) => (
-                <tr
-                  key={location.localCode}
-                  onClick={() => takeValueclick(location)}
-                >
-                  <td>{locations.length - index}</td>
-                  <td>{location.localName}</td>
-                  <td>{location.localCode}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-outline-primary"
-                      onClick={toggleUpdateTable}
-                    >
-                      수정
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-outline-danger"
-                      onClick={() => onDelete(location.localCode)}
-                    >
-                      삭제
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {locations
+                .filter(
+                  (location) =>
+                    !selectedCategory || location.category === selectedCategory
+                )
+                .map((location, index) => (
+                  <tr
+                    key={location.localCode}
+                    onClick={() => findRestaurant(location)}
+                  >
+                    <td>{locations.length - index}</td>
+                    <td onClick={() => takeValueclick(location)}>
+                      {location.localName}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => onDelete(location.localCode)}
+                      >
+                        삭제
+                      </button>
+                    </td>
+                    <td hidden>{location.localCode}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </Container>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -183,32 +240,15 @@ const LocaionBoard = () => {
         >
           추가
         </button>
-
-        <div
-          className="input-group mb-3"
-          style={{ width: "300px", alignItems: "center", marginTop: "15px" }}
-        >
-          <input
-            type="search"
-            className="form-control"
-            name="search"
-            id="search"
-            placeholder="검색"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
-          />
-
+        <td>
           <button
             type="button"
-            className="btn btn-primary"
-            id="searchBtn"
-            // onClick={handleSearch}
+            className="btn btn-outline-primary"
+            onClick={toggleUpdateTable}
           >
-            <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
+            수정
           </button>
-        </div>
+        </td>
       </div>
 
       <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
@@ -245,7 +285,7 @@ const LocaionBoard = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="위치 코드"
+                placeholder="수정을 원하는 위치를 클릭하세요"
                 name="localCode"
                 value={localCode}
                 onChange={(e) => {
@@ -256,7 +296,7 @@ const LocaionBoard = () => {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="위치 입력"
+                placeholder="수정할 위치 입력"
                 name="localName"
                 value={localName}
                 onChange={(e) => {

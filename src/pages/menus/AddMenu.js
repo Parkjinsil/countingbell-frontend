@@ -50,6 +50,7 @@ const AddMenu = () => {
         <Form.Group className="mb-3">
           <Form.Control type="text" placeholder="메뉴 입력" name="menuName" />
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Control type="text" placeholder="가격입력" name="menuPrice" />
         </Form.Group>

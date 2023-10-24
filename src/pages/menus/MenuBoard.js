@@ -127,6 +127,7 @@ const MenuBoard = () => {
                 <th>구분</th>
                 <th>메뉴코드</th>
                 <th>메뉴명</th>
+
                 <th>가격</th>
                 <th>이미지</th>
                 <th>식당코드</th>
@@ -143,6 +144,7 @@ const MenuBoard = () => {
                   <td>{menus.length - index}</td>
                   <td>{menu.menuCode}</td>
                   <td>{menu.menuName}</td>
+
                   <td>{menu.menuPrice}</td>
                   <td style={{ alignItems: "center" }}>
                     <img
@@ -250,6 +252,7 @@ const MenuBoard = () => {
                                   }}
                                 />
                               </div>
+
                               <div className="mb-3">
                                 <label
                                   htmlFor="menuPrice"

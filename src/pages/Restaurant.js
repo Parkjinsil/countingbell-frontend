@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {} from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+import { asyncGetMenus } from "../store/menuSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -196,6 +201,39 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
+  const menus = useSelector((state) => state.menu.menuList); // 모든 메뉴 가져오기
+  //const [selectedRestaurantCode, setSelectedRestaurantCode] = useState(null); // 선택된 식당 코드 상태
+
+  // 선택된 식당 코드에 해당하는 메뉴들 필터링
+  //const filteredMenus = menus.filter(
+  //  (menu) => menu.restaurant.resCode === selectedRestaurantCode
+  //);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const imagePaths = [
+    "img/album1.jpg",
+    "img/album2.jpg",
+    "img/album3.jpg",
+    "img/album1.jpg",
+    "img/album2.jpg",
+    "img/album3.jpg",
+    "img/album1.jpg",
+    "img/album2.jpg",
+    "img/album3.jpg",
+    "img/album1.jpg",
+    "img/album2.jpg",
+    "img/album3.jpg",
+
+    // ..일단 이미지 경로 생성
+  ];
+
+  useEffect(() => {
+    dispatch(asyncGetMenus(1)); // 페이지 번호를 전달하여 초기 메뉴 목록 불러오기
+    const updatedMenuList = []; // 업데이트된 메뉴 목록
+    // dispatch(setMenuList(updatedMenuList)); // Redux 상태 업데이트
+  }, [dispatch]);
   return (
     <div>
       <section className="container">
@@ -343,7 +381,12 @@ const Restaurant = () => {
             tabindex="0"
           >
             <section className="container mb-5" id="scrollspyHeading1">
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
+              <div
+                className="row"
+                style={{
+                  borderBottom: "1px solid #ddd",
+                }}
+              >
                 <div className="col-2 text-center">
                   <StarFill
                     className="bi bi-star-fill"
@@ -352,9 +395,10 @@ const Restaurant = () => {
                       color: "#fbe94b",
                       margin: "3px",
                     }}
-                  />{" "}
+                  />
                   인기메뉴
                 </div>
+
                 <div className="col-2 mb-2">
                   <img
                     src="img/pasta.jpg"
@@ -365,7 +409,12 @@ const Restaurant = () => {
                 </div>
                 <div className="col-8">
                   <span>
-                    <div className="foodname mb-3 mt-3">토마토 파스타</div>
+                    <div
+                      className="foodname mb-3 mt-3"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      토마토 파스타
+                    </div>
                     <div
                       className="description mb-3"
                       style={{ lineHeight: "25px" }}
@@ -377,210 +426,47 @@ const Restaurant = () => {
                     <div>11,900 원</div>
                   </span>
                 </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineHeight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta3.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    height="150px"
-                    width="150px"
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">알리올리오 파스타</div>
+                <>
+                  {menus.map((menu) => (
                     <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
+                      className="row"
+                      style={{
+                        borderBottom: "1px solid #ddd",
+                      }}
+                      key={menu.menuCode}
                     >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
+                      <div
+                        className="col-2 text-center"
+                        style={{ lineheight: "150px" }}
+                      ></div>
+                      <div className="col-2 mb-2">
+                        <img
+                          src={"/upload/" + menu.menuPicture}
+                          className="rounded m-1 mx-auto d-block"
+                          style={{ height: "150px", width: "150px" }}
+                          alt={menu.menuName}
+                        />
+                      </div>
+                      <div className="col-8">
+                        <span>
+                          <div
+                            className="foodname mb-3 mt-3"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            {menu.menuName}
+                          </div>
+                          <div
+                            className="description mb-3"
+                            style={{ lineHeight: "25px" }}
+                          >
+                            {menu.menuName}의 설명칸입니다.
+                          </div>
+                          <div>{menu.menuPrice} 원</div>
+                        </span>
+                      </div>
                     </div>
-                    <div>9,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineHeight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza2.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza4.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">토마토 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>11,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pasta3.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">알리올리오 파스타</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>9,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza2.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
-              </div>
-
-              <div className="row" style={{ borderBottom: "1px solid #ddd" }}>
-                <div
-                  className="col-2 text-center"
-                  style={{ lineheight: "150px" }}
-                ></div>
-                <div className="col-2 mt-2 mb-2">
-                  <img
-                    src="img/pizza4.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div className="foodname mb-3 mt-4">페퍼로니 피자</div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>19,900 원</div>
-                  </span>
-                </div>
+                  ))}
+                </>
               </div>
             </section>
 
@@ -1330,55 +1216,13 @@ const Restaurant = () => {
             <section className="cantainer" id="scrollspyHeading3">
               <div className="container text-center mt-lg-0">
                 <div className="row">
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album1.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album2.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
-                  <div className="col">
-                    <img src="img/album3.jpg" alt="" />
-                  </div>
+                  {imagePaths.map((path, index) => (
+                    <div className="col" key={index}>
+                      <img src={path} alt={`Album ${index + 1}`} />
+                    </div>
+                  ))}
                 </div>
+
                 <div
                   className="eee"
                   style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
