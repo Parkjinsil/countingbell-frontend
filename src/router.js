@@ -22,7 +22,7 @@ import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
 import AddRestaurant from "./pages/restaurants/AddRestaurant";
 import LocationBoard from "./pages/location/LocationBoard";
-import AddComment from "./pages/comment/AddComment"
+import AddPhoto from "./pages/photo/AddPhoto";
 
 const router = createBrowserRouter([
   {
@@ -200,11 +200,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "addComment",
+    path: "addPhoto",
     children: [
       {
         index: true,
-        element: <AddComment />,
+        element: <AddPhoto />,
       },
     ],
   },
