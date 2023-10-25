@@ -47,7 +47,7 @@ const FoodTypeList = () => {
               .reverse()
               .map((food, index) => (
                 <button
-                  className="btn  btn-outline-warning m-2"
+                  className="btn btn-outline-primary m-2"
                   key={food.foodCode}
                   style={{
                     fontSize: "1.2em",

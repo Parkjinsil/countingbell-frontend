@@ -211,7 +211,7 @@ const Home = () => {
         </ButtonContainer>
 
         <Category id="category">
-          <Link to="/location" className="category-link">
+          <Link to="/locationList" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">위치별</span>
           </Link>
@@ -221,12 +221,12 @@ const Home = () => {
               <span className="category-text">인기순</span>
             </span>
           </a>
-          <a href="/restaurantList" className="category-link">
+          <Link to="/foodList" className="category-link">
             <span className="category-content">
               <img src={image4} alt="음식별" className="category-image" />
               <span className="category-text">음식별</span>
             </span>
-          </a>
+          </Link>
           <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="리뷰순" className="category-image" />

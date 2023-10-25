@@ -9,44 +9,14 @@ import { asyncGetLocations } from "../../store/locationSlice";
 import { setLocationList } from "../../store/locationSlice";
 import { useState } from "react";
 
-const Nav = styled.div`
-  position: fixed;
-  background-color: white;
-  width: 100%;
-  height: 56px;
-
-  padding-left: 15px;
-
-  a {
-    background-color: #eee;
-    padding: 5px 10px;
-    border-radius: 5px;
-    line-height: 56px;
-    margin: 5px;
-
-    &.active {
-      background-color: black;
-      color: white;
-    }
-  }
-`;
-
 const LocationList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [localCode, setLocalCode] = useState("");
-  const [localName, setLocalName] = useState("");
-
-  const [showAddTable, setShowAddTable] = useState(false);
-  const [showUpdateTable, setShowUpdateTable] = useState(false);
 
   const locations = useSelector((state) => state.location.locationList);
 
   useEffect(() => {
     dispatch(asyncGetLocations(1));
-    const updatedLocationList = [];
-    dispatch(setLocationList(updatedLocationList));
   }, [dispatch]);
 
   const [selectedLocalCode, setSelectedLocalCode] = useState(null);
@@ -59,17 +29,31 @@ const LocationList = () => {
   };
 
   return (
-    <div className="container my-5">
-      <div
-        className="position-relative p-5  bg-body border border-dashed rounded-5"
-        style={{ marginTop: "100px" }}
-      >
+    <div
+      className="container my-5"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div className="position-relative p-5  bg-body border border-dashed rounded-5">
         <Container>
-          <div className="d-flex flex-wrap">
+          <div
+            cclassName="d-flex flex-wrap"
+            style={{ gap: "50px", margin: "0 170px" }}
+          >
             {locations.map((location, index) => (
               <button
                 key={location.localCode}
-                className="btn btn-secondary m-2"
+                className="btn btn-outline-primary m-2"
+                style={{
+                  fontSize: "1.2em",
+                  fontWeight: "bold",
+                  minWidth: "150px",
+                  minHeight: "90px",
+                }}
                 onClick={() => takeValueclick(location)}
               >
                 {location.localName}
