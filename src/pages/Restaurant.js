@@ -459,7 +459,7 @@ const Restaurant = () => {
                             className="description mb-3"
                             style={{ lineHeight: "25px" }}
                           >
-                            {menu.menuName}의 설명칸입니다.
+                            {menu.menuDesc}
                           </div>
                           <div>{menu.menuPrice} 원</div>
                         </span>

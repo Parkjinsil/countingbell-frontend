@@ -70,6 +70,9 @@ const userSlice = createSlice({
         // localStorage.setItem("user", JSON.stringify(action.payload));
         // return action.payload;
 
+        console.log("로그인 성공!");
+        console.log(action.payload);
+
         if (action.payload.deleteAccountYN === "N") {
           localStorage.setItem("token", action.payload.token);
           localStorage.setItem("user", JSON.stringify(action.payload));

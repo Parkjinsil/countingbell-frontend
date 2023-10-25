@@ -26,6 +26,7 @@ const AddMenu = () => {
     formData.append("menuPicture", e.target.menuPicture.files[0]);
     // 파일은 e.target.menuPicture.files로 접근
     formData.append("menuName", e.target.menuName.value);
+    formData.append("menuDesc", e.target.menuDesc.value);
     formData.append("menuPrice", e.target.menuPrice.value);
     console.log(formData);
 
@@ -48,11 +49,14 @@ const AddMenu = () => {
           <Form.Control type="text" placeholder="식당 코드" name="resCode" />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="메뉴 입력" name="menuName" />
+          <Form.Control type="text" placeholder="메뉴명" name="menuName" />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Control type="text" placeholder="메뉴설명" name="menuDesc" />
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="가격입력" name="menuPrice" />
+          <Form.Control type="text" placeholder="가격" name="menuPrice" />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control type="file" placeholder="메뉴사진" name="menuPicture" />
