@@ -26,8 +26,14 @@ const AddPhoto = () => {
         formData.append("photoName", e.target.photoName.value);
         formData.append("resPhoto", e.target.resPhoto.files[0]);
 
-        dispatch(asyncAddPhoto(formData));
-        navigate("/restaurant");
+        dispatch(asyncAddPhoto(formData))
+        .then(() => {
+          dispatch(asyncGetPhotos(1, null));
+          navigate("/photoboard");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
     return (
@@ -38,7 +44,7 @@ const AddPhoto = () => {
             <Form.Control type="text" placeholder="식당 코드" name="resCode"/>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Control type="text" placeholder="식당 이름" name="photoName" />
+            <Form.Control type="text" placeholder="사진 이름" name="photoName" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Control type="file" placeholder="식당 사진" name="resPhoto" />
