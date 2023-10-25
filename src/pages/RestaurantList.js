@@ -191,7 +191,7 @@ const RestaurantList = () => {
       <List className="restaurant-list">
         <ListHeader className="restaurant-list-header">
           <img src={image1} alt="" />
-          <div>내 위치별 추천 식당</div>
+          <div>지역 식당</div>
         </ListHeader>
         <ListBody className="restaurant-list-body">
           <ul>

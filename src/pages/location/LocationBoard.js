@@ -86,6 +86,8 @@ const LocaionBoard = () => {
     setLocalName(""); // localName 초기화
   };
 
+  const [selectedLocalCode, setSelectedLocalCode] = useState(null);
+
   // 지역 수정
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
@@ -98,11 +100,11 @@ const LocaionBoard = () => {
 
   // 클릭한 행값 가져오기
   const takeValueclick = (location) => {
-    setLocalCode(location.localCode);
+    setSelectedLocalCode(location.localCode);
   };
 
   // 수정 로직
-  const onUpdateLocation = (e) => {
+  const UpdateLocation = (e) => {
     e.preventDefault();
 
     const updatedLocalCode = e.target.localCode.value;
@@ -130,7 +132,7 @@ const LocaionBoard = () => {
   const findRestaurant = () => {
     // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
     if (!showUpdateTable && !showAddTable) {
-      navigate("/restaurantList");
+      navigate("/locationResList");
     }
   };
 
@@ -163,7 +165,7 @@ const LocaionBoard = () => {
             서울
           </button>
           <ul class="dropdown-menu">
-            <li>
+            <li>takeValueclick 
               <a
                 class="dropdown-item"
                 href="#"
@@ -281,7 +283,7 @@ const LocaionBoard = () => {
           </Form>
         )}
         {showUpdateTable && (
-          <Form onSubmit={onUpdateLocation}>
+          <Form onSubmit={UpdateLocation}>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"

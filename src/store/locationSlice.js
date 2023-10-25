@@ -1,8 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addLocation, getLocations, updateLocation } from "../api/location";
+import {
+  addLocation,
+  findByLocalCode,
+  getLocations,
+  updateLocation,
+} from "../api/location";
 
+// 위치별 식당 가져오기
+const asyncFindByLocalCode = createAsyncThunk(
+  "locationSlice/asyncFindByLocalCode",
+  async (id) => {
+    const result = await findByLocalCode(id);
+    console.log(result.data);
+    return result.data;
+  }
+);
+
+// 위치 전체 가져오기
 const asyncGetLocations = createAsyncThunk(
-  "menuSlice/asyncGetLocations",
+  "locationSlice/asyncGetLocations",
   async (page) => {
     const result = await getLocations(page);
     return result.data;
@@ -69,9 +85,19 @@ const locationSlice = createSlice({
         // 위치를 찾았음! -> 업데이트된 정보 때려넣기!
         state.locationList.splice(index, 1, action.payload);
       });
+
+    // 위치별 식당찾기
+    builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
+      state.locationList = action.payload;
+    });
   },
 });
 
 export default locationSlice;
-export { asyncGetLocations, asyncAddLocation, asyncUpdateLocation };
+export {
+  asyncGetLocations,
+  asyncAddLocation,
+  asyncUpdateLocation,
+  asyncFindByLocalCode,
+};
 export const { setLocationList, setSelectedLocation } = locationSlice.actions;

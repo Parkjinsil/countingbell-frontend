@@ -21,6 +21,8 @@ import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
 import LocationBoard from "./pages/location/LocationBoard";
+import LocationResList from "./pages/location/LocationResList";
+import LocationList from "./pages/location/LocationList";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <RecentList />,
+      },
+    ],
+  },
+  {
+    path: "locationResList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationResList />,
       },
     ],
   },
@@ -185,6 +197,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LocationBoard />,
+      },
+    ],
+  },
+  {
+    path: "locationList",
+    children: [
+      {
+        index: true,
+        element: <LocationList />,
       },
     ],
   },
