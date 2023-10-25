@@ -3,6 +3,7 @@ import userSlice from "./userSlice";
 import menuSlice from "./menuSlice";
 import locationSlice from "./locationSlice";
 import restaurantSlice from "./restaurantSlice";
+import foodSlice from "./foodSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     menu: menuSlice.reducer,
     location: locationSlice.reducer,
     restaurant: restaurantSlice.reducer,
+    food: foodSlice.reducer,
   },
 });
 

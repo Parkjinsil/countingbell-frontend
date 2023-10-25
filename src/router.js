@@ -23,6 +23,8 @@ import MenuUpdate from "./pages/menus/MenuUpdate";
 import LocationBoard from "./pages/location/LocationBoard";
 import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
+import FoodTypeList from "./pages/food/FoodTypeList";
+import FoodResList from "./pages/food/FoodResList";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,26 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "foodList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodTypeList />,
+      },
+    ],
+  },
+  {
+    path: "foodResList/:foodCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodResList />,
+      },
+    ],
+  },
+  {
     path: "locationResList/:localCode",
     element: <Layout header={<Header2 />} />,
     children: [
@@ -80,6 +102,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "menu",
     element: <Layout header={<Header2 />} />,
@@ -202,6 +225,7 @@ const router = createBrowserRouter([
   },
   {
     path: "locationList",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

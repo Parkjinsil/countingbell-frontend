@@ -4,25 +4,28 @@ import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image1 from "../../assets/111.jpg";
 import { findByLocalCode } from "../../api/restaurant";
-import { asyncFindByLocalCode } from "../../store/restaurantSlice";
+import {
+  asyncFindByFoodCode,
+  asyncFindByLocalCode,
+} from "../../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const LocationResList = () => {
+const FoodResList = () => {
   const dispatch = useDispatch();
-  const { localCode } = useParams();
+  const { foodCode } = useParams();
 
   const restaurantList = useSelector(
     (state) => state.restaurant.restaurantList
   );
 
   useEffect(() => {
-    console.log(localCode);
-    dispatch(asyncFindByLocalCode(localCode));
-  }, [dispatch, localCode]);
+    console.log(foodCode);
+    dispatch(asyncFindByFoodCode(foodCode));
+  }, [dispatch, foodCode]);
 
   console.log("restaurantList:", restaurantList); // 확인용 console.log 추가
 
@@ -83,4 +86,4 @@ const LocationResList = () => {
   );
 };
 
-export default LocationResList;
+export default FoodResList;

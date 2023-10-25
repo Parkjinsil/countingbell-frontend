@@ -154,37 +154,6 @@ const LocaionBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        {/* <div class="btn-group">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="inside"
-            aria-expanded="false"
-          >
-            서울
-          </button>
-          <ul class="dropdown-menu">
-            <li>takeValueclick 
-              <a
-                class="dropdown-item"
-                href="#"
-                onClick={() => setSelectedCategory("용인")}
-              >
-                용인
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                onClick={() => setSelectedCategory("선릉")}
-              >
-                선릉
-              </a>
-            </li>
-          </ul>
-        </div> */}
         <Container>
           <table className="table table-hover" id="tableValue">
             <thead>
@@ -196,31 +165,26 @@ const LocaionBoard = () => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations
-                // .filter(
-                //   (location) =>
-                //     !selectedCategory || location.category === selectedCategory
-                // )
-                .map((location, index) => (
-                  <tr
-                    key={location.localCode}
-                    onClick={() => findRestaurant(location)}
-                  >
-                    <td>{locations.length - index}</td>
-                    <td onClick={() => takeValueclick(location)}>
-                      {location.localName}
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={() => onDelete(location.localCode)}
-                      >
-                        삭제
-                      </button>
-                    </td>
-                    <td hidden>{location.localCode}</td>
-                  </tr>
-                ))}
+              {locations.map((location, index) => (
+                <tr
+                  key={location.localCode}
+                  onClick={() => findRestaurant(location)}
+                >
+                  <td>{locations.length - index}</td>
+                  <td onClick={() => takeValueclick(location)}>
+                    {location.localName}
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => onDelete(location.localCode)}
+                    >
+                      삭제
+                    </button>
+                  </td>
+                  <td hidden>{location.localCode}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Container>

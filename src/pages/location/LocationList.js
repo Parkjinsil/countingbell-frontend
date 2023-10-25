@@ -65,27 +65,17 @@ const LocationList = () => {
         style={{ marginTop: "100px" }}
       >
         <Container>
-          <table className="table table-hover" id="tableValue">
-            <thead>
-              <tr>
-                <th>구분</th>
-                <th>위치</th>
-              </tr>
-            </thead>
-            <tbody className="table-group-divider">
-              {locations.map((location, index) => (
-                <tr
-                  key={location.localCode}
-                  //   onClick={() => findRestaurant(location.localCode)}
-                >
-                  <td>{locations.length - index}</td>
-                  <td onClick={() => takeValueclick(location)}>
-                    {location.localName}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="d-flex flex-wrap">
+            {locations.map((location, index) => (
+              <button
+                key={location.localCode}
+                className="btn btn-secondary m-2"
+                onClick={() => takeValueclick(location)}
+              >
+                {location.localName}
+              </button>
+            ))}
+          </div>
         </Container>
       </div>
     </div>

@@ -11,18 +11,19 @@ export const getRestaurants = async (page) => {
   return await instance.get(url);
 };
 
-// 위치따라
+// 위치별 식당조회
 export const findByLocalCode = async (id) => {
   let url = `restaurant/${id}/location`;
+  return await instance.get(url);
+};
+
+// 음식타입별 식당조회
+export const findByFoodCode = async (id) => {
+  let url = `restaurant/${id}/food`;
   return await instance.get(url);
 };
 
 // 식당이름따라
 export const getRestaurantByName = async (resName) => {
   return await instance.get(`search?name=${resName}`);
-};
-
-// 음식타입따라 ==> food.js로 이동
-export const getRestaurantByFood = async (foodCode) => {
-  return await instance.get(`search?foodCode=${foodCode}`);
 };
