@@ -28,6 +28,7 @@ const PagingStyle = styled.div`
 
 const MenuBoard = () => {
   const [menuName, setMenuName] = useState("");
+  const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState("");
   const [menuCode, setMenuCode] = useState("");
@@ -70,26 +71,22 @@ const MenuBoard = () => {
   const onUpdate = async (e) => {
     e.preventDefault();
     console.log(menuName);
+    console.log(menuDesc);
     console.log(menuPrice);
     console.log(menuPicture);
     console.log(menuCode);
     console.log(resCode);
 
+    // 객체 formData.append 방식으로 넘기기
     const formData = new FormData();
 
     formData.append("menuCode", menuCode);
     formData.append("menuName", menuName);
+    formData.append("menuDesc", menuDesc);
     formData.append("menuPrice", menuPrice);
     formData.append("menuPicture", menuPicture);
     formData.append("resCode", resCode);
 
-    //const formData2 = {
-    //  menuName,
-    // menuPrice,
-    // menuPicture,
-    //  menuCode,
-    //  resCode,
-    // };
     console.log(formData);
 
     dispatch(asyncUpdateMenu(formData));
@@ -101,7 +98,10 @@ const MenuBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        <div className="input-group mb-3" style={{ width: "300px" }}>
+        <div
+          className="input-group mb-3"
+          style={{ width: "300px", marginLeft: "900px" }}
+        >
           <input
             type="search"
             className="form-control"
@@ -124,12 +124,13 @@ const MenuBoard = () => {
           </button>
         </div>
         <Container>
-          <table className="table table-hover">
+          <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
               <tr>
                 <th>구분</th>
                 <th>메뉴코드</th>
                 <th>메뉴명</th>
+                <th>메뉴설명</th>
                 <th>가격</th>
                 <th>이미지</th>
                 <th>식당코드</th>
@@ -137,17 +138,25 @@ const MenuBoard = () => {
                 <th>삭제</th>
               </tr>
             </thead>
-            <tbody className="table-group-divider">
+            <tbody
+              className="table-group-divider"
+              style={{ lineHeight: " 100px" }}
+            >
               {menus.map((menu, index) => (
-                <tr key={menu.menuCode}>
+                <tr key={menu.menuCode} style={{ lineHeight: "150px" }}>
                   <td>{menus.length - index}</td>
                   <td>{menu.menuCode}</td>
                   <td>{menu.menuName}</td>
+                  <td>{menu.menuDesc}</td>
                   <td>{menu.menuPrice}</td>
-                  <td>
+                  <td style={{ alignItems: "center" }}>
                     <img
                       src={"/upload/" + menu.menuPicture}
-                      style={{ width: "100px" }}
+                      style={{
+                        width: "150px",
+                        height: "100px",
+                        borderRadius: "10%",
+                      }}
                     />
                   </td>
                   <td>{menu.restaurant.resCode}</td>
@@ -246,6 +255,26 @@ const MenuBoard = () => {
                                   }}
                                 />
                               </div>
+
+                              <div>
+                                <label
+                                  htmlFor="menuDesc"
+                                  className="col-form-label"
+                                >
+                                  메뉴설명 :
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="menuDesc"
+                                  // placeholder={menu.menuDesc}
+                                  value={menuDesc}
+                                  onChange={(e) => {
+                                    setMenuDesc(e.target.value);
+                                  }}
+                                />
+                              </div>
+
                               <div className="mb-3">
                                 <label
                                   htmlFor="menuPrice"
@@ -275,6 +304,7 @@ const MenuBoard = () => {
                                   type="file"
                                   className="form-control"
                                   id="menuPicture"
+                                  // 이미지를 수정하지 않을 경우, 기존 이미지 파일 경로를 플레이스홀더로 설정
                                   placeholder={menu.menuPicture}
                                   onChange={(e) => {
                                     console.log(e.target);
