@@ -149,12 +149,12 @@ const AddRestaurant = () => {
                             <p>식당 이름</p>
                             <label>
                                 <input
-                                id="resName"
-                                value={resName}
-                                type="text"
-                                placeholder="식당이름을 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resName"
+                                    value={resName}
+                                    type="text"
+                                    placeholder="식당이름을 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resNameError"></div>
@@ -164,12 +164,12 @@ const AddRestaurant = () => {
                             <p>식당 주소</p>
                             <label>
                                 <input
-                                id="resAddr"
-                                value={resAddr}
-                                type="text"
-                                placeholder="식당주소를 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resAddr"
+                                    value={resAddr}
+                                    type="text"
+                                    placeholder="식당주소를 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resAddrError"></div>
@@ -179,12 +179,12 @@ const AddRestaurant = () => {
                             <p>식당 전화번호</p>
                             <label>
                                 <input
-                                id="resPhone"
-                                value={resPhone}
-                                type="text"
-                                placeholder="식당 전화번호를 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resPhone"
+                                    value={resPhone}
+                                    type="text"
+                                    placeholder="식당 전화번호를 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resPhoneError"></div>
@@ -194,12 +194,12 @@ const AddRestaurant = () => {
                             <p>식당 영업시간</p>
                             <label>
                                 <input
-                                id="resOpenHour"
-                                value={resOpenHour}
-                                type="text"
-                                placeholder="영업시간을 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resOpenHour"
+                                    value={resOpenHour}
+                                    type="text"
+                                    placeholder="영업시간을 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resOpenHourError"></div>
@@ -209,12 +209,12 @@ const AddRestaurant = () => {
                             <p>식당 닫는 시간</p>
                             <label>
                                 <input
-                                id="resClose"
-                                value={resClose}
-                                type="text"
-                                placeholder="닫는 시간을 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resClose"
+                                    value={resClose}
+                                    type="text"
+                                    placeholder="닫는 시간을 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resCloseError"></div>
@@ -224,12 +224,12 @@ const AddRestaurant = () => {
                             <p>식당 설명</p>
                             <label>
                                 <input
-                                id="resDesc"
-                                value={resDesc}
-                                type="text"
-                                placeholder="식당 설명을 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="resDesc"
+                                    value={resDesc}
+                                    type="text"
+                                    placeholder="식당 설명을 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="resDescError"></div>
@@ -276,12 +276,12 @@ const AddRestaurant = () => {
                             <p>아이디</p>
                             <label>
                                 <input
-                                id="id"
-                                value={id}
-                                type="text"
-                                placeholder="본인 아이디를 입력해주세요."
-                                onChange={onChange}
-                                required>
+                                    id="id"
+                                    value={id}
+                                    type="text"
+                                    placeholder="본인 아이디를 입력해주세요."
+                                    onChange={onChange}
+                                    required>
                                 </input>
                             </label>
                             <div className="idError"></div>
