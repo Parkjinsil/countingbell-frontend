@@ -11,3 +11,7 @@ export const addPick = async (data) => {
 export const delPick = async (id) => {
   return await instance.delete("pick/" + id);
 };
+
+export const putPick = async (data) => {
+  return await instance.put("pick", data);
+};
