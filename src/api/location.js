@@ -29,8 +29,3 @@ export const updateLocation = async (data) => {
 export const deleteLocation = async (id) => {
   return await instance.delete("location/" + id);
 };
-
-export const findByLocalCode = async (id) => {
-  let url = `restaurant/${id}/location`;
-  return await instance.get(url);
-};

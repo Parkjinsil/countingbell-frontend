@@ -71,7 +71,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "locationResList",
+    path: "locationResList/:localCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {

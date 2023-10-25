@@ -197,10 +197,10 @@ const LocaionBoard = () => {
             </thead>
             <tbody className="table-group-divider">
               {locations
-                .filter(
-                  (location) =>
-                    !selectedCategory || location.category === selectedCategory
-                )
+                // .filter(
+                //   (location) =>
+                //     !selectedCategory || location.category === selectedCategory
+                // )
                 .map((location, index) => (
                   <tr
                     key={location.localCode}

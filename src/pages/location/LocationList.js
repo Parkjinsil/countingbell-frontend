@@ -51,17 +51,11 @@ const LocationList = () => {
 
   const [selectedLocalCode, setSelectedLocalCode] = useState(null);
 
-  // localCode를 클릭하면 findRestaurant 함수를 호출하여 해당 localCode를 전달
+  // localCode를 클릭 시 이동
   const takeValueclick = (location) => {
     const localCode = location.localCode;
-    setSelectedLocalCode(location.localCode);
-    // findRestaurant(location.localCode);
-    navigate(`/locationResList/${location.localCode}`);
-  };
-
-  // 지역별 식당찾기
-  const findRestaurant = (localCode) => {
-    // navigate(`/locationResList/${localCode}`);
+    setSelectedLocalCode(localCode);
+    navigate(`/locationResList/${localCode}`);
   };
 
   return (
@@ -76,15 +70,13 @@ const LocationList = () => {
               <tr>
                 <th>구분</th>
                 <th>위치</th>
-                <th>삭제</th>
-                <th hidden>위치코드</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
               {locations.map((location, index) => (
                 <tr
                   key={location.localCode}
-                  onClick={() => findRestaurant(location.localCode)}
+                  //   onClick={() => findRestaurant(location.localCode)}
                 >
                   <td>{locations.length - index}</td>
                   <td onClick={() => takeValueclick(location)}>
