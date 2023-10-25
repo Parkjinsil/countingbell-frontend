@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { asyncLogin } from "../store/userSlice";
+import { UseSelector } from "react-redux/es/hooks/useSelector";
 
 const Container = styled.div`
   display: flex;
@@ -121,9 +122,19 @@ const Login = () => {
   // 홈으로 이동
   const onSubmit = (e) => {
     e.preventDefault();
+
+    // const formData = {
+    //   id: e.target.id.value,
+    //   password: e.target.password.value,
+    // };
+    //dispatch(asyncLogin({ formData }));
+    // alert(`${formData.id}님 환영합니다.`);
+
     const id = e.target.id.value;
     const password = e.target.password.value;
     dispatch(asyncLogin({ id, password }));
+    alert(`${id}님 환영합니다.`);
+
     navigate("/");
   };
 
