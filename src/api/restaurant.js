@@ -16,5 +16,6 @@ export const getRestaurantByFood = async (foodCode) => {
 
 // 식당 등록
 export const addRestaurant = async (data) => {
+  console.log("백에보낼때"+data);
   return await instance.post("restaurant", data);
 };

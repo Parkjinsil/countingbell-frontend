@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { addRestaurant } from "../../api/restaurant";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncAddRestaurant } from "../../store/restaurantSlice";
@@ -98,40 +97,19 @@ const AddRestaurant = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        resName: "",
-        resAddr: "",
-        resPhone: "",
-        resOpenHour: "",
-        resClose: "",
-        resDesc: "",
-        localCode: "",
-        foodCode: "",
-        id: "",
-    });
-
-    const {
-        resName,
-        resAddr,
-        resPhone,
-        resOpenHour,
-        resClose,
-        resDesc,
-        localCode,
-        foodCode,
-        id,
-    } = formData;
-
-    const onChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
-    };
-
-    const addRestaurantHandler = async (e) => {
+    const HandleSubmit = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("resName", e.target.resName.value);
+        formData.append("resAddr",e.target.resAddr.value);
+        formData.append("resPhone",e.target.resPhone.value);
+        formData.append("resOpenHour",e.target.resOpenHour.value);
+        formData.append("resClose",e.target.resClose.value);
+        formData.append("resDesc",e.target.resDesc.value);
+        formData.append("localCode",e.target.localCode.value);
+        formData.append("foodCode", e.target.foodCode.value);
+        formData.append("id", e.target.id.value);
 
         dispatch(asyncAddRestaurant(formData));
         navigate("/");
@@ -139,7 +117,7 @@ const AddRestaurant = () => {
 
     return (
         <Container>
-            <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
+            <form className="addRestaurantForm" onSubmit={HandleSubmit}>
                 <Wrapper>
                     <Title>
                         <h1>식당 등록</h1>
@@ -149,11 +127,9 @@ const AddRestaurant = () => {
                             <p>식당 이름</p>
                             <label>
                                 <input
-                                id="resName"
-                                value={resName}
+                                name="resName"
                                 type="text"
                                 placeholder="식당이름을 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -164,11 +140,9 @@ const AddRestaurant = () => {
                             <p>식당 주소</p>
                             <label>
                                 <input
-                                id="resAddr"
-                                value={resAddr}
+                                name="resAddr"
                                 type="text"
                                 placeholder="식당주소를 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -179,11 +153,9 @@ const AddRestaurant = () => {
                             <p>식당 전화번호</p>
                             <label>
                                 <input
-                                id="resPhone"
-                                value={resPhone}
+                                name="resPhone"
                                 type="text"
                                 placeholder="식당 전화번호를 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -194,11 +166,9 @@ const AddRestaurant = () => {
                             <p>식당 영업시간</p>
                             <label>
                                 <input
-                                id="resOpenHour"
-                                value={resOpenHour}
+                                name="resOpenHour"
                                 type="text"
                                 placeholder="영업시간을 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -209,11 +179,9 @@ const AddRestaurant = () => {
                             <p>식당 닫는 시간</p>
                             <label>
                                 <input
-                                id="resClose"
-                                value={resClose}
+                                name="resClose"
                                 type="text"
                                 placeholder="닫는 시간을 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -224,11 +192,9 @@ const AddRestaurant = () => {
                             <p>식당 설명</p>
                             <label>
                                 <input
-                                id="resDesc"
-                                value={resDesc}
+                                name="resDesc"
                                 type="text"
                                 placeholder="식당 설명을 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
@@ -239,7 +205,7 @@ const AddRestaurant = () => {
                             <div className="localCode">
                                 <p>지역</p>
                                 <label>
-                                    <select id="localCode" value={localCode} onChange={onChange}>
+                                    <select name="localCode">
                                         <option>지역</option>
                                         <option value="1">압구정/청담</option>
                                         <option value="2">이태원/한남</option>
@@ -262,7 +228,8 @@ const AddRestaurant = () => {
                             <div className="foodCode">
                                 <p>음식 종류</p>
                                 <label>
-                                    <select id="foodCode" value={foodCode} onChange={onChange}>
+                                    <select name="foodCode">
+                                        <option>음식 종류</option>
                                         <option value="1">한식</option>
                                         <option value="2">일식</option>
                                         <option value="3">중식</option>
@@ -276,11 +243,9 @@ const AddRestaurant = () => {
                             <p>아이디</p>
                             <label>
                                 <input
-                                id="id"
-                                value={id}
+                                name="id"
                                 type="text"
                                 placeholder="본인 아이디를 입력해주세요."
-                                onChange={onChange}
                                 required>
                                 </input>
                             </label>
