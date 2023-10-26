@@ -116,7 +116,7 @@ const MenuBoard = () => {
             type="button"
             className="btn btn-primary"
             id="searchBtn"
-            // onClick={handleSearch}
+          // onClick={handleSearch}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
           </button>

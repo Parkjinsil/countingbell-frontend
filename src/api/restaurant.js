@@ -34,6 +34,12 @@ export const findByFoodCode = async (id) => {
   return await instance.get(url);
 };
 
+export const findResByFilter = async ({foodCode, localCode}) => {
+  console.log("필터 거르기 axios call!!");
+  let url = `restaurant/${foodCode}/${localCode}`;
+  return await instance.get(url);
+}
+
 // 식당이름따라
 // export const getRestaurantByName = async (resName) => {
 //   return await instance.get(`search?name=${resName}`);

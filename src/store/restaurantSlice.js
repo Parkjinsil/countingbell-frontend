@@ -5,6 +5,7 @@ import {
     findByFoodCode,
     getRestaurant,
     getRestaurants,
+    findResByFilter
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
@@ -54,6 +55,14 @@ const asyncFindByFoodCode = createAsyncThunk(
   }
 );
 
+const asyncFindResByFilter = createAsyncThunk(
+  "restaurantSlice/asyncFindResByFilter",
+  async ({ foodCode, localCode })  => {
+    const result = await findResByFilter({foodCode, localCode});
+    return result.data;
+  }
+)
+
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
   initialState: { restaurantList: [], selectedRestaurant: {} },
@@ -82,6 +91,11 @@ const restaurantSlice = createSlice({
       return state;
     });
 
+    builder.addCase(asyncFindResByFilter.fulfilled, (state, action) => {
+      state.restaurantList = action.payload;
+      return state;
+    })
+
     // 음식타입별 식당찾기
     builder.addCase(asyncFindByFoodCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -108,6 +122,7 @@ export {
   asyncGetRestaurants,
   asyncFindByLocalCode,
   asyncFindByFoodCode,
+  asyncFindResByFilter,
   asyncGetRestaurant,
 };
 export const { setRestaurantList, setSelectedRestaurant } =

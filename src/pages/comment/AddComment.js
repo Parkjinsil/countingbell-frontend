@@ -2,6 +2,7 @@
 // import { useDispatch } from "react-redux";
 // import styled from "styled-components";
 // import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 // const Form = styled.form`
 //   text-align: center;
@@ -28,31 +29,30 @@
 
 // const AddComment = () => {
 //   const dispatch = useDispatch();
-//   const [comment, setComment] = useState({
-//       ""
-//   });
+//   const navigate = useNavigate();
 
-//   const onSubmit = (e) => {
+//   const HandleSubmit = async (e) => {
 //     e.preventDefault();
 
-//     dispatch(asyncAddComment(data))
-//       .then(() => {
-//         dispatch(asy)
-//         navigate("/")
-//       });
+//     const formData = new FormData();
+//     formData.append("")
 
-//     return (
-//       <Form onSubmit={onSubmit} className={active ? "active" : ""}>
-//         <input
-//           type="text"
-//           value={comment}
-//           onChange={(e) => {
-//             setComment(e.target.value);
-//           }}
-//         />
-//         <input type="submit" value="댓글" />
-//       </Form>
-//     );
+//     dispatch(asyncAddComment(data))
+//     navigate("/")
 //   };
-// }
+
+//   return (
+//     <Form onSubmit={HandleSubmit} className={active ? "active" : ""}>
+//       <input
+//         type="text"
+//         value={comment}
+//         onChange={(e) => {
+//           setComment(e.target.value);
+//         }}
+//       />
+//       <input type="submit" value="댓글" />
+//     </Form>
+//   );
+// };
+
 // export default AddComment;
