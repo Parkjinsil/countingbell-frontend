@@ -25,6 +25,7 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
+import ResReserve from "./pages/food/ResReserv";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <RecentList />,
+      },
+    ],
+  },
+  {
+    path: "resReserve",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ResReserve />,
       },
     ],
   },
