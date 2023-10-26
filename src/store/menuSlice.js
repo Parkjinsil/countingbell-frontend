@@ -5,6 +5,7 @@ import {
   updateMenu,
   getMenu,
   deleteMenu,
+  findByMenuCode,
 } from "../api/menu";
 
 const asyncAddMenu = createAsyncThunk(
@@ -34,6 +35,15 @@ const asyncUpdateMenu = createAsyncThunk(
   "menuSlice/asyncUpdateMenu",
   async (data) => {
     const result = await updateMenu(data);
+    return result.data;
+  }
+);
+
+// 식당별 메뉴
+const asyncFindByMenuCode = createAsyncThunk(
+  "menuSlice/asyncFindByMenuCode",
+  async (id) => {
+    const result = await findByMenuCode(id);
     return result.data;
   }
 );
@@ -89,9 +99,16 @@ const menuSlice = createSlice({
         //state.menuList.splice(index, 1, action.payload);
         alert("메뉴 수정에 성공했습니다");
       });
+
+    // 식당별 메뉴찾기
+    builder.addCase(asyncFindByMenuCode.fulfilled, (state, action) => {
+      state.menuList = action.payload;
+
+      return state;
+    });
   },
 });
 
 export default menuSlice;
-export { asyncAddMenu, asyncGetMenus, asyncUpdateMenu };
+export { asyncAddMenu, asyncGetMenus, asyncUpdateMenu, asyncFindByMenuCode };
 export const { setMenuList, setSelectedMenu } = menuSlice.actions;

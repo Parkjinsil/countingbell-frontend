@@ -7,8 +7,10 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
-import { asyncGetMenus } from "../store/menuSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
+import { getRestaurant } from "../api/restaurant";
+import { asyncGetRestaurant } from "../store/restaurantSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -201,16 +203,19 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
-  const menus = useSelector((state) => state.menu.menuList); // 모든 메뉴 가져오기
-  //const [selectedRestaurantCode, setSelectedRestaurantCode] = useState(null); // 선택된 식당 코드 상태
-
-  // 선택된 식당 코드에 해당하는 메뉴들 필터링
-  //const filteredMenus = menus.filter(
-  //  (menu) => menu.restaurant.resCode === selectedRestaurantCode
-  //);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { resCode } = useParams();
+  const menus = useSelector((state) => state.menu.menuList); // 모든 메뉴 가져오기
+  const restaurant = useSelector(
+    (state) => state.restaurant.selectedRestaurant
+  );
+
+  useEffect(() => {
+    dispatch(asyncFindByMenuCode(resCode)); // resCode
+    dispatch(asyncGetRestaurant(resCode));
+  }, []);
 
   const imagePaths = [
     "img/album1.jpg",
@@ -229,13 +234,8 @@ const Restaurant = () => {
     // ..일단 이미지 경로 생성
   ];
 
-  useEffect(() => {
-    dispatch(asyncGetMenus(1)); // 페이지 번호를 전달하여 초기 메뉴 목록 불러오기
-    const updatedMenuList = []; // 업데이트된 메뉴 목록
-    // dispatch(setMenuList(updatedMenuList)); // Redux 상태 업데이트
-  }, [dispatch]);
   return (
-    <div>
+    <div style={{ marginTop: "80px" }}>
       <section className="container">
         <div className="row">
           <div className="col-4">
@@ -249,7 +249,7 @@ const Restaurant = () => {
           <div className="col-4">
             <div className="res11 py-3 mb-3">
               <h2 className="res111 fw-bold fs-2">
-                레스토랑스
+                {restaurant?.resName}
                 <span
                   className="res2 fs-5 fw-bold text-muted"
                   style={{ margin: "0px 10px 0px 50px" }}
@@ -257,7 +257,7 @@ const Restaurant = () => {
                   <StarFill
                     className="bi bi-star-fill mb-1"
                     style={{ fontSize: "1.5rem", color: "#FBE94B" }}
-                  />{" "}
+                  />
                   4.6
                 </span>
                 <span className="res3 fs-6 fw-bold text-muted">
@@ -265,7 +265,7 @@ const Restaurant = () => {
                 </span>
               </h2>
               <div className="res11 fs-6 fw-medium text-muted mt-2">
-                이탈리아 음식 ㆍ강남
+                {restaurant?.food?.foodType}
               </div>
             </div>
 
@@ -273,19 +273,22 @@ const Restaurant = () => {
               <tbody>
                 <tr>
                   <td>주소</td>
-                  <td colSpan="2">서울특별시 서초구 강남대로</td>
+                  <td colSpan="2"> {restaurant?.resAddr} </td>
                 </tr>
                 <tr>
                   <td>영업시간</td>
-                  <td colSpan="2">월11:30 - 14:30</td>
+                  <td colSpan="2">
+                    {restaurant?.resOpenHour} - {restaurant?.resClose}
+                  </td>
                 </tr>
                 <tr>
                   <td>전화번호</td>
-                  <td colSpan="2">02-1234-5678</td>
+                  <td colSpan="2">{restaurant?.resPhone} </td>
                 </tr>
                 <tr>
                   <td className="align-top">주차</td>
-                  <td className="align-top">주차공간없음</td>
+                  <td className="align-top">{restaurant?.resDesc} </td>
+
                   <td width="75">
                     <button
                       type="button"
@@ -372,13 +375,14 @@ const Restaurant = () => {
               </li>
             </ul>
           </nav>
+
           <div
             data-bs-spy="scroll"
             data-bs-target="#navbar-example2"
             data-bs-root-margin="0px 0px -40%"
             data-bs-smooth-scroll="true"
             className="scrollspy-example bg-body p-3 rounded m-1-2"
-            tabindex="0"
+            tabIndex="0"
           >
             <section className="container mb-5" id="scrollspyHeading1">
               <div
@@ -399,7 +403,7 @@ const Restaurant = () => {
                   인기메뉴
                 </div>
 
-                <div className="col-2 mb-2">
+                {/* <div className="col-2 mb-2">
                   <img
                     src="img/pasta.jpg"
                     className="rounded m-1 mx-auto d-block"
@@ -425,7 +429,7 @@ const Restaurant = () => {
                     </div>
                     <div>11,900 원</div>
                   </span>
-                </div>
+                </div> */}
                 <>
                   {menus.map((menu) => (
                     <div
@@ -740,470 +744,8 @@ const Restaurant = () => {
                                   </td>
                                   <td></td>
                                 </tr>
-
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/giraffe.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          기린
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        매일매일 먹고싶은 맛!!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/panda.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          팬더
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                        <img
-                                          src="img/pizza2.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        맛있어요~!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/cat.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          야옹이
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta4.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        매일매일 먹고싶은 맛!!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                                <tr
-                                  className="candidates-list"
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/panda.jpg"
-                                        alt=""
-                                      />
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          팬더
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul>
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                        <img
-                                          src="img/pizza2.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                      </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        맛있어요~!
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
                               </tbody>
                             </table>
-                            <div className="text-center mt-3 mt-sm-3">
-                              <ul className="pagination pagination-lg justify-content-center mb-0">
-                                <li className="page-item disabled">
-                                  <span className="page-link">Prev</span>
-                                </li>
-                                <li
-                                  className="page-item active"
-                                  aria-current="page"
-                                >
-                                  <span className="page-link">1 </span>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    2
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    3
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    4
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    5
-                                  </a>
-                                </li>
-                                <li className="page-item">
-                                  <a className="page-link" href="#">
-                                    Next
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -1227,41 +769,6 @@ const Restaurant = () => {
                   className="eee"
                   style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
                 ></div>
-              </div>
-              <div className="text-center mt-3 mt-sm-3">
-                <ul className="pagination pagination-lg justify-content-center mb-0">
-                  <li className="page-item disabled">
-                    <span className="page-link">Prev</span>
-                  </li>
-                  <li className="page-item active" aria-current="page">
-                    <span className="page-link">1 </span>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      4
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      5
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      Next
-                    </a>
-                  </li>
-                </ul>
               </div>
             </section>
           </div>

@@ -86,6 +86,8 @@ const LocaionBoard = () => {
     setLocalName(""); // localName 초기화
   };
 
+  const [selectedLocalCode, setSelectedLocalCode] = useState(null);
+
   // 지역 수정
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
@@ -98,11 +100,11 @@ const LocaionBoard = () => {
 
   // 클릭한 행값 가져오기
   const takeValueclick = (location) => {
-    setLocalCode(location.localCode);
+    setSelectedLocalCode(location.localCode);
   };
 
   // 수정 로직
-  const onUpdateLocation = (e) => {
+  const UpdateLocation = (e) => {
     e.preventDefault();
 
     const updatedLocalCode = e.target.localCode.value;
@@ -130,7 +132,7 @@ const LocaionBoard = () => {
   const findRestaurant = () => {
     // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
     if (!showUpdateTable && !showAddTable) {
-      navigate("/restaurantList");
+      navigate("/locationResList");
     }
   };
 
@@ -152,37 +154,6 @@ const LocaionBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        {/* <div class="btn-group">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="inside"
-            aria-expanded="false"
-          >
-            서울
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                onClick={() => setSelectedCategory("용인")}
-              >
-                용인
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                onClick={() => setSelectedCategory("선릉")}
-              >
-                선릉
-              </a>
-            </li>
-          </ul>
-        </div> */}
         <Container>
           <table className="table table-hover" id="tableValue">
             <thead>
@@ -194,31 +165,26 @@ const LocaionBoard = () => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {locations
-                .filter(
-                  (location) =>
-                    !selectedCategory || location.category === selectedCategory
-                )
-                .map((location, index) => (
-                  <tr
-                    key={location.localCode}
-                    onClick={() => findRestaurant(location)}
-                  >
-                    <td>{locations.length - index}</td>
-                    <td onClick={() => takeValueclick(location)}>
-                      {location.localName}
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={() => onDelete(location.localCode)}
-                      >
-                        삭제
-                      </button>
-                    </td>
-                    <td hidden>{location.localCode}</td>
-                  </tr>
-                ))}
+              {locations.map((location, index) => (
+                <tr
+                  key={location.localCode}
+                  onClick={() => findRestaurant(location)}
+                >
+                  <td>{locations.length - index}</td>
+                  <td onClick={() => takeValueclick(location)}>
+                    {location.localName}
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => onDelete(location.localCode)}
+                    >
+                      삭제
+                    </button>
+                  </td>
+                  <td hidden>{location.localCode}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </Container>
@@ -281,7 +247,7 @@ const LocaionBoard = () => {
           </Form>
         )}
         {showUpdateTable && (
-          <Form onSubmit={onUpdateLocation}>
+          <Form onSubmit={UpdateLocation}>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
