@@ -23,10 +23,11 @@ const asyncGetMenus = createAsyncThunk(
   }
 );
 
-const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
-  const result = await getMenu(id);
-  return result.data;
-});
+const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu",
+  async (id) => {
+    const result = await getMenu(id);
+    return result.data;
+  });
 
 // 메뉴 수정
 const asyncUpdateMenu = createAsyncThunk(
