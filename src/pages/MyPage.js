@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import image11 from "../assets/111.png";
 import image22 from "../assets/mypage.img/image.ring.jpg";
@@ -189,7 +190,7 @@ const MyPage = () => {
             <div>
               <span>최준혁</span>
             </div>
-            <a href="#">프로필 수정</a>
+            <Link to="/memberUpdate">프로필 수정</Link>
           </MyPageBodyHeader>
           <MyPageState id="mypage-body-state">
             <span>
