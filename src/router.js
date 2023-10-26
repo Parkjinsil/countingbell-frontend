@@ -13,7 +13,7 @@ import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
 import Review from "./pages/Review";
-import Reservation from "./pages/Reservation";
+import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
@@ -30,6 +30,7 @@ import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
+import ReservationResList from "./pages/reservation/ReservationResList";
 
 
 const router = createBrowserRouter([
@@ -288,11 +289,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "addPhoto",
+    path: "reservationResList/:foodCode/:localCode",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
-        element: <AddPhoto />,
+        element: <ReservationResList />,
       },
     ],
   },
