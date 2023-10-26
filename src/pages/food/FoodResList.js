@@ -4,10 +4,8 @@ import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image1 from "../../assets/111.jpg";
 import { findByLocalCode } from "../../api/restaurant";
-import {
-  asyncFindByFoodCode,
-  asyncFindByLocalCode,
-} from "../../store/restaurantSlice";
+import { Link } from "react-router-dom";
+import { asyncFindByFoodCode } from "../../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -39,27 +37,26 @@ const FoodResList = () => {
       }}
     >
       {restaurantList.map((restaurant) => (
-        <Card key={restaurant.resCode} style={{ width: "18rem" }}>
-          <Card.Img
-            variant="top"
-            src={image1}
-            // src={restaurant.resPhoto} // 식당테이블에 사진추가해야함
-          />
-          <Card.Body>
-            <Card.Text style={{}}>
-              <div>
+        <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img
+              variant="top"
+              src={image1}
+              // src={restaurant.resPicture} // 식당테이블에 사진추가해야함
+            />
+            <Card.Body>
+              <Card.Text>
                 <span
                   className="restaurant-name"
                   style={{
                     fontSize: "1.5rem",
                     fontWeight: "bold",
+                    display: "block",
                   }}
                 >
                   {restaurant.resName}
                 </span>
-              </div>
 
-              <div>
                 <StarFill
                   className="bi bi-star-fill"
                   style={{
@@ -72,15 +69,16 @@ const FoodResList = () => {
                   평점
                   {/* {location.rating} */}
                 </span>
-              </div>
-              <div>
-                <span className="last-line" style={{ fontSize: "1.1rem" }}>
+                <span
+                  className="last-line"
+                  style={{ fontSize: "1.1rem", display: "block" }}
+                >
                   {restaurant.food.foodType}
                 </span>
-              </div>
-            </Card.Text>
-          </Card.Body>
-        </Card>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Link>
       ))}
     </Container>
   );

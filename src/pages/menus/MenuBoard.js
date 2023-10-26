@@ -33,7 +33,7 @@ const MenuBoard = () => {
   const [menuPicture, setMenuPicture] = useState("");
   const [menuCode, setMenuCode] = useState("");
   const [resCode, setResCode] = useState("");
-  //const [item, setItem] = useState({});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,8 +52,6 @@ const MenuBoard = () => {
     const updatedMenuList = []; // 업데이트된 메뉴 목록
     dispatch(setMenuList(updatedMenuList)); // Redux 상태 업데이트
   }, [dispatch]);
-
-  const [page, setPage] = useState(1); // 페이지 초기값은 1로 설정
 
   // const [menu, setMenu] = useState([]);
 

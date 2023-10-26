@@ -41,7 +41,7 @@ const LocationList = () => {
       <div className="position-relative p-5  bg-body border border-dashed rounded-5">
         <Container>
           <div
-            cclassName="d-flex flex-wrap"
+            className="d-flex flex-wrap"
             style={{ gap: "50px", margin: "0 170px" }}
           >
             {locations.map((location, index) => (

@@ -93,6 +93,25 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
+      },
+    ],
+  },
+  {
+    path: "locationList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationList />,
+      },
+    ],
+  },
+  {
     path: "locationResList/:localCode",
     element: <Layout header={<Header2 />} />,
     children: [
@@ -144,7 +163,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "restaurant",
+    path: "restaurant/:resCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -211,25 +230,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MenuBoard />,
-      },
-    ],
-  },
-  {
-    path: "location",
-    children: [
-      {
-        index: true,
-        element: <LocationBoard />,
-      },
-    ],
-  },
-  {
-    path: "locationList",
-    element: <Layout header={<Header2 />} />,
-    children: [
-      {
-        index: true,
-        element: <LocationList />,
       },
     ],
   },

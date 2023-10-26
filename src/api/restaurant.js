@@ -7,7 +7,13 @@ const instance = axios.create({
 // 식당전체보기
 export const getRestaurants = async (page) => {
   console.log("식당 전체보기 axios call!!");
-  let url = `public/restaurnt?page=${page}`;
+  let url = `public/restaurant?page=${page}`;
+  return await instance.get(url);
+};
+
+// 식당 1개 보기
+export const getRestaurant = async (id) => {
+  let url = `restaurant/${id}`;
   return await instance.get(url);
 };
 
@@ -24,6 +30,6 @@ export const findByFoodCode = async (id) => {
 };
 
 // 식당이름따라
-export const getRestaurantByName = async (resName) => {
-  return await instance.get(`search?name=${resName}`);
-};
+// export const getRestaurantByName = async (resName) => {
+//   return await instance.get(`search?name=${resName}`);
+// };

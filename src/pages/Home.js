@@ -233,12 +233,12 @@ const Home = () => {
               <span className="category-text">리뷰순</span>
             </span>
           </a>
-          <a href="/restaurantList" className="category-link">
+          <Link to="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />
-              <span className="category-text">기타</span>
+              <span className="category-text">전체보기</span>
             </span>
-          </a>
+          </Link>
         </Category>
       </Section>
 
