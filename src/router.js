@@ -17,6 +17,8 @@ import Reservation from "./pages/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
+import Discount from "./pages/Discount";
+import Pick from "./pages/Pick";
 import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
@@ -28,6 +30,7 @@ import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
+
 
 const router = createBrowserRouter([
   {
@@ -211,6 +214,26 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "discount",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Discount />,
+      },
+    ],
+  },
+  {
+    path: "pick",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <Pick />,
+      },
+    ],
+  },
+  {
     path: "myPage",
     children: [
       {
@@ -274,4 +297,5 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 export default router;

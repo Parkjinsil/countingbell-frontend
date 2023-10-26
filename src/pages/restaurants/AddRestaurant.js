@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
   width: 100%;
-  height: 800px;
+  height: 900px;
 `;
 
 const Title = styled.div`
@@ -46,13 +46,13 @@ const InputContainer = styled.div`
     margin: 5px 0;
     font-size: 1rem;
     font-weight: bold;
-    /* font-family: "omyu_pretty"; */ */
+    /* font-family: "omyu_pretty"; */
   }
 
   input,
   select {
     width: 100%;
-    padding: 5px ;
+    padding: 5px;
   }
 
   label {
@@ -94,174 +94,259 @@ const BtnArea = styled.div`
 `;
 
 const AddRestaurant = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [resPicture, setPicture] = useState(null);
 
-    const HandleSubmit = async (e) => {
-        e.preventDefault();
+  const [formData, setFormData] = useState({
+    resName: "",
+    resAddr: "",
+    resPhone: "",
+    resOpenHour: "",
+    resClose: "",
+    resDesc: "",
+    localCode: "",
+    foodCode: "1",
+    id: "",
+    resPicks: "",
+  });
 
-        const formData = new FormData();
-        formData.append("resName", e.target.resName.value);
-        formData.append("resAddr",e.target.resAddr.value);
-        formData.append("resPhone",e.target.resPhone.value);
-        formData.append("resOpenHour",e.target.resOpenHour.value);
-        formData.append("resClose",e.target.resClose.value);
-        formData.append("resDesc",e.target.resDesc.value);
-        formData.append("localCode",e.target.localCode.value);
-        formData.append("foodCode", e.target.foodCode.value);
-        formData.append("id", e.target.id.value);
+  const {
+    resName,
+    resAddr,
+    resPhone,
+    resOpenHour,
+    resClose,
+    resDesc,
+    localCode,
+    foodCode,
+    id,
+    resPicks,
+  } = formData;
 
-        dispatch(asyncAddRestaurant(formData));
-        navigate("/");
-    };
+  const onChange = (e) => {
+    const { id, value } = e.target;
 
-    return (
-        <Container>
-            <form className="addRestaurantForm" onSubmit={HandleSubmit}>
-                <Wrapper>
-                    <Title>
-                        <h1>식당 등록</h1>
-                    </Title>
-                    <InputContainer>
-                        <div className="id">
-                            <p>식당 이름</p>
-                            <label>
-                                <input
-                                name="resName"
-                                type="text"
-                                placeholder="식당이름을 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resNameError"></div>
-                        </div>
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
+  };
 
-                        <div className="resAddr">
-                            <p>식당 주소</p>
-                            <label>
-                                <input
-                                name="resAddr"
-                                type="text"
-                                placeholder="식당주소를 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resAddrError"></div>
-                        </div>
+  const addRestaurantHandler = async (e) => {
+    e.preventDefault();
 
-                        <div className="resPhone">
-                            <p>식당 전화번호</p>
-                            <label>
-                                <input
-                                name="resPhone"
-                                type="text"
-                                placeholder="식당 전화번호를 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resPhoneError"></div>
-                        </div>
+    const data = new FormData();
+    data.append("resName", formData.resName);
+    data.append("resAddr", formData.resAddr);
+    data.append("resPhone", formData.resPhone);
+    data.append("resOpenHour", formData.resOpenHour);
+    data.append("resClose", formData.resClose);
+    data.append("resDesc", formData.resDesc);
+    data.append("localCode", formData.localCode);
+    data.append("foodCode", formData.foodCode);
+    data.append("id", formData.id);
+    data.append("resPicks", formData.resPicks);
 
-                        <div className="resOpenHour">
-                            <p>식당 영업시간</p>
-                            <label>
-                                <input
-                                name="resOpenHour"
-                                type="text"
-                                placeholder="영업시간을 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resOpenHourError"></div>
-                        </div>
+    if (resPicture) {
+      data.append("resPicture", resPicture);
+    }
 
-                        <div className="resClose">
-                            <p>식당 닫는 시간</p>
-                            <label>
-                                <input
-                                name="resClose"
-                                type="text"
-                                placeholder="닫는 시간을 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resCloseError"></div>
-                        </div>
+    dispatch(asyncAddRestaurant(data));
+    navigate("/");
+  };
 
-                        <div className="resDesc">
-                            <p>식당 설명</p>
-                            <label>
-                                <input
-                                name="resDesc"
-                                type="text"
-                                placeholder="식당 설명을 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="resDescError"></div>
-                        </div>
+  return (
+    <Container>
+      <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
+        <Wrapper>
+          <Title>
+            <h1>식당 등록</h1>
+          </Title>
+          <InputContainer>
+            <div className="id">
+              <p>식당 이름</p>
+              <label>
+                <input
+                  id="resName"
+                  value={resName}
+                  type="text"
+                  placeholder="식당이름을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resNameError"></div>
+            </div>
 
-                        <div>
-                            <div className="localCode">
-                                <p>지역</p>
-                                <label>
-                                    <select name="localCode">
-                                        <option>지역</option>
-                                        <option value="1">압구정/청담</option>
-                                        <option value="2">이태원/한남</option>
-                                        <option value="3">부산</option>
-                                        <option value="4">성수</option>
-                                        <option value="5">광화문/종로</option>
-                                        <option value="6">강남/역삼</option>
-                                        <option value="7">합정/망원</option>
-                                        <option value="8">홍대/신촌</option>
-                                        <option value="9">여의도</option>
-                                        <option value="10">북촌/삼청</option>
-                                        <option value="11">을지로</option>
-                                        <option value="12">제주</option>
-                                        <option value="13">대구</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="foodCode">
-                                <p>음식 종류</p>
-                                <label>
-                                    <select name="foodCode">
-                                        <option>음식 종류</option>
-                                        <option value="1">한식</option>
-                                        <option value="2">일식</option>
-                                        <option value="3">중식</option>
-                                        <option value="4">양식</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
+            <div className="resAddr">
+              <p>식당 주소</p>
+              <label>
+                <input
+                  id="resAddr"
+                  value={resAddr}
+                  type="text"
+                  placeholder="식당주소를 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resAddrError"></div>
+            </div>
 
-                        <div className="id">
-                            <p>아이디</p>
-                            <label>
-                                <input
-                                name="id"
-                                type="text"
-                                placeholder="본인 아이디를 입력해주세요."
-                                required>
-                                </input>
-                            </label>
-                            <div className="idError"></div>
-                        </div>
-                    </InputContainer>
-                </Wrapper>
-                <BtnArea>
-                    <button type="submit">
-                        <span>등록하기</span>
-                    </button>
-                </BtnArea>
-            </form>
-        </Container>
-    );
+            <div className="resPhone">
+              <p>식당 전화번호</p>
+              <label>
+                <input
+                  id="resPhone"
+                  value={resPhone}
+                  type="text"
+                  placeholder="식당 전화번호를 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resPhoneError"></div>
+            </div>
 
+            <div className="resOpenHour">
+              <p>식당 영업시간</p>
+              <label>
+                <input
+                  id="resOpenHour"
+                  value={resOpenHour}
+                  type="text"
+                  placeholder="영업시간을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resOpenHourError"></div>
+            </div>
+
+            <div className="resClose">
+              <p>식당 닫는 시간</p>
+              <label>
+                <input
+                  id="resClose"
+                  value={resClose}
+                  type="text"
+                  placeholder="닫는 시간을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resCloseError"></div>
+            </div>
+
+            <div className="resDesc">
+              <p>식당 설명</p>
+              <label>
+                <input
+                  id="resDesc"
+                  value={resDesc}
+                  type="text"
+                  placeholder="식당 설명을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resDescError"></div>
+            </div>
+
+            <div>
+              <div className="localCode">
+                <p>지역</p>
+                <label>
+                  <select id="localCode" value={localCode} onChange={onChange}>
+                    <option>지역</option>
+                    <option value="1">압구정/청담</option>
+                    <option value="2">이태원/한남</option>
+                    <option value="3">부산</option>
+                    <option value="4">성수</option>
+                    <option value="5">광화문/종로</option>
+                    <option value="6">강남/역삼</option>
+                    <option value="7">합정/망원</option>
+                    <option value="8">홍대/신촌</option>
+                    <option value="9">여의도</option>
+                    <option value="10">북촌/삼청</option>
+                    <option value="11">을지로</option>
+                    <option value="12">제주</option>
+                    <option value="13">대구</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div>
+              <div className="foodCode">
+                <p>음식 종류</p>
+                <label>
+                  <select id="foodCode" value={foodCode} onChange={onChange}>
+                    <option value="1">한식</option>
+                    <option value="2">일식</option>
+                    <option value="3">중식</option>
+                    <option value="4">양식</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div className="id">
+              <p>아이디</p>
+              <label>
+                <input
+                  id="id"
+                  value={id}
+                  type="text"
+                  placeholder="본인 아이디를 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="idError"></div>
+            </div>
+
+            <div className="id">
+              <p>찜 관리</p>
+              <label>
+                <input
+                  id="resPicks"
+                  value={resPicks}
+                  type="text"
+                  placeholder="0을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resPicksError"></div>
+            </div>
+
+            <div className="resPicture">
+              <p>식당 메인 사진</p>
+              <label>
+                <input
+                  id="resPicture"
+                  type="file"
+                  placeholder="메뉴 사진을 등록 해주세요."
+                  onChange={(e) => {
+                    setPicture(e.target.files[0]);
+                  }}
+                  multiple
+                  required
+                ></input>
+              </label>
+              <div className="resPictureError"></div>
+            </div>
+          </InputContainer>
+        </Wrapper>
+        <BtnArea>
+          <button type="submit">
+            <span>등록하기</span>
+          </button>
+        </BtnArea>
+      </form>
+    </Container>
+  );
 };
 
 export default AddRestaurant;

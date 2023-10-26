@@ -16,7 +16,7 @@ const CenteredContainer = styled.div`
 const ReservationCom = () => {
   return (
     <div className="container my-5">
-      <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+      <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5" style={{marginTop:'100px'}}>
         <CheckCircleFill
           className="bi bi-check-circle-fill mt-5 mb-5"
           width="48px"

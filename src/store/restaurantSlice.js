@@ -112,3 +112,4 @@ export {
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;
+export { asyncAddRestaurant };
