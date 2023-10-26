@@ -11,33 +11,31 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: azure;
-  padding-top: 100px;
+  margin-top: 40px;
 `;
 
 const Wrapper = styled.div`
   display: block;
   background-color: #f8f9fa;
-  padding: 20px;
+  padding: 30px 60px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
   width: 100%;
-  height: 800px;
+  height: 720px;
 `;
 
 const Title = styled.div`
   text-align: center;
-
-  font-size: 2.5rem;
-  /* background-color: aqua; */
-
+  font-size: 3rem;
+  font-family: "omyu_pretty";
   padding: 10px;
 `;
 
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
-  width: 400px;
+  width: 440px;
 
   div {
     padding: 3px 0;
@@ -45,15 +43,15 @@ const InputContainer = styled.div`
 
   p {
     margin: 5px 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    /* font-family: "omyu_pretty"; */ */
+    font-family: "omyu_pretty";
   }
 
   input,
   select {
     width: 100%;
-    padding: 5px ;
+    padding: 5px;
   }
 
   label {
@@ -61,11 +59,6 @@ const InputContainer = styled.div`
     gap: 5px;
     background-color: aliceblue;
     width: 100%;
-
-    #gender {
-      width: 100%;
-      padding: 7px;
-    }
   }
 `;
 
@@ -74,17 +67,19 @@ const BtnArea = styled.div`
   justify-content: center;
   width: 100%;
 
-  margin: 10px 0;
-  padding: 10px;
+  margin: 30px 0;
+  padding: 5px;
 
   button {
     width: 100%;
+    height: 60px;
     padding: 10px;
 
     border: none;
+    border-radius: 10px;
     cursor: pointer;
     background-color: #f8cdc1;
-    /* font-family: "omyu_pretty"; */
+    font-family: "omyu_pretty";
     font-size: 1.5rem;
 
     &:hover {
@@ -114,26 +109,16 @@ const Register = () => {
     password: "",
     pwdCheck: "",
     name: "",
-    age: "",
+
     nickName: "",
     email: "",
     phone: "",
-    gender: "성별",
+
     role: "고객",
   });
 
-  const {
-    id,
-    password,
-    pwdCheck,
-    name,
-    age,
-    nickName,
-    email,
-    phone,
-    gender,
-    role,
-  } = formData;
+  const { id, password, pwdCheck, name, nickName, email, phone, role } =
+    formData;
 
   const onChange = (e) => {
     const { id, value } = e.target;
@@ -148,7 +133,7 @@ const Register = () => {
     password: "",
     pwdCheck: "",
     name: "",
-    age: "",
+
     nickName: "",
     email: "",
     phone: "",
@@ -183,21 +168,9 @@ const Register = () => {
       isValid = false;
     }
 
-    // 나이 유효성 검사
-    if (!age) {
-      newErrorMessages.age = "나이를 입력해주세요.";
-      isValid = false;
-    }
-
     // 닉네임 유효성 검사
     if (!nickName) {
       newErrorMessages.nickName = "닉네임을 입력해주세요.";
-      isValid = false;
-    }
-
-    // 성별 유효성 검사
-    if (!gender) {
-      newErrorMessages.gender = "성별을 선택해주세요.";
       isValid = false;
     }
 
@@ -242,7 +215,7 @@ const Register = () => {
                   type="text"
                   placeholder="아이디를 입력해주세요."
                   onChange={onChange}
-                  maxlength="20"
+                  maxLength="20"
                   required
                 ></input>
               </label>
@@ -291,19 +264,6 @@ const Register = () => {
               </label>
             </div>
 
-            <div className="age">
-              <p>나이</p>
-              <label id="ageBox">
-                <input
-                  id="age"
-                  type="text"
-                  placeholder="나이를 입력해주세요."
-                  value={age}
-                  onChange={onChange}
-                ></input>
-              </label>
-            </div>
-
             <div className="nickName">
               <p>닉네임</p>
               <label>
@@ -344,27 +304,16 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div>
-              <div className="gender">
-                <p>성별</p>
-                <label>
-                  <select id="gender" value={gender} onChange={onChange}>
-                    <option>성별</option>
-                    <option value="M">남성</option>
-                    <option value="F">여성</option>
-                  </select>
-                </label>
-              </div>
-            </div>
+
             <div>
               <div className="role">
                 <p>구분</p>
                 <label>
                   <select id="role" value={role} onChange={onChange}>
-                    <option value="role1" defaultValue>
+                    <option value="customer" defaultValue>
                       고객
                     </option>
-                    <option value="role2">사장</option>
+                    <option value="owner">사장</option>
                   </select>
                 </label>
               </div>

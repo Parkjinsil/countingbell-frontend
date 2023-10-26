@@ -175,7 +175,7 @@ const MyPage = () => {
             <img src={image1} alt="" />
             <span>MY카벨</span>
           </div>
-          <MyPageRight class="right">
+          <MyPageRight className="right">
             <a href="#">
               <img src={image2} alt="" />
             </a>

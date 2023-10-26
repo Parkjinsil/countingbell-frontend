@@ -240,7 +240,7 @@ const Restaurant = () => {
         <div className="row">
           <div className="col-4">
             <img
-              src="img/pasta.jpg"
+              src={"/upload/" + restaurant?.resPicture}
               className="rounded m-1 mx-auto d-block"
               alt=""
               style={{ height: "300px", width: "282px" }}

@@ -6,7 +6,6 @@ import menuSlice from "./menuSlice";
 import locationSlice from "./locationSlice";
 import photoSlice from "./photoSlice";
 import restaurantSlice from "./restaurantSlice";
-import restaurantSlice from "./restaurantSlice";
 import foodSlice from "./foodSlice";
 
 const store = configureStore({

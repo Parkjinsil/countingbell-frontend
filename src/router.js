@@ -30,7 +30,7 @@ import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
-
+import MemberUpdate from "./pages/member/MemberUpdate";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +65,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Find />,
+      },
+    ],
+  },
+  {
+    path: "memberUpdate",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <MemberUpdate />,
       },
     ],
   },
@@ -275,8 +285,8 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AddRestaurant />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "location",

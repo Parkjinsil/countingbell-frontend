@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux"; // useSelector 추가
-import { asyncUpdateMenu, asyncGetMenus } from "../../store/menuSlice";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
@@ -17,48 +16,52 @@ const H1 = styled.h1`
 const MemberUpdate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const user = useSelector((state) => state.user);
 
-  <Container>
-    <H1>회원 정보 수정</H1>
-    <Form onSubmit={handleSubmit}>
+  // id,
+  //   password,
+  //   pwdCheck,
+  //   name,
+  //   age,
+  //   nickName,
+  //   email,
+  //   phone,
+  //   gender,
+  //   role,
+
+  const updateMember = async (e) => {};
+
+  <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
+    <Form onSubmit={updateMember}>
       <Form.Group className="mb-3">
         <Form.Control
           type="text"
-          placeholder="식당 코드"
-          name="resCode"
-          value={menu.restaurant.resCode}
+          placeholder="아이디"
+          name="id"
+          value={user.id}
+          onChange={(e) => {
+            // setID(e.target.value);
+          }}
         />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Control
           type="text"
-          placeholder="메뉴명"
-          name="menuName"
-          value={menu.menuName}
+          placeholder="수정할 위치 입력"
+          name="localName"
+          value={user.password}
+          onChange={(e) => {
+            // setPassword(e.target.value);
+          }}
         />
       </Form.Group>
+
       <Form.Group className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder="메뉴가격"
-          name="menuPrice"
-          value={menu.menuPrice}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Control
-          type="file"
-          placeholder="메뉴 사진"
-          name="menuPicture"
-          value={menu.menuPicture}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Control type="submit" value="메뉴 수정" />
+        <Form.Control type="submit" value="위치 수정" />
       </Form.Group>
     </Form>
-  </Container>;
+  </div>;
 };
 
 export default MemberUpdate;
