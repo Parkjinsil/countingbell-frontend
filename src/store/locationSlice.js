@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addLocation, getLocations, updateLocation } from "../api/location";
 
+// 위치 전체 가져오기
 const asyncGetLocations = createAsyncThunk(
-  "menuSlice/asyncGetLocations",
+  "locationSlice/asyncGetLocations",
   async (page) => {
     const result = await getLocations(page);
     return result.data;

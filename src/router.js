@@ -23,6 +23,11 @@ import MenuUpdate from "./pages/menus/MenuUpdate";
 import AddRestaurant from "./pages/restaurants/AddRestaurant";
 import LocationBoard from "./pages/location/LocationBoard";
 import AddPhoto from "./pages/photo/AddPhoto";
+import LocationResList from "./pages/location/LocationResList";
+import LocationList from "./pages/location/LocationList";
+import FoodTypeList from "./pages/food/FoodTypeList";
+import FoodResList from "./pages/food/FoodResList";
+import ResReserve from "./pages/food/ResReserv";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +76,66 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "resReserve",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ResReserve />,
+      },
+    ],
+  },
+  {
+    path: "foodList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodTypeList />,
+      },
+    ],
+  },
+  {
+    path: "foodResList/:foodCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodResList />,
+      },
+    ],
+  },
+  {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
+      },
+    ],
+  },
+  {
+    path: "locationList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationList />,
+      },
+    ],
+  },
+  {
+    path: "locationResList/:localCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationResList />,
+      },
+    ],
+  },
+
+  {
     path: "menu",
     element: <Layout header={<Header2 />} />,
     children: [
@@ -111,7 +176,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "restaurant",
+    path: "restaurant/:resCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {

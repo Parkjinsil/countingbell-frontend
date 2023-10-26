@@ -1,21 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import image1 from "../../assets/111.jpg";
+import { findByLocalCode } from "../../api/restaurant";
 import { Link } from "react-router-dom";
-import { asyncGetRestaurants } from "../store/restaurantSlice";
+import { asyncFindByFoodCode } from "../../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import image1 from "../assets/111.jpg";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-const RestaurantList = () => {
+const FoodResList = () => {
   const dispatch = useDispatch();
+  const { foodCode } = useParams();
 
-  const restaurants = useSelector((state) => state.restaurant.restaurantList);
+  const restaurantList = useSelector(
+    (state) => state.restaurant.restaurantList
+  );
 
   useEffect(() => {
-    dispatch(asyncGetRestaurants(1));
-  }, [dispatch]);
+    console.log(foodCode);
+    dispatch(asyncFindByFoodCode(foodCode));
+  }, [dispatch, foodCode]);
+
+  console.log("restaurantList:", restaurantList); // 확인용 console.log 추가
 
   return (
     <Container
@@ -26,13 +36,13 @@ const RestaurantList = () => {
         flexWrap: "wrap",
       }}
     >
-      {restaurants.map((restaurant) => (
+      {restaurantList.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
           <Card style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
               src={image1}
-              // src={restaurant.resPicture}
+              // src={restaurant.resPicture} // 식당테이블에 사진추가해야함
             />
             <Card.Body>
               <Card.Text>
@@ -57,7 +67,7 @@ const RestaurantList = () => {
                 />
                 <span style={{ fontSize: "1.3rem" }}>
                   평점
-                  {/* {restaurants.rating} */}
+                  {/* {location.rating} */}
                 </span>
                 <span
                   className="last-line"
@@ -73,4 +83,5 @@ const RestaurantList = () => {
     </Container>
   );
 };
-export default RestaurantList;
+
+export default FoodResList;

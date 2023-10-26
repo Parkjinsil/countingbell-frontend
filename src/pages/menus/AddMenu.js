@@ -28,6 +28,7 @@ const AddMenu = () => {
     formData.append("menuName", e.target.menuName.value);
     formData.append("menuDesc", e.target.menuDesc.value);
     formData.append("menuPrice", e.target.menuPrice.value);
+
     console.log(formData);
 
     dispatch(asyncAddMenu(formData))
