@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
   width: 100%;
-  height: 830px;
+  height: 900px;
 `;
 
 const Title = styled.div`
@@ -97,6 +97,7 @@ const BtnArea = styled.div`
 const AddRestaurant = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [resPicture, setPicture] = useState(null);
 
   const [formData, setFormData] = useState({
     resName: "",
@@ -105,11 +106,10 @@ const AddRestaurant = () => {
     resOpenHour: "",
     resClose: "",
     resDesc: "",
-    resPicture: "",
-    resPicks: "",
     localCode: "",
-    foodCode: "",
+    foodCode: "1",
     id: "",
+    resPicks: "",
   });
 
   const {
@@ -119,14 +119,15 @@ const AddRestaurant = () => {
     resOpenHour,
     resClose,
     resDesc,
-    resPicture,
     localCode,
     foodCode,
     id,
+    resPicks,
   } = formData;
 
   const onChange = (e) => {
     const { id, value } = e.target;
+
     setFormData({
       ...formData,
       [id]: value,
@@ -136,7 +137,23 @@ const AddRestaurant = () => {
   const addRestaurantHandler = async (e) => {
     e.preventDefault();
 
-    dispatch(asyncAddRestaurant(formData));
+    const data = new FormData();
+    data.append("resName", formData.resName);
+    data.append("resAddr", formData.resAddr);
+    data.append("resPhone", formData.resPhone);
+    data.append("resOpenHour", formData.resOpenHour);
+    data.append("resClose", formData.resClose);
+    data.append("resDesc", formData.resDesc);
+    data.append("localCode", formData.localCode);
+    data.append("foodCode", formData.foodCode);
+    data.append("id", formData.id);
+    data.append("resPicks", formData.resPicks);
+
+    if (resPicture) {
+      data.append("resPicture", resPicture);
+    }
+
+    dispatch(asyncAddRestaurant(data));
     navigate("/");
   };
 
@@ -238,21 +255,6 @@ const AddRestaurant = () => {
               <div className="resDescError"></div>
             </div>
 
-            <div className="resPicture">
-              <p>식당 메인 사진</p>
-              <label>
-                <input
-                  id="resPicture"
-                  value={resPicture}
-                  type="file"
-                  placeholder="메뉴 사진을 등록 해주세요."
-                  onChange={onChange}
-                  required
-                ></input>
-              </label>
-              <div className="resDescError"></div>
-            </div>
-
             <div>
               <div className="localCode">
                 <p>지역</p>
@@ -303,6 +305,38 @@ const AddRestaurant = () => {
                 ></input>
               </label>
               <div className="idError"></div>
+            </div>
+
+            <div className="id">
+              <p>찜 관리</p>
+              <label>
+                <input
+                  id="resPicks"
+                  value={resPicks}
+                  type="text"
+                  placeholder="0을 입력해주세요."
+                  onChange={onChange}
+                  required
+                ></input>
+              </label>
+              <div className="resPicksError"></div>
+            </div>
+
+            <div className="resPicture">
+              <p>식당 메인 사진</p>
+              <label>
+                <input
+                  id="resPicture"
+                  type="file"
+                  placeholder="메뉴 사진을 등록 해주세요."
+                  onChange={(e) => {
+                    setPicture(e.target.files[0]);
+                  }}
+                  multiple
+                  required
+                ></input>
+              </label>
+              <div className="resPictureError"></div>
             </div>
           </InputContainer>
         </Wrapper>
