@@ -18,3 +18,7 @@ export const getRestaurantByFood = async (foodCode) => {
 export const addRestaurant = async (data) => {
   return await instance.post("restaurant", data);
 };
+
+export const pickAddorDelete = async (data) => {
+  return await instance.post("restaurant/picks", data);
+};

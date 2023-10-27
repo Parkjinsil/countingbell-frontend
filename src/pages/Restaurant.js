@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncViewDiscount } from "../store/discountSlice";
 import { asyncAddPick, asyncDeletePick } from "../store/pickSilce";
+import { pickAddorDelete } from "../api/restaurant";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item.active > .nav-link {
@@ -198,6 +199,7 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
+  const [pick, setPick] = useState();
   const dispatch = useDispatch();
 
   const [isHearted, setIsHearted] = useState(false);
@@ -206,13 +208,13 @@ const Restaurant = () => {
   const memberId = "user2";
   const resCode = "4";
 
-  const onHeartClick = () => {
+  const onHeartClick = async () => {
     if (isHearted) {
       setHeartCount(heartCount - 1);
-      dispatch(asyncDeletePick({ memberId, resCode })); // pickCode를 전달해야 합니다.
+      dispatch(asyncDeletePick({ memberId, resCode }));
     } else {
       setHeartCount(heartCount + 1);
-      dispatch(asyncAddPick({ memberId, resCode })); // id와 resCode를 전달해야 합니다.
+      dispatch(asyncAddPick({ memberId, resCode }));
     }
     setIsHearted(!isHearted);
   };
@@ -262,7 +264,7 @@ const Restaurant = () => {
                 <span className="res3 fs-6 fw-bold text-muted m-3">
                   ㆍ리뷰 36 개
                 </span>
-                <span className="get" style={{ paddingLeft: "10px" }}>
+                <span className="pick" style={{ paddingLeft: "10px" }}>
                   <SuitHeartFill
                     className="bi bi-suit-heart"
                     style={{ color: isHearted ? "red" : "#aaa" }}
