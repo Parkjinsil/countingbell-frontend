@@ -3,7 +3,7 @@ import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
@@ -168,6 +168,7 @@ const HeadMenu = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const user = useSelector((state) => {
     return state.user;
@@ -257,9 +258,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="myPage">
+              <Link to={`myPage/${user.id}`}>
                 <span>마이페이지</span>
-              </a>
+              </Link>
             </li>
             <li>
               <div className="search-btn">

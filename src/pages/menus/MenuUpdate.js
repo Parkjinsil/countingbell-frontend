@@ -20,22 +20,17 @@ const MenuUpdate = () => {
   const menu = useSelector((state) => state.menu); // menu 상태 추가
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // const updatedMenu = {
-    //   menuCode: e.target.resCode.value, // 수정
-    //   menuName: e.target.menuName.value,
-    //   menuPrice: e.target.menuPrice.value,
-    //   menuPicture: e.target.menuPicture.files[0],
-    //   resCode: e.target.menu.restaurant.resCode.value,
-    // };
-    // dispatch(asyncUpdateMenu(updatedMenu))
-    //   .then(() => {
-    //     dispatch(asyncGetMenus(1, null));
-    //     navigate("/menuboard");
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    e.preventDefault();
+    const updatedMenu = {
+      menuCode: e.target.resCode.value, // 수정
+      menuName: e.target.menuName.value || menu.menuName,
+      menuPrice: e.target.menuPrice.value,
+      menuPicture: e.target.menuPicture.files[0],
+      resCode: e.target.menu.restaurant.resCode.value,
+    };
+    dispatch(asyncUpdateMenu(updatedMenu));
+    dispatch(asyncGetMenus(1, null));
+    navigate("/menuboard");
   };
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import image11 from "../assets/111.png";
 import image22 from "../assets/222.png";
@@ -153,7 +154,7 @@ const Menu = () => {
         <MenuHeader className="menu-header">
           <img src={image1} alt="" />
           <div className="menu-name">내 위치별 추천 식당</div>
-          <a href="restaurantList">
+          <a href="locationList">
             <span>전체보기</span>
           </a>
         </MenuHeader>

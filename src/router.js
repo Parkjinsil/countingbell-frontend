@@ -33,7 +33,6 @@ import ResReserve from "./pages/food/ResReserv";
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,7 +70,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "memberUpdate",
+    path: "memberUpdate/:id",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -180,16 +179,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "review",
-    element: <Layout header={<Header2 />} />,
-    children: [
-      {
-        index: true,
-        element: <Review />,
-      },
-    ],
-  },
+  // {
+  //   path: "review",
+  //   element: <Layout header={<Header2 />} />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Review />,
+  //     },
+  //   ],
+  // },
   {
     path: "restaurant/:resCode",
     element: <Layout header={<Header2 />} />,
@@ -246,7 +245,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "myPage",
+    path: "myPage/:id",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

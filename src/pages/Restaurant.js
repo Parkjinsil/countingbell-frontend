@@ -235,7 +235,9 @@ const Restaurant = () => {
   ];
 
   return (
-    <div style={{ marginTop: "80px" }}>
+    <div
+      style={{ marginTop: "80px", overflow: "hidden", whiteSpace: "nowrap" }}
+    >
       <section className="container">
         <div className="row">
           <div className="col-4">

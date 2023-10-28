@@ -139,58 +139,6 @@ const Register = () => {
     phone: "",
   });
 
-  const validateForm = () => {
-    let isValid = true;
-    const newErrorMessages = {};
-
-    // 아이디 유효성 검사
-    if (!id || !UserRegex) {
-      newErrorMessages.id = "5~20자의 영문자와 숫자를 입력해주세요 ";
-      isValid = false;
-    }
-
-    // 비밀번호 유효성 검사
-    if (!password || !PwdRegex) {
-      newErrorMessages.password =
-        "8~24자의 영문, 숫자, 특수문자(!@#$%)를 모두 포함한 비밀번호를 입력해주세요";
-      isValid = false;
-    }
-
-    // 비밀번호 재확인 유효성 검사
-    if (password !== pwdCheck) {
-      newErrorMessages.pwdCheck = "비밀번호가 일치하지 않습니다.";
-      isValid = false;
-    }
-
-    // 이름 유효성 검사
-    if (!name) {
-      newErrorMessages.name = "이름을 입력해주세요.";
-      isValid = false;
-    }
-
-    // 닉네임 유효성 검사
-    if (!nickName) {
-      newErrorMessages.nickName = "닉네임을 입력해주세요.";
-      isValid = false;
-    }
-
-    // 이메일 유효성 검사
-    if (!email || !EmailRegex) {
-      newErrorMessages.email = "이메일 형식이 올바르지 않습니다.";
-      isValid = false;
-    }
-
-    // 전화번호 유효성 검사 (간단한 형식 체크만 수행)
-    if (!phone || !PhoneRegex) {
-      newErrorMessages.phone = "'-'를 제외하고 입력해주세요'";
-      isValid = false;
-    }
-
-    setErrorMessages(newErrorMessages);
-
-    return isValid;
-  };
-
   const registerHandler = async (e) => {
     e.preventDefault();
     console.log(formData);

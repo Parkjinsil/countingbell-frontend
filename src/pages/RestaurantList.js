@@ -29,11 +29,7 @@ const RestaurantList = () => {
       {restaurants.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img
-              variant="top"
-              src={image1}
-              // src={restaurant.resPicture}
-            />
+            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
             <Card.Body>
               <Card.Text>
                 <span

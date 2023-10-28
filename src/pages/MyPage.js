@@ -1,7 +1,3 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
 import image11 from "../assets/111.png";
 import image22 from "../assets/mypage.img/image.ring.jpg";
 import image33 from "../assets/mypage.img/image.setting.jpg";
@@ -13,8 +9,15 @@ import image88 from "../assets/mypage.img/image4.jpg";
 import image99 from "../assets/mypage.img/image5.jpg";
 import image100 from "../assets/mypage.img/image6.jpg";
 
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncShowMember } from "../store/userSlice";
+
 const Wrap = styled.div`
   text-align: center;
+  margin-top: 100px;
 `;
 
 const WrapCenter = styled.div`
@@ -167,6 +170,16 @@ const MyPage = () => {
   const image9 = image99;
   const image10 = image100;
 
+  const dispatch = useDispatch();
+
+  // 1명정보 불러오기
+  const { id } = useParams();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(asyncShowMember(id));
+  }, []);
+
   return (
     <Wrap id="wrap">
       <WrapCenter id="wrap-center">
@@ -184,13 +197,16 @@ const MyPage = () => {
             </a>
           </MyPageRight>
         </MyPageHeader>
+
         <div id="mypage-body">
           <MyPageBodyHeader id="mypage-body-header">
             <img src={image4} alt="" />
             <div>
-              <span>최준혁</span>
+              <span>{user.name}</span>
             </div>
-            <Link to="/memberUpdate">프로필 수정</Link>
+            <div>
+              <Link to={`/memberUpdate/${user.id}`}>프로필 수정</Link>
+            </div>
           </MyPageBodyHeader>
           <MyPageState id="mypage-body-state">
             <span>
