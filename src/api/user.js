@@ -42,3 +42,13 @@ export const deleteMember = async (id) => {
   console.log("탈퇴할 회원 아이디 = " + id);
   return await instance.delete("user/" + id);
 };
+
+// 아이디 중복체크
+export const checkId = async (id) => {
+  return await instance.get("checkId/" + id);
+};
+
+// 닉네임 중복체크
+export const checkNickname = async (data) => {
+  return await instance.post("checkNickname", data);
+};

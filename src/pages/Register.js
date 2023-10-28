@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { addMember } from "../api/user";
+import { addMember, checkId, checkNickname } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncRegister } from "../store/userSlice";
@@ -20,8 +20,8 @@ const Wrapper = styled.div`
   padding: 30px 60px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* max-width: 700px; */
-  width: 100%;
+  // max-width: 700px;
+  width: 700px;
   height: 720px;
 `;
 
@@ -35,7 +35,7 @@ const Title = styled.div`
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
-  width: 440px;
+  width: 570px;
 
   div {
     padding: 3px 0;
@@ -59,6 +59,21 @@ const InputContainer = styled.div`
     gap: 5px;
     background-color: aliceblue;
     width: 100%;
+  }
+
+  button {
+    height: 35px;
+    width: 90px;
+    border: none;
+    cursor: pointer;
+    background-color: #f8cdc1;
+    font-family: "omyu_pretty";
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #ff5e33;
+      color: #fff;
+    }
   }
 `;
 
@@ -93,59 +108,80 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const UserRegex = /^[a-zA-Z][a-zA-Z0-9-_]{4,19}$/; // 첫글자는 소문자, 대문자 알파벳, 나머지 글자는 소문자, 대문자, 숫자, 밑줄이 가능, 총 5~20글자
-  const PwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/; // 소문자, 대문자, 숫자, 특수문자 !@#$%가 꼭 들어있고 8~24글자
-  const PhoneRegex = /^010([0-9]{8})$/; //  "010"으로 시작하고 이어서 숫자 8자리가 나오는 휴대폰 번호
-  const EmailRegex =
-    /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+  const [phoneValid, setPhoneValid] = useState(true);
 
   const user = useSelector((state) => {
     return state.user;
   });
 
-  // 초기값 세팅
-  const [formData, setFormData] = useState({
-    id: "",
-    password: "",
-    pwdCheck: "",
-    name: "",
+  console.log(user);
 
-    nickName: "",
-    email: "",
-    phone: "",
+  const [id, setId] = useState([]);
+  const [password, setPwd] = useState([]);
+  const [pwdCheck, setPwdCheck] = useState([]);
+  const [name, setName] = useState([]);
+  const [nickname, setNickname] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [phone, setPhone] = useState([]);
+  const [role, setRole] = useState("고객");
 
-    role: "고객",
-  });
+  const [idDup, setIdDup] = useState(false); // 아이디 중복확인
+  const [nickDup, setNickDup] = useState(false); // 닉네임 중복확인
 
-  const { id, password, pwdCheck, name, nickName, email, phone, role } =
-    formData;
-
-  const onChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
-  };
-
-  const [errorMessages, setErrorMessages] = useState({
-    id: "",
-    password: "",
-    pwdCheck: "",
-    name: "",
-
-    nickName: "",
-    email: "",
-    phone: "",
-  });
+  const onChange = (e) => {};
 
   const registerHandler = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    dispatch(asyncRegister(formData));
-    navigate("/login");
+
+    if (idDup && nickDup) {
+      const formData = {
+        id,
+        password,
+        name,
+        nickname,
+        email,
+        phone,
+        role,
+      };
+
+      console.log(formData);
+      dispatch(asyncRegister(formData));
+      navigate("/login");
+    } else {
+      alert("중복확인을 해주세요.");
+    }
   };
 
+  const IdCheck = async (e) => {
+    const idInput = document.getElementById("id"); // 아이디 input 요소를 선택
+
+    const result = await checkId(idInput.value);
+
+    if (result.available) {
+      alert("사용 가능한 아이디입니다.");
+      setIdDup(true);
+    } else {
+      alert("중복된 아이디입니다!!!");
+    }
+  };
+
+  const NicknameCheck = async () => {
+    const nicknameInput = document.getElementById("nickname");
+    const result = await checkNickname({ nickname: nicknameInput.value });
+
+    if (result.data) {
+      alert("사용 가능한 닉네임입니다.");
+      setNickDup(true);
+    } else {
+      alert("중복된 닉네임입니다!!!");
+      setNickDup(false); // 중복된 닉네임인 경우 상태값을 업데이트
+    }
+  };
+  // 아이디 유효성 검사!!
+  // const  RegExpId = () => {
+  //   console.log(regExpId(id));
+  //   setValidId(regExpId(id));
+  // };
   return (
     <Container>
       <form className="registerForm" onSubmit={registerHandler}>
@@ -162,10 +198,21 @@ const Register = () => {
                   value={id}
                   type="text"
                   placeholder="아이디를 입력해주세요."
-                  onChange={onChange}
-                  maxLength="20"
+                  onChange={(e) => {
+                    setId(e.target.value);
+                  }}
                   required
-                ></input>
+                  // onBlur={RegExpId}
+                />
+                <button
+                  type="button"
+                  id="signupbtn"
+                  className="btn btn-primary"
+                  style={{ zIndex: "0" }}
+                  onClick={IdCheck}
+                >
+                  중복 확인
+                </button>
               </label>
               <div className="idError"></div>
             </div>
@@ -178,7 +225,9 @@ const Register = () => {
                   value={password}
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setPwd(e.target.value);
+                  }}
                   required
                 ></input>
               </label>
@@ -192,7 +241,9 @@ const Register = () => {
                   type="password"
                   placeholder="비밀번호를 입력해주세요."
                   value={pwdCheck}
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setPwdCheck(e.target.value);
+                  }}
                   required
                 ></input>
               </label>
@@ -206,7 +257,9 @@ const Register = () => {
                   value={name}
                   type="text"
                   placeholder="이름을 입력해주세요."
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                   required
                 ></input>
               </label>
@@ -216,13 +269,24 @@ const Register = () => {
               <p>닉네임</p>
               <label>
                 <input
-                  id="nickName"
-                  value={nickName}
+                  id="nickname"
+                  value={nickname}
                   type="text"
                   placeholder="닉네임을 입력해주세요."
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setNickname(e.target.value);
+                  }}
                   required
                 ></input>
+                <button
+                  type="button"
+                  id="signupbtn2"
+                  className="btn btn-primary"
+                  style={{ zIndex: "0" }}
+                  onClick={NicknameCheck}
+                >
+                  중복 확인
+                </button>
               </label>
             </div>
 
@@ -234,7 +298,9 @@ const Register = () => {
                   type="text"
                   value={email}
                   placeholder="이메일을 입력해주세요."
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 ></input>
               </label>
               <div className="emailError"></div>
@@ -247,9 +313,23 @@ const Register = () => {
                   value={phone}
                   type="text"
                   placeholder="전화번호를 입력해주세요."
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                  }}
                   required
+                  style={{ color: phoneValid ? "black" : "red" }}
                 />
+                {phoneValid ? null : (
+                  <div
+                    style={{
+                      color: "red",
+                      fontSize: "0.7rem",
+                      paddingTop: "10px",
+                    }}
+                  >
+                    전화번호는 - 을 제외한 11자리 숫자로 입력해 주세요.
+                  </div>
+                )}
               </label>
             </div>
 
@@ -257,7 +337,13 @@ const Register = () => {
               <div className="role">
                 <p>구분</p>
                 <label>
-                  <select id="role" value={role} onChange={onChange}>
+                  <select
+                    id="role"
+                    value={role}
+                    onChange={(e) => {
+                      setRole(e.target.value);
+                    }}
+                  >
                     <option value="customer" defaultValue>
                       고객
                     </option>

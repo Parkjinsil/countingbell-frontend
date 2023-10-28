@@ -59,15 +59,18 @@ const MemberUpdate = () => {
   const onUpdateMember = async (e) => {
     e.preventDefault();
 
+    // console.log(e.target.password.value); 여기서 에러나!!!!!!!
+
     const updateMember = {
       token: localStorage.getItem("token"),
       id: e.target.id.value,
-      password: e.target.password.value,
+      password: e.target.password.value, // 여기서 값을 못받아옴 == undefined떠
       name: e.target.name.value,
       nickname: e.target.nickName.value,
       phone: e.target.phone.value,
       email: e.target.email.value,
     };
+
     dispatch(asyncUpdateMember(updateMember));
 
     // 수정 완료 후 마이페이지로 이동
@@ -112,6 +115,7 @@ const MemberUpdate = () => {
             value={password}
             name="password"
             onChange={(e) => {
+              console.log(e.target.value);
               setPassword(e.target.value);
             }}
           />

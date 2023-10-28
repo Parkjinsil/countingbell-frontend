@@ -32,6 +32,7 @@ const asyncRegister = createAsyncThunk(
 const asyncUpdateMember = createAsyncThunk(
   "userSlice/asyncUpdateMember",
   async (data) => {
+    console.log("수정시 비밀번호: " + password);
     const result = await updateMember(data);
     return result.data;
   }
@@ -41,9 +42,7 @@ const asyncUpdateMember = createAsyncThunk(
 const asyncDeleteMember = createAsyncThunk(
   "userSlice/asyncDeleteMember",
   async (data) => {
-    console.log("회원삭제 되나? : ", data);
     const result = await deleteMember(data);
-    console.log("왜안되냐고!!", result.data);
     return result.data;
   }
 );
@@ -106,11 +105,8 @@ const userSlice = createSlice({
       })
 
       .addCase(asyncLogin.fulfilled, (state, action) => {
+        console.log("asyncLogin.fulfilled : 로그인 성공!");
         // 로그인 성공시 localStorage로 해당 정보 관리
-
-        console.log("로그인 성공!");
-        console.log(action.payload);
-
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload));
         return action.payload;
@@ -134,19 +130,14 @@ const userSlice = createSlice({
     });
 
     // 회원정보 수정
-    builder
-      .addCase(asyncUpdateMember.fulfilled, (state, action) => {
-        // 토큰이 있으면 localStorage에 토큰과 사용자 정보를 저장
-        if (action.payload.token !== "undefined") {
-          localStorage.setItem("token", action.payload.token);
-          localStorage.setItem("user", JSON.stringify(action.payload));
-        }
-        return action.payload;
-      })
-      .addCase(asyncUpdateMember.rejected, (state, action) => {
-        alert("회원 정보 수정에 실패했습니다.");
-        return state;
-      });
+    builder.addCase(asyncUpdateMember.fulfilled, (state, action) => {
+      // 토큰이 있으면 localStorage에 토큰과 사용자 정보를 저장
+      if (action.payload.token !== "undefined") {
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
+      return action.payload;
+    });
 
     // 아이디 찾기
     builder.addCase(asyncSearchId.fulfilled, (state, action) => {
