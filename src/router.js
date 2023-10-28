@@ -13,7 +13,7 @@ import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
 import Review from "./pages/Review";
-import Reservation from "./pages/Reservation";
+import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
@@ -23,6 +23,15 @@ import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
 import AddRestaurant from "./pages/restaurants/AddRestaurant";
+import LocationBoard from "./pages/location/LocationBoard";
+import AddPhoto from "./pages/photo/AddPhoto";
+import LocationResList from "./pages/location/LocationResList";
+import LocationList from "./pages/location/LocationList";
+import FoodTypeList from "./pages/food/FoodTypeList";
+import FoodResList from "./pages/food/FoodResList";
+import ResReserve from "./pages/food/ResReserv";
+import MemberUpdate from "./pages/member/MemberUpdate";
+import ReservationResList from "./pages/reservation/ReservationResList";
 
 
 const router = createBrowserRouter([
@@ -62,6 +71,16 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "memberUpdate",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <MemberUpdate />,
+      },
+    ],
+  },
+  {
     path: "recentList",
     element: <Layout header={<Header2 />} />,
     children: [
@@ -71,6 +90,66 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "resReserve",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ResReserve />,
+      },
+    ],
+  },
+  {
+    path: "foodList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodTypeList />,
+      },
+    ],
+  },
+  {
+    path: "foodResList/:foodCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <FoodResList />,
+      },
+    ],
+  },
+  {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
+      },
+    ],
+  },
+  {
+    path: "locationList",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationList />,
+      },
+    ],
+  },
+  {
+    path: "locationResList/:localCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <LocationResList />,
+      },
+    ],
+  },
+
   {
     path: "menu",
     element: <Layout header={<Header2 />} />,
@@ -112,7 +191,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "restaurant",
+    path: "restaurant/:resCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -208,6 +287,25 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AddRestaurant />,
+      },
+    ],
+  },
+  {
+    path: "location",
+    children: [
+      {
+        index: true,
+        element: <LocationBoard />,
+      },
+    ],
+  },
+  {
+    path: "reservationResList/:foodCode/:localCode",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ReservationResList />,
       },
     ],
   },

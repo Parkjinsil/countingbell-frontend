@@ -5,6 +5,7 @@ import {
   updateMenu,
   getMenu,
   deleteMenu,
+  findByMenuCode,
 } from "../api/menu";
 
 const asyncAddMenu = createAsyncThunk(
@@ -23,20 +24,13 @@ const asyncGetMenus = createAsyncThunk(
   }
 );
 
-const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
-  const result = await getMenu(id);
-  return result.data;
-});
+const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu",
+  async (id) => {
+    const result = await getMenu(id);
+    return result.data;
+  });
 
-// const asyncUpdateMenu = createAsyncThunk(
-//   "menuSlice/asyncUpdateMenu",
-//   async ({ id, updatedData }) => {
-//    // 수정할 메뉴의 id와 업데이트된 데이터를 받습니다.
-//     const result = await updateMenu(id, updatedData); // updateMenu 함수에 id와 업데이트된 데이터를 전달합니다.
-//     return result.data;
-//    }
-// );
-
+// 메뉴 수정
 const asyncUpdateMenu = createAsyncThunk(
   "menuSlice/asyncUpdateMenu",
   async (data) => {
@@ -45,13 +39,14 @@ const asyncUpdateMenu = createAsyncThunk(
   }
 );
 
-// const asyncDeleteMenu = createAsyncThunk(
-//   "menuSlice/asyncDeleteMenu",
-//   async (data) => {
-//     const result = await deleteMenu(data);
-//     return result.data;
-//   }
-// );
+// 식당별 메뉴
+const asyncFindByMenuCode = createAsyncThunk(
+  "menuSlice/asyncFindByMenuCode",
+  async (id) => {
+    const result = await findByMenuCode(id);
+    return result.data;
+  }
+);
 
 const menuSlice = createSlice({
   name: "menuSlice",
@@ -66,6 +61,7 @@ const menuSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // 메뉴등록
       // .addCase(asyncRegister.pending, (state, action) => {})
       .addCase(asyncAddMenu.rejected, (state, action) => {
         return alert("메뉴 등록에 실패했습니다. 다시 시도해주세요.");
@@ -73,50 +69,46 @@ const menuSlice = createSlice({
       .addCase(asyncAddMenu.fulfilled, (state, action) => {
         alert("메뉴 등록 성공");
         state.menuList.push(action.payload);
-      })
+      });
 
-      // 메뉴목록
-      .addCase(asyncGetMenus.fulfilled, (state, action) => {
-        state.menuList = action.payload;
-      })
+    // 메뉴목록
+    builder.addCase(asyncGetMenus.fulfilled, (state, action) => {
+      state.menuList = action.payload;
+    });
 
-      // 메뉴 1개
+    // 메뉴 1개
+    builder
       .addCase(asyncGetMenu.fulfilled, (state, action) => {
         alert("메뉴검색에 성공했습니다.");
         state.selectedMenu = action.payload;
       })
       .addCase(asyncGetMenu.rejected, (state, action) => {
         return alert("메뉴검색에 실패했습니다.");
-      })
+      });
 
-      // 메뉴수정
+    // 메뉴수정
+    builder
       .addCase(asyncUpdateMenu.rejected, (state, action) => {
         return alert("메뉴 수정에 실패했습니다. 다시 시도해주세요.");
       })
       .addCase(asyncUpdateMenu.fulfilled, (state, action) => {
-        const updatedMenu = action.payload; // 업데이트된 메뉴 정보를 받아옵니다.
-
-        // 기존 메뉴를 찾아 업데이트합니다.
-        // state.menuList = state.menuList.map((menu) =>
-        //   menu.id === updatedMenu.id ? updatedMenu : menu
-        // );
-
-        alert("메뉴 수정 성공");
+        //const index = state.menuList.findIndex(
+        //  (menu) => menu.menuCode === action.payload.menuCode
+        //);
+        //console.log(index);
+        //state.menuList.splice(index, 1, action.payload);
+        alert("메뉴 수정에 성공했습니다");
       });
 
-    //  메뉴 삭제
-    // .addCase(asyncDeleteMenu.fulfilled, (state, action) => {
-    //   const deletedMenuCode = action.payload;
-    //   state.menuList = state.menuList.filter(
-    //     (item) => item.menuCode !== deletedMenuCode
-    //   );
-    // })
-    // .addCase(asyncDeleteMenu.rejected, (state, action) => {
-    //   return alert("메뉴 삭제에 실패했습니다.");
-    // });
+    // 식당별 메뉴찾기
+    builder.addCase(asyncFindByMenuCode.fulfilled, (state, action) => {
+      state.menuList = action.payload;
+
+      return state;
+    });
   },
 });
 
 export default menuSlice;
-export { asyncAddMenu, asyncGetMenus, asyncUpdateMenu };
+export { asyncAddMenu, asyncGetMenus, asyncUpdateMenu, asyncFindByMenuCode };
 export const { setMenuList, setSelectedMenu } = menuSlice.actions;

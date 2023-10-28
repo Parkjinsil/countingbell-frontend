@@ -29,3 +29,9 @@ export const updateMenu = async (data) => {
 export const deleteMenu = async (id) => {
   return await instance.delete("menu/" + id);
 };
+
+// 식당별 메뉴보기
+export const findByMenuCode = async (id) => {
+  let url = `menu/${id}/restaurant`;
+  return await instance.get(url);
+};

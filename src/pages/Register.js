@@ -11,33 +11,31 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: azure;
-  padding-top: 100px;
+  margin-top: 40px;
 `;
 
 const Wrapper = styled.div`
   display: block;
   background-color: #f8f9fa;
-  padding: 20px;
+  padding: 30px 60px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
   width: 100%;
-  height: 800px;
+  height: 720px;
 `;
 
 const Title = styled.div`
   text-align: center;
-
-  font-size: 2.5rem;
-  /* background-color: aqua; */
-
+  font-size: 3rem;
+  font-family: "omyu_pretty";
   padding: 10px;
 `;
 
 const InputContainer = styled.div`
   display: block;
   justify-content: center;
-  width: 400px;
+  width: 440px;
 
   div {
     padding: 3px 0;
@@ -45,15 +43,15 @@ const InputContainer = styled.div`
 
   p {
     margin: 5px 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    /* font-family: "omyu_pretty"; */ */
+    font-family: "omyu_pretty";
   }
 
   input,
   select {
     width: 100%;
-    padding: 5px ;
+    padding: 5px;
   }
 
   label {
@@ -61,11 +59,6 @@ const InputContainer = styled.div`
     gap: 5px;
     background-color: aliceblue;
     width: 100%;
-
-    #gender {
-      width: 100%;
-      padding: 7px;
-    }
   }
 `;
 
@@ -74,17 +67,19 @@ const BtnArea = styled.div`
   justify-content: center;
   width: 100%;
 
-  margin: 10px 0;
-  padding: 10px;
+  margin: 30px 0;
+  padding: 5px;
 
   button {
     width: 100%;
+    height: 60px;
     padding: 10px;
 
     border: none;
+    border-radius: 10px;
     cursor: pointer;
     background-color: #f8cdc1;
-    /* font-family: "omyu_pretty"; */
+    font-family: "omyu_pretty";
     font-size: 1.5rem;
 
     &:hover {
@@ -98,6 +93,12 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const UserRegex = /^[a-zA-Z][a-zA-Z0-9-_]{4,19}$/; // 첫글자는 소문자, 대문자 알파벳, 나머지 글자는 소문자, 대문자, 숫자, 밑줄이 가능, 총 5~20글자
+  const PwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/; // 소문자, 대문자, 숫자, 특수문자 !@#$%가 꼭 들어있고 8~24글자
+  const PhoneRegex = /^010([0-9]{8})$/; //  "010"으로 시작하고 이어서 숫자 8자리가 나오는 휴대폰 번호
+  const EmailRegex =
+    /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
   const user = useSelector((state) => {
     return state.user;
   });
@@ -108,26 +109,16 @@ const Register = () => {
     password: "",
     pwdCheck: "",
     name: "",
-    age: "",
+
     nickName: "",
     email: "",
     phone: "",
-    gender: "성별",
+
     role: "고객",
   });
 
-  const {
-    id,
-    password,
-    pwdCheck,
-    name,
-    age,
-    nickName,
-    email,
-    phone,
-    gender,
-    role,
-  } = formData;
+  const { id, password, pwdCheck, name, nickName, email, phone, role } =
+    formData;
 
   const onChange = (e) => {
     const { id, value } = e.target;
@@ -137,11 +128,72 @@ const Register = () => {
     });
   };
 
+  const [errorMessages, setErrorMessages] = useState({
+    id: "",
+    password: "",
+    pwdCheck: "",
+    name: "",
+
+    nickName: "",
+    email: "",
+    phone: "",
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrorMessages = {};
+
+    // 아이디 유효성 검사
+    if (!id || !UserRegex) {
+      newErrorMessages.id = "5~20자의 영문자와 숫자를 입력해주세요 ";
+      isValid = false;
+    }
+
+    // 비밀번호 유효성 검사
+    if (!password || !PwdRegex) {
+      newErrorMessages.password =
+        "8~24자의 영문, 숫자, 특수문자(!@#$%)를 모두 포함한 비밀번호를 입력해주세요";
+      isValid = false;
+    }
+
+    // 비밀번호 재확인 유효성 검사
+    if (password !== pwdCheck) {
+      newErrorMessages.pwdCheck = "비밀번호가 일치하지 않습니다.";
+      isValid = false;
+    }
+
+    // 이름 유효성 검사
+    if (!name) {
+      newErrorMessages.name = "이름을 입력해주세요.";
+      isValid = false;
+    }
+
+    // 닉네임 유효성 검사
+    if (!nickName) {
+      newErrorMessages.nickName = "닉네임을 입력해주세요.";
+      isValid = false;
+    }
+
+    // 이메일 유효성 검사
+    if (!email || !EmailRegex) {
+      newErrorMessages.email = "이메일 형식이 올바르지 않습니다.";
+      isValid = false;
+    }
+
+    // 전화번호 유효성 검사 (간단한 형식 체크만 수행)
+    if (!phone || !PhoneRegex) {
+      newErrorMessages.phone = "'-'를 제외하고 입력해주세요'";
+      isValid = false;
+    }
+
+    setErrorMessages(newErrorMessages);
+
+    return isValid;
+  };
+
   const registerHandler = async (e) => {
     e.preventDefault();
-
     console.log(formData);
-
     dispatch(asyncRegister(formData));
     navigate("/login");
   };
@@ -163,6 +215,7 @@ const Register = () => {
                   type="text"
                   placeholder="아이디를 입력해주세요."
                   onChange={onChange}
+                  maxLength="20"
                   required
                 ></input>
               </label>
@@ -211,19 +264,6 @@ const Register = () => {
               </label>
             </div>
 
-            <div className="age">
-              <p>나이</p>
-              <label id="ageBox">
-                <input
-                  id="age"
-                  type="text"
-                  placeholder="나이를 입력해주세요."
-                  value={age}
-                  onChange={onChange}
-                ></input>
-              </label>
-            </div>
-
             <div className="nickName">
               <p>닉네임</p>
               <label>
@@ -264,27 +304,16 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div>
-              <div className="gender">
-                <p>성별</p>
-                <label>
-                  <select id="gender" value={gender} onChange={onChange}>
-                    <option>성별</option>
-                    <option value="M">남성</option>
-                    <option value="F">여성</option>
-                  </select>
-                </label>
-              </div>
-            </div>
+
             <div>
               <div className="role">
                 <p>구분</p>
                 <label>
                   <select id="role" value={role} onChange={onChange}>
-                    <option value="role1" defaultValue>
+                    <option value="customer" defaultValue>
                       고객
                     </option>
-                    <option value="role2">사장</option>
+                    <option value="owner">사장</option>
                   </select>
                 </label>
               </div>

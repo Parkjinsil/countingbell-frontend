@@ -7,6 +7,7 @@ import image3 from "../assets/333.jpg";
 import image4 from "../assets/444.jpg";
 import image5 from "../assets/555.jpg";
 
+import { Link } from "react-router-dom";
 import {} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -210,34 +211,34 @@ const Home = () => {
         </ButtonContainer>
 
         <Category id="category">
-          <a href="/restaurantList" className="category-link">
+          <Link to="/locationList" className="category-link">
             <img src={image4} alt="위치별" className="category-image" />
-            <span className="category-text">내위치</span>
-          </a>
+            <span className="category-text">위치별</span>
+          </Link>
           <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="인기순" className="category-image" />
               <span className="category-text">인기순</span>
             </span>
           </a>
-          <a href="/restaurantList" className="category-link">
+          <Link to="/foodList" className="category-link">
             <span className="category-content">
               <img src={image4} alt="음식별" className="category-image" />
               <span className="category-text">음식별</span>
             </span>
-          </a>
+          </Link>
           <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="리뷰순" className="category-image" />
               <span className="category-text">리뷰순</span>
             </span>
           </a>
-          <a href="/restaurantList" className="category-link">
+          <Link to="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />
-              <span className="category-text">기타</span>
+              <span className="category-text">전체보기</span>
             </span>
-          </a>
+          </Link>
         </Category>
       </Section>
 
