@@ -14,6 +14,7 @@ let password = "";
 // 로그인
 const asyncLogin = createAsyncThunk("userSlice/asyncLogin", async (data) => {
   password = data.password;
+  // role = data.role;
   console.log(password);
   const result = await login(data);
   return result.data;
@@ -84,9 +85,9 @@ const userSlice = createSlice({
     userLogout: (state, action) => {
       return {};
     },
-    setRole: (state, action) => {
-      state.role = action.payload;
-    },
+    // setRole: (state, action) => {
+    //   state.role = action.payload;
+    // },
   },
 
   extraReducers: (builder) => {
@@ -113,8 +114,8 @@ const userSlice = createSlice({
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload));
 
-        // role을 추가한 새로운 객체 반환
-        return { ...action.payload, role: action.payload.role };
+        console.log("user정보 : " + action.payload);
+        return action.payload;
       });
 
     // 회원 상세 보기
@@ -166,4 +167,4 @@ export {
   asyncShowMember,
   asyncDeleteMember,
 };
-export const { userSave, userLogout, setRole } = userSlice.actions;
+export const { userSave, userLogout } = userSlice.actions;

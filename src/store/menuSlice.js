@@ -16,19 +16,26 @@ const asyncAddMenu = createAsyncThunk(
   }
 );
 
+// const asyncGetMenus = createAsyncThunk(
+//   "menuSlice/asyncGetMenus",
+//   async (page) => {
+//     const result = await getMenus(page);
+//     return result.data;
+//   }
+// );
+
 const asyncGetMenus = createAsyncThunk(
   "menuSlice/asyncGetMenus",
-  async (page) => {
-    const result = await getMenus(page);
+  async ({ page, resCode }) => {
+    const result = await getMenus(page, resCode);
     return result.data;
   }
 );
 
-const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu",
-  async (id) => {
-    const result = await getMenu(id);
-    return result.data;
-  });
+const asyncGetMenu = createAsyncThunk("menuSlice/asyncGetMenu", async (id) => {
+  const result = await getMenu(id);
+  return result.data;
+});
 
 // 메뉴 수정
 const asyncUpdateMenu = createAsyncThunk(

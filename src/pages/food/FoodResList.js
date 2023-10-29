@@ -39,11 +39,7 @@ const FoodResList = () => {
       {restaurantList.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img
-              variant="top"
-              src={image1}
-              // src={restaurant.resPicture} // 식당테이블에 사진추가해야함
-            />
+            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
             <Card.Body>
               <Card.Text>
                 <span

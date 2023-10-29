@@ -255,7 +255,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "addmenu",
+    path: "addmenu/:resCode",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -273,7 +274,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "menuboard",
+    path: "menuboard/:resCode",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

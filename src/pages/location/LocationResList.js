@@ -38,7 +38,7 @@ const LocationResList = () => {
     >
       {restaurantList.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`}>
-          <Card key={restaurant.resCode} style={{ width: "18rem" }}>
+          <Card key={restaurant?.resCode} style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
               src={image1}

@@ -414,10 +414,8 @@ const Register = () => {
                       setRole(e.target.value);
                     }}
                   >
-                    <option value="customer" defaultValue>
-                      고객
-                    </option>
-                    <option value="owner">사장</option>
+                    <option value="고객">고객</option>
+                    <option value="사장">사장</option>
                   </select>
                 </label>
               </div>

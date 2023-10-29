@@ -7,10 +7,11 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import { getRestaurant } from "../api/restaurant";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
+import { userSave } from "../store/userSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -201,26 +202,6 @@ const StyleReview = styled.section`
     list-style-type: disc; /* 원형 점 */
   }
 `;
-// const ScrollToTop = styled.div`
-//   width: 50px;
-//   height: 50px;
-//   background-color: black;
-//   border-radius: 50%;
-//   position: fixed;
-//   right: 20px;
-//   bottom: 20px;
-
-//   a {
-//     text-decoration: none;
-//     color: white;
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     font-weight: bold;
-//   }
-// `;
 
 const Restaurant = () => {
   const dispatch = useDispatch();
@@ -228,16 +209,22 @@ const Restaurant = () => {
 
   const { resCode } = useParams();
   const menus = useSelector((state) => state.menu.menuList); // 모든 메뉴 가져오기
+  const restaurant = useSelector(
+    (state) => state.restaurant.selectedRestaurant
+  );
 
   const user = useSelector((state) => {
     return state.user;
   });
 
-  const restaurant = useSelector(
-    (state) => state.restaurant.selectedRestaurant
-  );
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
 
-  console.log("레스토랑 : " + restaurant);
+  console.log("유저 role : " + user.role);
 
   useEffect(() => {
     dispatch(asyncFindByMenuCode(resCode)); // resCode
@@ -260,6 +247,11 @@ const Restaurant = () => {
 
     // ..일단 이미지 경로 생성
   ];
+
+  const onNavigate = () => {
+    console.log("resCode 어떻게 보내지? : " + resCode);
+    navigate(`/menuboard/${resCode}`);
+  };
 
   return (
     <div
@@ -319,7 +311,14 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    {user.role === "사장" || user.role === "관리자" ? (
+                    {(user.role === "사장" &&
+                      restaurant?.member?.id === user.id) ||
+                    user.role === "관리자" ? (
+                      // <Link
+                      //   to={`/menuboard/${resCode}`}
+                      //   style={{ textDecoration: "none" }}
+                      // >
+
                       <button
                         type="button"
                         className="btn text-white fw-bold"
@@ -327,6 +326,7 @@ const Restaurant = () => {
                           borderRadius: "50%",
                           backgroundColor: "#FF6B01",
                         }}
+                        onClick={onNavigate}
                       >
                         메뉴 수정
                       </button>
@@ -816,10 +816,6 @@ const Restaurant = () => {
           </div>
         </div>
       </StyleNav>
-
-      {/* <ScrollToTop id="top">
-        <a href="#">Top</a>
-      </ScrollToTop> */}
     </div>
   );
 };

@@ -48,7 +48,6 @@ const LocaionBoard = () => {
 
   const [showAddTable, setShowAddTable] = useState(false);
   const [showUpdateTable, setShowUpdateTable] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const locations = useSelector((state) => state.location.locationList);
 
