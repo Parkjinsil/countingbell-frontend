@@ -45,7 +45,9 @@ export const deleteMember = async (id) => {
 
 // 아이디 중복체크
 export const checkId = async (id) => {
-  return await instance.get("checkId/" + id);
+  let url = `checkId/${id}`;
+  return await instance.get(url);
+  // return await instance.get("checkId/" + id);
 };
 
 // 닉네임 중복체크

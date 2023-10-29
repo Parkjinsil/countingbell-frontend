@@ -4,6 +4,13 @@ import { addMember, checkId, checkNickname } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncRegister } from "../store/userSlice";
+import {
+  regExpId,
+  regExpPwd,
+  regPwdCheck,
+  regExpEmail,
+  regExpPhone,
+} from "./member/regExp";
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +18,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: azure;
-  margin-top: 40px;
+  margin-top: 100px;
 `;
 
 const Wrapper = styled.div`
@@ -22,7 +29,7 @@ const Wrapper = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   // max-width: 700px;
   width: 700px;
-  height: 720px;
+  height: 820px;
 `;
 
 const Title = styled.div`
@@ -108,13 +115,17 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [phoneValid, setPhoneValid] = useState(true);
+  const [validId, setValidId] = useState(false); // id 정규식
+  const [validPwd, setValidPwd] = useState(false); // password 정규식
+  const [validPwdCheck, setValidPwdCheck] = useState(false); // password 정규식
+  const [validPhone, setValidPhone] = useState(false); // 전화번호 정규식
+  const [validEmail, setValidEmail] = useState(false); // 이메일 정규식
 
   const user = useSelector((state) => {
     return state.user;
   });
 
-  console.log(user);
+  // console.log(user);
 
   const [id, setId] = useState([]);
   const [password, setPwd] = useState([]);
@@ -152,19 +163,23 @@ const Register = () => {
     }
   };
 
+  // 아이디 중복확인
   const IdCheck = async (e) => {
     const idInput = document.getElementById("id"); // 아이디 input 요소를 선택
 
     const result = await checkId(idInput.value);
 
-    if (result.available) {
+    console.log("반환결과 : " + result.data.available); // 이 부분을 추가하여 값 확인
+
+    if (result.data.available) {
+      alert("중복된 아이디입니다!!!");
+    } else {
       alert("사용 가능한 아이디입니다.");
       setIdDup(true);
-    } else {
-      alert("중복된 아이디입니다!!!");
     }
   };
 
+  // 닉네임 중복확인
   const NicknameCheck = async () => {
     const nicknameInput = document.getElementById("nickname");
     const result = await checkNickname({ nickname: nicknameInput.value });
@@ -177,11 +192,35 @@ const Register = () => {
       setNickDup(false); // 중복된 닉네임인 경우 상태값을 업데이트
     }
   };
-  // 아이디 유효성 검사!!
-  // const  RegExpId = () => {
-  //   console.log(regExpId(id));
-  //   setValidId(regExpId(id));
-  // };
+
+  const RegExpId = () => {
+    // 아이디 유효성 검사!!
+    // console.log(regExpId(id));
+    setValidId(regExpId(id));
+  };
+
+  const RegExpPwd = () => {
+    // 비밀번호 유효성 검사!!
+    // console.log(regExpPwd(password));
+    setValidPwd(regExpPwd(password));
+  };
+
+  const RegExpPwdCheck = () => {
+    // 비밀번호 확인 유효성 검사!!
+    // console.log(regPwdCheck(password, pwdCheck));
+    setValidPwdCheck(regPwdCheck(password, pwdCheck));
+  };
+
+  const RegExpEmail = () => {
+    // console.log(regExpEmail(email));
+    setValidEmail(regExpEmail(email));
+  };
+
+  const RegExpPhone = () => {
+    // console.log(regExpPhone(phone));
+    setValidPhone(regExpPhone(phone));
+  };
+
   return (
     <Container>
       <form className="registerForm" onSubmit={registerHandler}>
@@ -202,7 +241,7 @@ const Register = () => {
                     setId(e.target.value);
                   }}
                   required
-                  // onBlur={RegExpId}
+                  onBlur={RegExpId}
                 />
                 <button
                   type="button"
@@ -214,7 +253,15 @@ const Register = () => {
                   중복 확인
                 </button>
               </label>
-              <div className="idError"></div>
+              <div className="idError">
+                {validId ? (
+                  <span style={{ color: "green" }}>OK!</span>
+                ) : (
+                  <span style={{ color: "red" }}>
+                    5~20자리의 숫자와 영어로 입력해주세요.
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="password">
@@ -229,9 +276,20 @@ const Register = () => {
                     setPwd(e.target.value);
                   }}
                   required
+                  onBlur={RegExpPwd}
                 ></input>
               </label>
-              <div className="pwdError"></div>
+              <div className="pwdError">
+                {validPwd ? (
+                  <span style={{ color: "green" }}>OK!</span>
+                ) : (
+                  <span style={{ color: "red" }}>
+                    영문 대소문자, 특수문자, 숫자를 최소 1개 이상 혼합한
+                    8~20글자 사이의 비밀번호를 입력해주세요. (사용가능한
+                    특수문자 : !, @, #, $, %)
+                  </span>
+                )}
+              </div>
             </div>
             <div className="pwdCheck">
               <p>비밀번호 재확인</p>
@@ -245,9 +303,16 @@ const Register = () => {
                     setPwdCheck(e.target.value);
                   }}
                   required
+                  onBlur={RegExpPwdCheck}
                 ></input>
               </label>
-              <div className="pwdError"></div>
+              <div className="pwdError">
+                {validPwdCheck ? (
+                  <span style={{ color: "green" }}>일치!</span>
+                ) : (
+                  <span style={{ color: "red" }}>불일치!</span>
+                )}
+              </div>
             </div>
             <div className="userName">
               <p>이름</p>
@@ -301,12 +366,22 @@ const Register = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                ></input>
+                  required
+                  onBlur={RegExpEmail} // 유효성 검사 함수 설정
+                />
               </label>
-              <div className="emailError"></div>
+              <div className="emailError">
+                {validEmail ? (
+                  <span style={{ color: "green" }}>OK!</span>
+                ) : (
+                  <span style={{ color: "red" }}>
+                    정확한 이메일을 입력해주세요.
+                  </span>
+                )}
+              </div>
             </div>
             <div className="phone">
-              <p>전화번호("-" 제외)</p>
+              <p>전화번호</p>
               <label>
                 <input
                   id="phone"
@@ -317,20 +392,16 @@ const Register = () => {
                     setPhone(e.target.value);
                   }}
                   required
-                  style={{ color: phoneValid ? "black" : "red" }}
+                  onBlur={RegExpPhone} // 유효성 검사 함수 설정
                 />
-                {phoneValid ? null : (
-                  <div
-                    style={{
-                      color: "red",
-                      fontSize: "0.7rem",
-                      paddingTop: "10px",
-                    }}
-                  >
-                    전화번호는 - 을 제외한 11자리 숫자로 입력해 주세요.
-                  </div>
-                )}
               </label>
+              {validPhone ? (
+                <span style={{ color: "green" }}>OK!</span>
+              ) : (
+                <span style={{ color: "red" }}>
+                  "-"를 제외한 핸드폰번호를 입력해주세요.
+                </span>
+              )}
             </div>
 
             <div>
