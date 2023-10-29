@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addReser, getReser } from "../api/reser";
+import { findReserById } from "../api/user";
 
 const asyncAddReser = createAsyncThunk(
     "reserSlice/asyncAddReser",
@@ -14,6 +15,15 @@ const asyncGetReser = createAsyncThunk(
     "reserSlice/asyncGetReser",
     async (id) => {
         const result = await getReser(id);
+        return result.data;
+    }
+)
+
+// id별 예약
+const asyncFindReserById = createAsyncThunk(
+    "reserSlice/asyncFindReserById",
+    async (id) => {
+        const result = await findReserById(id);
         return result.data;
     }
 )
@@ -44,9 +54,15 @@ const reserSlice = createSlice({
             state.selectedReser = action.payload;
             return state;
         })
+
+        builder.addCase(asyncFindReserById.fulfilled, (state, action) => {
+            state.reserList = action.payload;
+
+            return state;
+        });
     }
-})
+});
 
 export default reserSlice;
-export { asyncAddReser, asyncGetReser };
+export { asyncAddReser, asyncGetReser, asyncFindReserById };
 export const { setReserList, setSelectedReser } = reserSlice.actions;

@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { userSave } from "../store/userSlice";
 
 import image11 from "../assets/111.png";
 import image22 from "../assets/mypage.img/image.ring.jpg";
@@ -167,6 +170,18 @@ const MyPage = () => {
   const image9 = image99;
   const image10 = image100;
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
   return (
     <Wrap id="wrap">
       <WrapCenter id="wrap-center">
@@ -188,7 +203,7 @@ const MyPage = () => {
           <MyPageBodyHeader id="mypage-body-header">
             <img src={image4} alt="" />
             <div>
-              <span>최준혁</span>
+              <span>{user.name}</span>
             </div>
             <Link to="/memberUpdate">프로필 수정</Link>
           </MyPageBodyHeader>
@@ -198,10 +213,10 @@ const MyPage = () => {
             </span>
           </MyPageState>
           <MyPageGrid id="mypage-body-grid">
-            <a href="">
+            <Link to={"/ReserList/user2"}> {/* user 못가져오겠어서 일단 이렇게 */}
               <img src={image5} alt="" />
               <span>예약내역</span>
-            </a>
+            </Link>
             <a href="">
               <img src={image6} alt="" />
               <span>줄서기</span>

@@ -23,3 +23,9 @@ export const searchPwd = async (data) => {
   console.log("비밀번호 찾기 axios call");
   return await instance.post("searchPwd", data);
 };
+
+// id별 예약보기
+export const findReserById = async (id) => {
+  let url = `user/${id}/reservation`;
+  return await instance.get(url);
+}
