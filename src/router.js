@@ -32,6 +32,7 @@ import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
+import ResIdBoard from "./pages/restaurants/ResIdBoard";
 
 const router = createBrowserRouter([
   {
@@ -196,6 +197,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Restaurant />,
+      },
+    ],
+  },
+  {
+    path: "resIdBoard/:id",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ResIdBoard />,
       },
     ],
   },

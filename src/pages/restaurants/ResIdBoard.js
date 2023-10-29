@@ -1,29 +1,28 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getResByUserId } from "../../api/restaurant";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { findByLocalCode } from "../../api/restaurant";
-import { asyncFindByLocalCode } from "../../store/restaurantSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { asyncGetResByUserId } from "../../store/restaurantSlice";
 
-const LocationResList = () => {
+const ResIdBoard = () => {
   const dispatch = useDispatch();
-  const { localCode } = useParams();
+  const { id } = useParams();
+
+  console.log("아이디 들어오나? : " + id);
 
   const restaurantList = useSelector(
     (state) => state.restaurant.restaurantList
   );
 
   useEffect(() => {
-    console.log(localCode);
-    dispatch(asyncFindByLocalCode(localCode));
-  }, [dispatch, localCode]);
-
-  console.log("restaurantList:", restaurantList); // 확인용 console.log 추가
+    console.log(id);
+    dispatch(asyncGetResByUserId(id));
+  }, [dispatch, id]);
 
   return (
     <Container
@@ -80,5 +79,4 @@ const LocationResList = () => {
     </Container>
   );
 };
-
-export default LocationResList;
+export default ResIdBoard;

@@ -11,7 +11,7 @@ import image100 from "../assets/mypage.img/image6.jpg";
 
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncShowMember, userSave } from "../store/userSlice";
 
@@ -160,6 +160,7 @@ const MyPageGrid = styled.div`
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 1명정보 불러오기
   const { id } = useParams();
@@ -177,6 +178,11 @@ const MyPage = () => {
   useEffect(() => {
     dispatch(asyncShowMember(id));
   }, []);
+
+  const onMyRes = () => {
+    console.log("id 어떻게 보내지? : " + id);
+    navigate(`/resIdBoard/${id}`);
+  };
 
   return (
     <Wrap id="wrap">
@@ -214,10 +220,10 @@ const MyPage = () => {
           <MyPageGrid id="mypage-body-grid">
             {user.role === "사장" || user.role === "관리자" ? (
               <>
-                <a href="">
+                <button onClick={onMyRes}>
                   <img src={image55} alt="" />
-                  <span>식당 관리</span>
-                </a>
+                  <span>내 식당 관리</span>
+                </button>
                 <a href="">
                   <img src={image66} alt="" />
                   <span>예약 관리</span>

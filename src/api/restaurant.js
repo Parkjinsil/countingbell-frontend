@@ -19,7 +19,7 @@ export const getRestaurant = async (id) => {
 
 // 식당 등록
 export const addRestaurant = async (data) => {
-  console.log("백에보낼때"+data);
+  console.log("백에보낼때" + data);
   return await instance.post("restaurant", data);
 };
 // 위치별 식당조회
@@ -34,11 +34,17 @@ export const findByFoodCode = async (id) => {
   return await instance.get(url);
 };
 
-export const findResByFilter = async ({foodCode, localCode}) => {
+export const findResByFilter = async ({ foodCode, localCode }) => {
   console.log("필터 거르기 axios call!!");
   let url = `restaurant/${foodCode}/${localCode}`;
   return await instance.get(url);
-}
+};
+
+// 아이디별 식당조회
+export const getResByUserId = async (id) => {
+  let url = `restaurant/${id}/user`;
+  return await instance.get(url);
+};
 
 // 식당이름따라
 // export const getRestaurantByName = async (resName) => {
