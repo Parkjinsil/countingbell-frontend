@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"; // useSelector 추가
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { asyncDeleteMember, asyncUpdateMember } from "../../store/userSlice";
 import { userLogout } from "../../store/userSlice";
+import { checkNickname } from "../../api/user";
+import { regExpEmail, regExpPhone, regExpPwd } from "./regExp";
 
 const H1 = styled.h1`
   font-size: 40px;
@@ -55,26 +57,66 @@ const MemberUpdate = () => {
   const [phone, setPhone] = useState(user.phone);
   const [email, setEmail] = useState(user.email);
 
+  const nicknameRef = useRef(null);
+  const [nickDup, setNickDup] = useState(false); // 닉네임 중복확인
+  const [validPwd, setValidPwd] = useState(false); // password 정규식
+  const [validPhone, setValidPhone] = useState(false); // 전화번호 정규식
+  const [validEmail, setValidEmail] = useState(false); // 이메일 정규식
+
+  // 닉네임 중복확인
+  const NicknameCheck = async () => {
+    if (nicknameRef.current) {
+      const result = await checkNickname({
+        nickname: nicknameRef.current.value,
+      });
+
+      if (result.data) {
+        alert("사용 가능한 닉네임입니다.");
+        setNickDup(true);
+      } else {
+        alert("중복된 닉네임입니다!!!");
+        setNickDup(false);
+      }
+    }
+  };
+
+  const RegExpPwd = () => {
+    // 비밀번호 유효성 검사!!
+    setValidPwd(regExpPwd(password));
+  };
+
+  const RegExpEmail = () => {
+    setValidEmail(regExpEmail(email));
+  };
+
+  const RegExpPhone = () => {
+    setValidPhone(regExpPhone(phone));
+  };
+
   // 회원정보 수정하기
   const onUpdateMember = async (e) => {
     e.preventDefault();
 
     // console.log(e.target.password.value); 여기서 에러나!!!!!!!
 
-    const updateMember = {
-      token: localStorage.getItem("token"),
-      id: e.target.id.value,
-      password: e.target.password.value, // 여기서 값을 못받아옴 == undefined떠
-      name: e.target.name.value,
-      nickname: e.target.nickName.value,
-      phone: e.target.phone.value,
-      email: e.target.email.value,
-    };
+    if (nickDup) {
+      const updateMember = {
+        token: localStorage.getItem("token"),
+        id: e.target.id.value,
+        password: e.target.password.value, // 여기서 값을 못받아옴 == undefined떠
+        name: e.target.name.value,
+        nickname: e.target.nickName.value,
+        phone: e.target.phone.value,
+        email: e.target.email.value,
+      };
 
-    dispatch(asyncUpdateMember(updateMember));
+      dispatch(asyncUpdateMember(updateMember));
 
-    // 수정 완료 후 마이페이지로 이동
-    navigate(`/myPage/${user.id}`);
+      // 수정 완료 후 마이페이지로 이동
+      navigate(`/myPage/${user.id}`);
+    } else {
+      alert("중복확인을 해주세요.");
+    }
   };
 
   // 탈퇴하기
@@ -118,7 +160,18 @@ const MemberUpdate = () => {
               console.log(e.target.value);
               setPassword(e.target.value);
             }}
+            onBlur={RegExpPwd}
           />
+          <div className="pwdError">
+            {validPwd ? (
+              <span style={{ color: "green" }}>OK!</span>
+            ) : (
+              <span style={{ color: "red" }}>
+                8~20글자 사이의 영문 대소문자, 특수문자(!, @, #, $, %), 숫자를
+                최소 1개 이상 혼합한 비밀번호를 입력해주세요.
+              </span>
+            )}
+          </div>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>이름</Form.Label>
@@ -133,14 +186,25 @@ const MemberUpdate = () => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>닉네임</Form.Label>
+
           <Form.Control
             type="text"
             value={nickname}
             name="nickName"
+            ref={nicknameRef}
             onChange={(e) => {
               setNickname(e.target.value);
             }}
           />
+          <button
+            type="button"
+            id="signupbtn2"
+            className="btn btn-primary"
+            style={{ zIndex: "0" }}
+            onClick={NicknameCheck}
+          >
+            중복 확인
+          </button>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>전화번호</Form.Label>
@@ -151,7 +215,15 @@ const MemberUpdate = () => {
             onChange={(e) => {
               setPhone(e.target.value);
             }}
+            onBlur={RegExpPhone}
           />
+          {validPhone ? (
+            <span style={{ color: "green" }}>OK!</span>
+          ) : (
+            <span style={{ color: "red" }}>
+              "-"를 제외한 핸드폰번호를 입력해주세요.
+            </span>
+          )}
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>이메일</Form.Label>
@@ -162,7 +234,15 @@ const MemberUpdate = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            onBlur={RegExpEmail}
           />
+          <div className="emailError">
+            {validEmail ? (
+              <span style={{ color: "green" }}>OK!</span>
+            ) : (
+              <span style={{ color: "red" }}></span>
+            )}
+          </div>
         </Form.Group>
         <BtnArea style={{ gap: "20px" }}>
           <button type="submit" onClick={onUpdateMember}>

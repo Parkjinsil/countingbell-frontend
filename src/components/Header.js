@@ -166,6 +166,27 @@ const HeadMenu = styled.div`
   }
 `;
 
+const ScrollToTop = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-radius: 50%;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+`;
+
 const Header = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -221,9 +242,18 @@ const Header = () => {
                   </li>
                 </>
               ) : (
-                <li>
-                  <button onClick={logout}>로그아웃</button>
-                </li>
+                <>
+                  <li>
+                    <Link to="favoriteList">
+                      <span>찜한 가게</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={logout}>
+                      <span>로그아웃</span>
+                    </button>
+                  </li>
+                </>
               )}
             </ul>
           </HeadRight>
@@ -278,6 +308,9 @@ const Header = () => {
           </ul>
         </nav>
       </HeadMenu>
+      <ScrollToTop id="top">
+        <a href="#">Top</a>
+      </ScrollToTop>
     </HeaderContainer>
   );
 };

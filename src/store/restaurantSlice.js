@@ -1,19 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    addRestaurant,
-    findByLocalCode,
-    findByFoodCode,
-    getRestaurant,
-    getRestaurants,
-    findResByFilter
+  addRestaurant,
+  findByLocalCode,
+  findByFoodCode,
+  getRestaurant,
+  getRestaurants,
+  findResByFilter,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",
   async (data) => {
-      console.log(data);
-      const result = await addRestaurant(data);
-      return result.data;
+    console.log(data);
+    const result = await addRestaurant(data);
+    return result.data;
   }
 );
 
@@ -57,11 +57,11 @@ const asyncFindByFoodCode = createAsyncThunk(
 
 const asyncFindResByFilter = createAsyncThunk(
   "restaurantSlice/asyncFindResByFilter",
-  async ({ foodCode, localCode })  => {
-    const result = await findResByFilter({foodCode, localCode});
+  async ({ foodCode, localCode }) => {
+    const result = await findResByFilter({ foodCode, localCode });
     return result.data;
   }
-)
+);
 
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
@@ -76,14 +76,14 @@ const restaurantSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(asyncAddRestaurant.rejected, (state, action) =>{
+      .addCase(asyncAddRestaurant.rejected, (state, action) => {
         return alert("식당 등록에 실패했습니다. 다시 시도해주세요.");
-    })
-    .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
-        alert ("식당 등록 성공.");
+      })
+      .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
+        alert("식당 등록 성공.");
 
         return action.payload;
-    })
+      });
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -94,7 +94,7 @@ const restaurantSlice = createSlice({
     builder.addCase(asyncFindResByFilter.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       return state;
-    })
+    });
 
     // 음식타입별 식당찾기
     builder.addCase(asyncFindByFoodCode.fulfilled, (state, action) => {

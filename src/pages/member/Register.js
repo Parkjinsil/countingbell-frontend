@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { addMember, checkId, checkNickname } from "../api/user";
+import { addMember, checkId, checkNickname } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncRegister } from "../store/userSlice";
+import { asyncRegister } from "../../store/userSlice";
 import {
   regExpId,
   regExpPwd,
   regPwdCheck,
   regExpEmail,
   regExpPhone,
-} from "./member/regExp";
+} from "./regExp";
 
 const Container = styled.div`
   display: flex;
@@ -284,9 +284,8 @@ const Register = () => {
                   <span style={{ color: "green" }}>OK!</span>
                 ) : (
                   <span style={{ color: "red" }}>
-                    영문 대소문자, 특수문자, 숫자를 최소 1개 이상 혼합한
-                    8~20글자 사이의 비밀번호를 입력해주세요. (사용가능한
-                    특수문자 : !, @, #, $, %)
+                    8~20글자 사이의 영문 대소문자, 특수문자(!, @, #, $, %),
+                    숫자를 최소 1개 이상 혼합한 비밀번호를 입력해주세요.
                   </span>
                 )}
               </div>

@@ -201,6 +201,26 @@ const StyleReview = styled.section`
     list-style-type: disc; /* 원형 점 */
   }
 `;
+// const ScrollToTop = styled.div`
+//   width: 50px;
+//   height: 50px;
+//   background-color: black;
+//   border-radius: 50%;
+//   position: fixed;
+//   right: 20px;
+//   bottom: 20px;
+
+//   a {
+//     text-decoration: none;
+//     color: white;
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     font-weight: bold;
+//   }
+// `;
 
 const Restaurant = () => {
   const dispatch = useDispatch();
@@ -208,9 +228,16 @@ const Restaurant = () => {
 
   const { resCode } = useParams();
   const menus = useSelector((state) => state.menu.menuList); // 모든 메뉴 가져오기
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
   const restaurant = useSelector(
     (state) => state.restaurant.selectedRestaurant
   );
+
+  console.log("레스토랑 : " + restaurant);
 
   useEffect(() => {
     dispatch(asyncFindByMenuCode(resCode)); // resCode
@@ -292,16 +319,29 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    <button
-                      type="button"
-                      className="btn text-white fw-bold"
-                      style={{
-                        borderRadius: "50%",
-                        backgroundColor: "#FF6B01",
-                      }}
-                    >
-                      예약
-                    </button>
+                    {user.role === "사장" || user.role === "관리자" ? (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                      >
+                        메뉴 수정
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                      >
+                        예약
+                      </button>
+                    )}
                   </td>
                 </tr>
               </tbody>
@@ -776,6 +816,10 @@ const Restaurant = () => {
           </div>
         </div>
       </StyleNav>
+
+      {/* <ScrollToTop id="top">
+        <a href="#">Top</a>
+      </ScrollToTop> */}
     </div>
   );
 };

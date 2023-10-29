@@ -5,7 +5,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Header2 from "./components/Header2";
-import Register from "./pages/Register";
+import Register from "./pages/member/Register";
 import Find from "./pages/Find";
 import RecentList from "./pages/RecentList";
 import Menu from "./pages/Menu";

@@ -84,6 +84,9 @@ const userSlice = createSlice({
     userLogout: (state, action) => {
       return {};
     },
+    setRole: (state, action) => {
+      state.role = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -109,7 +112,9 @@ const userSlice = createSlice({
         // 로그인 성공시 localStorage로 해당 정보 관리
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload));
-        return action.payload;
+
+        // role을 추가한 새로운 객체 반환
+        return { ...action.payload, role: action.payload.role };
       });
 
     // 회원 상세 보기
@@ -161,4 +166,4 @@ export {
   asyncShowMember,
   asyncDeleteMember,
 };
-export const { userSave, userLogout } = userSlice.actions;
+export const { userSave, userLogout, setRole } = userSlice.actions;
