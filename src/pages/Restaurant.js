@@ -314,11 +314,6 @@ const Restaurant = () => {
                     {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
                     user.role === "관리자" ? (
-                      // <Link
-                      //   to={`/menuboard/${resCode}`}
-                      //   style={{ textDecoration: "none" }}
-                      // >
-
                       <button
                         type="button"
                         className="btn text-white fw-bold"

@@ -33,10 +33,7 @@ const MenuBoard = () => {
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState("");
   const [menuCode, setMenuCode] = useState("");
-  // const [resCode, setResCode] = useState("");
-  // const [localResCode, setLocalResCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
-  const [newResCode, setNewResCode] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,8 +41,6 @@ const MenuBoard = () => {
   const menus = useSelector((state) => state.menu.menuList);
 
   console.log("받아온 resCode:", resCode);
-
-  // console.log("menuBoard resCode: " + urlResCode);
 
   // 식당별 메뉴 불러오기
   // 식당 정보를 받아온 후 로컬 스토리지에 저장
@@ -56,12 +51,7 @@ const MenuBoard = () => {
     dispatch(asyncFindByMenuCode({ page: 1, resCode: resCode }));
   }, [dispatch, resCode]);
 
-  const [showAddTable, setShowAddTable] = useState(false);
-  const toggleAddTable = () => {
-    setShowAddTable(!showAddTable);
-  };
-
-  // 메뉴 등록하러 가기기
+  // 메뉴 등록하러 가기
   const onAddmenu = () => {
     console.log("resCode22 어떻게 보내지? : " + resCode);
     navigate(`/addmenu/${resCode}`);
@@ -85,7 +75,7 @@ const MenuBoard = () => {
     console.log(menuName);
     console.log(menuDesc);
     console.log(menuPrice);
-    console.log(menuPicture);
+    console.log("menuPicture 왜 안들어오냐고!!!!!:" + menuPicture);
     console.log(menuCode);
     console.log(resCode);
 
@@ -240,7 +230,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuName"
-                                  // placeholder={menu.menuName}
                                   value={menuName}
                                   onChange={(e) => {
                                     setMenuName(e.target.value);
@@ -259,7 +248,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuDesc"
-                                  // placeholder={menu.menuDesc}
                                   value={menuDesc}
                                   onChange={(e) => {
                                     setMenuDesc(e.target.value);
@@ -278,7 +266,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuPrice"
-                                  // placeholder={menu.menuPrice}
                                   value={menuPrice}
                                   onChange={(e) => {
                                     setMenuPrice(e.target.value);
@@ -297,7 +284,10 @@ const MenuBoard = () => {
                                   className="form-control"
                                   id="menuPicture"
                                   onChange={(e) => {
-                                    console.log(e.target);
+                                    console.log("e.target 값 : " + e.target); // 정상임
+                                    console.log(
+                                      "menu.menuPicture값 : " + menu.menuPicture
+                                    ); // 값 ok
                                     setMenuPicture(e.target.files[0]);
                                   }}
                                 />
