@@ -42,11 +42,12 @@ export const findResByFilter = async ({ foodCode, localCode }) => {
 
 // 아이디별 식당조회
 export const getResByUserId = async (id) => {
-  let url = `restaurant/${id}/user`;
+  let url = `user/${id}/restaurant`;
   return await instance.get(url);
 };
 
-// 식당이름따라
-// export const getRestaurantByName = async (resName) => {
-//   return await instance.get(`search?name=${resName}`);
-// };
+// 메뉴명으로 식당 검색
+export const searchResByMenuName = async (keyword) => {
+  let url = `search/${keyword}`;
+  return await instance.get(url);
+};

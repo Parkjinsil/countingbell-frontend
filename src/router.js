@@ -222,13 +222,9 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "waiting",
+    path: "resSearch/:keyword",
     element: <Layout header={<Header2 />} />,
     children: [
-      {
-        index: true,
-        element: <Waiting />,
-      },
       {
         index: true,
         element: <ResSearch />,

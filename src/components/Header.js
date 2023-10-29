@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
+import { asyncSearchResByMenuName } from "../store/restaurantSlice";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -190,10 +191,17 @@ const ScrollToTop = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
 
   const user = useSelector((state) => {
     return state.user;
   });
+
+  const handleSearch = () => {
+    console.log("keyword값 보내지나? : " + keyword);
+    navigate(`/resSearch/${keyword}`);
+  };
 
   useEffect(() => {
     const save = localStorage.getItem("user");
@@ -299,8 +307,10 @@ const Header = () => {
                   name="search"
                   id="search"
                   placeholder="검색"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button type="submit">
+                <button type="button" onClick={handleSearch}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
                 </button>
               </div>

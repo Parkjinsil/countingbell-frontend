@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
@@ -8,37 +8,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 
 import {
-  asyncAddMenu,
-  asyncDeleteMenu,
   asyncFindByMenuCode,
   asyncGetMenus,
   asyncUpdateMenu,
-  setMenuList,
 } from "../../store/menuSlice";
-import { userSave } from "../../store/userSlice";
-
-const PagingStyle = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 20px 0;
-  a {
-    padding: 5px;
-  }
-`;
 
 const MenuBoard = () => {
+  const menus = useSelector((state) => state.menu.menuList);
   const [menuName, setMenuName] = useState("");
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
-  const [menuPicture, setMenuPicture] = useState("");
+  const [menuPicture, setMenuPicture] = useState(null);
   const [menuCode, setMenuCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const menus = useSelector((state) => state.menu.menuList);
 
   console.log("받아온 resCode:", resCode);
 
@@ -150,7 +135,6 @@ const MenuBoard = () => {
                       data-bs-target={`#exampleModal${menu.menuCode}`}
                       data-bs-whatever="@mdo"
                       onClick={() => {
-                        //setItem(menu);
                         setMenuName(menu.menuName);
                         setMenuPrice(menu.menuPrice);
                         setMenuPicture(menu.menuPicture);

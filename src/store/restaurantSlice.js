@@ -7,6 +7,7 @@ import {
   getRestaurants,
   findResByFilter,
   getResByUserId,
+  searchResByMenuName,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
@@ -65,6 +66,15 @@ const asyncFindByFoodCode = createAsyncThunk(
   }
 );
 
+// 메뉴명으로 식당검색
+const asyncSearchResByMenuName = createAsyncThunk(
+  "restaurantSlice/asyncSearchResByMenuName",
+  async (keyword) => {
+    const result = await searchResByMenuName(keyword);
+    return result.data;
+  }
+);
+
 const asyncFindResByFilter = createAsyncThunk(
   "restaurantSlice/asyncFindResByFilter",
   async ({ foodCode, localCode }) => {
@@ -96,6 +106,12 @@ const restaurantSlice = createSlice({
       });
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
+      state.restaurantList = action.payload;
+      // console.log("엑스트라리듀서:", state.locationList);
+      return state;
+    });
+    // 메뉴이름으로 식당찾기
+    builder.addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       // console.log("엑스트라리듀서:", state.locationList);
       return state;
@@ -145,6 +161,7 @@ export {
   asyncFindResByFilter,
   asyncGetRestaurant,
   asyncGetResByUserId,
+  asyncSearchResByMenuName,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,16 +6,27 @@ import { Link } from "react-router-dom";
 import { asyncGetRestaurants } from "../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import image1 from "../assets/111.jpg";
+import { useInView } from "react-intersection-observer";
+import { getRestaurants } from "../api/restaurant";
 
 const RestaurantList = () => {
   const dispatch = useDispatch();
+  const [restaurant, setRestaurant] = useState("");
+  const [page, setPage] = useState(1);
 
   const restaurants = useSelector((state) => state.restaurant.restaurantList);
 
   useEffect(() => {
-    dispatch(asyncGetRestaurants(1));
+    dispatch(asyncGetRestaurants(page));
   }, [dispatch]);
+
+  const hasScrollbar = () => {
+    return document.documentElement.scrollHeight > window.innerHeight;
+  };
+
+  const [ref, inView] = useInView({
+    skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
+  });
 
   return (
     <Container
