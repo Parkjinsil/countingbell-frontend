@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import { getRestaurant } from "../api/restaurant";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
+import { Link } from "react-router-dom";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -290,8 +291,7 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    <button
-                      type="button"
+                    <Link to={`reser`}
                       className="btn text-white fw-bold"
                       style={{
                         borderRadius: "50%",
@@ -299,7 +299,7 @@ const Restaurant = () => {
                       }}
                     >
                       예약
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               </tbody>
@@ -520,7 +520,7 @@ const Restaurant = () => {
                           margin: "3px",
                         }}
                       />
-                      <button
+                      <Link to={`addReview`}
                         className="btn mt-3"
                         type="button"
                         style={{
@@ -531,7 +531,7 @@ const Restaurant = () => {
                         }}
                       >
                         리뷰쓰기
-                      </button>
+                      </Link>
                     </div>
                     <div className="col-9">
                       <div

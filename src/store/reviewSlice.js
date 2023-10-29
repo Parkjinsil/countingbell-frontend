@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Action } from "@remix-run/router";
 import {
-    addReview, getReviews,
+    addReview
 } from "../api/review";
 
 const asyncAddReview = createAsyncThunk(
@@ -12,22 +11,14 @@ const asyncAddReview = createAsyncThunk(
     }
 );
 
-const asyncGetReviews = createAsyncThunk(
-    "reviewSlice/asyncGetReviews",
-    async (page) => {
-        const result = await asyncGetReviews(page);
-        return result.data;
-    }
-);
-
 const reviewSlice = createSlice({
     name: "reviewSlice",
-    initialState: {},
+    initialState: { reviewList: [], selectedReview: null},
     reducers: {
         setReviewList: (state, action) => {
             state.reviewList = action.payload;
         },
-        setSelectReview: (state, action) => {
+        setSelectedReview: (state, action) => {
             state.selectedReview = action.payload;
         },
     },
@@ -38,15 +29,11 @@ const reviewSlice = createSlice({
             })
             .addCase(asyncAddReview.fulfilled, (state, action) => {
                 alert("리뷰 등록 성공");
-                return action.payload;
+                state.reviewList.push(action.payload);
             })
-
-        builder.addCase(asyncGetReviews.fullfilled, (state, action) => {
-            state.reviewList = action.payload;
-        });
     }
 });
 
 export default reviewSlice;
-export { asyncAddReview, asyncGetReviews };
-export const { setReviewList, setSelectReview } = reviewSlice.actions;
+export { asyncAddReview};
+export const { setReviewList, setSelectedReview } = reviewSlice.actions;

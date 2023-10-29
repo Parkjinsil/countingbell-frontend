@@ -12,7 +12,7 @@ import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
-import Review from "./pages/Review";
+import AddReview from "./pages/review/AddReview";
 import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
@@ -31,7 +31,7 @@ import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
 import ReservationResList from "./pages/reservation/ReservationResList";
-
+import Reser from "./pages/reser/Reser";
 
 const router = createBrowserRouter([
   {
@@ -170,12 +170,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "review",
-    element: <Layout header={<Header2 />} />,
+    path: "restaurant/:resCode/addReview",
     children: [
       {
         index: true,
-        element: <Review />,
+        element: <AddReview />,
       },
     ],
   },
@@ -186,6 +185,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Restaurant />,
+      },
+    ],
+  },
+  {
+    path: "restaurant/:resCode/reser",
+    children: [
+      {
+        index: true,
+        element: <Reser />,
       },
     ],
   },
