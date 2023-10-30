@@ -221,10 +221,10 @@ const MyPage = () => {
               <img src={image6} alt="" />
               <span>줄서기</span>
             </a>
-            <a href="">
+            <Link to={"/ReviewList/user2"}> {/* user 못가져오겠어서 일단 이렇게 */}
               <img src={image7} alt="" />
               <span>리뷰관리</span>
-            </a>
+            </Link>
             <a href="">
               <img src={image8} alt="" />
               <span>포인트 </span>

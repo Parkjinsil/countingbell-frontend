@@ -24,8 +24,14 @@ export const searchPwd = async (data) => {
   return await instance.post("searchPwd", data);
 };
 
-// id별 예약보기
+// id별 예약조회
 export const findReserById = async (id) => {
   let url = `user/${id}/reservation`;
+  return await instance.get(url);
+}
+
+// id별 리뷰조회
+export const findReviewById = async (id) => {
+  let url = `user/${id}/review`;
   return await instance.get(url);
 }

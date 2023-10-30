@@ -55,6 +55,7 @@ const reserSlice = createSlice({
             return state;
         })
 
+        // id별 예약
         builder.addCase(asyncFindReserById.fulfilled, (state, action) => {
             state.reserList = action.payload;
 

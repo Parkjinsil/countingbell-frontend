@@ -5,18 +5,18 @@ import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { asyncFindReserById } from "../../store/reserSlice";
+import { asyncFindReviewById } from "../../store/reviewSlice";
 
-const ReserList = () => {
+const ReviewList = ()=> {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { id } = useParams();
 
-    const resers = useSelector((state) => state.reser.reserList);
+    const reviews = useSelector((state) => state.review.reviewList);
 
     useEffect(() => {
-        dispatch(asyncFindReserById(id));
+        dispatch(asyncFindReviewById(id));
     }, []);
 
     return (
@@ -34,22 +34,33 @@ const ReserList = () => {
           <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
               <tr>
-                <th>예약코드</th>
+                <th>리뷰코드</th>
                 <th>식당명</th>
-                <th>예약인원</th>
-                <th>예약일시</th>
+                <th>이미지</th>
+                <th>리뷰내용</th>
+                <th>작성날짜</th>
               </tr>
             </thead>
             <tbody
               className="table-group-divider"
               style={{ lineHeight: " 100px" }}
             >
-              {resers.map((reser, index) => (
-                <tr key={reser.reserCode} style={{ lineHeight: "150px" }}>
-                  <td>{reser.reserCode}</td>
-                  <td>{reser.restaurant.resName}</td>
-                  <td>{reser.reserPer}</td>
-                  <td>{reser.reserDate} {reser.reserTime}</td>
+              {reviews.map((review, index) => (
+                <tr key={review.reviewCode} style={{ lineHeight: "150px" }}>
+                  <td>{review.reviewCode}</td>
+                  <td>{review.restaurant.resName}</td>
+                  <td style={{ alignItems: "center" }}>
+                    <img
+                      src={"/upload/" + review.reviewPhoto}
+                      style={{
+                        width: "150px",
+                        height: "100px",
+                        borderRadius: "10%",
+                      }}
+                    />
+                  </td>
+                  <td>{review.reviewContent}</td>
+                  <td>{review.reviewDate}</td>
                 </tr>
               ))}
             </tbody>
@@ -58,6 +69,7 @@ const ReserList = () => {
       </div>
     </div>
     )
-};
 
-export default ReserList;
+}
+
+export default ReviewList;
