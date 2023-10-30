@@ -30,8 +30,8 @@ const MenuBoard = () => {
   // 식당별 메뉴 불러오기
   // 식당 정보를 받아온 후 로컬 스토리지에 저장
   useEffect(() => {
-    const resCode = localStorage.getItem("resCode");
-
+    // const resCode = localStorage.getItem("resCode");
+    // console.log(resCode);
     // setResCode(resCode); // resCode를 상태로 설정
     dispatch(asyncFindByMenuCode({ page: 1, resCode: resCode }));
   }, [dispatch, resCode]);
@@ -54,6 +54,12 @@ const MenuBoard = () => {
     }
   };
 
+  // useEffect(() => {
+  //  if(menus !== null) {
+  //   dispatch(asyncGetMenus);
+  //  }
+  // }, []);
+
   // 메뉴수정
   const onUpdate = async (e) => {
     e.preventDefault();
@@ -61,6 +67,7 @@ const MenuBoard = () => {
     console.log(menuDesc);
     console.log(menuPrice);
     console.log("menuPicture 왜 안들어오냐고!!!!!:" + menuPicture);
+    console.log(typeof menuPicture);
     console.log(menuCode);
     console.log(resCode);
 

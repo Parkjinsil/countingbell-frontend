@@ -112,6 +112,7 @@ const userSlice = createSlice({
         console.log("asyncLogin.fulfilled : 로그인 성공!");
         // 로그인 성공시 localStorage로 해당 정보 관리
         localStorage.setItem("token", action.payload.token);
+        action.payload.password = password;
         localStorage.setItem("user", JSON.stringify(action.payload));
 
         console.log("user정보 : " + action.payload);

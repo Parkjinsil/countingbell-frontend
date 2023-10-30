@@ -31,7 +31,8 @@ export const deleteMenu = async (id) => {
 };
 
 // 식당별 메뉴보기
-export const findByMenuCode = async (resCode) => {
-  let url = `menu/${resCode}/restaurant`;
+export const findByMenuCode = async (info) => {
+  console.log(info);
+  let url = `menu/${info.resCode}/restaurant`;
   return await instance.get(url);
 };

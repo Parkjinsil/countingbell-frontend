@@ -59,8 +59,8 @@ const asyncGetResByUserId = createAsyncThunk(
 // 음식타입별 식당 가져오기
 const asyncFindByFoodCode = createAsyncThunk(
   "restaurantSlice/asyncFindByFoodCode",
-  async (id) => {
-    const result = await findByFoodCode(id);
+  async (info) => {
+    const result = await findByFoodCode(info);
     // console.log("음식타입별 식당목록:", result.data);
     return result.data;
   }
@@ -71,6 +71,7 @@ const asyncSearchResByMenuName = createAsyncThunk(
   "restaurantSlice/asyncSearchResByMenuName",
   async (keyword) => {
     const result = await searchResByMenuName(keyword);
+    console.log(result);
     return result.data;
   }
 );

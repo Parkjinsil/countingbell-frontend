@@ -54,8 +54,9 @@ const MemberUpdate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
+  let user = useSelector((state) => state.user);
 
+  const [id, setId] = useState(user.id);
   const [password, setPassword] = useState(user.password);
   const [name, setName] = useState(user.name);
   const [nickname, setNickname] = useState(user.nickname);
@@ -69,11 +70,28 @@ const MemberUpdate = () => {
   const [validEmail, setValidEmail] = useState(false); // 이메일 정규식
 
   useEffect(() => {
-    const save = localStorage.getItem("user");
-    if (Object.keys(user).length === 0 && save !== null) {
-      dispatch(userSave(JSON.parse(save)));
+    console.log(user);
+    console.log(user.password);
+    if (user.password === undefined) {
+      console.log("password!");
+      user = JSON.parse(localStorage.getItem("user"));
+      console.log(user);
+      setId(user.id);
+      setPassword(user.password);
+      setName(user.name);
+      setNickname(user.nickname);
+      setPhone(user.phone);
+      setEmail(user.email);
     }
-  }, [user]);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("user!");
+  //   const save = localStorage.getItem("user");
+  //   if (Object.keys(user).length === 0 && save !== null) {
+  //     dispatch(userSave(JSON.parse(save)));
+  //   }
+  // }, [user]);
 
   // 닉네임 중복확인
   const NicknameCheck = async () => {
@@ -111,14 +129,16 @@ const MemberUpdate = () => {
     console.log(e); // 확인용 출력
     console.log(e.target.password); // 비밀번호 확인용 출력 == undefined떠
 
+    console.log(password);
+
     const updateMember = {
       token: localStorage.getItem("token"),
-      id: e.target.id.value,
-      password: e.target.password.value, // 여기서 값을 못받아옴 == undefined떠
-      name: e.target.name.value,
-      nickname: e.target.nickName.value,
-      phone: e.target.phone.value,
-      email: e.target.email.value,
+      id: user.id,
+      password: password, // 여기서 값을 못받아옴 == undefined떠
+      name: name,
+      nickname: nickname,
+      phone: phone,
+      email: email,
     };
 
     dispatch(asyncUpdateMember(updateMember));
@@ -150,19 +170,13 @@ const MemberUpdate = () => {
       <Form onSubmit={onUpdateMember}>
         <Form.Group className="mb-3">
           <Form.Label>아이디</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={user.id}
-            name="id"
-            readOnly
-            // onChange={(e) => setId(e.target.value)}
-          />
+          <Form.Control type="text" value={id || ""} name="id" readOnly />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
             type="password"
-            value={password}
+            value={password || ""}
             name="password"
             onChange={(e) => {
               console.log("비밀번호 들어오나?? : " + e.target.value); // 들어와O
@@ -185,7 +199,7 @@ const MemberUpdate = () => {
           <Form.Label>이름</Form.Label>
           <Form.Control
             type="text"
-            value={name}
+            value={name || ""}
             name="name"
             onChange={(e) => {
               setName(e.target.value);
@@ -197,7 +211,7 @@ const MemberUpdate = () => {
 
           <Form.Control
             type="text"
-            value={nickname}
+            value={nickname || ""}
             name="nickName"
             ref={nicknameRef}
             onChange={(e) => {
@@ -219,7 +233,7 @@ const MemberUpdate = () => {
           <Form.Label>전화번호</Form.Label>
           <Form.Control
             type="phone"
-            value={phone}
+            value={phone || ""}
             name="phone"
             onChange={(e) => {
               setPhone(e.target.value);
@@ -238,7 +252,7 @@ const MemberUpdate = () => {
           <Form.Label>이메일</Form.Label>
           <Form.Control
             type="email"
-            value={email}
+            value={email || ""}
             name="email"
             onChange={(e) => {
               setEmail(e.target.value);

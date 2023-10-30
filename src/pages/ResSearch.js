@@ -33,9 +33,15 @@ const ResSearch = () => {
       }}
     >
       {restaurantList.map((restaurant) => (
-        <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
+        <Link
+          to={`/restaurant/${restaurant.restaurant.resCode}`}
+          key={restaurant.restaurant.resCode}
+        >
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
+            <Card.Img
+              variant="top"
+              src={"/upload/" + restaurant?.restaurant.resPicture}
+            />
             <Card.Body>
               <Card.Text>
                 <span
@@ -46,7 +52,7 @@ const ResSearch = () => {
                     display: "block",
                   }}
                 >
-                  {restaurant.resName}
+                  {restaurant.restaurant.resName}
                 </span>
 
                 <StarFill
@@ -65,7 +71,7 @@ const ResSearch = () => {
                   className="last-line"
                   style={{ fontSize: "1.1rem", display: "block" }}
                 >
-                  {restaurant.food.foodType}
+                  {restaurant.restaurant.food.foodType}
                 </span>
               </Card.Text>
             </Card.Body>
