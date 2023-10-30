@@ -218,7 +218,7 @@ const MyPage = () => {
             </span>
           </MyPageState>
           <MyPageGrid id="mypage-body-grid">
-            {user.role === "사장" || user.role === "관리자" ? (
+            {user.role === "사장" ? (
               <>
                 <button onClick={onMyRes}>
                   <img src={image55} alt="" />

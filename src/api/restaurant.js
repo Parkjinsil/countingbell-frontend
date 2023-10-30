@@ -6,7 +6,7 @@ const instance = axios.create({
 
 // 식당전체보기
 export const getRestaurants = async (page) => {
-  console.log("식당 전체보기 axios call!!");
+  console.log("식당 전체보기 axios call!!" + page);
   let url = `public/restaurant?page=${page}`;
   return await instance.get(url);
 };

@@ -113,6 +113,7 @@ const router = createBrowserRouter([
   },
   {
     path: "location",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
