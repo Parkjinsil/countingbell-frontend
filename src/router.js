@@ -29,7 +29,7 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
-import ResReserve from "./pages/food/ResReserv";
+
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 import ResIdBoard from "./pages/restaurants/ResIdBoard";
@@ -90,16 +90,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "resReserve",
-    element: <Layout header={<Header2 />} />,
-    children: [
-      {
-        index: true,
-        element: <ResReserve />,
-      },
-    ],
-  },
+
   {
     path: "foodList",
     element: <Layout header={<Header2 />} />,

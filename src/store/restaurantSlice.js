@@ -105,12 +105,14 @@ const restaurantSlice = createSlice({
 
         return action.payload;
       });
+
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       // console.log("엑스트라리듀서:", state.locationList);
       return state;
     });
+
     // 메뉴이름으로 식당찾기
     builder.addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -140,7 +142,7 @@ const restaurantSlice = createSlice({
       return state;
     });
 
-    // 식당 목록 불러오기
+    // 식당 전체 목록 불러오기
     builder.addCase(asyncGetRestaurants.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       console.log("엑스트라리듀서:", state.restaurantList);
@@ -163,7 +165,7 @@ export {
   asyncGetRestaurant,
   asyncGetResByUserId,
   asyncSearchResByMenuName,
+  asyncAddRestaurant,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;
-export { asyncAddRestaurant };

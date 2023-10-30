@@ -11,29 +11,50 @@ import { getRestaurants } from "../api/restaurant";
 
 const RestaurantList = () => {
   const dispatch = useDispatch();
-  const [restaurant, setRestaurant] = useState("");
   const [page, setPage] = useState(1);
 
   const restaurants = useSelector((state) => state.restaurant.restaurantList);
 
-  useEffect(() => {
-    dispatch(asyncGetRestaurants(page));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(asyncGetRestaurants(page));
+  // }, [dispatch]);
 
-  // 스크롤
-  console.log(
-    "얼마나 내렸는 지 : " + window.scrollY,
-    "화면 보이는 길이 : " + window.innerHeight,
-    "총 길이 : " + document.documentElement.scrollHeight
-  );
+  ///////// 여기부터 //////////////
+
+  const [restaurant, setRestaurant] = useState([]);
 
   const hasScrollbar = () => {
-    return document.documentElement.scrollHeight > window.innerHeight;
+    // console.log(document.documentElement.scrollHeight);
+    // console.log("window.innerHeight : " + window.innerHeight);
+    return document.documentElement.scrollHeight > window.innerHeight - 120;
   };
 
   const [ref, inView] = useInView({
     skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
   });
+
+  const ResListAPI = async () => {
+    const result = await dispatch(asyncGetRestaurants(page));
+    const newRestaurants = result.payload; // API에서 가져온 새로운 데이터
+
+    setRestaurant([...restaurants, ...newRestaurants]);
+  };
+
+  useEffect(() => {
+    setPage(1); // 페이지 초기화
+    ResListAPI();
+  }, []); // 처음 렌더링될 때 한 번만
+
+  useEffect(() => {
+    console.log("inView : " + inView);
+    if (inView) {
+      setPage(page + 1);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    ResListAPI();
+  }, [page]); // page 상태가 변화될때마다
 
   return (
     <Container
@@ -47,7 +68,11 @@ const RestaurantList = () => {
       {restaurants.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
+            <Card.Img
+              variant="top"
+              src={"/upload/" + restaurant?.resPicture}
+              style={{ height: "200px" }}
+            />
             <Card.Body>
               <Card.Text>
                 <span
@@ -80,7 +105,7 @@ const RestaurantList = () => {
                 />
                 <span style={{ fontSize: "1.3rem" }}>
                   평점
-                  {/* {restaurants.rating} */}
+                  {/* {restaurant.location.rating} */}
                 </span>
                 <span
                   className="last-line"
@@ -93,6 +118,7 @@ const RestaurantList = () => {
           </Card>
         </Link>
       ))}
+      <div ref={ref}></div>
     </Container>
   );
 };

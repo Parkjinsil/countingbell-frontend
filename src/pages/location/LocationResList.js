@@ -40,7 +40,11 @@ const LocationResList = () => {
           key={restaurant?.resCode}
         >
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
+            <Card.Img
+              variant="top"
+              src={"/upload/" + restaurant?.resPicture}
+              style={{ height: "200px" }}
+            />
             <Card.Body>
               <Card.Text>
                 <span
@@ -53,6 +57,15 @@ const LocationResList = () => {
                 >
                   {restaurant.resName}
                 </span>
+                <span
+                  className="restaurant-addr"
+                  style={{
+                    fontSize: "1.2rem",
+                    display: "block",
+                  }}
+                >
+                  {restaurant.resAddr}
+                </span>
 
                 <StarFill
                   className="bi bi-star-fill"
@@ -64,7 +77,7 @@ const LocationResList = () => {
                 />
                 <span style={{ fontSize: "1.3rem" }}>
                   평점
-                  {/* {location.rating} */}
+                  {/* {restaurant.location.rating} */}
                 </span>
                 <span
                   className="last-line"

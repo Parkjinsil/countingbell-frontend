@@ -100,6 +100,8 @@ const LocaionBoard = () => {
   // 클릭한 행값 가져오기
   const takeValueclick = (location) => {
     setSelectedLocalCode(location.localCode);
+    setLocalCode(location.localCode); // 클릭한 위치의 localCode를 설정
+    setLocalName(location.localName); // 클릭한 위치의 localName을 설정
   };
 
   // 수정 로직
