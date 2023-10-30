@@ -28,11 +28,7 @@ const MenuBoard = () => {
   console.log("받아온 resCode:", resCode);
 
   // 식당별 메뉴 불러오기
-  // 식당 정보를 받아온 후 로컬 스토리지에 저장
   useEffect(() => {
-    // const resCode = localStorage.getItem("resCode");
-    // console.log(resCode);
-    // setResCode(resCode); // resCode를 상태로 설정
     dispatch(asyncFindByMenuCode({ page: 1, resCode: resCode }));
   }, [dispatch, resCode]);
 
@@ -53,12 +49,6 @@ const MenuBoard = () => {
       alert(`메뉴 삭제에 실패했습니다. 에러: ${error.message}`);
     }
   };
-
-  // useEffect(() => {
-  //  if(menus !== null) {
-  //   dispatch(asyncGetMenus);
-  //  }
-  // }, []);
 
   // 메뉴수정
   const onUpdate = async (e) => {

@@ -20,6 +20,13 @@ const RestaurantList = () => {
     dispatch(asyncGetRestaurants(page));
   }, [dispatch]);
 
+  // 스크롤
+  console.log(
+    "얼마나 내렸는 지 : " + window.scrollY,
+    "화면 보이는 길이 : " + window.innerHeight,
+    "총 길이 : " + document.documentElement.scrollHeight
+  );
+
   const hasScrollbar = () => {
     return document.documentElement.scrollHeight > window.innerHeight;
   };
@@ -52,6 +59,15 @@ const RestaurantList = () => {
                   }}
                 >
                   {restaurant.resName}
+                </span>
+                <span
+                  className="restaurant-addr"
+                  style={{
+                    fontSize: "1.2rem",
+                    display: "block",
+                  }}
+                >
+                  {restaurant.resAddr}
                 </span>
 
                 <StarFill

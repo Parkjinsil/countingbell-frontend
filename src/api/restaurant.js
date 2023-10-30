@@ -42,7 +42,7 @@ export const findResByFilter = async ({ foodCode, localCode }) => {
 
 // 아이디별 식당조회
 export const getResByUserId = async (id) => {
-  let url = `user/${id}/restaurant`;
+  let url = `restaurant/${id}/user`;
   return await instance.get(url);
 };
 

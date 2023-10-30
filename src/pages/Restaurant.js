@@ -227,7 +227,7 @@ const Restaurant = () => {
   console.log("유저 role : " + user.role);
 
   useEffect(() => {
-    dispatch(asyncFindByMenuCode(resCode)); // resCode
+    dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
     dispatch(asyncGetRestaurant(resCode));
   }, []);
 

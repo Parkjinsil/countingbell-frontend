@@ -65,7 +65,7 @@ const ResSearch = () => {
                 />
                 <span style={{ fontSize: "1.3rem" }}>
                   평점
-                  {/* {location.rating} */}
+                  {/* {restaurant.restaurant.location.rating} */}
                 </span>
                 <span
                   className="last-line"
