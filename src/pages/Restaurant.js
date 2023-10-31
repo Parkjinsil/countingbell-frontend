@@ -6,6 +6,9 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
+import { asyncViewDiscount } from "../store/discountSlice";
+import { asyncAddPick, asyncDeletePick } from "../store/pickSilce";
+import { pickAddorDelete } from "../api/restaurant";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
@@ -206,6 +209,7 @@ const StyleReview = styled.section`
 `;
 
 const Restaurant = () => {
+  const [pick, setPick] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -220,6 +224,26 @@ const Restaurant = () => {
     return state.user;
   });
 
+  const memberId = "user2";
+  const resCode = "4";
+
+  const onHeartClick = async () => {
+    if (isHearted) {
+      setHeartCount(heartCount - 1);
+      dispatch(asyncDeletePick({ memberId, resCode }));
+    } else {
+      setHeartCount(heartCount + 1);
+      dispatch(asyncAddPick({ memberId, resCode }));
+    }
+    setIsHearted(!isHearted);
+  };
+
+  const disCode = "42";
+
+  // Redux 스토어에서 할인 정보를 가져오기 위해 useSelector를 사용합니다.
+  const discountData = useSelector((state) => state.discount.data);
+
+  // useEffect를 사용하여 초기 렌더링 시에 할인 정보를 가져오는 비동기 작업을 수행합니다.
   useEffect(() => {
     const save = localStorage.getItem("user");
     if (Object.keys(user).length === 0 && save !== null) {
@@ -287,6 +311,14 @@ const Restaurant = () => {
                 </span>
                 <span className="res3 fs-6 fw-bold text-muted">
                   ㆍ리뷰 36 개
+                </span>
+                <span className="pick" style={{ paddingLeft: "10px" }}>
+                  <SuitHeartFill
+                    className="bi bi-suit-heart"
+                    style={{ color: isHearted ? "red" : "#aaa" }}
+                    onClick={onHeartClick}
+                  />{" "}
+                  ({heartCount}) 찜하기
                 </span>
               </h2>
               <div className="res11 fs-6 fw-medium text-muted mt-2">

@@ -22,6 +22,10 @@ export const addRestaurant = async (data) => {
   console.log("백에보낼때" + data);
   return await instance.post("restaurant", data);
 };
+
+export const pickAddorDelete = async (data) => {
+  return await instance.post("restaurant/picks", data);
+};
 // 위치별 식당조회
 export const findByLocalCode = async (id) => {
   let url = `restaurant/${id}/location`;

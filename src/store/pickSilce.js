@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addPick, delPick, putPick } from "../api/Pick";
+import { addPick, delPick, putPick, getTotalPick, getPick } from "../api/Pick";
 
 const asyncAddPick = createAsyncThunk(
   "pickSlice/asyncAddPick",
@@ -25,6 +25,22 @@ const asyncUpdatePick = createAsyncThunk(
   "pickSlice/asyncUpdatePick",
   async (data) => {
     const result = await putPick(data);
+    return result.data;
+  }
+);
+
+const asyncViewTotalPick = createAsyncThunk(
+  "pickSilce/asyncViewTotalPick",
+  async (page) => {
+    const result = await getTotalPick(page);
+    return result.data;
+  }
+);
+
+const asyncViewPick = createAsyncThunk(
+  "pickSlice/asyncViewPick",
+  async (id) => {
+    const result = await getPick(id);
     return result.data;
   }
 );
@@ -72,8 +88,40 @@ const pickSlice = createSlice({
       .addCase(asyncUpdatePick.pending, (state) => {
         state.loading = true;
       });
+
+    builder
+      .addCase(asyncViewTotalPick.rejected, (state, action) => {
+        state.error = "찜 전체 조회에 실패했습니다.";
+        state.loading = false;
+      })
+      .addCase(asyncViewTotalPick.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      })
+      .addCase(asyncViewTotalPick.pending, (state) => {
+        state.loading = true;
+      });
+
+    builder
+      .addCase(asyncViewPick.rejected, (state, action) => {
+        state.error = "찜 조회에 실패했습니다.";
+        state.loading = false;
+      })
+      .addCase(asyncViewPick.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      })
+      .addCase(asyncViewPick.pending, (state) => {
+        state.loading = true;
+      });
   },
 });
 
 export default pickSlice;
-export { asyncAddPick, asyncDeletePick, asyncUpdatePick };
+export {
+  asyncAddPick,
+  asyncDeletePick,
+  asyncUpdatePick,
+  asyncViewTotalPick,
+  asyncViewPick,
+};

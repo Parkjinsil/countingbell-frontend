@@ -16,11 +16,11 @@ export const putPick = async (data) => {
   return await instance.put("pick", data);
 };
 
-export const getPicks = async (page) => {
-  let url = `public/discount?page=${page}`;
+export const getTotalPick = async (page) => {
+  let url = `public/pick?page=${page}`;
   return await instance.get(url);
 };
 
-export const getDiscount = async (id) => {
-  return await instance.get("discount/" + id);
+export const getPick = async (id) => {
+  return await instance.get("pick/" + id);
 };
