@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  asyncGetRestaurants,
-  asyncSearchResByMenuName,
-} from "../store/restaurantSlice";
+import { asyncSearchResByMenuName } from "../../store/restaurantSlice";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,7 +24,7 @@ const ResSearch = () => {
     <Container
       style={{
         gap: "20px",
-        paddingTop: "120px",
+        paddingTop: "100px",
         display: "flex",
         flexWrap: "wrap",
       }}
@@ -41,6 +38,7 @@ const ResSearch = () => {
             <Card.Img
               variant="top"
               src={"/upload/" + restaurant?.restaurant.resPicture}
+              style={{ height: "200px" }}
             />
             <Card.Body>
               <Card.Text>

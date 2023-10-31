@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
 import { asyncSearchResByMenuName } from "../store/restaurantSlice";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -198,9 +199,24 @@ const Header = () => {
     return state.user;
   });
 
+  // 검색 필터
+  const [filter, setFilter] = useState("resName");
+
+  // 검색 필터 선택 시 필터값 처리하는 함수
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+
   const handleSearch = () => {
-    console.log("keyword값 보내지나? : " + keyword);
-    navigate(`/resSearch/${keyword}`);
+    // console.log("keyword값 보내지나? : " + keyword);
+    // navigate(`/resSearch/${keyword}`);
+    if (keyword) {
+      if (filter === "resName") {
+        navigate(`/searchByResName/${keyword}`);
+      } else if (filter === "menuName") {
+        navigate(`/resSearch/${keyword}`);
+      }
+    }
   };
 
   useEffect(() => {
@@ -302,6 +318,16 @@ const Header = () => {
             </li>
             <li>
               <div className="search-btn">
+                <select
+                  className="form-select form-select-sm"
+                  aria-label="Small select example"
+                  onChange={handleFilterChange}
+                >
+                  <option value="resName" defaultValue>
+                    식당별
+                  </option>
+                  <option value="menuName">메뉴별</option>
+                </select>
                 <input
                   type="search"
                   name="search"
@@ -310,6 +336,7 @@ const Header = () => {
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                 />
+
                 <button type="button" onClick={handleSearch}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
                 </button>
