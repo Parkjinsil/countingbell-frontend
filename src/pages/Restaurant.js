@@ -10,7 +10,7 @@ import { asyncFindByDisCode } from "../store/discountSlice";
 // import { asyncAddPick, asyncDeletePick } from "../store/pickSilce";
 // import { pickAddorDelete } from "../api/restaurant";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import { getRestaurant } from "../api/restaurant";
 import {
@@ -18,6 +18,10 @@ import {
   asyncDeletePick,
   asyncUpdatePick,
 } from "../store/restaurantSlice";
+import { asyncGetRestaurant } from "../store/restaurantSlice";
+import { Link } from "react-router-dom";
+import { asyncFindReviewByResCode } from "../store/reviewSlice";
+import { userSave } from "../store/userSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item.active > .nav-link {
@@ -225,6 +229,11 @@ const Restaurant = () => {
   const restaurant = useSelector(
     (state) => state.restaurant.selectedRestaurant
   );
+  const reviews = useSelector((state) => state.review.reviewList);
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -255,10 +264,23 @@ const Restaurant = () => {
   };
 
   useEffect(() => {
-    dispatch(asyncFindByMenuCode(resCode));
-    dispatch(asyncGetRestaurant(resCode));
     dispatch(asyncFindByDisCode(resCode));
   }, [resCode]);
+
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
+  console.log("유저 role : " + user.role);
+
+  useEffect(() => {
+    dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
+    dispatch(asyncGetRestaurant(resCode));
+    dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
+  }, []);
 
   const imagePaths = [
     "img/album1.jpg",
@@ -277,9 +299,16 @@ const Restaurant = () => {
     // ..일단 이미지 경로 생성
   ];
 
+  const onNavigate = () => {
+    console.log("resCode 어떻게 보내지? : " + resCode);
+    navigate(`/menuboard/${resCode}`);
+  };
+
   return (
-    <div>
-      <section className="container" style={{ marginTop: "80px" }}>
+    <div
+      style={{ marginTop: "80px", overflow: "hidden", whiteSpace: "nowrap" }}
+    >
+      <section className="container">
         <div className="row">
           <div className="col-4">
             <img
@@ -348,16 +377,32 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    <button
-                      type="button"
-                      className="btn text-white fw-bold"
-                      style={{
-                        borderRadius: "50%",
-                        backgroundColor: "#FF6B01",
-                      }}
-                    >
-                      예약
-                    </button>
+                    {(user.role === "사장" &&
+                      restaurant?.member?.id === user.id) ||
+                    user.role === "관리자" ? (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                        onClick={onNavigate}
+                      >
+                        메뉴 수정
+                      </button>
+                    ) : (
+                      <Link to={`reser`}
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                      >
+                        예약
+                      </Link>
+                    )}
                   </td>
                 </tr>
                 <tr>
@@ -609,7 +654,7 @@ const Restaurant = () => {
                             margin: "3px",
                           }}
                         />
-                        <button
+                        <Link to={`addReview`}
                           className="btn mt-3"
                           type="button"
                           style={{
@@ -620,7 +665,7 @@ const Restaurant = () => {
                           }}
                         >
                           리뷰쓰기
-                        </button>
+                        </Link>
                       </div>
                       <div className="col-9">
                         <div
@@ -870,6 +915,111 @@ const Restaurant = () => {
                     className="eee"
                     style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
                   ></div>
+                  <div className="container mt-3 mb-4">
+                    <div className="col">
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                            <table className="table manage-candidates-top mb-0">
+                              <thead>
+                                <tr>
+                                  <th className="fw-bold">리뷰 116건</th>
+                                  <th className="text-center fw-bold">
+                                    최신순
+                                  </th>
+                                  <th className="text-center fw-bold">
+                                    평점높은순
+                                  </th>
+                                  <th className="text-center fw-bold">
+                                    평점낮은순
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {reviews.map((review, index) => (
+                                <tr
+                                  className="candidates-list"
+                                  key={review.reviewCode}
+                                  style={{ borderBottom: "1px solid #ddd" }}
+                                >
+                                  <td className="title">
+                                    {/* <div className="thumb">
+                                      <img
+                                        className="rounded-circle"
+                                        src="img/lesser_panda.jpg"
+                                        alt=""
+                                      />
+                                    </div> */}
+                                    <div className="candidate-list-details">
+                                      <div className="candidate-list-title">
+                                        <h5 className="mb-0 fw-semibold">
+                                          {review.member.name}
+                                        </h5>
+                                      </div>
+                                      <div className="candidate-list-star">
+                                        <h5>{review.reviewGrade}점</h5>
+                                        {/* <StarFill
+                                          className="bi bi-star-fill"
+                                          style={{
+                                            fontSize: "1.2rem",
+                                            color: "#fbe94b",
+                                            margin: "2px",
+                                          }}
+                                        /> */}
+                                      </div>
+                                    </div>
+                                    <div className="candidate-list-details">
+                                      {/* <ul className="candidate-list-favourite-time text-center">
+                                        <li className="menu">토마토 파스타</li>
+                                        <li className="menu">페퍼로니 피자</li>
+                                        <li className="data">2023.8.23</li>
+                                      </ul> */}
+                                      <div
+                                        className="text-center"
+                                        style={{
+                                          margin: "0px 10px 10px 50px",
+                                        }}
+                                      >
+                                        <img
+                                          src={"/upload/" + review.reviewPhoto}
+                                          className="rounded m-1"
+                                          alt=""
+                                          style={{
+                                            height: "150px",
+                                            width: "150px",
+                                          }}
+                                        />
+                                      </div>
+                                      <div
+                                        className="review"
+                                        style={{
+                                          margin: "25px 10px 5px 70px",
+                                        }}
+                                      >
+                                        {review.reviewContent}
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="candidate-list-favourite-time text-center">
+                                    <span className="candidate-list-time order-1">
+                                      좋아요 3
+                                    </span>
+                                  </td>
+                                  <td className="candidate-list-favourite-time text-center">
+                                    <span className="candidate-list-time order-1">
+                                      싫어요 1
+                                    </span>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </section>
             </div>

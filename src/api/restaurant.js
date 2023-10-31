@@ -6,7 +6,7 @@ const instance = axios.create({
 
 // 식당전체보기
 export const getRestaurants = async (page) => {
-  console.log("식당 전체보기 axios call!!");
+  console.log("식당 전체보기 axios 몇페이지? " + page);
   let url = `public/restaurant?page=${page}`;
   return await instance.get(url);
 };
@@ -65,4 +65,26 @@ export const updatePick = async (data) => {
 
 export const deletePick = async (id) => {
   return await instance.delete("restaurant/pick/" + id);
+}
+
+// 식당별 리뷰조회
+export const findReviewByResCode = async (resCode) => {
+  let url = `restaurant/${resCode}/review`;
+  return await instance.get(url);
+}
+
+// 식당이름따라
+// export const getRestaurantByName = async (resName) => {
+//   return await instance.get(`search?name=${resName}`);
+// };
+// 아이디별 식당조회
+export const getResByUserId = async (id) => {
+  let url = `restaurant/${id}/user`;
+  return await instance.get(url);
+};
+
+// 메뉴명으로 식당 검색
+export const searchResByMenuName = async (keyword) => {
+  let url = `search/${keyword}`;
+  return await instance.get(url);
 };

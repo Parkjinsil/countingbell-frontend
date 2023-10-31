@@ -1,3 +1,7 @@
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import image11 from "../assets/111.png";
 import image22 from "../assets/mypage.img/image.ring.jpg";
 import image33 from "../assets/mypage.img/image.setting.jpg";
@@ -9,10 +13,7 @@ import image88 from "../assets/mypage.img/image4.jpg";
 import image99 from "../assets/mypage.img/image5.jpg";
 import image100 from "../assets/mypage.img/image6.jpg";
 
-import React, { useEffect } from "react";
-import styled from "styled-components";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { asyncShowMember, userSave } from "../store/userSlice";
 
 const Wrap = styled.div`
@@ -184,6 +185,13 @@ const MyPage = () => {
     navigate(`/resIdBoard/${id}`);
   };
 
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
   return (
     <Wrap id="wrap">
       <WrapCenter id="wrap-center">
@@ -239,18 +247,18 @@ const MyPage = () => {
               </>
             ) : (
               <>
-                <a href="">
+                <Link to={"/ReserList/user2"}>
                   <img src={image55} alt="" />
                   <span>예약내역</span>
-                </a>
+                </Link>
                 <a href="">
                   <img src={image66} alt="" />
                   <span>줄서기</span>
                 </a>
-                <a href="">
+                <Link to={"/ReviewList/user2"}>
                   <img src={image77} alt="" />
                   <span>리뷰관리</span>
-                </a>
+                </Link>
                 <a href="">
                   <img src={image88} alt="" />
                   <span>포인트 </span>

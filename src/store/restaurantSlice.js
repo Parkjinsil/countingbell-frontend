@@ -6,8 +6,8 @@ import {
   getRestaurant,
   getRestaurants,
   findResByFilter,
-  updatePick,
-  deletePick,
+  getResByUserId,
+  searchResByMenuName,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
@@ -47,12 +47,31 @@ const asyncFindByLocalCode = createAsyncThunk(
   }
 );
 
+// 유저아이디별 식당 가져오기
+const asyncGetResByUserId = createAsyncThunk(
+  "restaurantSlice/asyncGetResByUserId",
+  async (id) => {
+    const result = await getResByUserId(id);
+    return result.data;
+  }
+);
+
 // 음식타입별 식당 가져오기
 const asyncFindByFoodCode = createAsyncThunk(
   "restaurantSlice/asyncFindByFoodCode",
-  async (id) => {
-    const result = await findByFoodCode(id);
+  async (info) => {
+    const result = await findByFoodCode(info);
     // console.log("음식타입별 식당목록:", result.data);
+    return result.data;
+  }
+);
+
+// 메뉴명으로 식당검색
+const asyncSearchResByMenuName = createAsyncThunk(
+  "restaurantSlice/asyncSearchResByMenuName",
+  async (keyword) => {
+    const result = await searchResByMenuName(keyword);
+    console.log(result);
     return result.data;
   }
 );
@@ -103,12 +122,31 @@ const restaurantSlice = createSlice({
 
         return action.payload;
       });
+
+      
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       // console.log("엑스트라리듀서:", state.locationList);
       return state;
     });
+
+    // 메뉴이름으로 식당찾기
+    builder.addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
+      state.restaurantList = action.payload;
+      // console.log("엑스트라리듀서:", state.locationList);
+      return state;
+    });
+
+    // 아이디별 식당찾기
+    builder
+      .addCase(asyncGetResByUserId.fulfilled, (state, action) => {
+        state.restaurantList = action.payload;
+        return state;
+      })
+      .addCase(asyncGetResByUserId.rejected, (state, action) => {
+        return alert("식당을 찾는데 실패했습니다.");
+      });
 
     builder.addCase(asyncFindResByFilter.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -122,7 +160,7 @@ const restaurantSlice = createSlice({
       return state;
     });
 
-    // 식당 목록 불러오기
+    // 식당 전체 목록 불러오기
     builder.addCase(asyncGetRestaurants.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       console.log("엑스트라리듀서:", state.restaurantList);
@@ -168,7 +206,9 @@ export {
   asyncGetRestaurant,
   asyncUpdatePick,
   asyncDeletePick,
+  asyncGetResByUserId,
+  asyncSearchResByMenuName,
+  asyncAddRestaurant,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;
-export { asyncAddRestaurant };

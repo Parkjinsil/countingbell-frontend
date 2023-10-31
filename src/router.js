@@ -5,14 +5,14 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Header2 from "./components/Header2";
-import Register from "./pages/Register";
+import Register from "./pages/member/Register";
 import Find from "./pages/Find";
 import RecentList from "./pages/RecentList";
 import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
-import Review from "./pages/Review";
+import AddReview from "./pages/review/AddReview";
 import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
@@ -30,9 +30,13 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
-import ResReserve from "./pages/food/ResReserv";
+
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
+import Reser from "./pages/reser/Reser";
+import ReserList from "./pages/reser/ReserList";
+import ReviewList from "./pages/review/ReviewList";
+import ResIdBoard from "./pages/restaurants/ResIdBoard";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +75,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "memberUpdate",
+    path: "memberUpdate/:id",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -90,16 +94,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "resReserve",
-    element: <Layout header={<Header2 />} />,
-    children: [
-      {
-        index: true,
-        element: <ResReserve />,
-      },
-    ],
-  },
+
   {
     path: "foodList",
     element: <Layout header={<Header2 />} />,
@@ -122,6 +117,7 @@ const router = createBrowserRouter([
   },
   {
     path: "location",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -181,15 +177,24 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "review",
-    element: <Layout header={<Header2 />} />,
+    path: "restaurant/:resCode/addReview",
     children: [
       {
         index: true,
-        element: <Review />,
+        element: <AddReview />,
       },
     ],
   },
+  // {
+  //   path: "review",
+  //   element: <Layout header={<Header2 />} />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Review />,
+  //     },
+  //   ],
+  // },
   {
     path: "restaurant/:resCode",
     element: <Layout header={<Header2 />} />,
@@ -197,6 +202,44 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Restaurant />,
+      },
+    ],
+  },
+  {
+    path: "ReserList/:id",
+    children: [
+      {
+        index: true,
+        element: <ReserList />,
+      },
+    ],
+  },
+  {
+    path: "resIdBoard/:id",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ResIdBoard />,
+      },
+    ],
+  },
+  {
+    path: "restaurant/:resCode/reser",
+    children: [
+      {
+        index: true,
+        element: <Reser />,
+      },
+    ],
+  },
+  {
+    path: "ReviewList/:id",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ReviewList />,
       },
     ],
   },
@@ -212,13 +255,9 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "waiting",
+    path: "resSearch/:keyword",
     element: <Layout header={<Header2 />} />,
     children: [
-      {
-        index: true,
-        element: <Waiting />,
-      },
       {
         index: true,
         element: <ResSearch />,
@@ -256,7 +295,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "myPage",
+    path: "myPage/:id",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -265,7 +305,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "addmenu",
+    path: "addmenu/:resCode",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -283,7 +324,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "menuboard",
+    path: "menuboard/:resCode",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const H1 = styled.h1`
   font-size: 20px;
@@ -18,29 +18,28 @@ const AddReview = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { resCode } = useParams();
+
   const handleSubmit = async (e) => {
-    e.prevenDefault();
-  }
+    e.preventDefault();
 
-  const formData = new FormData();
-  formData.append("reviewGrade", e.target.reviewGrade.value);
-  formData.append("reviewContent", e.target.reviewContent.value);
-  formData.append("reviewPicture", e.target.reviewPicture.value);
+    const formData = new FormData();
+    formData.append("reviewGrade", e.target.reviewGrade.value);
+    formData.append("reviewContent", e.target.reviewContent.value);
+    formData.append("reviewPhoto", e.target.reviewPhoto.files[0]);
+    formData.append("id", e.target.id.value);
+    formData.append("resCode", resCode);
 
-  dispatch(asyncAddReview(formData))
-    .then(() => {
-      // 리뷰 작성이 성공하면 레스토랑 리뷰 목록을 다시 불러와 업데이트
-      dispatch(asyncGetReviews(1, null));
-      navigate("/restaurant");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
+    dispatch(asyncAddReview(formData));
+    navigate(`/restaurant/${resCode}`);
+  };
   return (
     <Container>
       <H1>리뷰 작성하기</H1>
       <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Control type="text" placeholder="아이디" name="id" />
+        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control type="text" placeholder="별점" name="reviewGrade" />
         </Form.Group>
