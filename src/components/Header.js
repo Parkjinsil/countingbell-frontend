@@ -146,8 +146,17 @@ const HeadMenu = styled.div`
       #search {
         border: none;
         background-color: #fcf1f1;
+        padding-right: 10px;
+        padding-left: 5px;
+      }
+
+      #select {
+        border: none;
+        background-color: #fcf1f1;
+        padding: 10px;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
+        border-right: 1px solid #666; /* 오른쪽에 경계선 추가 */
       }
 
       button {
@@ -155,6 +164,7 @@ const HeadMenu = styled.div`
         border: none;
         cursor: pointer;
         font-size: 15px;
+        padding-right: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
 
@@ -319,8 +329,10 @@ const Header = () => {
             <li>
               <div className="search-btn">
                 <select
-                  className="form-select form-select-sm"
-                  aria-label="Small select example"
+                  // className="form-select form-select-sm"
+                  // aria-label="Small select example"
+                  className="select"
+                  id="select"
                   onChange={handleFilterChange}
                 >
                   <option value="resName" defaultValue>
@@ -332,7 +344,7 @@ const Header = () => {
                   type="search"
                   name="search"
                   id="search"
-                  placeholder="검색"
+                  placeholder="검색어를 입력하세요"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                 />
