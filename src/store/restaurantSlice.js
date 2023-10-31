@@ -1,19 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    addRestaurant,
-    findByLocalCode,
-    findByFoodCode,
-    getRestaurant,
-    getRestaurants,
-    findResByFilter
+  addRestaurant,
+  findByLocalCode,
+  findByFoodCode,
+  getRestaurant,
+  getRestaurants,
+  findResByFilter,
+  updatePick,
+  deletePick,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",
   async (data) => {
-      console.log(data);
-      const result = await addRestaurant(data);
-      return result.data;
+    console.log(data);
+    const result = await addRestaurant(data);
+    return result.data;
   }
 );
 
@@ -57,15 +59,32 @@ const asyncFindByFoodCode = createAsyncThunk(
 
 const asyncFindResByFilter = createAsyncThunk(
   "restaurantSlice/asyncFindResByFilter",
-  async ({ foodCode, localCode })  => {
-    const result = await findResByFilter({foodCode, localCode});
+  async ({ foodCode, localCode }) => {
+    const result = await findResByFilter({ foodCode, localCode });
     return result.data;
   }
-)
+);
+
+const asyncUpdatePick = createAsyncThunk(
+  "restaurantSlice/asyncUpdatePick",
+  async (data) => {
+    console.log(data);
+    const result = await updatePick(data);
+    return result.data;
+  }
+);
+
+const asyncDeletePick = createAsyncThunk(
+  "restaurantSlice/asyncDeletePick",
+  async (id) => {
+    const result = await deletePick(id);
+    return result.data;
+  }
+);
 
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
-  initialState: { restaurantList: [], selectedRestaurant: {} },
+  initialState: { restaurantList: [], selectedRestaurant: {}, userPicks: {} },
   reducers: {
     setRestaurantList: (state, action) => {
       state.restaurantList = action.payload;
@@ -76,14 +95,14 @@ const restaurantSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(asyncAddRestaurant.rejected, (state, action) =>{
+      .addCase(asyncAddRestaurant.rejected, (state, action) => {
         return alert("식당 등록에 실패했습니다. 다시 시도해주세요.");
-    })
-    .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
-        alert ("식당 등록 성공.");
+      })
+      .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
+        alert("식당 등록 성공.");
 
         return action.payload;
-    })
+      });
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -94,7 +113,7 @@ const restaurantSlice = createSlice({
     builder.addCase(asyncFindResByFilter.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       return state;
-    })
+    });
 
     // 음식타입별 식당찾기
     builder.addCase(asyncFindByFoodCode.fulfilled, (state, action) => {
@@ -115,6 +134,29 @@ const restaurantSlice = createSlice({
       state.selectedRestaurant = action.payload;
       return state;
     });
+
+    builder
+      //실패
+      .addCase(asyncUpdatePick.rejected, (state, action) => {
+        state.loading = false;
+      })
+      // 액션이 성공한 경우- 데이터 저장
+      .addCase(asyncUpdatePick.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      });
+
+    builder
+      .addCase(asyncDeletePick.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(asyncDeletePick.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.loading = false;
+      })
+      .addCase(asyncDeletePick.pending, (state) => {
+        state.loading = true;
+      });
   },
 });
 export default restaurantSlice;
@@ -124,6 +166,8 @@ export {
   asyncFindByFoodCode,
   asyncFindResByFilter,
   asyncGetRestaurant,
+  asyncUpdatePick,
+  asyncDeletePick,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;

@@ -5,6 +5,7 @@ import {
   getDiscount,
   putDiscount,
   delDiscount,
+  findByDisCode,
 } from "../api/Discount";
 
 // 할인 추가 비동기 액션 생성
@@ -56,15 +57,39 @@ const asyncDeleteDiscount = createAsyncThunk(
   }
 );
 
+// 식당별 할인 보기
+const asyncFindByDisCode = createAsyncThunk(
+  "discountSlice/asyncFindByDisCode",
+  async (id) => {
+    const result = await findByDisCode(id);
+    return result.data;
+  }
+);
+
 const discountSlice = createSlice({
   name: "discountSlice",
-  initialState: { data: null, error: null, success: null, loading: false },
+  initialState: {
+    data: null,
+    error: null,
+    success: null,
+    loading: false,
+    discountList: [],
+    selectedDiscount: null,
+    disList: [], // disList 초기화 (빈 배열로 초기화)
+  },
   reducers: {
     resetState: (state) => {
       state.data = null;
       state.error = null;
       state.success = null;
       state.loading = false;
+      state.disList = [];
+    },
+    setDiscountList: (state, action) => {
+      state.discountList = action.payload;
+    },
+    setSelectedDiscount: (state, action) => {
+      state.selectedDiscount = action.payload; // 선택한 할인 정보를 업데이트
     },
   },
   extraReducers: (builder) => {
@@ -144,6 +169,13 @@ const discountSlice = createSlice({
       .addCase(asyncDeleteDiscount.pending, (state) => {
         state.loading = true;
       });
+
+    // 식당별 할인찾기
+    builder.addCase(asyncFindByDisCode.fulfilled, (state, action) => {
+      state.disList = action.payload;
+
+      return state;
+    });
   },
 });
 
@@ -154,4 +186,6 @@ export {
   asyncViewDiscount,
   asyncUpdateDiscount,
   asyncDeleteDiscount,
+  asyncFindByDisCode,
 };
+export const { setDiscountList, setSelectedDiscount } = discountSlice.actions;

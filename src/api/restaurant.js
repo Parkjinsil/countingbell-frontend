@@ -23,9 +23,6 @@ export const addRestaurant = async (data) => {
   return await instance.post("restaurant", data);
 };
 
-export const pickAddorDelete = async (data) => {
-  return await instance.post("restaurant/picks", data);
-};
 // 위치별 식당조회
 export const findByLocalCode = async (id) => {
   let url = `restaurant/${id}/location`;
@@ -44,7 +41,28 @@ export const findResByFilter = async ({ foodCode, localCode }) => {
   return await instance.get(url);
 };
 
-// 식당이름따라
+// 식당이름따라;
 // export const getRestaurantByName = async (resName) => {
 //   return await instance.get(`search?name=${resName}`);
 // };
+
+//도경이네조
+// export const pickAddorDelete = async (data) => {
+//   return await instance.post("restaurant/pick", data);
+// };
+
+// export const pickAddorDelete = async (data) => {
+//   return await instance.post("restaurant/pick", JSON.stringify(data), {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+// };
+
+export const updatePick = async (data) => {
+  return await instance.post("restaurant/pick", data);
+};
+
+export const deletePick = async (id) => {
+  return await instance.delete("restaurant/pick/" + id);
+};

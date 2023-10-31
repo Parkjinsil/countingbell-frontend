@@ -1,7 +1,3 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
 import image11 from "../assets/111.png";
 import image22 from "../assets/mypage.img/image.ring.jpg";
 import image33 from "../assets/mypage.img/image.setting.jpg";
@@ -13,8 +9,15 @@ import image88 from "../assets/mypage.img/image4.jpg";
 import image99 from "../assets/mypage.img/image5.jpg";
 import image100 from "../assets/mypage.img/image6.jpg";
 
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncShowMember, userSave } from "../store/userSlice";
+
 const Wrap = styled.div`
   text-align: center;
+  margin-top: 100px;
 `;
 
 const WrapCenter = styled.div`
@@ -156,41 +159,58 @@ const MyPageGrid = styled.div`
 `;
 
 const MyPage = () => {
-  const image1 = image11;
-  const image2 = image22;
-  const image3 = image33;
-  const image4 = image44;
-  const image5 = image55;
-  const image6 = image66;
-  const image7 = image77;
-  const image8 = image88;
-  const image9 = image99;
-  const image10 = image100;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // 1명정보 불러오기
+  const { id } = useParams();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
+  console.log("유저 role : " + user.role);
+
+  useEffect(() => {
+    dispatch(asyncShowMember(id));
+  }, []);
+
+  const onMyRes = () => {
+    console.log("id 어떻게 보내지? : " + id);
+    navigate(`/resIdBoard/${id}`);
+  };
 
   return (
     <Wrap id="wrap">
       <WrapCenter id="wrap-center">
         <MyPageHeader id="mypage-header">
           <div className="my-header">
-            <img src={image1} alt="" />
+            <img src={image11} alt="" />
             <span>MY카벨</span>
           </div>
           <MyPageRight className="right">
             <a href="#">
-              <img src={image2} alt="" />
+              <img src={image22} alt="" />
             </a>
             <a href="">
-              <img src={image3} alt="" />
+              <img src={image33} alt="" />
             </a>
           </MyPageRight>
         </MyPageHeader>
+
         <div id="mypage-body">
           <MyPageBodyHeader id="mypage-body-header">
-            <img src={image4} alt="" />
+            <img src={image44} alt="" />
             <div>
-              <span>최준혁</span>
+              <span>{user.name}</span>
             </div>
-            <Link to="/memberUpdate">프로필 수정</Link>
+            <div>
+              <Link to={`/memberUpdate/${user.id}`}>프로필 수정</Link>
+            </div>
           </MyPageBodyHeader>
           <MyPageState id="mypage-body-state">
             <span>
@@ -198,32 +218,55 @@ const MyPage = () => {
             </span>
           </MyPageState>
           <MyPageGrid id="mypage-body-grid">
-            <a href="">
-              <img src={image5} alt="" />
-              <span>예약내역</span>
-            </a>
-            <a href="">
-              <img src={image6} alt="" />
-              <span>줄서기</span>
-            </a>
-            <a href="">
-              <img src={image7} alt="" />
-              <span>리뷰관리</span>
-            </a>
-            <a href="">
-              <img src={image8} alt="" />
-              <span>포인트 </span>
-              <span>14원</span>
-            </a>
-            <a href="">
-              <img src={image9} alt="" />
-              <span>쿠폰함 </span>
-              <span>3장</span>
-            </a>
-            <a href="">
-              <img src={image10} alt="" />
-              <span>찜</span>
-            </a>
+            {user.role === "사장" || user.role === "관리자" ? (
+              <>
+                <button onClick={onMyRes}>
+                  <img src={image55} alt="" />
+                  <span>내 식당 관리</span>
+                </button>
+                <a href="">
+                  <img src={image66} alt="" />
+                  <span>예약 관리</span>
+                </a>
+                <a href="">
+                  <img src={image77} alt="" />
+                  <span>리뷰 관리</span>
+                </a>
+                <a href="">
+                  <img src={image100} alt="" />
+                  <span>찜 관리</span>
+                </a>
+              </>
+            ) : (
+              <>
+                <a href="">
+                  <img src={image55} alt="" />
+                  <span>예약내역</span>
+                </a>
+                <a href="">
+                  <img src={image66} alt="" />
+                  <span>줄서기</span>
+                </a>
+                <a href="">
+                  <img src={image77} alt="" />
+                  <span>리뷰관리</span>
+                </a>
+                <a href="">
+                  <img src={image88} alt="" />
+                  <span>포인트 </span>
+                  <span>14원</span>
+                </a>
+                <a href="">
+                  <img src={image99} alt="" />
+                  <span>쿠폰함 </span>
+                  <span>3장</span>
+                </a>
+                <a href="">
+                  <img src={image100} alt="" />
+                  <span>찜</span>
+                </a>
+              </>
+            )}
           </MyPageGrid>
         </div>
       </WrapCenter>

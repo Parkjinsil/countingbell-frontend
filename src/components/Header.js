@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
+import { asyncSearchResByMenuName } from "../store/restaurantSlice";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -166,12 +167,41 @@ const HeadMenu = styled.div`
   }
 `;
 
+const ScrollToTop = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-radius: 50%;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+`;
+
 const Header = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
 
   const user = useSelector((state) => {
     return state.user;
   });
+
+  const handleSearch = () => {
+    console.log("keyword값 보내지나? : " + keyword);
+    navigate(`/resSearch/${keyword}`);
+  };
 
   useEffect(() => {
     const save = localStorage.getItem("user");
@@ -220,9 +250,18 @@ const Header = () => {
                   </li>
                 </>
               ) : (
-                <li>
-                  <button onClick={logout}>로그아웃</button>
-                </li>
+                <>
+                  <li>
+                    <Link to="favoriteList">
+                      <span>찜한 가게</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={logout}>
+                      <span>로그아웃</span>
+                    </button>
+                  </li>
+                </>
               )}
             </ul>
           </HeadRight>
@@ -257,9 +296,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="myPage">
+              <Link to={`myPage/${user.id}`}>
                 <span>마이페이지</span>
-              </a>
+              </Link>
             </li>
             <li>
               <div className="search-btn">
@@ -268,8 +307,10 @@ const Header = () => {
                   name="search"
                   id="search"
                   placeholder="검색"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button type="submit">
+                <button type="button" onClick={handleSearch}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
                 </button>
               </div>
@@ -277,6 +318,9 @@ const Header = () => {
           </ul>
         </nav>
       </HeadMenu>
+      <ScrollToTop id="top">
+        <a href="#">Top</a>
+      </ScrollToTop>
     </HeaderContainer>
   );
 };
