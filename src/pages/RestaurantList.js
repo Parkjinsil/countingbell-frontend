@@ -19,14 +19,12 @@ const RestaurantList = () => {
   //   dispatch(asyncGetRestaurants(page));
   // }, [dispatch]);
 
-  ///////// 여기부터 //////////////
+  ///////// 무한스크롤 //////////////
 
   const [restaurant, setRestaurant] = useState([]);
 
   const hasScrollbar = () => {
-    // console.log(document.documentElement.scrollHeight);
-    // console.log("window.innerHeight : " + window.innerHeight);
-    return document.documentElement.scrollHeight > window.innerHeight - 120;
+    return document.documentElement.scrollHeight > window.innerHeight;
   };
 
   const [ref, inView] = useInView({
@@ -41,15 +39,13 @@ const RestaurantList = () => {
   };
 
   useEffect(() => {
-    setPage(1); // 페이지 초기화
-    ResListAPI();
-  }, []); // 처음 렌더링될 때 한 번만
-
-  useEffect(() => {
     console.log("inView : " + inView);
     if (inView) {
       setPage(page + 1);
     }
+    // else if (page > 1 && !inView) {
+    //   setPage(page - 1);
+    // }
   }, [inView]);
 
   useEffect(() => {
@@ -60,7 +56,7 @@ const RestaurantList = () => {
     <Container
       style={{
         gap: "20px",
-        paddingTop: "120px",
+        paddingTop: "100px",
         display: "flex",
         flexWrap: "wrap",
       }}
@@ -116,38 +112,9 @@ const RestaurantList = () => {
               </Card.Text>
             </Card.Body>
           </Card>
+          <div ref={ref}></div>
         </Link>
       ))}
-      <div ref={ref}></div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
     </Container>
   );
 };
