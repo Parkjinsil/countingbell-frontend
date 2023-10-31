@@ -1,22 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { findByLocalCode } from "../../api/restaurant";
-import { asyncFindByLocalCode } from "../../store/restaurantSlice";
+
+import {
+  asyncFindByLocalCode,
+  asyncGetRestaurants,
+} from "../../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 const LocationResList = () => {
   const dispatch = useDispatch();
   const { localCode } = useParams();
+  const [page, setPage] = useState(1);
 
   const restaurantList = useSelector(
     (state) => state.restaurant.restaurantList
   );
+
+  const hasScrollbar = () => {
+    return document.documentElement.scrollHeight > window.innerHeight;
+  };
+  const [ref, inView] = useInView({
+    skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
+  });
+
+  // const ResListAPI = () => {
+  //   dispatch(asyncGetRestaurants(page));
+  // };
+
+  useEffect(() => {
+    console.log("inView : " + inView);
+    if (inView) {
+      setPage(page + 1);
+    }
+  }, [inView]);
 
   useEffect(() => {
     console.log(localCode);
@@ -90,6 +113,7 @@ const LocationResList = () => {
           </Card>
         </Link>
       ))}
+      <div ref={ref}></div>
     </Container>
   );
 };

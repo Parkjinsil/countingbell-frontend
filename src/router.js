@@ -12,7 +12,6 @@ import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
-import AddReview from "./pages/review/AddReview";
 import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
@@ -30,7 +29,7 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
-
+import AddReview from "./pages/review/AddReview";
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 import Reser from "./pages/reser/Reser";

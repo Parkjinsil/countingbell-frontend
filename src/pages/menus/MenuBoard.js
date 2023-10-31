@@ -82,31 +82,6 @@ const MenuBoard = () => {
         className="position-relative p-5  bg-body border border-dashed rounded-5"
         style={{ marginTop: "100px" }}
       >
-        <div
-          className="input-group mb-3"
-          style={{ width: "300px", marginLeft: "900px" }}
-        >
-          <input
-            type="search"
-            className="form-control"
-            name="search"
-            id="search"
-            placeholder="검색"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
-          />
-
-          <button
-            type="button"
-            className="btn btn-primary"
-            id="searchBtn"
-            // onClick={handleSearch}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
-          </button>
-        </div>
         <Container>
           <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>

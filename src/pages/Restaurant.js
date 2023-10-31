@@ -7,19 +7,14 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFindByDisCode } from "../store/discountSlice";
-// import { asyncAddPick, asyncDeletePick } from "../store/pickSilce";
-// import { pickAddorDelete } from "../api/restaurant";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
-import { getRestaurant } from "../api/restaurant";
 import {
   asyncGetRestaurant,
   asyncDeletePick,
   asyncUpdatePick,
 } from "../store/restaurantSlice";
-import { asyncGetRestaurant } from "../store/restaurantSlice";
-import { Link } from "react-router-dom";
 import { asyncFindReviewByResCode } from "../store/reviewSlice";
 import { userSave } from "../store/userSlice";
 
@@ -392,7 +387,8 @@ const Restaurant = () => {
                         메뉴 수정
                       </button>
                     ) : (
-                      <Link to={`reser`}
+                      <Link
+                        to={`reser`}
                         type="button"
                         className="btn text-white fw-bold"
                         style={{
@@ -654,7 +650,8 @@ const Restaurant = () => {
                             margin: "3px",
                           }}
                         />
-                        <Link to={`addReview`}
+                        <Link
+                          to={`addReview`}
                           className="btn mt-3"
                           type="button"
                           style={{
@@ -937,28 +934,28 @@ const Restaurant = () => {
                               </thead>
                               <tbody>
                                 {reviews.map((review, index) => (
-                                <tr
-                                  className="candidates-list"
-                                  key={review.reviewCode}
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    {/* <div className="thumb">
+                                  <tr
+                                    className="candidates-list"
+                                    key={review.reviewCode}
+                                    style={{ borderBottom: "1px solid #ddd" }}
+                                  >
+                                    <td className="title">
+                                      {/* <div className="thumb">
                                       <img
                                         className="rounded-circle"
                                         src="img/lesser_panda.jpg"
                                         alt=""
                                       />
                                     </div> */}
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          {review.member.name}
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <h5>{review.reviewGrade}점</h5>
-                                        {/* <StarFill
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            {review.member.name}
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <h5>{review.reviewGrade}점</h5>
+                                          {/* <StarFill
                                           className="bi bi-star-fill"
                                           style={{
                                             fontSize: "1.2rem",
@@ -966,52 +963,54 @@ const Restaurant = () => {
                                             margin: "2px",
                                           }}
                                         /> */}
+                                        </div>
                                       </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      {/* <ul className="candidate-list-favourite-time text-center">
+                                      <div className="candidate-list-details">
+                                        {/* <ul className="candidate-list-favourite-time text-center">
                                         <li className="menu">토마토 파스타</li>
                                         <li className="menu">페퍼로니 피자</li>
                                         <li className="data">2023.8.23</li>
                                       </ul> */}
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src={"/upload/" + review.reviewPhoto}
-                                          className="rounded m-1"
-                                          alt=""
+                                        <div
+                                          className="text-center"
                                           style={{
-                                            height: "150px",
-                                            width: "150px",
+                                            margin: "0px 10px 10px 50px",
                                           }}
-                                        />
+                                        >
+                                          <img
+                                            src={
+                                              "/upload/" + review.reviewPhoto
+                                            }
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          {review.reviewContent}
+                                        </div>
                                       </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        {review.reviewContent}
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
                                 ))}
                               </tbody>
                             </table>
