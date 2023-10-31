@@ -40,6 +40,12 @@ export const findResByFilter = async ({foodCode, localCode}) => {
   return await instance.get(url);
 }
 
+// 식당별 리뷰조회
+export const findReviewByResCode = async (resCode) => {
+  let url = `restaurant/${resCode}/review`;
+  return await instance.get(url);
+}
+
 // 식당이름따라
 // export const getRestaurantByName = async (resName) => {
 //   return await instance.get(`search?name=${resName}`);

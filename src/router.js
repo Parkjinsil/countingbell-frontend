@@ -12,7 +12,7 @@ import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
-import Review from "./pages/Review";
+import AddReview from "./pages/review/AddReview";
 import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
 import ResSearch from "./pages/ResSearch";
@@ -32,7 +32,9 @@ import FoodResList from "./pages/food/FoodResList";
 import ResReserve from "./pages/food/ResReserv";
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
-
+import Reser from "./pages/reser/Reser";
+import ReserList from "./pages/reser/ReserList";
+import ReviewList from "./pages/review/ReviewList";
 
 const router = createBrowserRouter([
   {
@@ -181,12 +183,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "review",
-    element: <Layout header={<Header2 />} />,
+    path: "restaurant/:resCode/addReview",
     children: [
       {
         index: true,
-        element: <Review />,
+        element: <AddReview />,
       },
     ],
   },
@@ -197,6 +198,35 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Restaurant />,
+      },
+    ],
+  },
+  {
+    path: "ReserList/:id",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ReserList />,
+      },
+    ],
+  },
+  {
+    path: "ReviewList/:id",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <ReviewList />,
+      },
+    ],
+  },
+  {
+    path: "restaurant/:resCode/reser",
+    children: [
+      {
+        index: true,
+        element: <Reser />,
       },
     ],
   },

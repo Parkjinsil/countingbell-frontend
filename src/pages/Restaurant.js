@@ -11,6 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import { getRestaurant } from "../api/restaurant";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
+import { Link } from "react-router-dom";
+import { asyncFindReviewByResCode } from "../store/reviewSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -211,10 +213,12 @@ const Restaurant = () => {
   const restaurant = useSelector(
     (state) => state.restaurant.selectedRestaurant
   );
+  const reviews = useSelector((state) => state.review.reviewList);
 
   useEffect(() => {
     dispatch(asyncFindByMenuCode(resCode)); // resCode
     dispatch(asyncGetRestaurant(resCode));
+    dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
   }, []);
 
   const imagePaths = [
@@ -290,8 +294,7 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    <button
-                      type="button"
+                    <Link to={`reser`}
                       className="btn text-white fw-bold"
                       style={{
                         borderRadius: "50%",
@@ -299,7 +302,7 @@ const Restaurant = () => {
                       }}
                     >
                       예약
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               </tbody>
@@ -520,7 +523,7 @@ const Restaurant = () => {
                           margin: "3px",
                         }}
                       />
-                      <button
+                      <Link to={`addReview`}
                         className="btn mt-3"
                         type="button"
                         style={{
@@ -531,7 +534,7 @@ const Restaurant = () => {
                         }}
                       >
                         리뷰쓰기
-                      </button>
+                      </Link>
                     </div>
                     <div className="col-9">
                       <div
@@ -638,65 +641,44 @@ const Restaurant = () => {
                                 </tr>
                               </thead>
                               <tbody>
+                                {reviews.map((review, index) => (
                                 <tr
                                   className="candidates-list"
+                                  key={review.reviewCode}
                                   style={{ borderBottom: "1px solid #ddd" }}
                                 >
                                   <td className="title">
-                                    <div className="thumb">
+                                    {/* <div className="thumb">
                                       <img
                                         className="rounded-circle"
                                         src="img/lesser_panda.jpg"
                                         alt=""
                                       />
-                                    </div>
+                                    </div> */}
                                     <div className="candidate-list-details">
                                       <div className="candidate-list-title">
                                         <h5 className="mb-0 fw-semibold">
-                                          세레나
+                                          {review.member.name}
                                         </h5>
                                       </div>
                                       <div className="candidate-list-star">
-                                        <StarFill
+                                        <h5>{review.reviewGrade}점</h5>
+                                        {/* <StarFill
                                           className="bi bi-star-fill"
                                           style={{
                                             fontSize: "1.2rem",
                                             color: "#fbe94b",
                                             margin: "2px",
                                           }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
-                                        <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        />
+                                        /> */}
                                       </div>
                                     </div>
                                     <div className="candidate-list-details">
-                                      <ul className="candidate-list-favourite-time text-center">
+                                      {/* <ul className="candidate-list-favourite-time text-center">
                                         <li className="menu">토마토 파스타</li>
                                         <li className="menu">페퍼로니 피자</li>
                                         <li className="data">2023.8.23</li>
-                                      </ul>
+                                      </ul> */}
                                       <div
                                         className="text-center"
                                         style={{
@@ -704,16 +686,7 @@ const Restaurant = () => {
                                         }}
                                       >
                                         <img
-                                          src="img/pasta.jpg"
-                                          className="rounded m-1"
-                                          alt=""
-                                          style={{
-                                            height: "150px",
-                                            width: "150px",
-                                          }}
-                                        />
-                                        <img
-                                          src="img/pizza2.jpg"
+                                          src={"/upload/" + review.reviewPhoto}
                                           className="rounded m-1"
                                           alt=""
                                           style={{
@@ -728,7 +701,7 @@ const Restaurant = () => {
                                           margin: "25px 10px 5px 70px",
                                         }}
                                       >
-                                        맛있어요~!
+                                        {review.reviewContent}
                                       </div>
                                     </div>
                                   </td>
@@ -744,6 +717,7 @@ const Restaurant = () => {
                                   </td>
                                   <td></td>
                                 </tr>
+                                ))}
                               </tbody>
                             </table>
                           </div>

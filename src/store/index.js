@@ -7,6 +7,8 @@ import locationSlice from "./locationSlice";
 import photoSlice from "./photoSlice";
 import restaurantSlice from "./restaurantSlice";
 import foodSlice from "./foodSlice";
+import reserSlice from "./reserSlice";
+import reviewSlice from "./reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +21,8 @@ const store = configureStore({
     location: locationSlice.reducer,
     restaurant: restaurantSlice.reducer,
     food: foodSlice.reducer,
+    reser: reserSlice.reducer,
+    review: reviewSlice.reducer,
   },
 });
 
