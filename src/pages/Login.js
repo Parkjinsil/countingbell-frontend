@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/LOGO.png";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { asyncLogin } from "../store/userSlice";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
 
 const Container = styled.div`
   display: flex;
@@ -119,24 +119,23 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const user = useSelector((state) => state.user);
+
   // 홈으로 이동
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // const formData = {
-    //   id: e.target.id.value,
-    //   password: e.target.password.value,
-    // };
-    //dispatch(asyncLogin({ formData }));
-    // alert(`${formData.id}님 환영합니다.`);
-
     const id = e.target.id.value;
     const password = e.target.password.value;
     dispatch(asyncLogin({ id, password }));
-    alert(`${id}님 환영합니다.`);
-
-    navigate("/");
   };
+
+  useEffect(() => {
+    if (user && user.token) {
+      alert(`${user.id}님 환영합니다.`);
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <Container>

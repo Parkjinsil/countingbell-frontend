@@ -1,60 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteMenu, updateMenu } from "../../api/menu";
 import { useDispatch, useSelector } from "react-redux";
+import { Form } from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {
-  asyncDeleteMenu,
+  asyncFindByMenuCode,
   asyncGetMenus,
   asyncUpdateMenu,
-  setMenuList,
 } from "../../store/menuSlice";
 
-const PagingStyle = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 20px 0;
-  a {
-    padding: 5px;
-  }
-`;
-
 const MenuBoard = () => {
+  const menus = useSelector((state) => state.menu.menuList);
   const [menuName, setMenuName] = useState("");
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
-  const [menuPicture, setMenuPicture] = useState("");
+  const [menuPicture, setMenuPicture] = useState(null);
   const [menuCode, setMenuCode] = useState("");
-  const [resCode, setResCode] = useState("");
+  const { resCode } = useParams(); // URL에서 가져온 resCodes
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 검색어
-  const [searchTerm, setSearchTerm] = useState("");
+  console.log("받아온 resCode:", resCode);
 
-  // const handleSearch = async () => {
-  //   const result = await getMenus(page, searchTerm); // 검색어를 API로 전달
-  //   setMenus(result.data);
-  // };
-
-  const menus = useSelector((state) => state.menu.menuList);
-
+  // 식당별 메뉴 불러오기
   useEffect(() => {
-    dispatch(asyncGetMenus(1)); // 페이지 번호를 전달하여 초기 메뉴 목록 불러오기
-    const updatedMenuList = []; // 업데이트된 메뉴 목록
-    dispatch(setMenuList(updatedMenuList)); // Redux 상태 업데이트
-  }, [dispatch]);
+    dispatch(asyncFindByMenuCode({ page: 1, resCode: resCode }));
+  }, [dispatch, resCode]);
 
-  // const [menu, setMenu] = useState([]);
+  // 메뉴 등록하러 가기
+  const onAddmenu = () => {
+    console.log("resCode22 어떻게 보내지? : " + resCode);
+    navigate(`/addmenu/${resCode}`);
+  };
 
+  // 메뉴 삭제
   const onDelete = async (menuCode) => {
     try {
       await deleteMenu(menuCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
@@ -66,12 +50,14 @@ const MenuBoard = () => {
     }
   };
 
+  // 메뉴수정
   const onUpdate = async (e) => {
     e.preventDefault();
     console.log(menuName);
     console.log(menuDesc);
     console.log(menuPrice);
-    console.log(menuPicture);
+    console.log("menuPicture 왜 안들어오냐고!!!!!:" + menuPicture);
+    console.log(typeof menuPicture);
     console.log(menuCode);
     console.log(resCode);
 
@@ -99,28 +85,7 @@ const MenuBoard = () => {
         <div
           className="input-group mb-3"
           style={{ width: "300px", marginLeft: "900px" }}
-        >
-          <input
-            type="search"
-            className="form-control"
-            name="search"
-            id="search"
-            placeholder="검색"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력 시 상태 업데이트
-          />
-
-          <button
-            type="button"
-            className="btn btn-primary"
-            id="searchBtn"
-          // onClick={handleSearch}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
-          </button>
-        </div>
+        ></div>
         <Container>
           <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
@@ -131,9 +96,9 @@ const MenuBoard = () => {
                 <th>메뉴설명</th>
                 <th>가격</th>
                 <th>이미지</th>
-                <th>식당코드</th>
                 <th>수정</th>
                 <th>삭제</th>
+                {/* <th>식당코드</th> */}
               </tr>
             </thead>
             <tbody
@@ -157,7 +122,7 @@ const MenuBoard = () => {
                       }}
                     />
                   </td>
-                  <td>{menu.restaurant.resCode}</td>
+                  {/* <td>{menu.restaurant.resCode}</td> */}
 
                   <td>
                     <button
@@ -167,12 +132,12 @@ const MenuBoard = () => {
                       data-bs-target={`#exampleModal${menu.menuCode}`}
                       data-bs-whatever="@mdo"
                       onClick={() => {
-                        //setItem(menu);
                         setMenuName(menu.menuName);
                         setMenuPrice(menu.menuPrice);
                         setMenuPicture(menu.menuPicture);
+                        setMenuDesc(menu.menuDesc);
                         setMenuCode(menu.menuCode);
-                        setResCode(menu.restaurant.resCode);
+                        // setResCode(menu.restaurant.resCode);
                       }}
                     >
                       수정
@@ -212,7 +177,7 @@ const MenuBoard = () => {
                                   id="resCode"
                                   value={menu.restaurant.resCode}
                                   onChange={(e) => {
-                                    setResCode(e.target.value);
+                                    // setResCode(e.target.value);
                                   }}
                                   readOnly
                                 />
@@ -246,7 +211,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuName"
-                                  // placeholder={menu.menuName}
                                   value={menuName}
                                   onChange={(e) => {
                                     setMenuName(e.target.value);
@@ -265,7 +229,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuDesc"
-                                  // placeholder={menu.menuDesc}
                                   value={menuDesc}
                                   onChange={(e) => {
                                     setMenuDesc(e.target.value);
@@ -284,7 +247,6 @@ const MenuBoard = () => {
                                   type="text"
                                   className="form-control"
                                   id="menuPrice"
-                                  // placeholder={menu.menuPrice}
                                   value={menuPrice}
                                   onChange={(e) => {
                                     setMenuPrice(e.target.value);
@@ -302,10 +264,11 @@ const MenuBoard = () => {
                                   type="file"
                                   className="form-control"
                                   id="menuPicture"
-                                  // 이미지를 수정하지 않을 경우, 기존 이미지 파일 경로를 플레이스홀더로 설정
-                                  placeholder={menu.menuPicture}
                                   onChange={(e) => {
-                                    console.log(e.target);
+                                    console.log("e.target 값 : " + e.target); // 정상임
+                                    console.log(
+                                      "menu.menuPicture값 : " + menu.menuPicture
+                                    ); // 값 ok
                                     setMenuPicture(e.target.files[0]);
                                   }}
                                 />
@@ -348,40 +311,10 @@ const MenuBoard = () => {
         </Container>
       </div>
       <div>
-        <button className="btn btn-outline-warning">
-          <Link to="/addmenu">추가</Link>
+        <button className="btn btn-outline-warning" onClick={onAddmenu}>
+          추가
         </button>
       </div>
-
-      <PagingStyle>
-        <nav aria-label="...">
-          <ul className="pagination">
-            <li className="page-item disabled">
-              <a className="page-link">Previous</a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item active" aria-current="page">
-              <a className="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </PagingStyle>
     </div>
   );
 };

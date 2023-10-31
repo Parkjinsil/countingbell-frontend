@@ -1,19 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    addRestaurant,
-    findByLocalCode,
-    findByFoodCode,
-    getRestaurant,
-    getRestaurants,
-    findResByFilter
+  addRestaurant,
+  findByLocalCode,
+  findByFoodCode,
+  getRestaurant,
+  getRestaurants,
+  findResByFilter,
+  getResByUserId,
+  searchResByMenuName,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",
   async (data) => {
-      console.log(data);
-      const result = await addRestaurant(data);
-      return result.data;
+    console.log(data);
+    const result = await addRestaurant(data);
+    return result.data;
   }
 );
 
@@ -45,23 +47,42 @@ const asyncFindByLocalCode = createAsyncThunk(
   }
 );
 
+// 유저아이디별 식당 가져오기
+const asyncGetResByUserId = createAsyncThunk(
+  "restaurantSlice/asyncGetResByUserId",
+  async (id) => {
+    const result = await getResByUserId(id);
+    return result.data;
+  }
+);
+
 // 음식타입별 식당 가져오기
 const asyncFindByFoodCode = createAsyncThunk(
   "restaurantSlice/asyncFindByFoodCode",
-  async (id) => {
-    const result = await findByFoodCode(id);
+  async (info) => {
+    const result = await findByFoodCode(info);
     // console.log("음식타입별 식당목록:", result.data);
+    return result.data;
+  }
+);
+
+// 메뉴명으로 식당검색
+const asyncSearchResByMenuName = createAsyncThunk(
+  "restaurantSlice/asyncSearchResByMenuName",
+  async (keyword) => {
+    const result = await searchResByMenuName(keyword);
+    console.log(result);
     return result.data;
   }
 );
 
 const asyncFindResByFilter = createAsyncThunk(
   "restaurantSlice/asyncFindResByFilter",
-  async ({ foodCode, localCode })  => {
-    const result = await findResByFilter({foodCode, localCode});
+  async ({ foodCode, localCode }) => {
+    const result = await findResByFilter({ foodCode, localCode });
     return result.data;
   }
-)
+);
 
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
@@ -76,14 +97,15 @@ const restaurantSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(asyncAddRestaurant.rejected, (state, action) =>{
+      .addCase(asyncAddRestaurant.rejected, (state, action) => {
         return alert("식당 등록에 실패했습니다. 다시 시도해주세요.");
-    })
-    .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
-        alert ("식당 등록 성공.");
+      })
+      .addCase(asyncAddRestaurant.fulfilled, (state, action) => {
+        alert("식당 등록 성공.");
 
         return action.payload;
-    })
+      });
+
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -91,10 +113,27 @@ const restaurantSlice = createSlice({
       return state;
     });
 
+    // 메뉴이름으로 식당찾기
+    builder.addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
+      state.restaurantList = action.payload;
+      // console.log("엑스트라리듀서:", state.locationList);
+      return state;
+    });
+
+    // 아이디별 식당찾기
+    builder
+      .addCase(asyncGetResByUserId.fulfilled, (state, action) => {
+        state.restaurantList = action.payload;
+        return state;
+      })
+      .addCase(asyncGetResByUserId.rejected, (state, action) => {
+        return alert("식당을 찾는데 실패했습니다.");
+      });
+
     builder.addCase(asyncFindResByFilter.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       return state;
-    })
+    });
 
     // 음식타입별 식당찾기
     builder.addCase(asyncFindByFoodCode.fulfilled, (state, action) => {
@@ -103,7 +142,7 @@ const restaurantSlice = createSlice({
       return state;
     });
 
-    // 식당 목록 불러오기
+    // 식당 전체 목록 불러오기
     builder.addCase(asyncGetRestaurants.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
       console.log("엑스트라리듀서:", state.restaurantList);
@@ -124,7 +163,9 @@ export {
   asyncFindByFoodCode,
   asyncFindResByFilter,
   asyncGetRestaurant,
+  asyncGetResByUserId,
+  asyncSearchResByMenuName,
+  asyncAddRestaurant,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;
-export { asyncAddRestaurant };

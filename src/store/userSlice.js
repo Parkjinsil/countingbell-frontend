@@ -1,8 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addMember, login, searchId, searchPwd } from "../api/user";
+import {
+  addMember,
+  deleteMember,
+  login,
+  searchId,
+  searchPwd,
+  showMember,
+  updateMember,
+} from "../api/user";
+
+let password = "";
 
 // 로그인
 const asyncLogin = createAsyncThunk("userSlice/asyncLogin", async (data) => {
+  password = data.password;
+  // role = data.role;
+  console.log(password);
   const result = await login(data);
   return result.data;
 });
@@ -12,6 +25,25 @@ const asyncRegister = createAsyncThunk(
   "userSlice/asyncRegister",
   async (data) => {
     const result = await addMember(data);
+    return result.data;
+  }
+);
+
+// 회원정보 수정
+const asyncUpdateMember = createAsyncThunk(
+  "userSlice/asyncUpdateMember",
+  async (data) => {
+    console.log("수정시 비밀번호: " + password);
+    const result = await updateMember(data);
+    return result.data;
+  }
+);
+
+// 회원 삭제
+const asyncDeleteMember = createAsyncThunk(
+  "userSlice/asyncDeleteMember",
+  async (data) => {
+    const result = await deleteMember(data);
     return result.data;
   }
 );
@@ -34,6 +66,15 @@ const asyncSearchPwd = createAsyncThunk(
   }
 );
 
+// 회원 상세조회
+const asyncShowMember = createAsyncThunk(
+  "userSlice/asyncShowMember",
+  async (data) => {
+    const result = await showMember(data);
+    return result.data;
+  }
+);
+
 const userSlice = createSlice({
   name: "userSlice",
   initialState: {},
@@ -44,6 +85,9 @@ const userSlice = createSlice({
     userLogout: (state, action) => {
       return {};
     },
+    // setRole: (state, action) => {
+    //   state.role = action.payload;
+    // },
   },
 
   extraReducers: (builder) => {
@@ -65,29 +109,49 @@ const userSlice = createSlice({
       })
 
       .addCase(asyncLogin.fulfilled, (state, action) => {
+        console.log("asyncLogin.fulfilled : 로그인 성공!");
         // 로그인 성공시 localStorage로 해당 정보 관리
-        // localStorage.setItem("token", action.payload.token);
-        // localStorage.setItem("user", JSON.stringify(action.payload));
-        // return action.payload;
+        localStorage.setItem("token", action.payload.token);
+        action.payload.password = password;
+        localStorage.setItem("user", JSON.stringify(action.payload));
 
-        console.log("로그인 성공!");
-        console.log(action.payload);
-
-        if (action.payload.deleteAccountYN === "N") {
-          localStorage.setItem("token", action.payload.token);
-          localStorage.setItem("user", JSON.stringify(action.payload));
-        } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-        }
-
+        console.log("user정보 : " + action.payload);
         return action.payload;
       });
 
+    // 회원 상세 보기
+    builder
+      .addCase(asyncShowMember.rejected, (state, action) => {
+        alert("로그인에 실패했습니다. 다시 시도해주세요.");
+        return state;
+      })
+      .addCase(asyncShowMember.fulfilled, (state, action) => {
+        return { ...action.payload, password: password };
+      });
+
+    // 회원 탈퇴하기
+    builder.addCase(asyncDeleteMember.fulfilled, (state, action) => {
+      localStorage.clear();
+      userLogout();
+      return {};
+    });
+
+    // 회원정보 수정
+    builder.addCase(asyncUpdateMember.fulfilled, (state, action) => {
+      // 토큰이 있으면 localStorage에 토큰과 사용자 정보를 저장
+      if (action.payload.token !== "undefined") {
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
+      return action.payload;
+    });
+
+    // 아이디 찾기
     builder.addCase(asyncSearchId.fulfilled, (state, action) => {
       return action.payload;
     });
 
+    // 비밀번호 찾기
     builder.addCase(asyncSearchPwd.fulfilled, (state, action) => {
       return action.payload;
     });
@@ -95,5 +159,13 @@ const userSlice = createSlice({
 });
 
 export default userSlice;
-export { asyncRegister, asyncLogin, asyncSearchId, asyncSearchPwd };
+export {
+  asyncRegister,
+  asyncUpdateMember,
+  asyncLogin,
+  asyncSearchId,
+  asyncSearchPwd,
+  asyncShowMember,
+  asyncDeleteMember,
+};
 export const { userSave, userLogout } = userSlice.actions;

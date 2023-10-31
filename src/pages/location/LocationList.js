@@ -44,21 +44,24 @@ const LocationList = () => {
             className="d-flex flex-wrap"
             style={{ gap: "50px", margin: "0 170px" }}
           >
-            {locations.map((location, index) => (
-              <button
-                key={location.localCode}
-                className="btn btn-outline-primary m-2"
-                style={{
-                  fontSize: "1.2em",
-                  fontWeight: "bold",
-                  minWidth: "150px",
-                  minHeight: "90px",
-                }}
-                onClick={() => takeValueclick(location)}
-              >
-                {location.localName}
-              </button>
-            ))}
+            {locations
+              .slice()
+              .reverse()
+              .map((location, index) => (
+                <button
+                  key={location.localCode}
+                  className="btn btn-outline-primary m-2"
+                  style={{
+                    fontSize: "1.2em",
+                    fontWeight: "bold",
+                    minWidth: "150px",
+                    minHeight: "90px",
+                  }}
+                  onClick={() => takeValueclick(location)}
+                >
+                  {location.localName}
+                </button>
+              ))}
           </div>
         </Container>
       </div>

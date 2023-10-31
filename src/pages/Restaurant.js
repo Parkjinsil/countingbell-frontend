@@ -7,12 +7,13 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import { getRestaurant } from "../api/restaurant";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
 import { Link } from "react-router-dom";
 import { asyncFindReviewByResCode } from "../store/reviewSlice";
+import { userSave } from "../store/userSlice";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item > .active {
@@ -215,8 +216,21 @@ const Restaurant = () => {
   );
   const reviews = useSelector((state) => state.review.reviewList);
 
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
   useEffect(() => {
-    dispatch(asyncFindByMenuCode(resCode)); // resCode
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
+  console.log("유저 role : " + user.role);
+
+  useEffect(() => {
+    dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
     dispatch(asyncGetRestaurant(resCode));
     dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
   }, []);
@@ -238,8 +252,15 @@ const Restaurant = () => {
     // ..일단 이미지 경로 생성
   ];
 
+  const onNavigate = () => {
+    console.log("resCode 어떻게 보내지? : " + resCode);
+    navigate(`/menuboard/${resCode}`);
+  };
+
   return (
-    <div style={{ marginTop: "80px" }}>
+    <div
+      style={{ marginTop: "80px", overflow: "hidden", whiteSpace: "nowrap" }}
+    >
       <section className="container">
         <div className="row">
           <div className="col-4">
@@ -294,15 +315,32 @@ const Restaurant = () => {
                   <td className="align-top">{restaurant?.resDesc} </td>
 
                   <td width="75">
-                    <Link to={`reser`}
-                      className="btn text-white fw-bold"
-                      style={{
-                        borderRadius: "50%",
-                        backgroundColor: "#FF6B01",
-                      }}
-                    >
-                      예약
-                    </Link>
+                    {(user.role === "사장" &&
+                      restaurant?.member?.id === user.id) ||
+                    user.role === "관리자" ? (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                        onClick={onNavigate}
+                      >
+                        메뉴 수정
+                      </button>
+                    ) : (
+                      <Link to={`reser`}
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                        }}
+                      >
+                        예약
+                      </Link>
+                    )}
                   </td>
                 </tr>
               </tbody>

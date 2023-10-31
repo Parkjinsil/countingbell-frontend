@@ -134,27 +134,6 @@ const Category = styled.div`
   }
 `;
 
-const ScrollToTop = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: black;
-  border-radius: 50%;
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-
-  a {
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  }
-`;
-
 const Home = () => {
   const images = [image1, image2, image3, image4, image5];
   const buttons = [0, 1, 2, 3, 4];
@@ -242,7 +221,7 @@ const Home = () => {
         </Category>
       </Section>
 
-      <Section className="section1">
+      {/* <Section className="section1">
         <h2>section1</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
@@ -250,11 +229,7 @@ const Home = () => {
           dolores libero ipsa dignissimos voluptas, magni eos id minima, ut
           doloribus necessitatibus?
         </p>
-      </Section>
-
-      <ScrollToTop id="top">
-        <a href="#">Top</a>
-      </ScrollToTop>
+      </Section> */}
     </Main>
   );
 };

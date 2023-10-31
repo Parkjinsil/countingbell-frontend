@@ -41,8 +41,8 @@ const FoodResList = () => {
           <Card style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
-              src={image1}
-              // src={restaurant.resPicture} // 식당테이블에 사진추가해야함
+              src={"/upload/" + restaurant?.resPicture}
+              style={{ height: "200px" }}
             />
             <Card.Body>
               <Card.Text>
@@ -56,6 +56,15 @@ const FoodResList = () => {
                 >
                   {restaurant.resName}
                 </span>
+                <span
+                  className="restaurant-addr"
+                  style={{
+                    fontSize: "1.2rem",
+                    display: "block",
+                  }}
+                >
+                  {restaurant.resAddr}
+                </span>
 
                 <StarFill
                   className="bi bi-star-fill"
@@ -67,7 +76,7 @@ const FoodResList = () => {
                 />
                 <span style={{ fontSize: "1.3rem" }}>
                   평점
-                  {/* {location.rating} */}
+                  {/* {restaurant.location.rating} */}
                 </span>
                 <span
                   className="last-line"

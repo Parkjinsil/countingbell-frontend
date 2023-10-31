@@ -48,7 +48,6 @@ const LocaionBoard = () => {
 
   const [showAddTable, setShowAddTable] = useState(false);
   const [showUpdateTable, setShowUpdateTable] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const locations = useSelector((state) => state.location.locationList);
 
@@ -92,15 +91,21 @@ const LocaionBoard = () => {
   const toggleUpdateTable = () => {
     setShowUpdateTable(!showUpdateTable);
     setLocalCode(""); //  초기화
+    setLocalName("");
 
     if (showAddTable) {
       setShowAddTable(false); // 추가 폼 닫기
+      setLocalCode("");
     }
   };
 
   // 클릭한 행값 가져오기
   const takeValueclick = (location) => {
-    setSelectedLocalCode(location.localCode);
+    if (!showAddTable) {
+      setSelectedLocalCode(location.localCode);
+      setLocalCode(location.localCode); // 클릭한 위치의 localCode를 설정
+      setLocalName(location.localName); // 클릭한 위치의 localName을 설정
+    }
   };
 
   // 수정 로직
@@ -129,12 +134,12 @@ const LocaionBoard = () => {
   };
 
   // 지역별 식당찾기
-  const findRestaurant = () => {
-    // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
-    if (!showUpdateTable && !showAddTable) {
-      navigate("/locationResList");
-    }
-  };
+  // const findRestaurant = () => {
+  //   // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
+  //   if (!showUpdateTable && !showAddTable) {
+  //     navigate("/locationResList");
+  //   }
+  // };
 
   // 지역 삭제
   const onDelete = async (localCode) => {
@@ -168,7 +173,7 @@ const LocaionBoard = () => {
               {locations.map((location, index) => (
                 <tr
                   key={location.localCode}
-                  onClick={() => findRestaurant(location)}
+                  // onClick={() => findRestaurant(location)}
                 >
                   <td>{locations.length - index}</td>
                   <td onClick={() => takeValueclick(location)}>

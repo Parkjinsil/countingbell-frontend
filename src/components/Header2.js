@@ -46,6 +46,27 @@ const HeadLogo = styled.div`
   }
 `;
 
+const ScrollToTop = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-radius: 50%;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+`;
+
 const Second = () => {
   return (
     <HeaderContainer>
@@ -60,6 +81,9 @@ const Second = () => {
           </HeadLogo>
         </HeadLogoContainer>
       </HeadTopContainer>
+      <ScrollToTop id="top">
+        <a href="#">Top</a>
+      </ScrollToTop>
     </HeaderContainer>
   );
 };
