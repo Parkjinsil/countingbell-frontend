@@ -8,20 +8,27 @@ import { StarFill } from "react-bootstrap-icons";
 
 const Board = styled.div`
   display: inline-block;
-  padding: 120px;
+  padding: 90px;
   width: 100vw;
   height: 100vh;
+  /* background-color: #fbe9e7; */
 `;
 
 const Top = styled.div`
-  font-size: 2rem;
   font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  font-family: "omyu_pretty";
+  font-size: 3rem;
+  h1 {
+    padding-bottom: 10px;
+  }
 `;
 
 const HorizontalLine = styled.div`
   border-bottom: 2px solid #000; /* 선의 높이와 색상을 조절*/
   border-color: #ff5e33;
-  margin: 10px;
+  margin: 5px;
 `;
 
 const RecentList = () => {
@@ -32,15 +39,16 @@ const RecentList = () => {
     <Board>
       <Top>
         <div>
-          <h1>최근 본 상품</h1>
+          <h1>최근 본 식당</h1>
         </div>
+        <HorizontalLine></HorizontalLine>
         <HorizontalLine></HorizontalLine>
       </Top>
 
       <Container
         style={{
           gap: "20px",
-          // paddingTop: "100px",
+          paddingTop: "15px",
           display: "flex",
           flexWrap: "wrap",
         }}
@@ -57,7 +65,7 @@ const RecentList = () => {
                 <Card.Img
                   variant="top"
                   src={"/upload/" + restaurant?.resPicture}
-                  style={{ height: "200px" }}
+                  style={{ height: "230px" }}
                 />
                 <Card.Body>
                   <Card.Text>
