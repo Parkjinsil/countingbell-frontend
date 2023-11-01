@@ -234,19 +234,6 @@ const Restaurant = () => {
     setActiveTab(tab);
   };
 
-  // const onPickBtn = async () => {
-  //   const formData = new FormData();
-  //   formData.append("restaurant.resCode", resCode);
-  //   formData.append("member.id", data.id);
-
-  //   try {
-  //     const result = await pickAddorDelete(formData);
-  //     setPick(result.data.pickCount);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
   const onHeartClick = async () => {
     if (isHearted) {
       setHeartCount(heartCount - 1);
