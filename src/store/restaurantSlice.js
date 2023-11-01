@@ -188,25 +188,22 @@ const restaurantSlice = createSlice({
 
     // 식당 1개 찾기
     builder.addCase(asyncGetRestaurant.fulfilled, (state, action) => {
-      // 여러개를 담고 싶을 때 -> 배열이 localStorage에 저장되어야 하는 게 우선!
-      // setItem 값으로 저장되는 건 무조건 배열이라는 거지
-      // localStorage.getItem("watch", 배열);
-      // -> getItem으로 가지고 오면 <-- 배열 가지고 옴
-      // const arr = ..
-      // arr.push(JSON.stringify(action.payload))
+      if (action.payload.resCode) {
+        const resCode = action.payload.resCode;
+        let arr = [];
 
-      // localStorage.setItem("watch", arr);
-      let arr = [];
-
-      if (localStorage.getItem("watch")) {
-        for (let item of JSON.parse(localStorage.getItem("watch"))) {
-          arr.push(item);
+        if (localStorage.getItem("watch")) {
+          for (let item of JSON.parse(localStorage.getItem("watch"))) {
+            if (item.resCode !== resCode) {
+              arr.push(item);
+            }
+          }
         }
-      }
-      arr.push(action.payload);
 
-      console.log(arr);
-      localStorage.setItem("watch", JSON.stringify(arr));
+        arr.push(action.payload);
+        console.log(arr);
+        localStorage.setItem("watch", JSON.stringify(arr));
+      }
 
       state.selectedRestaurant = action.payload;
       return state;

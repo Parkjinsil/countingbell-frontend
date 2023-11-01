@@ -26,7 +26,7 @@ const HorizontalLine = styled.div`
 `;
 
 const RecentList = () => {
-  const restaurants = JSON.parse(localStorage.getItem("watch")); //  <-- 배열 가지고 옴
+  const restaurants = JSON.parse(localStorage.getItem("watch")) || []; //  <-- 배열 가지고 옴
   console.log(restaurants);
 
   return (
