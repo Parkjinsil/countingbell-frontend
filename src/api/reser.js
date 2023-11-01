@@ -14,3 +14,8 @@ export const getReser = async (id) => {
   let url = `reservation/${id}`;
   return await instance.get(url);
 }
+
+// 예약 1개 삭제
+export const deleteReser = async (reserCode) => {
+  return await instance.delete("reservation/"+reserCode);
+}

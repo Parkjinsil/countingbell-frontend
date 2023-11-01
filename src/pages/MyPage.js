@@ -185,6 +185,14 @@ const MyPage = () => {
     navigate(`/resIdBoard/${id}`);
   };
 
+  const onReserList = () => {
+    navigate(`/ReserList/${id}`);
+  }
+
+  const onReviewList = () => {
+    navigate(`/ReviewList/${id}`);
+  }
+
   useEffect(() => {
     const save = localStorage.getItem("user");
     if (Object.keys(user).length === 0 && save !== null) {
@@ -247,18 +255,18 @@ const MyPage = () => {
               </>
             ) : (
               <>
-                <Link to={"/ReserList/user2"}>
+                <button onClick={onReserList}>
                   <img src={image55} alt="" />
                   <span>예약내역</span>
-                </Link>
+                </button>
                 <a href="">
                   <img src={image66} alt="" />
                   <span>줄서기</span>
                 </a>
-                <Link to={"/ReviewList/user2"}>
+                <button onClick={onReviewList}>
                   <img src={image77} alt="" />
                   <span>리뷰관리</span>
-                </Link>
+                </button>
                 <a href="">
                   <img src={image88} alt="" />
                   <span>포인트 </span>

@@ -26,7 +26,7 @@ const asyncFindReviewByResCode = createAsyncThunk(
 const asyncFindReviewById = createAsyncThunk(
     "reviewSlice/asyncFindReviewById",
     async (id) => {
-        const result = await findReviewById (id);
+        const result = await findReviewById(id);
         return result.data;
     }
 )

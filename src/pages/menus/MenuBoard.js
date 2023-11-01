@@ -6,6 +6,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteMenu, updateMenu } from "../../api/menu";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import {
   asyncFindByMenuCode,
@@ -19,6 +21,7 @@ const MenuBoard = () => {
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [menuCode, setMenuCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
 

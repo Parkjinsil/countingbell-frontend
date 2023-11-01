@@ -8,7 +8,9 @@ import {
   findResByFilter,
   getResByUserId,
   searchResByMenuName,
+  findReviewByResCode
 } from "../api/restaurant";
+import { updatePick , deletePick} from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",
@@ -18,6 +20,15 @@ const asyncAddRestaurant = createAsyncThunk(
     return result.data;
   }
 );
+
+// 식당별 리뷰조회
+const asyncFindReviewByResCode = createAsyncThunk(
+  "restaurantSlice/asyncFindReviewByResCode",
+  async (resCode) => {
+    const result = await findReviewByResCode(resCode);
+    return result.data;
+  }
+)
 
 // 식당 전체 가져오기
 const asyncGetRestaurants = createAsyncThunk(
@@ -173,6 +184,12 @@ const restaurantSlice = createSlice({
       return state;
     });
 
+    // 식당별 리뷰
+    builder.addCase(asyncFindReviewByResCode.fulfilled, (state, action) => {
+      state.reviewList = action.payload;
+      return state;
+    })
+
     builder
       //실패
       .addCase(asyncUpdatePick.rejected, (state, action) => {
@@ -209,6 +226,7 @@ export {
   asyncGetResByUserId,
   asyncSearchResByMenuName,
   asyncAddRestaurant,
+  asyncFindReviewByResCode,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;
