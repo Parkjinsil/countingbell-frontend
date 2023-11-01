@@ -88,6 +88,10 @@ const HeadRight = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 1200px) {
+    display: none; /* 화면 너비가 768px 이하일 때 해당 요소를 숨깁니다. */
+  }
 `;
 
 const HeadMenu = styled.div`
@@ -197,13 +201,17 @@ const ScrollToTop = styled.div`
     align-items: center;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 1500px) {
+    display: none;
+  }
 `;
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [keyword, setKeyword] = useState("");
-  const navigate = useNavigate();
 
   const user = useSelector((state) => {
     return state.user;
@@ -229,6 +237,7 @@ const Header = () => {
     }
   };
 
+  // 로그인 유지
   useEffect(() => {
     const save = localStorage.getItem("user");
     if (Object.keys(user).length === 0 && save !== null) {
@@ -236,6 +245,7 @@ const Header = () => {
     }
   }, []);
 
+  // 로그아웃
   const logout = () => {
     console.log("logout!");
     localStorage.removeItem("token");

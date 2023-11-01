@@ -8,7 +8,6 @@ import { StarFill } from "react-bootstrap-icons";
 
 const Board = styled.div`
   display: inline-block;
-  background-color: azure;
   padding: 120px;
   width: 100vw;
   height: 100vh;
@@ -46,61 +45,64 @@ const RecentList = () => {
           flexWrap: "wrap",
         }}
       >
-        {restaurants.map((restaurant) => (
-          <Link
-            to={`/restaurant/${restaurant.resCode}`}
-            key={restaurant.resCode}
-          >
-            <Card style={{ width: "18rem" }}>
-              <Card.Img
-                variant="top"
-                src={"/upload/" + restaurant?.resPicture}
-                style={{ height: "200px" }}
-              />
-              <Card.Body>
-                <Card.Text>
-                  <span
-                    className="restaurant-name"
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      display: "block",
-                    }}
-                  >
-                    {restaurant.resName}
-                  </span>
-                  <span
-                    className="restaurant-addr"
-                    style={{
-                      fontSize: "1.2rem",
-                      display: "block",
-                    }}
-                  >
-                    {restaurant.resAddr}
-                  </span>
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#fbe94b",
-                      margin: "3px",
-                    }}
-                  />
-                  <span style={{ fontSize: "1.3rem" }}>
-                    평점
-                    {/* {restaurant.location.rating} */}
-                  </span>
-                  <span
-                    className="last-line"
-                    style={{ fontSize: "1.1rem", display: "block" }}
-                  >
-                    {restaurant.food.foodType}
-                  </span>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Link>
-        ))}
+        {restaurants
+          .slice()
+          .reverse()
+          .map((restaurant) => (
+            <Link
+              to={`/restaurant/${restaurant.resCode}`}
+              key={restaurant.resCode}
+            >
+              <Card style={{ width: "18rem" }}>
+                <Card.Img
+                  variant="top"
+                  src={"/upload/" + restaurant?.resPicture}
+                  style={{ height: "200px" }}
+                />
+                <Card.Body>
+                  <Card.Text>
+                    <span
+                      className="restaurant-name"
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                        display: "block",
+                      }}
+                    >
+                      {restaurant.resName}
+                    </span>
+                    <span
+                      className="restaurant-addr"
+                      style={{
+                        fontSize: "1.2rem",
+                        display: "block",
+                      }}
+                    >
+                      {restaurant.resAddr}
+                    </span>
+                    <StarFill
+                      className="bi bi-star-fill"
+                      style={{
+                        fontSize: "1.3rem",
+                        color: "#fbe94b",
+                        margin: "3px",
+                      }}
+                    />
+                    <span style={{ fontSize: "1.3rem" }}>
+                      평점
+                      {/* {restaurant.location.rating} */}
+                    </span>
+                    <span
+                      className="last-line"
+                      style={{ fontSize: "1.1rem", display: "block" }}
+                    >
+                      {restaurant.food.foodType}
+                    </span>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          ))}
       </Container>
     </Board>
   );
