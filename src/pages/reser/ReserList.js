@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteReser } from "../../api/reser";
 import { useNavigate, useParams } from "react-router-dom";
 import { asyncFindReserById } from "../../store/reserSlice";
 
@@ -18,6 +19,19 @@ const ReserList = () => {
     useEffect(() => {
         dispatch(asyncFindReserById(id));
     }, []);
+
+    // 메뉴 삭제
+    const onDelete = async (reserCode) => {
+      try {
+        await deleteReser(reserCode);
+        alert("예약을 취소했습니다.");
+
+        // 취소 후 화면을 새로 고침
+        window.location.reload();
+      } catch(error) {
+        alert(`예약 취소에 실패했습니다. 에러: ${error.message}`);
+      }
+    };
 
     return (
     <div className="container my-5">
@@ -50,6 +64,14 @@ const ReserList = () => {
                   <td>{reser.restaurant.resName}</td>
                   <td>{reser.reserPer}</td>
                   <td>{reser.reserDate} {reser.reserTime}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => onDelete(reser.reserCode)}
+                    >
+                      취소
+                    </button>                  
+                  </td>
                 </tr>
               ))}
             </tbody>

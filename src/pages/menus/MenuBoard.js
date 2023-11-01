@@ -21,7 +21,7 @@ const MenuBoard = () => {
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("")
   const [menuCode, setMenuCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
 
