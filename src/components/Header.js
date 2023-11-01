@@ -90,7 +90,7 @@ const HeadRight = styled.div`
   }
 
   @media screen and (max-width: 1200px) {
-    display: none; /* 화면 너비가 768px 이하일 때 해당 요소를 숨깁니다. */
+    display: none;
   }
 `;
 
@@ -137,7 +137,7 @@ const HeadMenu = styled.div`
 
       span {
         font-family: "omyu_pretty";
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         padding: 0 30px;
       }
     }
@@ -145,19 +145,20 @@ const HeadMenu = styled.div`
     .search-btn {
       display: flex;
       align-items: center;
-      padding: 5px;
 
       #search {
         border: none;
         background-color: #fcf1f1;
         padding-right: 10px;
-        padding-left: 5px;
+        padding-left: 7px;
+        width: 700px;
       }
 
       #select {
         border: none;
         background-color: #fcf1f1;
         padding: 10px;
+        padding-right: 15px;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
         border-right: 1px solid #666; /* 오른쪽에 경계선 추가 */
@@ -167,13 +168,12 @@ const HeadMenu = styled.div`
         background: #e2d5d5;
         border: none;
         cursor: pointer;
-        font-size: 15px;
         padding-right: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
 
         #icon {
-          font-size: 20px;
+          font-size: 25px;
           cursor: pointer;
           color: #666;
         }
@@ -305,23 +305,49 @@ const Header = () => {
       </HeadTopContainer>
       <HeadMenu>
         <nav>
+          <li>
+            <div className="search-btn">
+              <select
+                className="select"
+                id="select"
+                onChange={handleFilterChange}
+              >
+                <option value="resName" defaultValue>
+                  식당별
+                </option>
+                <option value="menuName">메뉴별</option>
+              </select>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="검색어를 입력하세요"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+
+              <button type="button" onClick={handleSearch}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
+              </button>
+            </div>
+          </li>
           <ul>
-            <li>
+            {/* <li>
               <a href="#">
                 <span>카테고리</span>
               </a>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <a href="waiting">
                 <span>온라인 줄서기</span>
               </a>
-            </li>
+            </li> */}
             <li>
               <a href="reservation">
                 <span>빠른예약</span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#">
                 <span>EVENT</span>
               </a>
@@ -330,39 +356,11 @@ const Header = () => {
               <a href="#">
                 <span>고객센터</span>
               </a>
-            </li>
+            </li> */}
             <li>
               <Link to={`myPage/${user.id}`}>
                 <span>마이페이지</span>
               </Link>
-            </li>
-            <li>
-              <div className="search-btn">
-                <select
-                  // className="form-select form-select-sm"
-                  // aria-label="Small select example"
-                  className="select"
-                  id="select"
-                  onChange={handleFilterChange}
-                >
-                  <option value="resName" defaultValue>
-                    식당별
-                  </option>
-                  <option value="menuName">메뉴별</option>
-                </select>
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  placeholder="검색어를 입력하세요"
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                />
-
-                <button type="button" onClick={handleSearch}>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
-                </button>
-              </div>
             </li>
           </ul>
         </nav>

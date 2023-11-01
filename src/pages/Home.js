@@ -78,8 +78,8 @@ const ButtonContainer = styled.div`
     }
   }
 
-  @media screen and (max-width: 600px) {
-    bottom: 50px;
+  @media screen and (max-width: 1200px) {
+    display: none;
   }
 `;
 
@@ -206,16 +206,6 @@ const Home = () => {
           </Link>
         </Category>
       </Section>
-
-      {/* <Section className="section1">
-        <h2>section1</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-          libero minima! Placeat fuga quibusdam culpa a modi? Perspiciatis,
-          dolores libero ipsa dignissimos voluptas, magni eos id minima, ut
-          doloribus necessitatibus?
-        </p>
-      </Section> */}
     </Main>
   );
 };
