@@ -11,6 +11,6 @@ export const addReview = async (data) => {
 export const updateReview = async (data) => {
     return await instance.put("review", data);
 }
-export const deleteReview = async (id) => {
-    return await instance.delete("reivew/" + id);
+export const deleteReview = async (reviewCode) => {
+    return await instance.delete("review/"+reviewCode);
 }

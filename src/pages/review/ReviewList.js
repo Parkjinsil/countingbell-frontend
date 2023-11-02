@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { asyncFindReviewById, asyncUpdateReview } from "../../store/reviewSlice";
 import { deleteReview } from "../../api/review";
 import { ListTask } from "react-bootstrap-icons";
+import { useState } from "react";
 
 const ReviewList = () => {
 
@@ -18,27 +19,25 @@ const ReviewList = () => {
 
   const reviews = useSelector((state) => state.review.reviewList);
   const [reviewContent, setReviewContent] = useState("");
-  const [reviewDate, setReviewDate] = useState("");
   const [reviewPhoto, setReviewPhoto] = useState(null);
   const [reviewGrade, setReviewGrade] = useState("");
-  const [rescode, setRescode] = useState("");
+  const [reviewCode, setReviewCode] = useState("");
+  const [resCode, setResCode] = useState("");
 
   useEffect(() => {
     dispatch(asyncFindReviewById(id));
   }, []);
 
-  const onDelete = async (reviewCode) => {
-    try {
-      await deleteReview(reviewCode);
-      alert("리뷰를 삭제했습니다.");
-    } catch (error) {
-      alert(`리뷰 삭제에 실패했습니다. 에러: ${error.message}`);
-    }
-  }
-
   // 메뉴 수정
   const onUpdate = async (e) => {
     e.preventDefault();
+
+    console.log("리뷰코드"+reviewCode);
+    console.log("평점"+reviewGrade);
+    console.log("사진"+reviewPhoto);
+    console.log("내용"+reviewContent);
+    console.log("아이디"+id);
+    console.log("식당코드"+resCode);
 
     const formData = new FormData();
 
@@ -46,12 +45,21 @@ const ReviewList = () => {
     formData.append("reviewContent", reviewContent);
     formData.append("reviewGrade", reviewGrade);
     formData.append("reviewPhoto", reviewPhoto);
-    formData.append("reviewDate", reviewDate);
     formData.append("resCode", resCode);
     formData.append("id", id);
 
     dispatch(asyncUpdateReview(formData));
   };
+
+  const onDelete = async (reviewCode) => {
+    try {
+      await deleteReview(reviewCode);
+      alert("리뷰를 삭제했습니다.");
+    } catch (error) {
+      // console.log(reviewCode);
+      alert(`리뷰 삭제에 실패했습니다. 에러: ${error.message}`);
+    }
+  }
 
   return (
     <div className="container my-5">
@@ -110,8 +118,7 @@ const ReviewList = () => {
                         setReviewCode(review.reviewCode);
                         setReviewPhoto(review.reviewPhoto);
                         setReviewGrade(review.reviewGrade);
-                        setReviewDate(review.reviewDate);
-                        // setResCode(menu.restaurant.resCode);
+                        setResCode(review.restaurant.resCode);
                       }}
                     >
                       수정
@@ -151,7 +158,25 @@ const ReviewList = () => {
                                   id="resCode"
                                   value={review.restaurant.resCode}
                                   onChange={(e) => {
-                                    // setResCode(e.target.value);
+                                    setResCode(e.target.value);
+                                  }}
+                                  readOnly
+                                />
+                              </div>
+                              <div className="mb-3" hidden>
+                                <label
+                                  htmlFor="resCode"
+                                  className="col-form-label"
+                                >
+                                  아이디 :
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="id"
+                                  value={review.member.id}
+                                  onChange={(e) => {
+                                    // setId(e.target.value);
                                   }}
                                   readOnly
                                 />
