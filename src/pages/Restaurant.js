@@ -18,7 +18,7 @@ import {
 } from "../store/restaurantSlice";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
 
-import { asyncFindReviewByResCode } from "../store/reviewSlice";
+import { asyncFindReviewByResCode, asyncReviewByGrade } from "../store/reviewSlice";
 import { userSave } from "../store/userSlice";
 
 const StyleNav = styled.div`
@@ -229,6 +229,7 @@ const Restaurant = () => {
     (state) => state.restaurant.selectedRestaurant
   );
   const reviews = useSelector((state) => state.review.reviewList);
+  const reviewGroups = useSelector((state) => state.review.reviewList);
 
   const user = useSelector((state) => {
     return state.user;
@@ -688,81 +689,24 @@ const Restaurant = () => {
                         </Link>
                       </div>
                       <div className="col-9">
+                        {reviewGroups.map((reviewGroup, index) => (
                         <div
-                          className="row align-items-center"
-                          style={{ marginBottom: "1%" }}
+                        key={reviewGroup.reviewCode}
+                        className="row align-items-center"
+                        style={{ marginBottom: "1%" }}
                         >
-                          <div className="col-1">5점</div>
-                          <div className="col-10">
-                            <div className="progress">
-                              <div
-                                className="progress-bar bg-warning"
-                                style={{ width: "60%" }}
-                              ></div>
-                            </div>
+                        <div className="col-1">{reviewGroup.reviewGrade}점</div>
+                        <div className="col-10">
+                          <div className="progress">
+                            <div
+                              className="progress-bar bg-warning"
+                              style={{ width: "60%" }}
+                            ></div>
                           </div>
-                          <div className="col-1">12명</div>
                         </div>
-                        <div
-                          className="row align-items-center"
-                          style={{ marginBottom: "1%" }}
-                        >
-                          <div className="col-1">4점</div>
-                          <div className="col-10">
-                            <div className="progress">
-                              <div
-                                className="progress-bar bg-warning"
-                                style={{ width: "10%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="col-1">2명</div>
+                        <div className="col-1">{reviewGroups.length}명</div>
                         </div>
-                        <div
-                          className="row align-items-center"
-                          style={{ marginBottom: "1%" }}
-                        >
-                          <div className="col-1">3점</div>
-                          <div className="col-10">
-                            <div className="progress">
-                              <div
-                                className="progress-bar bg-warning"
-                                style={{ width: "0%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="col-1">0명</div>
-                        </div>
-                        <div
-                          className="row align-items-center"
-                          style={{ marginBottom: "1%" }}
-                        >
-                          <div className="col-1">2점</div>
-                          <div className="col-10">
-                            <div className="progress">
-                              <div
-                                className="progress-bar bg-warning"
-                                style={{ width: "20%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="col-1">4명</div>
-                        </div>
-                        <div
-                          className="row align-items-center "
-                          style={{ marginBottom: "1%" }}
-                        >
-                          <div className="col-1">0점</div>
-                          <div className="col-10">
-                            <div className="progress">
-                              <div
-                                className="progress-bar bg-warning"
-                                style={{ width: "10%" }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="col-1">2명</div>
-                        </div>
+                        ))}
                       </div>
                     </div>
 
