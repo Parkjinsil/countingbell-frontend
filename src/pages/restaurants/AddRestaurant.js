@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncAddRestaurant } from "../../store/restaurantSlice";
 import { asyncGetLocations } from "../../store/locationSlice";
 import { asyncGetFoods } from "../../store/foodSlice";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -98,6 +99,9 @@ const BtnArea = styled.div`
 const AddRestaurant = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { id } = useParams();
+
   const [resPicture, setPicture] = useState(null);
 
   const locations = useSelector((state) => state.location.locationList);
@@ -130,7 +134,6 @@ const AddRestaurant = () => {
     resDesc,
     localCode,
     foodCode,
-    id,
     resPicks,
   } = formData;
 
@@ -155,7 +158,7 @@ const AddRestaurant = () => {
     data.append("resDesc", formData.resDesc);
     data.append("localCode", formData.localCode);
     data.append("foodCode", formData.foodCode);
-    data.append("id", formData.id);
+    data.append("id", id);
     data.append("resPicks", formData.resPicks);
 
     if (resPicture) {
@@ -270,7 +273,7 @@ const AddRestaurant = () => {
                 <label>
                   <select id="localCode" value={localCode} onChange={onChange}>
                     <option>지역</option>
-                    {locations.slice().reverse().map((location, index)=> (
+                    {locations.slice().reverse().map((location, index) => (
                       <option option key={index} value={location.localCode}>
                         {location.localName}
                       </option>
@@ -284,18 +287,18 @@ const AddRestaurant = () => {
                 <p>음식 종류</p>
                 <label>
                   <select id="foodCode" value={foodCode} onChange={onChange}>
-                      <option>음식 종류</option>
-                      {foods.slice().reverse().map((food, index) => (
-                        <option option key={index} value={food.foodCode}>
-                          {food.foodType}
-                        </option>
-                      ))}
+                    <option>음식 종류</option>
+                    {foods.slice().reverse().map((food, index) => (
+                      <option option key={index} value={food.foodCode}>
+                        {food.foodType}
+                      </option>
+                    ))}
                   </select>
                 </label>
               </div>
             </div>
 
-            <div className="id">
+            {/* <div className="id">
               <p>아이디</p>
               <label>
                 <input
@@ -308,7 +311,7 @@ const AddRestaurant = () => {
                 ></input>
               </label>
               <div className="idError"></div>
-            </div>
+            </div> */}
 
             <div className="id">
               <p>찜 관리</p>

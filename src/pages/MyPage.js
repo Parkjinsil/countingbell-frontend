@@ -104,20 +104,6 @@ const MyPageBodyHeader = styled.div`
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
   }
 `;
-const MyPageState = styled.div`
-  margin-top: 30px;
-  height: 100px;
-  background-color: rgb(240, 240, 240);
-  border-radius: 10px;
-
-  span {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 21px;
-  }
-`;
 
 const MyPageGrid = styled.div`
   height: 350px;
@@ -155,6 +141,36 @@ const MyPageGrid = styled.div`
     color: black;
   }
   a:hover {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
+  }
+  button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    /* border: 1px solid#ff5e33; */
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    background-color:transparent;
+    border:none;
+  }
+  button img {
+    width: 100px;
+    height: 50px;
+    padding-bottom: 10px;
+  }
+  button span {
+    font-size: 17px;
+    padding-bottom: 5px;
+  }
+  button:visited {
+    color: black;
+  }
+  button:hover {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
   }
 `;
@@ -232,11 +248,7 @@ const MyPage = () => {
               <Link to={`/memberUpdate/${user.id}`}>프로필 수정</Link>
             </div>
           </MyPageBodyHeader>
-          <MyPageState id="mypage-body-state">
-            <span>
-              내 앞 대기 <span>8</span>팀
-            </span>
-          </MyPageState>
+
           <MyPageGrid id="mypage-body-grid">
             {user.role === "사장" || user.role === "관리자" ? (
               <>
