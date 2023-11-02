@@ -9,15 +9,12 @@ import {
   getResByUserId,
   searchResByMenuName,
   findReviewByResCode,
-  updatePick,
-  deletePick,
   searchResByResName,
   updatePick,
   deletePick,
   fetchUserPicks,
   resPickList,
 } from "../api/restaurant";
-import { updatePick , deletePick} from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",

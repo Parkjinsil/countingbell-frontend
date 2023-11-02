@@ -7,36 +7,28 @@ import { asyncGetRestaurants } from "../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-
 const RestaurantList = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-
   const restaurants = useSelector((state) => state.restaurant.restaurantList);
-
   const hasScrollbar = () => {
     return document.documentElement.scrollHeight > window.innerHeight;
   };
-
   const [ref, inView] = useInView({
     skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
   });
-
   const ResListAPI = () => {
     dispatch(asyncGetRestaurants(page));
   };
-
   useEffect(() => {
     console.log("inView : " + inView);
     if (inView) {
       setPage(page + 1);
     }
   }, [inView]);
-
   useEffect(() => {
     ResListAPI();
   }, [page]); // page 상태가 변화될때마다
-
   return (
     <Container
       style={{
@@ -79,12 +71,11 @@ const RestaurantList = () => {
                 >
                   {restaurant.resAddr}
                 </span>
-
                 <StarFill
                   className="bi bi-star-fill"
                   style={{
                     fontSize: "1.3rem",
-                    color: "#fbe94b",
+                    color: "#FBE94B",
                     margin: "3px",
                   }}
                 />
@@ -108,3 +99,8 @@ const RestaurantList = () => {
   );
 };
 export default RestaurantList;
+
+
+
+
+
