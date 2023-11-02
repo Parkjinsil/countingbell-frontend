@@ -58,7 +58,7 @@ const ButtonContainer = styled.div`
   z-index: 2;
   left: 50%;
   bottom: 10px;
-  transform: translateX(-100%);
+  transform: translateX(-50%);
 
   .slide-btn {
     border: none;

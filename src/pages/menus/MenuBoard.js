@@ -46,8 +46,7 @@ const MenuBoard = () => {
     try {
       await deleteMenu(menuCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
       alert(`메뉴를 삭제했습니다.`);
-
-      await dispatch(asyncGetMenus(1)); // Redux 상태 업데이트
+      await dispatch(asyncGetMenus({ page: 1, resCode: resCode })); // Redux 상태 업데이트
     } catch (error) {
       alert(`메뉴 삭제에 실패했습니다. 에러: ${error.message}`);
     }

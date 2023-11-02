@@ -51,6 +51,7 @@ const AddMenu = () => {
             name="resCode"
             value={resCode}
             hidden
+            readOnly
           />
         </Form.Group>
         <Form.Group className="mb-3">

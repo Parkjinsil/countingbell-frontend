@@ -9,10 +9,18 @@ export const addMenu = async (data) => {
   return await instance.post("menu", data);
 };
 
+let setPage = 1;
+
 export const getMenus = async (page) => {
+  if (page !== undefined) {
+    setPage = page;
+  }
   console.log("메뉴전체보기 axios call!!");
-  let url = `public/menu?page=${page}`;
+  let url = `public/menu?page=${setPage}`; // 추가하고 돌아올 때 에러
   return await instance.get(url);
+
+  // let url = `public/menu?page=` + data.page; // 삭제할 때 에러
+  // localhost:8080/api/public/menu?page=undefined 오류
 };
 
 export const getMenu = async (id) => {
@@ -26,16 +34,12 @@ export const updateMenu = async (data) => {
   return await instance.put("menu", data);
 };
 
+// 메뉴 삭제
 export const deleteMenu = async (id) => {
   return await instance.delete("menu/" + id);
 };
 
-// 식당별 메뉴보기
-// export const findByMenuCode = async (info) => {
-//   console.log(info);
-//   let url = `menu/${info.resCode}/restaurant`;
-//   return await instance.get(url);
-// };
+// 메뉴명으로 식당찾기
 export const findByMenuCode = async (data) => {
   let url = "";
   if (data.resCode === undefined) {

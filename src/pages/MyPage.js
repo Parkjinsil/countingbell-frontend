@@ -12,27 +12,22 @@ import image77 from "../assets/mypage.img/image3.jpg";
 import image88 from "../assets/mypage.img/image4.jpg";
 import image99 from "../assets/mypage.img/image5.jpg";
 import image100 from "../assets/mypage.img/image6.jpg";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncShowMember, userSave } from "../store/userSlice";
-
 const Wrap = styled.div`
   text-align: center;
   margin-top: 100px;
 `;
-
 const WrapCenter = styled.div`
   display: inline-block;
   width: 700px;
   margin-bottom: 30px;
 `;
-
 const MyPageHeader = styled.div`
   display: flex;
   height: 90px;
   position: relative;
   padding-top: 15px;
-
   div {
     display: flex;
   }
@@ -51,11 +46,9 @@ const MyPageHeader = styled.div`
     margin-left: 15px;
   }
 `;
-
 const MyPageRight = styled.div`
   position: absolute;
   right: 0;
-
   img {
     width: 50px;
     height: 50px;
@@ -63,7 +56,6 @@ const MyPageRight = styled.div`
     margin-top: 10px;
   }
 `;
-
 const MyPageBodyHeader = styled.div`
   height: 200px;
   display: flex;
@@ -72,7 +64,6 @@ const MyPageBodyHeader = styled.div`
   border-radius: 10px;
   align-items: center;
   position: relative;
-
   img {
     width: 100px;
     height: 100px;
@@ -104,6 +95,7 @@ const MyPageBodyHeader = styled.div`
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
   }
 `;
+
 const MyPageState = styled.div`
   margin-top: 30px;
   height: 100px;
@@ -186,11 +178,12 @@ const MyPage = () => {
 
   const onReserList = () => {
     navigate(`/ReserList/${id}`);
-  }
+  };
 
   const onReviewList = () => {
     navigate(`/ReviewList/${id}`);
-  }
+  };
+
   // 내찜목록
   const onMyPicks = () => {
     console.log("id 어떻게 보내지? : " + id);
@@ -221,7 +214,6 @@ const MyPage = () => {
             </a>
           </MyPageRight>
         </MyPageHeader>
-
         <div id="mypage-body">
           <MyPageBodyHeader id="mypage-body-header">
             <img src={image44} alt="" />
@@ -293,5 +285,4 @@ const MyPage = () => {
     </Wrap>
   );
 };
-
 export default MyPage;
