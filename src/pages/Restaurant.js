@@ -523,7 +523,7 @@ const Restaurant = () => {
                 리뷰
               </a>
             </li>
-            <li
+            {/* <li
               className={`col nav-item text-center ${
                 activeTab === "photo" ? "active" : ""
               }`}
@@ -542,7 +542,7 @@ const Restaurant = () => {
                 />{" "}
                 사진
               </a>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
@@ -872,7 +872,7 @@ const Restaurant = () => {
             )}
           </StyleReview>
 
-          {activeTab === "photo" && (
+          {/* {activeTab === "photo" && (
             <div>
               <section
                 className="cantainer"
@@ -895,16 +895,14 @@ const Restaurant = () => {
                   <div className="container mt-3 mb-4">
                     <div className="col">
                       <div className="row">
-                        <div className="col-md-12">
-                          {/* <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"></div> */}
-                        </div>
+                        <div className="col-md-12"></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
             </div>
-          )}
+          )} */}
         </div>
       </StyleNav>
     </div>
