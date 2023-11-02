@@ -464,12 +464,12 @@ const Restaurant = () => {
             </table>
           </div>
           <div className="col-4">
-            <img
-              src="img/map1.png"
+            <div
               className="rounded m-1 mx-auto d-block"
-              alt=""
               style={{ height: "300px", width: "282px" }}
-            />
+            >
+              <ResMap resAddr={restaurant.resAddr} />
+            </div>
           </div>
         </div>
       </section>

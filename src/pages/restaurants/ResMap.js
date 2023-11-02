@@ -15,7 +15,7 @@ const ResMap = ({ resAddr }) => {
           var coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
           var map = new window.kakao.maps.Map(mapRef.current, options);
           var markerPosition = coords;
-          // 결과값으로 받은 위치를 마커로 표시합니다
+          // 결과값으로 받은 위치를 마커로 표시
           var marker = new window.kakao.maps.Marker({
             map: map,
             position: markerPosition,
@@ -26,6 +26,6 @@ const ResMap = ({ resAddr }) => {
       });
     }
   }, [resAddr]);
-  return <div ref={mapRef} style={{ width: "100%", height: "250px" }}></div>;
+  return <div ref={mapRef} style={{ height: "300px", width: "282px" }}></div>;
 };
 export default ResMap;
