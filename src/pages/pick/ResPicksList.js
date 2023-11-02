@@ -13,15 +13,11 @@ const ResPicksList = () => {
   const { pickCode } = useParams();
   const navigate = useNavigate();
 
-  if (pickCode) {
-  } else {
-  }
-
   const resPicksList = useSelector((state) => state.pick.resPicksList);
 
   useEffect(() => {
-    dispatch(asyncViewTotalPick(pickCode));
-  }, [dispatch, pickCode]);
+    dispatch(asyncViewTotalPick(1));
+  }, [dispatch]);
 
   return (
     <Container
