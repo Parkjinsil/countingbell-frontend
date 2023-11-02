@@ -37,19 +37,24 @@ const SliderContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
+  margin-top: 20px;
 
   .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
     gap: 10px;
     width: 100vw;
+    justify-content: space-between; /* 각 이미지를 좌우 정렬합니다. */
+    position: relative;
   }
 
   .slides img {
-    /* width: 800px; */
-    height: 500px;
+    width: 950px; /* 각 이미지의 크기를 50%로 설정합니다. */
+    height: 550px;
+    object-fit: cover; /* 이미지가 잘리지 않고 화면에 꽉 차게 표시됩니다. */
     border-radius: 10%;
     display: block;
+    /* top: 0; */
   }
 `;
 
