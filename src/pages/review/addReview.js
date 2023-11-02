@@ -44,7 +44,11 @@ const AddReview = () => {
           <Form.Control type="text" placeholder="별점" name="reviewGrade" />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="리뷰내용" name="reviewContent" />
+          <Form.Control
+            type="text"
+            placeholder="리뷰내용"
+            name="reviewContent"
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control type="file" placeholder="리뷰사진" name="reviewPhoto" />

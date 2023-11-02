@@ -7,19 +7,16 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFindByDisCode } from "../store/discountSlice";
-// import { asyncAddPick, asyncDeletePick } from "../store/pickSilce";
-// import { pickAddorDelete } from "../api/restaurant";
+import { pickAddorDelete } from "../api/restaurant";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
-import { getRestaurant } from "../api/restaurant";
 import {
   asyncGetRestaurant,
   asyncDeletePick,
   asyncUpdatePick,
+  asyncFetchUserPicks,
 } from "../store/restaurantSlice";
-import { asyncGetRestaurant } from "../store/restaurantSlice";
-import { Link } from "react-router-dom";
 import { asyncFindReviewByResCode } from "../store/reviewSlice";
 import { userSave } from "../store/userSlice";
 
@@ -217,9 +214,10 @@ const Restaurant = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHearted, setIsHearted] = useState(false);
-  const [heartCount, setHeartCount] = useState(0);
+  const [heartCount, setHeartCount] = useState();
   //const [pick, setPick] = useState();
   const [activeTab, setActiveTab] = useState("menu");
+  const [code, setCode] = useState(0);
 
   const data = JSON.parse(localStorage.getItem("user"));
 
@@ -239,28 +237,45 @@ const Restaurant = () => {
     setActiveTab(tab);
   };
 
-  // const onPickBtn = async () => {
-  //   const formData = new FormData();
-  //   formData.append("restaurant.resCode", resCode);
-  //   formData.append("member.id", data.id);
-
-  //   try {
-  //     const result = await pickAddorDelete(formData);
-  //     setPick(result.data.pickCount);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
+  const picks = useSelector((state) => state.restaurant.userPicks);
 
   const onHeartClick = async () => {
-    if (isHearted) {
-      setHeartCount(heartCount - 1);
-      dispatch(asyncDeletePick({ userId: data.id, resCode }));
-    } else {
-      setHeartCount(heartCount + 1);
-      dispatch(asyncUpdatePick({ userId: data.id, resCode }));
+    if (user.id === undefined) {
+      alert("로그인이 필요합니다.");
+      return;
     }
-    setIsHearted(!isHearted);
+    if (isHearted) {
+      console.log("삭제!");
+      // 찜한게 있다!
+      dispatch(asyncDeletePick(code.pickCode));
+      setIsHearted(false);
+      alert("해당 식당의 찜이 해제 되었습니다.");
+    } else {
+      console.log("추가!");
+      // 찜하지 않았다는 것!
+      dispatch(
+        asyncUpdatePick({
+          restaurant: {
+            resCode: restaurant.resCode,
+          },
+          location: {
+            localCode: restaurant.location.localCode,
+          },
+          food: {
+            foodCode: restaurant.food.foodCode,
+          },
+          member: {
+            id: user.id,
+          },
+        })
+      );
+      setIsHearted(true);
+      alert("해당 식당이 찜 목록에 추가되었습니다.");
+    }
+    if (isHearted) {
+    } else {
+      console.log("not hearted");
+    }
   };
 
   useEffect(() => {
@@ -277,10 +292,42 @@ const Restaurant = () => {
   console.log("유저 role : " + user.role);
 
   useEffect(() => {
+    console.log(user);
     dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
     dispatch(asyncGetRestaurant(resCode));
     dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
-  }, []);
+
+    if (user.id !== undefined) {
+      dispatch(asyncFetchUserPicks(user.id));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("내가 찜한 리스트 !");
+    console.log(picks);
+
+    const result = picks.filter((pick) => {
+      if (
+        pick.restaurant.resCode === restaurant.resCode &&
+        pick.member.id === user.id
+      ) {
+        return pick.pickCode;
+      }
+    });
+
+    console.log(result);
+
+    if (result.length === 1) {
+      setIsHearted(true);
+      setCode(result[0]);
+    } else {
+      setIsHearted(false);
+    }
+  }, [picks]);
+
+  useEffect(() => {
+    console.log(isHearted);
+  }, [isHearted]);
 
   const imagePaths = [
     "img/album1.jpg",
@@ -351,7 +398,7 @@ const Restaurant = () => {
                     style={{ color: isHearted ? "red" : "#aaa" }}
                     onClick={onHeartClick}
                   />{" "}
-                  ({heartCount}) 찜하기
+                  ({restaurant?.resPicks}) 찜하기
                 </span>
               </div>
             </div>
@@ -392,7 +439,8 @@ const Restaurant = () => {
                         메뉴 수정
                       </button>
                     ) : (
-                      <Link to={`reser`}
+                      <Link
+                        to={`reser`}
                         type="button"
                         className="btn text-white fw-bold"
                         style={{
@@ -654,7 +702,8 @@ const Restaurant = () => {
                             margin: "3px",
                           }}
                         />
-                        <Link to={`addReview`}
+                        <Link
+                          to={`addReview`}
                           className="btn mt-3"
                           type="button"
                           style={{
@@ -748,7 +797,10 @@ const Restaurant = () => {
 
                     <div
                       className="eee"
-                      style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
+                      style={{
+                        borderTop: "2px solid #ddd",
+                        marginTop: "50px",
+                      }}
                     ></div>
 
                     <div className="container mt-3 mb-4">
@@ -937,28 +989,28 @@ const Restaurant = () => {
                               </thead>
                               <tbody>
                                 {reviews.map((review, index) => (
-                                <tr
-                                  className="candidates-list"
-                                  key={review.reviewCode}
-                                  style={{ borderBottom: "1px solid #ddd" }}
-                                >
-                                  <td className="title">
-                                    {/* <div className="thumb">
+                                  <tr
+                                    className="candidates-list"
+                                    key={review.reviewCode}
+                                    style={{ borderBottom: "1px solid #ddd" }}
+                                  >
+                                    <td className="title">
+                                      {/* <div className="thumb">
                                       <img
                                         className="rounded-circle"
                                         src="img/lesser_panda.jpg"
                                         alt=""
                                       />
                                     </div> */}
-                                    <div className="candidate-list-details">
-                                      <div className="candidate-list-title">
-                                        <h5 className="mb-0 fw-semibold">
-                                          {review.member.name}
-                                        </h5>
-                                      </div>
-                                      <div className="candidate-list-star">
-                                        <h5>{review.reviewGrade}점</h5>
-                                        {/* <StarFill
+                                      <div className="candidate-list-details">
+                                        <div className="candidate-list-title">
+                                          <h5 className="mb-0 fw-semibold">
+                                            {review.member.name}
+                                          </h5>
+                                        </div>
+                                        <div className="candidate-list-star">
+                                          <h5>{review.reviewGrade}점</h5>
+                                          {/* <StarFill
                                           className="bi bi-star-fill"
                                           style={{
                                             fontSize: "1.2rem",
@@ -966,52 +1018,54 @@ const Restaurant = () => {
                                             margin: "2px",
                                           }}
                                         /> */}
+                                        </div>
                                       </div>
-                                    </div>
-                                    <div className="candidate-list-details">
-                                      {/* <ul className="candidate-list-favourite-time text-center">
+                                      <div className="candidate-list-details">
+                                        {/* <ul className="candidate-list-favourite-time text-center">
                                         <li className="menu">토마토 파스타</li>
                                         <li className="menu">페퍼로니 피자</li>
                                         <li className="data">2023.8.23</li>
                                       </ul> */}
-                                      <div
-                                        className="text-center"
-                                        style={{
-                                          margin: "0px 10px 10px 50px",
-                                        }}
-                                      >
-                                        <img
-                                          src={"/upload/" + review.reviewPhoto}
-                                          className="rounded m-1"
-                                          alt=""
+                                        <div
+                                          className="text-center"
                                           style={{
-                                            height: "150px",
-                                            width: "150px",
+                                            margin: "0px 10px 10px 50px",
                                           }}
-                                        />
+                                        >
+                                          <img
+                                            src={
+                                              "/upload/" + review.reviewPhoto
+                                            }
+                                            className="rounded m-1"
+                                            alt=""
+                                            style={{
+                                              height: "150px",
+                                              width: "150px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          className="review"
+                                          style={{
+                                            margin: "25px 10px 5px 70px",
+                                          }}
+                                        >
+                                          {review.reviewContent}
+                                        </div>
                                       </div>
-                                      <div
-                                        className="review"
-                                        style={{
-                                          margin: "25px 10px 5px 70px",
-                                        }}
-                                      >
-                                        {review.reviewContent}
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      좋아요 3
-                                    </span>
-                                  </td>
-                                  <td className="candidate-list-favourite-time text-center">
-                                    <span className="candidate-list-time order-1">
-                                      싫어요 1
-                                    </span>
-                                  </td>
-                                  <td></td>
-                                </tr>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        좋아요 3
+                                      </span>
+                                    </td>
+                                    <td className="candidate-list-favourite-time text-center">
+                                      <span className="candidate-list-time order-1">
+                                        싫어요 1
+                                      </span>
+                                    </td>
+                                    <td></td>
+                                  </tr>
                                 ))}
                               </tbody>
                             </table>

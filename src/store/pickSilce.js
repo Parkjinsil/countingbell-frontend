@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addPick, delPick, putPick, getTotalPick, getPick } from "../api/Pick";
 
+let selectPage = 0;
+
 const asyncAddPick = createAsyncThunk(
   "pickSlice/asyncAddPick",
   async (data) => {
@@ -47,8 +49,18 @@ const asyncViewPick = createAsyncThunk(
 
 const pickSlice = createSlice({
   name: "pickSlice",
-  initialState: { data: null, error: null, success: null, loading: false },
-  reducers: {},
+  initialState: {
+    data: null,
+    error: null,
+    success: null,
+    loading: false,
+    resPicksList: [],
+  },
+  reducers: {
+    setResPicks: (state, action) => {
+      state.resPicksList = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       //실패
@@ -95,8 +107,14 @@ const pickSlice = createSlice({
         state.loading = false;
       })
       .addCase(asyncViewTotalPick.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.loading = false;
+        if (selectPage > 1) {
+          // 2페이지, 3페이지, ....
+          state.resPicksList = [...state.resPicksList, ...action.payload];
+        } else {
+          state.resPicksList = action.payload;
+        }
+        console.log("엑스트라리듀서:", state.resPicksList);
+        return state;
       })
       .addCase(asyncViewTotalPick.pending, (state) => {
         state.loading = true;

@@ -19,7 +19,7 @@ import ResSearch from "./pages/ResSearch";
 import MyPage from "./pages/MyPage";
 import Discount from "./pages/discount/Discount";
 import DiscountBoard from "./pages/discount/DiscountBoard";
-import Pick from "./pages/Pick";
+import UserPicksList from "./pages/pick/UserPicksList";
 import AddMenu from "./pages/menus/AddMenu";
 import MenuBoard from "./pages/menus/MenuBoard";
 import MenuUpdate from "./pages/menus/MenuUpdate";
@@ -30,6 +30,7 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
+import ResPicksList from "./pages/pick/ResPicksList";
 
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
@@ -274,23 +275,32 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: "discountboard",
+  //   element: <Layout header={<Header2 />} />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <DiscountBoard />,
+  //     },
+  //   ],
+  // },
   {
-    path: "discountboard",
+    path: "userPicksList/:id/picks",
     element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
-        element: <DiscountBoard />,
+        element: <UserPicksList />,
       },
     ],
   },
   {
-    path: "pick",
-    element: <Layout header={<Header2 />} />,
+    path: "resPicksList",
     children: [
       {
         index: true,
-        element: <Pick />,
+        element: <ResPicksList />,
       },
     ],
   },
