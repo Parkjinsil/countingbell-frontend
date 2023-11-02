@@ -12,10 +12,9 @@ import Menu from "./pages/Menu";
 import RestaurantList from "./pages/RestaurantList";
 import Restaurant from "./pages/Restaurant";
 import ReservationCom from "./pages/ReservationCom";
-import AddReview from "./pages/review/AddReview";
 import Reservation from "./pages/reservation/Reservation";
 import Waiting from "./pages/Waiting";
-import ResSearch from "./pages/ResSearch";
+import ResSearch from "./pages/search/ResSearch";
 import MyPage from "./pages/MyPage";
 import Discount from "./pages/discount/Discount";
 import DiscountBoard from "./pages/discount/DiscountBoard";
@@ -30,13 +29,14 @@ import LocationResList from "./pages/location/LocationResList";
 import LocationList from "./pages/location/LocationList";
 import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
-
+import AddReview from "./pages/review/AddReview";
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 import Reser from "./pages/reser/Reser";
 import ReserList from "./pages/reser/ReserList";
 import ReviewList from "./pages/review/ReviewList";
 import ResIdBoard from "./pages/restaurants/ResIdBoard";
+import SearchByResName from "./pages/search/SearchByResName";
 
 const router = createBrowserRouter([
   {
@@ -261,6 +261,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ResSearch />,
+      },
+    ],
+  },
+  {
+    path: "searchByResName/:keyword",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <SearchByResName />,
       },
     ],
   },

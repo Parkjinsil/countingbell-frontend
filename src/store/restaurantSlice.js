@@ -8,7 +8,10 @@ import {
   findResByFilter,
   getResByUserId,
   searchResByMenuName,
-  findReviewByResCode
+  findReviewByResCode,
+  updatePick,
+  deletePick,
+  searchResByResName,
 } from "../api/restaurant";
 import { updatePick , deletePick} from "../api/restaurant";
 
@@ -29,11 +32,13 @@ const asyncFindReviewByResCode = createAsyncThunk(
     return result.data;
   }
 )
+let selectPage = 0;
 
 // 식당 전체 가져오기
 const asyncGetRestaurants = createAsyncThunk(
   "restaurantSlice/asyncGetRestaurants",
   async (page) => {
+    selectPage = page;
     const result = await getRestaurants(page);
     return result.data;
   }
@@ -87,6 +92,16 @@ const asyncSearchResByMenuName = createAsyncThunk(
   }
 );
 
+// 식당명으로 식당검색
+const asyncSearchResByResName = createAsyncThunk(
+  "restaurantSlice/asyncSearchResByResName",
+  async (keyword) => {
+    const result = await searchResByResName(keyword);
+    console.log(result);
+    return result.data;
+  }
+);
+
 const asyncFindResByFilter = createAsyncThunk(
   "restaurantSlice/asyncFindResByFilter",
   async ({ foodCode, localCode }) => {
@@ -134,7 +149,6 @@ const restaurantSlice = createSlice({
         return action.payload;
       });
 
-      
     // 위치별 식당찾기
     builder.addCase(asyncFindByLocalCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
@@ -143,11 +157,26 @@ const restaurantSlice = createSlice({
     });
 
     // 메뉴이름으로 식당찾기
-    builder.addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
-      state.restaurantList = action.payload;
-      // console.log("엑스트라리듀서:", state.locationList);
-      return state;
-    });
+    builder
+      .addCase(asyncSearchResByMenuName.fulfilled, (state, action) => {
+        state.restaurantList = action.payload;
+        // console.log("엑스트라리듀서:", state.locationList);
+        return state;
+      })
+      .addCase(asyncSearchResByMenuName.rejected, (state, action) => {
+        return alert("검색 결과가 없습니다.");
+      });
+
+    // 식당이름으로 식당찾기
+    builder
+      .addCase(asyncSearchResByResName.fulfilled, (state, action) => {
+        state.restaurantList = action.payload;
+        // console.log("엑스트라리듀서:", state.locationList);
+        return state;
+      })
+      .addCase(asyncSearchResByResName.rejected, (state, action) => {
+        return alert("검색 결과가 없습니다.");
+      });
 
     // 아이디별 식당찾기
     builder
@@ -173,13 +202,36 @@ const restaurantSlice = createSlice({
 
     // 식당 전체 목록 불러오기
     builder.addCase(asyncGetRestaurants.fulfilled, (state, action) => {
-      state.restaurantList = action.payload;
+      if (selectPage > 1) {
+        // 2페이지, 3페이지, ....
+        state.restaurantList = [...state.restaurantList, ...action.payload];
+      } else {
+        state.restaurantList = action.payload;
+      }
+
       console.log("엑스트라리듀서:", state.restaurantList);
       return state;
     });
 
     // 식당 1개 찾기
     builder.addCase(asyncGetRestaurant.fulfilled, (state, action) => {
+      if (action.payload.resCode) {
+        const resCode = action.payload.resCode;
+        let arr = [];
+
+        if (localStorage.getItem("watch")) {
+          for (let item of JSON.parse(localStorage.getItem("watch"))) {
+            if (item.resCode !== resCode) {
+              arr.push(item);
+            }
+          }
+        }
+
+        arr.push(action.payload);
+        console.log(arr);
+        localStorage.setItem("watch", JSON.stringify(arr));
+      }
+
       state.selectedRestaurant = action.payload;
       return state;
     });
@@ -227,6 +279,7 @@ export {
   asyncSearchResByMenuName,
   asyncAddRestaurant,
   asyncFindReviewByResCode,
+  asyncSearchResByResName,
 };
 export const { setRestaurantList, setSelectedRestaurant } =
   restaurantSlice.actions;

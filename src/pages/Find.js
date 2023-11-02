@@ -149,10 +149,9 @@ const Find = () => {
 
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-  const [inputName, setInputName] = useState("");
-  const [inputPhone, setInputPhone] = useState("");
-
+  // 아이디 찾기
   const searchId = async (e) => {
     e.preventDefault();
 
@@ -179,9 +178,11 @@ const Find = () => {
       } else {
         alert(`${name}님의 아이디를 찾을 수 없습니다.`);
       }
+
+      // 아이디 조회 후 입력창 초기화
       const inputNameTest = document.querySelector("#inputName");
-      inputNameTest.value = ""; // 초기화
       const inputPhoneTest = document.querySelector("#inputPhone");
+      inputNameTest.value = "";
       inputPhoneTest.value = "";
     }
   }, [id]);
@@ -201,6 +202,14 @@ const Find = () => {
     console.log(formData);
 
     dispatch(asyncSearchPwd(formData));
+
+    // 이메일 전송 후 입력창 초기화
+    const inputId = document.querySelector("#inputId");
+    const inputEmail = document.querySelector("#inputEmail");
+
+    inputId.value = "";
+    inputEmail.value = "";
+
     alert("이메일로 임시비밀번호가 발송되었습니다.");
   };
 
@@ -260,7 +269,7 @@ const Find = () => {
                       id="inputPhone"
                       name="inputPhone"
                       ref={inputPhoneRef}
-                      placeholder="ex) 010-1234-5678"
+                      placeholder="'-'를 제외하고 입력하세요."
                     ></input>
                   </div>
                 </div>

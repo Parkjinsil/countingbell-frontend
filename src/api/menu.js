@@ -36,8 +36,14 @@ export const deleteMenu = async (id) => {
 //   let url = `menu/${info.resCode}/restaurant`;
 //   return await instance.get(url);
 // };
-export const findByMenuCode = async (resCode) => {
-  console.log(resCode);
-  let url = `menu/${resCode}/restaurant`;
+export const findByMenuCode = async (data) => {
+  let url = "";
+  if (data.resCode === undefined) {
+    url = `menu/${data}/restaurant`;
+  } else {
+    url = `menu/${data.resCode}/restaurant?page=` + data.page;
+  }
+  console.log(data);
+  // let url =
   return await instance.get(url);
 };

@@ -1,3 +1,4 @@
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import axios from "axios";
 
 const instance = axios.create({
@@ -41,42 +42,20 @@ export const findResByFilter = async ({ foodCode, localCode }) => {
   return await instance.get(url);
 };
 
-// 식당이름따라;
-// export const getRestaurantByName = async (resName) => {
-//   return await instance.get(`search?name=${resName}`);
-// };
-
-//도경이네조
-// export const pickAddorDelete = async (data) => {
-//   return await instance.post("restaurant/pick", data);
-// };
-
-// export const pickAddorDelete = async (data) => {
-//   return await instance.post("restaurant/pick", JSON.stringify(data), {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-// };
-
 export const updatePick = async (data) => {
   return await instance.post("restaurant/pick", data);
 };
 
 export const deletePick = async (id) => {
   return await instance.delete("restaurant/pick/" + id);
-}
+};
 
 // 식당별 리뷰조회
 export const findReviewByResCode = async (resCode) => {
   let url = `restaurant/${resCode}/review`;
   return await instance.get(url);
-}
+};
 
-// 식당이름따라
-// export const getRestaurantByName = async (resName) => {
-//   return await instance.get(`search?name=${resName}`);
-// };
 // 아이디별 식당조회
 export const getResByUserId = async (id) => {
   let url = `restaurant/${id}/user`;
@@ -86,5 +65,11 @@ export const getResByUserId = async (id) => {
 // 메뉴명으로 식당 검색
 export const searchResByMenuName = async (keyword) => {
   let url = `search/${keyword}`;
+  return await instance.get(url);
+};
+
+// 식당명으로 식당 검색
+export const searchResByResName = async (keyword) => {
+  let url = `restaurant/search/${keyword}`;
   return await instance.get(url);
 };

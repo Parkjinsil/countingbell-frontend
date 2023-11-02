@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
 import { asyncSearchResByMenuName } from "../store/restaurantSlice";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const HeaderContainer = styled.div`
   width: 100vw;
@@ -87,6 +88,10 @@ const HeadRight = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const HeadMenu = styled.div`
@@ -132,7 +137,7 @@ const HeadMenu = styled.div`
 
       span {
         font-family: "omyu_pretty";
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         padding: 0 30px;
       }
     }
@@ -140,25 +145,35 @@ const HeadMenu = styled.div`
     .search-btn {
       display: flex;
       align-items: center;
-      padding: 5px;
 
       #search {
         border: none;
         background-color: #fcf1f1;
+        padding-right: 10px;
+        padding-left: 7px;
+        width: 700px;
+      }
+
+      #select {
+        border: none;
+        background-color: #fcf1f1;
+        padding: 10px;
+        padding-right: 15px;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
+        border-right: 1px solid #666; /* 오른쪽에 경계선 추가 */
       }
 
       button {
         background: #e2d5d5;
         border: none;
         cursor: pointer;
-        font-size: 15px;
+        padding-right: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
 
         #icon {
-          font-size: 20px;
+          font-size: 25px;
           cursor: pointer;
           color: #666;
         }
@@ -186,23 +201,43 @@ const ScrollToTop = styled.div`
     align-items: center;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 1500px) {
+    display: none;
+  }
 `;
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [keyword, setKeyword] = useState("");
-  const navigate = useNavigate();
 
   const user = useSelector((state) => {
     return state.user;
   });
 
-  const handleSearch = () => {
-    console.log("keyword값 보내지나? : " + keyword);
-    navigate(`/resSearch/${keyword}`);
+  // 검색 필터
+  const [filter, setFilter] = useState("resName");
+
+  // 검색 필터 선택 시 필터값 처리하는 함수
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
   };
 
+  const handleSearch = () => {
+    // console.log("keyword값 보내지나? : " + keyword);
+    // navigate(`/resSearch/${keyword}`);
+    if (keyword) {
+      if (filter === "resName") {
+        navigate(`/searchByResName/${keyword}`);
+      } else if (filter === "menuName") {
+        navigate(`/resSearch/${keyword}`);
+      }
+    }
+  };
+
+  // 로그인 유지
   useEffect(() => {
     const save = localStorage.getItem("user");
     if (Object.keys(user).length === 0 && save !== null) {
@@ -210,6 +245,7 @@ const Header = () => {
     }
   }, []);
 
+  // 로그아웃
   const logout = () => {
     console.log("logout!");
     localStorage.removeItem("token");
@@ -232,7 +268,7 @@ const Header = () => {
             <ul>
               <li>
                 <Link to="recentList">
-                  <span>최근본가게</span>
+                  <span>최근본식당</span>
                 </Link>
               </li>
 
@@ -253,7 +289,7 @@ const Header = () => {
                 <>
                   <li>
                     <Link to="favoriteList">
-                      <span>찜한 가게</span>
+                      <span>찜한식당</span>
                     </Link>
                   </li>
                   <li>
@@ -269,23 +305,49 @@ const Header = () => {
       </HeadTopContainer>
       <HeadMenu>
         <nav>
+          <li>
+            <div className="search-btn">
+              <select
+                className="select"
+                id="select"
+                onChange={handleFilterChange}
+              >
+                <option value="resName" defaultValue>
+                  식당별
+                </option>
+                <option value="menuName">메뉴별</option>
+              </select>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="검색어를 입력하세요"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+
+              <button type="button" onClick={handleSearch}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
+              </button>
+            </div>
+          </li>
           <ul>
-            <li>
+            {/* <li>
               <a href="#">
                 <span>카테고리</span>
               </a>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <a href="waiting">
                 <span>온라인 줄서기</span>
               </a>
-            </li>
+            </li> */}
             <li>
               <a href="reservation">
                 <span>빠른예약</span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#">
                 <span>EVENT</span>
               </a>
@@ -294,26 +356,11 @@ const Header = () => {
               <a href="#">
                 <span>고객센터</span>
               </a>
-            </li>
+            </li> */}
             <li>
               <Link to={`myPage/${user.id}`}>
                 <span>마이페이지</span>
               </Link>
-            </li>
-            <li>
-              <div className="search-btn">
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  placeholder="검색"
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                />
-                <button type="button" onClick={handleSearch}>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
-                </button>
-              </div>
             </li>
           </ul>
         </nav>

@@ -16,18 +16,11 @@ const asyncAddMenu = createAsyncThunk(
   }
 );
 
-// const asyncGetMenus = createAsyncThunk(
-//   "menuSlice/asyncGetMenus",
-//   async (page) => {
-//     const result = await getMenus(page);
-//     return result.data;
-//   }
-// );
-
 const asyncGetMenus = createAsyncThunk(
   "menuSlice/asyncGetMenus",
-  async ({ page, resCode }) => {
-    const result = await getMenus(page, resCode);
+  async (data) => {
+    console.log(data);
+    const result = await getMenus(data.page, data.resCode);
     return result.data;
   }
 );
@@ -50,6 +43,7 @@ const asyncUpdateMenu = createAsyncThunk(
 const asyncFindByMenuCode = createAsyncThunk(
   "menuSlice/asyncFindByMenuCode",
   async (id) => {
+    console.log(id);
     const result = await findByMenuCode(id);
     return result.data;
   }

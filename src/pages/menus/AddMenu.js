@@ -19,7 +19,6 @@ const AddMenu = () => {
   const navigate = useNavigate();
 
   const { resCode } = useParams();
-  const restaurant = useSelector((state) => state.restaurant);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

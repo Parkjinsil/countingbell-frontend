@@ -33,20 +33,6 @@ const Section = styled.section`
 `;
 
 const SliderContainer = styled.div`
-  /* display: flex;
-  justify-content: center;
-  width: 100vw;
-  overflow: hidden;
-  gap: 10px;
-  position: relative;
-
-  img {
-    max-width: 100%;
-    height: 500px;
-    border-radius: 10%;
-    display: block;
-  } */
-
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -71,7 +57,7 @@ const ButtonContainer = styled.div`
   position: absolute;
   z-index: 2;
   left: 50%;
-  bottom: 270px;
+  bottom: 10px;
   transform: translateX(-100%);
 
   .slide-btn {
@@ -91,6 +77,10 @@ const ButtonContainer = styled.div`
       color: white;
     }
   }
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const Category = styled.div`
@@ -101,6 +91,7 @@ const Category = styled.div`
   height: 200px;
   background-color: #f8cdc1;
   gap: 120px;
+  overflow: hidden;
 
   .category-content {
     position: relative;
@@ -159,11 +150,6 @@ const Home = () => {
               className="slides"
               style={{ transform: `translateX(-${currentSlide * 50}%)` }}
             >
-              {/* <img src={image1} alt="image1" />
-              <img src={image2} alt="image2" />
-              <img src={image3} alt="image3" />
-              <img src={image4} alt="image4" />
-              <img src={image5} alt="image5" /> */}
               {[images[images.length - 1], ...images, images[0], images[1]].map(
                 (image, index) => (
                   <img
@@ -176,18 +162,19 @@ const Home = () => {
               )}
             </div>
           </div>
+          <ButtonContainer>
+            {buttons.map((index) => (
+              <button
+                key={index}
+                type="button"
+                className={`slide-btn ${
+                  currentSlide === index ? "active" : ""
+                }`}
+                onClick={() => onClick(index)}
+              ></button>
+            ))}
+          </ButtonContainer>
         </SliderContainer>
-
-        <ButtonContainer>
-          {buttons.map((index) => (
-            <button
-              key={index}
-              type="button"
-              className={`slide-btn ${currentSlide === index ? "active" : ""}`}
-              onClick={() => onClick(index)}
-            ></button>
-          ))}
-        </ButtonContainer>
 
         <Category id="category">
           <Link to="/locationList" className="category-link">
@@ -220,16 +207,7 @@ const Home = () => {
           </Link>
         </Category>
       </Section>
-
-      {/* <Section className="section1">
-        <h2>section1</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-          libero minima! Placeat fuga quibusdam culpa a modi? Perspiciatis,
-          dolores libero ipsa dignissimos voluptas, magni eos id minima, ut
-          doloribus necessitatibus?
-        </p>
-      </Section> */}
+      <footer>개인정보처리방침</footer>
     </Main>
   );
 };

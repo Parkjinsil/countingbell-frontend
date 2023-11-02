@@ -7,21 +7,12 @@ import { asyncGetRestaurants } from "../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { getRestaurants } from "../api/restaurant";
 
 const RestaurantList = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
 
   const restaurants = useSelector((state) => state.restaurant.restaurantList);
-
-  // useEffect(() => {
-  //   dispatch(asyncGetRestaurants(page));
-  // }, [dispatch]);
-
-  ///////// 무한스크롤 //////////////
-
-  const [restaurant, setRestaurant] = useState([]);
 
   const hasScrollbar = () => {
     return document.documentElement.scrollHeight > window.innerHeight;
@@ -31,11 +22,8 @@ const RestaurantList = () => {
     skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
   });
 
-  const ResListAPI = async () => {
-    const result = await dispatch(asyncGetRestaurants(page));
-    const newRestaurants = result.payload; // API에서 가져온 새로운 데이터
-
-    setRestaurant([...restaurants, ...newRestaurants]);
+  const ResListAPI = () => {
+    dispatch(asyncGetRestaurants(page));
   };
 
   useEffect(() => {
@@ -43,9 +31,6 @@ const RestaurantList = () => {
     if (inView) {
       setPage(page + 1);
     }
-    // else if (page > 1 && !inView) {
-    //   setPage(page - 1);
-    // }
   }, [inView]);
 
   useEffect(() => {
@@ -62,7 +47,11 @@ const RestaurantList = () => {
       }}
     >
       {restaurants.map((restaurant) => (
-        <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
+        <Link
+          to={`/restaurant/${restaurant.resCode}`}
+          key={restaurant.resCode}
+          ref={ref}
+        >
           <Card style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
@@ -112,9 +101,9 @@ const RestaurantList = () => {
               </Card.Text>
             </Card.Body>
           </Card>
-          <div ref={ref}></div>
         </Link>
       ))}
+      <div ref={ref}></div>
     </Container>
   );
 };
