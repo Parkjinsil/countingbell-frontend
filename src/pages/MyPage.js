@@ -181,7 +181,6 @@ const MyPage = () => {
   }, []);
 
   const onMyRes = () => {
-    console.log("id 어떻게 보내지? : " + id);
     navigate(`/resIdBoard/${id}`);
   };
 
@@ -192,6 +191,11 @@ const MyPage = () => {
   const onReviewList = () => {
     navigate(`/ReviewList/${id}`);
   }
+  // 내찜목록
+  const onMyPicks = () => {
+    console.log("id 어떻게 보내지? : " + id);
+    navigate(`/userPicksList/${user.id}/picks`);
+  };
 
   useEffect(() => {
     const save = localStorage.getItem("user");
@@ -277,10 +281,10 @@ const MyPage = () => {
                   <span>쿠폰함 </span>
                   <span>3장</span>
                 </a>
-                <a href="">
+                <button onClick={onMyPicks}>
                   <img src={image100} alt="" />
                   <span>찜</span>
-                </a>
+                </button>
               </>
             )}
           </MyPageGrid>

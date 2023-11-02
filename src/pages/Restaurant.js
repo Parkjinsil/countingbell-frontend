@@ -7,12 +7,14 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFindByDisCode } from "../store/discountSlice";
+import { pickAddorDelete } from "../api/restaurant";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { asyncFindByMenuCode, asyncGetMenus } from "../store/menuSlice";
 import {
   asyncDeletePick,
   asyncUpdatePick,
+  asyncFetchUserPicks,
 } from "../store/restaurantSlice";
 import { asyncGetRestaurant } from "../store/restaurantSlice";
 
@@ -213,9 +215,10 @@ const Restaurant = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHearted, setIsHearted] = useState(false);
-  const [heartCount, setHeartCount] = useState(0);
+  const [heartCount, setHeartCount] = useState();
   //const [pick, setPick] = useState();
   const [activeTab, setActiveTab] = useState("menu");
+  const [code, setCode] = useState(0);
 
   const data = JSON.parse(localStorage.getItem("user"));
 
@@ -235,15 +238,45 @@ const Restaurant = () => {
     setActiveTab(tab);
   };
 
+  const picks = useSelector((state) => state.restaurant.userPicks);
+
   const onHeartClick = async () => {
-    if (isHearted) {
-      setHeartCount(heartCount - 1);
-      dispatch(asyncDeletePick({ userId: data.id, resCode }));
-    } else {
-      setHeartCount(heartCount + 1);
-      dispatch(asyncUpdatePick({ userId: data.id, resCode }));
+    if (user.id === undefined) {
+      alert("로그인이 필요합니다.");
+      return;
     }
-    setIsHearted(!isHearted);
+    if (isHearted) {
+      console.log("삭제!");
+      // 찜한게 있다!
+      dispatch(asyncDeletePick(code.pickCode));
+      setIsHearted(false);
+      alert("해당 식당의 찜이 해제 되었습니다.");
+    } else {
+      console.log("추가!");
+      // 찜하지 않았다는 것!
+      dispatch(
+        asyncUpdatePick({
+          restaurant: {
+            resCode: restaurant.resCode,
+          },
+          location: {
+            localCode: restaurant.location.localCode,
+          },
+          food: {
+            foodCode: restaurant.food.foodCode,
+          },
+          member: {
+            id: user.id,
+          },
+        })
+      );
+      setIsHearted(true);
+      alert("해당 식당이 찜 목록에 추가되었습니다.");
+    }
+    if (isHearted) {
+    } else {
+      console.log("not hearted");
+    }
   };
 
   useEffect(() => {
@@ -261,10 +294,42 @@ const Restaurant = () => {
 
   useEffect(() => {
     console.log(resCode);
+    console.log(user);
     dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
     dispatch(asyncGetRestaurant(resCode));
     dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
-  }, []);
+
+    if (user.id !== undefined) {
+      dispatch(asyncFetchUserPicks(user.id));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("내가 찜한 리스트 !");
+    console.log(picks);
+
+    const result = picks.filter((pick) => {
+      if (
+        pick.restaurant.resCode === restaurant.resCode &&
+        pick.member.id === user.id
+      ) {
+        return pick.pickCode;
+      }
+    });
+
+    console.log(result);
+
+    if (result.length === 1) {
+      setIsHearted(true);
+      setCode(result[0]);
+    } else {
+      setIsHearted(false);
+    }
+  }, [picks]);
+
+  useEffect(() => {
+    console.log(isHearted);
+  }, [isHearted]);
 
   const imagePaths = [
     "img/album1.jpg",
@@ -327,7 +392,7 @@ const Restaurant = () => {
                     style={{ color: isHearted ? "red" : "#aaa" }}
                     onClick={onHeartClick}
                   />{" "}
-                  ({heartCount}) 찜하기
+                  ({restaurant?.resPicks}) 찜하기
                 </span>
               </div>
             </div>
@@ -722,7 +787,10 @@ const Restaurant = () => {
 
                     <div
                       className="eee"
-                      style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
+                      style={{
+                        borderTop: "2px solid #ddd",
+                        marginTop: "50px",
+                      }}
                     ></div>
 
                     <div className="container mt-3 mb-4">

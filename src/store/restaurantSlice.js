@@ -12,6 +12,10 @@ import {
   updatePick,
   deletePick,
   searchResByResName,
+  updatePick,
+  deletePick,
+  fetchUserPicks,
+  resPickList,
 } from "../api/restaurant";
 import { updatePick , deletePick} from "../api/restaurant";
 
@@ -127,15 +131,37 @@ const asyncDeletePick = createAsyncThunk(
   }
 );
 
+// 사용자별 식당찜목록 가져오기
+const asyncFetchUserPicks = createAsyncThunk(
+  "restaurantSlice/asyncFetchUserPicks",
+  async (id) => {
+    const result = await fetchUserPicks(id);
+    //console.log("사용자별 식당찜목록 가져오기:", result.data);
+    return result.data;
+  }
+);
+
+// 식당1개에 따른 찜
+const asyncResPickList = createAsyncThunk(
+  "restaurantSlice/asyncResPickList",
+  async (id) => {
+    const result = await resPickList(id);
+    return result.data;
+  }
+);
+
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
-  initialState: { restaurantList: [], selectedRestaurant: {}, userPicks: {} },
+  initialState: { restaurantList: [], selectedRestaurant: {}, userPicks: [] },
   reducers: {
     setRestaurantList: (state, action) => {
       state.restaurantList = action.payload;
     },
     setSelectedRestaurant: (state, action) => {
       state.selectedRestaurant = action.payload;
+    },
+    setUserPicks: (state, action) => {
+      state.userPicks = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -242,28 +268,32 @@ const restaurantSlice = createSlice({
       return state;
     })
 
+    // 찜추가
     builder
-      //실패
-      .addCase(asyncUpdatePick.rejected, (state, action) => {
-        state.loading = false;
-      })
       // 액션이 성공한 경우- 데이터 저장
       .addCase(asyncUpdatePick.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.loading = false;
+        state.selectedRestaurant.resPicks += 1;
+        return state;
       });
 
-    builder
-      .addCase(asyncDeletePick.rejected, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(asyncDeletePick.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.loading = false;
-      })
-      .addCase(asyncDeletePick.pending, (state) => {
-        state.loading = true;
-      });
+    //찜삭제
+    builder.addCase(asyncDeletePick.fulfilled, (state, action) => {
+      state.selectedRestaurant.resPicks -= 1;
+      return state;
+    });
+
+    // 사용자별 식당찜목록 가져오기
+    builder.addCase(asyncFetchUserPicks.fulfilled, (state, action) => {
+      //state.userPicks = [...state.userPicks, ...action.payload]; //기존배열에추가할때
+      state.userPicks = action.payload; //기존데이터를 덮어쓸때
+      return state;
+    });
+
+    // 식당1개에 따른 찜
+    builder.addCase(asyncResPickList.fulfilled, (state, action) => {
+      state.restaurantList = action.payload;
+      return state;
+    });
   },
 });
 export default restaurantSlice;
@@ -280,6 +310,8 @@ export {
   asyncAddRestaurant,
   asyncFindReviewByResCode,
   asyncSearchResByResName,
+  asyncFetchUserPicks,
+  asyncResPickList,
 };
-export const { setRestaurantList, setSelectedRestaurant } =
+export const { setRestaurantList, setSelectedRestaurant, userPicks } =
   restaurantSlice.actions;

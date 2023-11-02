@@ -27,13 +27,13 @@ export const searchPwd = async (data) => {
 export const findReserById = async (id) => {
   let url = `user/${id}/reservation`;
   return await instance.get(url);
-}
+};
 
 // id별 리뷰조회
 export const findReviewById = async (id) => {
   let url = `user/${id}/review`;
   return await instance.get(url);
-}
+};
 // 회원 수정
 export const updateMember = async (data) => {
   console.log("회원정보 수정하기 axios!!");

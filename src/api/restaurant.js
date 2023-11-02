@@ -42,6 +42,12 @@ export const findResByFilter = async ({ foodCode, localCode }) => {
   return await instance.get(url);
 };
 
+// 사용자별 식당찜조회
+export const fetchUserPicks = async (id) => {
+  let url = `user/${id}/picks`;
+  return await instance.get(url);
+};
+
 export const updatePick = async (data) => {
   return await instance.post("restaurant/pick", data);
 };
@@ -55,6 +61,11 @@ export const findReviewByResCode = async (resCode) => {
   let url = `restaurant/${resCode}/review`;
   return await instance.get(url);
 };
+
+// 식당이름따라
+// export const getRestaurantByName = async (resName) => {
+//   return await instance.get(`search?name=${resName}`);
+// };
 
 // 아이디별 식당조회
 export const getResByUserId = async (id) => {
@@ -71,5 +82,10 @@ export const searchResByMenuName = async (keyword) => {
 // 식당명으로 식당 검색
 export const searchResByResName = async (keyword) => {
   let url = `restaurant/search/${keyword}`;
+};
+
+// 식당1개에 따른 찜
+export const resPickList = async (id) => {
+  let url = `restaurant/${id}/pick`;
   return await instance.get(url);
 };
