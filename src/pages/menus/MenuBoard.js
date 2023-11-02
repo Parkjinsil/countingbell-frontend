@@ -56,7 +56,7 @@ const MenuBoard = () => {
     console.log(menuName);
     console.log(menuDesc);
     console.log(menuPrice);
-    console.log("menuPicture 왜 안들어오냐고!!!!!:" + menuPicture);
+    console.log(menuPicture);
     console.log(typeof menuPicture);
     console.log(menuCode);
     console.log(resCode);
@@ -175,7 +175,7 @@ const MenuBoard = () => {
                                   onChange={(e) => {
                                     // setResCode(e.target.value);
                                   }}
-                                  readOnly
+                                  // readOnly
                                 />
                               </div>
                               <div className="mb-3" hidden>
@@ -277,7 +277,7 @@ const MenuBoard = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              취소
+                              닫기
                             </button>
                             <button
                               type="button"

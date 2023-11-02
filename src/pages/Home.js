@@ -91,6 +91,7 @@ const Category = styled.div`
   height: 200px;
   background-color: #f8cdc1;
   gap: 120px;
+  overflow: hidden;
 
   .category-content {
     position: relative;
@@ -206,6 +207,7 @@ const Home = () => {
           </Link>
         </Category>
       </Section>
+      <footer>개인정보처리방침</footer>
     </Main>
   );
 };

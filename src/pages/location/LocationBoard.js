@@ -14,9 +14,6 @@ import { setLocationList } from "../../store/locationSlice";
 import { useState } from "react";
 import { deleteLocation } from "../../api/location";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
 const Nav = styled.div`
   position: fixed;
   background-color: white;
@@ -133,14 +130,6 @@ const LocaionBoard = () => {
     setShowUpdateTable(false);
   };
 
-  // 지역별 식당찾기
-  // const findRestaurant = () => {
-  //   // toggleTable이 열리지 않았을 때만 식당 페이지로 이동
-  //   if (!showUpdateTable && !showAddTable) {
-  //     navigate("/locationResList");
-  //   }
-  // };
-
   // 지역 삭제
   const onDelete = async (localCode) => {
     try {
@@ -171,10 +160,7 @@ const LocaionBoard = () => {
             </thead>
             <tbody className="table-group-divider">
               {locations.map((location, index) => (
-                <tr
-                  key={location.localCode}
-                  // onClick={() => findRestaurant(location)}
-                >
+                <tr key={location.localCode}>
                   <td>{locations.length - index}</td>
                   <td onClick={() => takeValueclick(location)}>
                     {location.localName}
@@ -211,15 +197,13 @@ const LocaionBoard = () => {
         >
           추가
         </button>
-        <td>
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={toggleUpdateTable}
-          >
-            수정
-          </button>
-        </td>
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={toggleUpdateTable}
+        >
+          수정
+        </button>
       </div>
 
       <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">

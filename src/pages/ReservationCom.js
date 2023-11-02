@@ -22,7 +22,7 @@ const CenteredContainer = styled.div`
 const ReservationCom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  
+
   const searchParams = new URLSearchParams(location.search);
   const restaurant = useSelector(
     (state) => state.restaurant.selectedRestaurant
@@ -40,7 +40,10 @@ const ReservationCom = () => {
 
   return (
     <div className="container my-5">
-      <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5" style={{marginTop:'100px'}}>
+      <div
+        className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5"
+        style={{ marginTop: "100px" }}
+      >
         <CheckCircleFill
           className="bi bi-check-circle-fill mt-5 mb-5"
           width="48px"
@@ -72,12 +75,15 @@ const ReservationCom = () => {
               <td width="100px" height="22px">
                 예약일시 :
               </td>
-              <td>{reserDate} {reserTime}</td>
+              <td>
+                {reserDate} {reserTime}
+              </td>
             </tr>
           </table>
         </CenteredContainer>
 
-        <Link to={"/"}
+        <Link
+          to={"/"}
           className="btn  px-5 mb-5 mt-5"
           type="button"
           style={{ backgroundColor: "#ff6b01", color: "white" }}

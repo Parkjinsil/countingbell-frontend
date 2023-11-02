@@ -268,7 +268,7 @@ const Header = () => {
             <ul>
               <li>
                 <Link to="recentList">
-                  <span>최근본가게</span>
+                  <span>최근본식당</span>
                 </Link>
               </li>
 
@@ -289,7 +289,7 @@ const Header = () => {
                 <>
                   <li>
                     <Link to="favoriteList">
-                      <span>찜한 가게</span>
+                      <span>찜한식당</span>
                     </Link>
                   </li>
                   <li>

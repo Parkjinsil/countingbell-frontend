@@ -259,6 +259,7 @@ const Restaurant = () => {
   console.log("유저 role : " + user.role);
 
   useEffect(() => {
+    console.log(resCode);
     dispatch(asyncFindByMenuCode(resCode)); // resCode  ==> 얘 넣으면 오류남
     dispatch(asyncGetRestaurant(resCode));
     dispatch(asyncFindReviewByResCode(resCode)); // resCode로 예약가져오기
@@ -318,15 +319,7 @@ const Restaurant = () => {
                 <span className="res3 fs-6 fw-bold text-muted">
                   ㆍ리뷰 36 개
                 </span>
-                {/* <span className="pick fs-6 " style={{ paddingLeft: "10px" }}>
-                  <button onClick={onPickBtn}>
-                    <SuitHeartFill
-                      className="bi bi-suit-heart fs-5"
-                      // style={{ color: isHearted ? "red" : "#aaa" }}
-                    />{" "}
-                    {pick} 찜하기
-                  </button>
-                </span> */}
+
                 <span className="pick fs-6 " style={{ paddingLeft: "10px" }}>
                   <SuitHeartFill
                     className="bi bi-suit-heart fs-5"
@@ -490,18 +483,14 @@ const Restaurant = () => {
         <div className="tab-content">
           {activeTab === "menu" && (
             <div>
-              <section
-                className="container"
-                id="scrollspyHeading1"
-                style={{ paddingTop: "100px" }}
-              >
+              <section className="container" id="scrollspyHeading1">
                 <div
                   className="row"
                   style={{
                     borderBottom: "1px solid #ddd",
                   }}
                 >
-                  <div className="col-2 text-center">
+                  {/* <div className="col-2 text-center">
                     <StarFill
                       className="bi bi-star-fill"
                       style={{
@@ -510,36 +499,36 @@ const Restaurant = () => {
                       }}
                     />
                     인기메뉴
-                  </div>
+                  </div> */}
 
                   {/* <div className="col-2 mb-2">
-                  <img
-                    src="img/pasta.jpg"
-                    className="rounded m-1 mx-auto d-block"
-                    alt=""
-                    style={{ height: "150px", width: "150px" }}
-                  />
-                </div>
-                <div className="col-8">
-                  <span>
-                    <div
-                      className="foodname mb-3 mt-3"
-                      style={{ fontWeight: "bold" }}
-                    >
-                      토마토 파스타
-                    </div>
-                    <div
-                      className="description mb-3"
-                      style={{ lineHeight: "25px" }}
-                    >
-                      알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                      요리의 파스타 요리이다. 아브루초 주의 전통 요리로 이탈리아
-                      전역에서 널리 먹는 파스타
-                    </div>
-                    <div>11,900 원</div>
-                  </span>
-                </div> */}
-                  <>
+                    <img
+                      src="img/pasta.jpg"
+                      className="rounded m-1 mx-auto d-block"
+                      alt=""
+                      style={{ height: "150px", width: "150px" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <span>
+                      <div
+                        className="foodname mb-3 mt-3"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        토마토 파스타
+                      </div>
+                      <div
+                        className="description mb-3"
+                        style={{ lineHeight: "25px" }}
+                      >
+                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
+                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
+                        이탈리아 전역에서 널리 먹는 파스타
+                      </div>
+                      <div>11,900 원</div>
+                    </span>
+                  </div> */}
+                  <div>
                     {menus.map((menu) => (
                       <div
                         className="row"
@@ -579,7 +568,7 @@ const Restaurant = () => {
                         </div>
                       </div>
                     ))}
-                  </>
+                  </div>
                 </div>
               </section>
             </div>
@@ -591,52 +580,55 @@ const Restaurant = () => {
                 <section
                   className="container mb-4"
                   id="scrollspyHeading2"
-                  style={{ paddingTop: "100px" }}
+                  style={{ paddingTop: "30px" }}
                 >
                   <div className="container">
                     <div className="row align-items-center">
-                      <div className="col-3 text-center">
+                      {/* 여기부분! div정렬 수정 */}
+                      <div className="col-3 text-center d-flex flex-column align-items-center">
                         <h2 className="fs-1">3.8</h2>
-                        <StarFill
-                          className="bi bi-star-fill"
-                          style={{
-                            fontSize: "1.3rem",
-                            color: "#fbe94b",
-                            margin: "3px",
-                          }}
-                        />
-                        <StarFill
-                          className="bi bi-star-fill"
-                          style={{
-                            fontSize: "1.3rem",
-                            color: "#fbe94b",
-                            margin: "3px",
-                          }}
-                        />
-                        <StarFill
-                          className="bi bi-star-fill"
-                          style={{
-                            fontSize: "1.3rem",
-                            color: "#fbe94b",
-                            margin: "3px",
-                          }}
-                        />
-                        <StarFill
-                          className="bi bi-star-fill"
-                          style={{
-                            fontSize: "1.3rem",
-                            color: "#fbe94b",
-                            margin: "3px",
-                          }}
-                        />
-                        <StarFill
-                          className="bi bi-star-fill"
-                          style={{
-                            fontSize: "1.3rem",
-                            color: "#fbe94b",
-                            margin: "3px",
-                          }}
-                        />
+                        <div className="d-inline">
+                          <StarFill
+                            className="bi bi-star-fill"
+                            style={{
+                              fontSize: "1.3rem",
+                              color: "#fbe94b",
+                              margin: "3px",
+                            }}
+                          />
+                          <StarFill
+                            className="bi bi-star-fill"
+                            style={{
+                              fontSize: "1.3rem",
+                              color: "#fbe94b",
+                              margin: "3px",
+                            }}
+                          />
+                          <StarFill
+                            className="bi bi-star-fill"
+                            style={{
+                              fontSize: "1.3rem",
+                              color: "#fbe94b",
+                              margin: "3px",
+                            }}
+                          />
+                          <StarFill
+                            className="bi bi-star-fill"
+                            style={{
+                              fontSize: "1.3rem",
+                              color: "#fbe94b",
+                              margin: "3px",
+                            }}
+                          />
+                          <StarFill
+                            className="bi bi-star-fill"
+                            style={{
+                              fontSize: "1.3rem",
+                              color: "#fbe94b",
+                              margin: "3px",
+                            }}
+                          />
+                        </div>
                         <Link
                           to={`addReview`}
                           className="btn mt-3"
@@ -884,7 +876,7 @@ const Restaurant = () => {
               <section
                 className="cantainer"
                 id="scrollspyHeading3"
-                style={{ paddingTop: "100px" }}
+                style={{ paddingTop: "30px" }}
               >
                 <div className="container text-center mt-lg-0">
                   <div className="row">
@@ -903,105 +895,7 @@ const Restaurant = () => {
                     <div className="col">
                       <div className="row">
                         <div className="col-md-12">
-                          <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                            <table className="table manage-candidates-top mb-0">
-                              <thead>
-                                <tr>
-                                  <th className="fw-bold">리뷰 116건</th>
-                                  <th className="text-center fw-bold">
-                                    최신순
-                                  </th>
-                                  <th className="text-center fw-bold">
-                                    평점높은순
-                                  </th>
-                                  <th className="text-center fw-bold">
-                                    평점낮은순
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {reviews.map((review, index) => (
-                                  <tr
-                                    className="candidates-list"
-                                    key={review.reviewCode}
-                                    style={{ borderBottom: "1px solid #ddd" }}
-                                  >
-                                    <td className="title">
-                                      {/* <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/lesser_panda.jpg"
-                                        alt=""
-                                      />
-                                    </div> */}
-                                      <div className="candidate-list-details">
-                                        <div className="candidate-list-title">
-                                          <h5 className="mb-0 fw-semibold">
-                                            {review.member.name}
-                                          </h5>
-                                        </div>
-                                        <div className="candidate-list-star">
-                                          <h5>{review.reviewGrade}점</h5>
-                                          {/* <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        /> */}
-                                        </div>
-                                      </div>
-                                      <div className="candidate-list-details">
-                                        {/* <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul> */}
-                                        <div
-                                          className="text-center"
-                                          style={{
-                                            margin: "0px 10px 10px 50px",
-                                          }}
-                                        >
-                                          <img
-                                            src={
-                                              "/upload/" + review.reviewPhoto
-                                            }
-                                            className="rounded m-1"
-                                            alt=""
-                                            style={{
-                                              height: "150px",
-                                              width: "150px",
-                                            }}
-                                          />
-                                        </div>
-                                        <div
-                                          className="review"
-                                          style={{
-                                            margin: "25px 10px 5px 70px",
-                                          }}
-                                        >
-                                          {review.reviewContent}
-                                        </div>
-                                      </div>
-                                    </td>
-                                    <td className="candidate-list-favourite-time text-center">
-                                      <span className="candidate-list-time order-1">
-                                        좋아요 3
-                                      </span>
-                                    </td>
-                                    <td className="candidate-list-favourite-time text-center">
-                                      <span className="candidate-list-time order-1">
-                                        싫어요 1
-                                      </span>
-                                    </td>
-                                    <td></td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
+                          {/* <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"></div> */}
                         </div>
                       </div>
                     </div>

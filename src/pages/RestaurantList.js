@@ -24,10 +24,6 @@ const RestaurantList = () => {
 
   const ResListAPI = () => {
     dispatch(asyncGetRestaurants(page));
-    // const result = await ;
-    // const newRestaurants = result.payload; // API에서 가져온 새로운 데이터
-
-    // setRestaurant([...restaurants, ...newRestaurants]);
   };
 
   useEffect(() => {
