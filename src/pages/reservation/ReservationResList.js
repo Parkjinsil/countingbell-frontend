@@ -37,7 +37,7 @@ const ReservationResList = () => {
           <Card key={restaurant.resCode} style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
-              src={image1}
+              src={"/upload/" + restaurant?.resPicture}
               // src={restaurant.resPhoto} // 식당테이블에 사진추가해야함
             />
             <Card.Body>

@@ -521,25 +521,6 @@ const Restaurant = () => {
                 리뷰
               </a>
             </li>
-            <li
-              className={`col nav-item text-center ${activeTab === "photo" ? "active" : ""
-                }`}
-            >
-              <a
-                className="nav-link fs-3 fw-semibold"
-                href="#scrollspyHeading3"
-                style={{ color: "#868383", padding: "15px" }}
-                onClick={() => handleTabClick("photo")}
-              >
-                <img
-                  src="/img/stick2.png"
-                  alt=""
-                  height="28px"
-                  style={{ paddingTop: "5px" }}
-                />{" "}
-                사진
-              </a>
-            </li>
           </ul>
         </nav>
 
@@ -801,7 +782,7 @@ const Restaurant = () => {
                               <table className="table manage-candidates-top mb-0">
                                 <thead>
                                   <tr>
-                                    <th className="fw-bold">리뷰 116건</th>
+                                    <th className="fw-bold">전체 {reviews.length}건</th>
                                     <th className="text-center fw-bold">
                                       최신순
                                     </th>
@@ -821,13 +802,6 @@ const Restaurant = () => {
                                     style={{ borderBottom: "1px solid #ddd" }}
                                   >
                                     <td className="title">
-                                      {/* <div className="thumb">
-                                      <img
-                                        className="rounded-circle"
-                                        src="img/lesser_panda.jpg"
-                                        alt=""
-                                      />
-                                    </div> */}
                                       <div className="candidate-list-details">
                                         <div className="candidate-list-title">
                                           <h5 className="mb-0 fw-semibold">
@@ -836,22 +810,9 @@ const Restaurant = () => {
                                         </div>
                                         <div className="candidate-list-star">
                                           <h5>{review.reviewGrade}점</h5>
-                                          {/* <StarFill
-                                          className="bi bi-star-fill"
-                                          style={{
-                                            fontSize: "1.2rem",
-                                            color: "#fbe94b",
-                                            margin: "2px",
-                                          }}
-                                        /> */}
                                         </div>
                                       </div>
                                       <div className="candidate-list-details">
-                                        {/* <ul className="candidate-list-favourite-time text-center">
-                                        <li className="menu">토마토 파스타</li>
-                                        <li className="menu">페퍼로니 피자</li>
-                                        <li className="data">2023.8.23</li>
-                                      </ul> */}
                                         <div
                                           className="text-center"
                                           style={{
@@ -868,24 +829,11 @@ const Restaurant = () => {
                                             }}
                                           />
                                         </div>
-                                        <div
-                                          className="review"
-                                          style={{
-                                            margin: "25px 10px 5px 70px",
-                                          }}
-                                        >
-                                          {review.reviewContent}
-                                        </div>
                                       </div>
                                     </td>
                                     <td className="candidate-list-favourite-time text-center">
                                       <span className="candidate-list-time order-1">
-                                        좋아요 3
-                                      </span>
-                                    </td>
-                                    <td className="candidate-list-favourite-time text-center">
-                                      <span className="candidate-list-time order-1">
-                                        싫어요 1
+                                        {review.reviewContent}
                                       </span>
                                     </td>
                                     <td></td>
@@ -904,39 +852,6 @@ const Restaurant = () => {
             )}
           </StyleReview>
 
-          {activeTab === "photo" && (
-            <div>
-              <section
-                className="cantainer"
-                id="scrollspyHeading3"
-                style={{ paddingTop: "30px" }}
-              >
-                <div className="container text-center mt-lg-0">
-                  <div className="row">
-                    {imagePaths.map((path, index) => (
-                      <div className="col" key={index}>
-                        <img src={path} alt={`Album ${index + 1}`} />
-                      </div>
-                    ))}
-                  </div>
-
-                  <div
-                    className="eee"
-                    style={{ borderTop: "2px solid #ddd", marginTop: "50px" }}
-                  ></div>
-                  <div className="container mt-3 mb-4">
-                    <div className="col">
-                      <div className="row">
-                        <div className="col-md-12">
-                          {/* <div className="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"></div> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          )}
         </div>
       </StyleNav>
     </div>
