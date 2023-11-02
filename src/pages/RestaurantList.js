@@ -66,6 +66,7 @@ const RestaurantList = () => {
                     fontSize: "1.5rem",
                     fontWeight: "bold",
                     display: "block",
+                    paddingBottom: "5px",
                   }}
                 >
                   {restaurant.resName}
@@ -73,8 +74,9 @@ const RestaurantList = () => {
                 <span
                   className="restaurant-addr"
                   style={{
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                     display: "block",
+                    paddingBottom: "5px",
                   }}
                 >
                   {restaurant.resAddr}
@@ -88,13 +90,17 @@ const RestaurantList = () => {
                     margin: "3px",
                   }}
                 />
-                <span style={{ fontSize: "1.3rem" }}>
+                <span style={{ fontSize: "1rem" }}>
                   평점
                   {/* {restaurant.location.rating} */}
                 </span>
                 <span
                   className="last-line"
-                  style={{ fontSize: "1.1rem", display: "block" }}
+                  style={{
+                    fontSize: "1.1rem",
+                    display: "block",
+                    paddingBottom: "5px",
+                  }}
                 >
                   {restaurant.food.foodType}
                 </span>

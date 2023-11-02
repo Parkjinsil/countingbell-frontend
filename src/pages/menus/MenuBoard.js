@@ -11,6 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import {
   asyncFindByMenuCode,
+  asyncGetMenu,
   asyncGetMenus,
   asyncUpdateMenu,
 } from "../../store/menuSlice";
@@ -21,7 +22,7 @@ const MenuBoard = () => {
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
   const [menuCode, setMenuCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
 
@@ -75,7 +76,7 @@ const MenuBoard = () => {
 
     console.log(formData);
 
-    dispatch(asyncUpdateMenu(formData));
+    await dispatch(asyncUpdateMenu(formData));
   };
 
   return (

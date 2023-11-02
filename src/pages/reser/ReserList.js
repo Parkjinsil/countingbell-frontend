@@ -9,31 +9,31 @@ import { useNavigate, useParams } from "react-router-dom";
 import { asyncFindReserById } from "../../store/reserSlice";
 
 const ReserList = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const resers = useSelector((state) => state.reser.reserList);
+  const resers = useSelector((state) => state.reser.reserList);
 
-    useEffect(() => {
-        dispatch(asyncFindReserById(id));
-    }, []);
+  useEffect(() => {
+    dispatch(asyncFindReserById(id));
+  }, []);
 
-    // 메뉴 삭제
-    const onDelete = async (reserCode) => {
-      try {
-        await deleteReser(reserCode);
-        alert("예약을 취소했습니다.");
+  // 메뉴 삭제
+  const onDelete = async (reserCode) => {
+    try {
+      await deleteReser(reserCode);
+      alert("예약을 취소했습니다.");
 
-        // 취소 후 화면을 새로 고침
-        window.location.reload();
-      } catch(error) {
-        alert(`예약 취소에 실패했습니다. 에러: ${error.message}`);
-      }
-    };
+      // 취소 후 화면을 새로 고침
+      window.location.reload();
+    } catch (error) {
+      alert(`예약 취소에 실패했습니다. 에러: ${error.message}`);
+    }
+  };
 
-    return (
+  return (
     <div className="container my-5">
       <div
         className="position-relative p-5  bg-body border border-dashed rounded-5"
@@ -42,8 +42,7 @@ const ReserList = () => {
         <div
           className="input-group mb-3"
           style={{ width: "300px", marginLeft: "900px" }}
-        >
-        </div>
+        ></div>
         <Container>
           <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
@@ -63,14 +62,16 @@ const ReserList = () => {
                   <td>{reser.reserCode}</td>
                   <td>{reser.restaurant.resName}</td>
                   <td>{reser.reserPer}</td>
-                  <td>{reser.reserDate} {reser.reserTime}</td>
+                  <td>
+                    {reser.reserDate} {reser.reserTime}
+                  </td>
                   <td>
                     <button
                       className="btn btn-outline-danger"
                       onClick={() => onDelete(reser.reserCode)}
                     >
                       취소
-                    </button>                  
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -79,7 +80,7 @@ const ReserList = () => {
         </Container>
       </div>
     </div>
-    )
+  );
 };
 
 export default ReserList;

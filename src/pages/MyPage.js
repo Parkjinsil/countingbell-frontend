@@ -121,7 +121,7 @@ const MyPageGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding-top: 30px;
 
-  a {
+  button {
     width: 100%;
     height: 100%;
     display: flex;
@@ -134,19 +134,19 @@ const MyPageGrid = styled.div`
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.12);
     border-radius: 10px;
   }
-  a img {
+  button img {
     width: 100px;
-    height: 50px;
+    height: 100px;
     padding-bottom: 10px;
   }
-  a span {
+  button span {
     font-size: 17px;
     padding-bottom: 5px;
   }
-  a:visited {
+  button:visited {
     color: black;
   }
-  a:hover {
+  button:hover {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12);
   }
 `;
@@ -236,18 +236,18 @@ const MyPage = () => {
                   <img src={image55} alt="" />
                   <span>내 식당 관리</span>
                 </button>
-                <a href="">
+                <button>
                   <img src={image66} alt="" />
                   <span>예약 관리</span>
-                </a>
-                <a href="">
+                </button>
+                <button>
                   <img src={image77} alt="" />
                   <span>리뷰 관리</span>
-                </a>
-                <a href="">
+                </button>
+                <button>
                   <img src={image100} alt="" />
                   <span>찜 관리</span>
-                </a>
+                </button>
               </>
             ) : (
               <>
@@ -255,27 +255,13 @@ const MyPage = () => {
                   <img src={image55} alt="" />
                   <span>예약내역</span>
                 </button>
-                <a href="">
-                  <img src={image66} alt="" />
-                  <span>줄서기</span>
-                </a>
                 <button onClick={onReviewList}>
                   <img src={image77} alt="" />
                   <span>리뷰관리</span>
                 </button>
-                <a href="">
-                  <img src={image88} alt="" />
-                  <span>포인트 </span>
-                  <span>14원</span>
-                </a>
-                <a href="">
-                  <img src={image99} alt="" />
-                  <span>쿠폰함 </span>
-                  <span>3장</span>
-                </a>
                 <button onClick={onMyPicks}>
                   <img src={image100} alt="" />
-                  <span>찜</span>
+                  <span>찜관리</span>
                 </button>
               </>
             )}

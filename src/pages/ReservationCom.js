@@ -59,26 +59,28 @@ const ReservationCom = () => {
 
         <CenteredContainer>
           <table>
-            <tr>
-              <td width="100px" height="22px">
-                매장명 :
-              </td>
-              <td>{restaurant?.resName}</td>
-            </tr>
-            <tr>
-              <td width="100px" height="22px">
-                인원 :
-              </td>
-              <td>{reserPer}</td>
-            </tr>
-            <tr>
-              <td width="100px" height="22px">
-                예약일시 :
-              </td>
-              <td>
-                {reserDate} {reserTime}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td width="100px" height="22px">
+                  매장명 :
+                </td>
+                <td>{restaurant?.resName}</td>
+              </tr>
+              <tr>
+                <td width="100px" height="22px">
+                  인원 :
+                </td>
+                <td>{reserPer}</td>
+              </tr>
+              <tr>
+                <td width="100px" height="22px">
+                  예약일시 :
+                </td>
+                <td>
+                  {reserDate} {reserTime}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </CenteredContainer>
 

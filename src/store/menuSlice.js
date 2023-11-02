@@ -111,5 +111,11 @@ const menuSlice = createSlice({
 });
 
 export default menuSlice;
-export { asyncAddMenu, asyncGetMenus, asyncUpdateMenu, asyncFindByMenuCode };
+export {
+  asyncAddMenu,
+  asyncGetMenu,
+  asyncGetMenus,
+  asyncUpdateMenu,
+  asyncFindByMenuCode,
+};
 export const { setMenuList, setSelectedMenu } = menuSlice.actions;

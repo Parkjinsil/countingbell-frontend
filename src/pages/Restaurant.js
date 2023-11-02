@@ -556,44 +556,6 @@ const Restaurant = () => {
                     borderBottom: "1px solid #ddd",
                   }}
                 >
-                  {/* <div className="col-2 text-center">
-                    <StarFill
-                      className="bi bi-star-fill"
-                      style={{
-                        fontSize: "1.3rem",
-                        color: "#fbe94b",
-                      }}
-                    />
-                    인기메뉴
-                  </div> */}
-
-                  {/* <div className="col-2 mb-2">
-                    <img
-                      src="img/pasta.jpg"
-                      className="rounded m-1 mx-auto d-block"
-                      alt=""
-                      style={{ height: "150px", width: "150px" }}
-                    />
-                  </div>
-                  <div className="col-8">
-                    <span>
-                      <div
-                        className="foodname mb-3 mt-3"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        토마토 파스타
-                      </div>
-                      <div
-                        className="description mb-3"
-                        style={{ lineHeight: "25px" }}
-                      >
-                        알리오(마늘)와 올리오(기름 특히 올리브유)는 이탈리아
-                        요리의 파스타 요리이다. 아브루초 주의 전통 요리로
-                        이탈리아 전역에서 널리 먹는 파스타
-                      </div>
-                      <div>11,900 원</div>
-                    </span>
-                  </div> */}
                   <div>
                     {menus.map((menu) => (
                       <div

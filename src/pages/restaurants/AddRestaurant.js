@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncAddRestaurant } from "../../store/restaurantSlice";
+import { asyncGetLocations } from "../../store/locationSlice";
+import { asyncGetFoods } from "../../store/foodSlice";
 
 const Container = styled.div`
   display: flex;
@@ -98,6 +100,14 @@ const AddRestaurant = () => {
   const navigate = useNavigate();
   const [resPicture, setPicture] = useState(null);
 
+  const locations = useSelector((state) => state.location.locationList);
+  const foods = useSelector((state) => state.food.foodList);
+
+  useEffect(() => {
+    dispatch(asyncGetLocations(1));
+    dispatch(asyncGetFoods(1));
+  }, [dispatch]);
+
   const [formData, setFormData] = useState({
     resName: "",
     resAddr: "",
@@ -157,7 +167,7 @@ const AddRestaurant = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: "90px" }}>
       <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
         <Wrapper>
           <Title>
@@ -260,19 +270,14 @@ const AddRestaurant = () => {
                 <label>
                   <select id="localCode" value={localCode} onChange={onChange}>
                     <option>지역</option>
-                    <option value="1">압구정/청담</option>
-                    <option value="2">이태원/한남</option>
-                    <option value="3">부산</option>
-                    <option value="4">성수</option>
-                    <option value="5">광화문/종로</option>
-                    <option value="6">강남/역삼</option>
-                    <option value="7">합정/망원</option>
-                    <option value="8">홍대/신촌</option>
-                    <option value="9">여의도</option>
-                    <option value="10">북촌/삼청</option>
-                    <option value="11">을지로</option>
-                    <option value="12">제주</option>
-                    <option value="13">대구</option>
+                    {locations
+                      .slice()
+                      .reverse()
+                      .map((location, index) => (
+                        <option key={index} value={location.localCode}>
+                          {location.localName}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
@@ -282,10 +287,15 @@ const AddRestaurant = () => {
                 <p>음식 종류</p>
                 <label>
                   <select id="foodCode" value={foodCode} onChange={onChange}>
-                    <option value="1">한식</option>
-                    <option value="2">일식</option>
-                    <option value="3">중식</option>
-                    <option value="4">양식</option>
+                    <option>음식 종류</option>
+                    {foods
+                      .slice()
+                      .reverse()
+                      .map((food, index) => (
+                        <option key={index} value={food.foodCode}>
+                          {food.foodType}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>

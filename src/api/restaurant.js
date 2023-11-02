@@ -82,6 +82,7 @@ export const searchResByMenuName = async (keyword) => {
 // 식당명으로 식당 검색
 export const searchResByResName = async (keyword) => {
   let url = `restaurant/search/${keyword}`;
+  return await instance.get(url);
 };
 
 // 식당1개에 따른 찜

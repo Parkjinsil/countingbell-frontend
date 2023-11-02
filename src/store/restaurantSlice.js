@@ -193,7 +193,8 @@ const restaurantSlice = createSlice({
     builder
       .addCase(asyncSearchResByResName.fulfilled, (state, action) => {
         state.restaurantList = action.payload;
-        // console.log("엑스트라리듀서:", state.locationList);
+        console.log("식당이름으로 식당찾기?:", state.locationList);
+
         return state;
       })
       .addCase(asyncSearchResByResName.rejected, (state, action) => {
