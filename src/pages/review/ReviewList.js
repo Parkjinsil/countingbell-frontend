@@ -32,12 +32,12 @@ const ReviewList = () => {
   const onUpdate = async (e) => {
     e.preventDefault();
 
-    console.log("리뷰코드"+reviewCode);
-    console.log("평점"+reviewGrade);
-    console.log("사진"+reviewPhoto);
-    console.log("내용"+reviewContent);
-    console.log("아이디"+id);
-    console.log("식당코드"+resCode);
+    // console.log("리뷰코드"+reviewCode);
+    // console.log("평점"+reviewGrade);
+    // console.log("사진"+reviewPhoto);
+    // console.log("내용"+reviewContent);
+    // console.log("아이디"+id);
+    // console.log("식당코드"+resCode);
 
     const formData = new FormData();
 
@@ -55,6 +55,9 @@ const ReviewList = () => {
     try {
       await deleteReview(reviewCode);
       alert("리뷰를 삭제했습니다.");
+
+        // 취소 후 화면을 새로 고침
+        window.location.reload();
     } catch (error) {
       // console.log(reviewCode);
       alert(`리뷰 삭제에 실패했습니다. 에러: ${error.message}`);
@@ -76,8 +79,8 @@ const ReviewList = () => {
           <table className="table table-hover" style={{ marginTop: "30px" }}>
             <thead>
               <tr>
-                <th>리뷰코드</th>
                 <th>식당명</th>
+                <th>평점</th>
                 <th>이미지</th>
                 <th>리뷰내용</th>
                 <th>작성날짜</th>
@@ -91,8 +94,8 @@ const ReviewList = () => {
             >
               {reviews.map((review, index) => (
                 <tr key={review.reviewCode} style={{ lineHeight: "150px" }}>
-                  <td>{review.reviewCode}</td>
                   <td>{review.restaurant.resName}</td>
+                  <td>{review.reviewGrade}점</td>
                   <td style={{ alignItems: "center" }}>
                     <img
                       src={"/upload/" + review.reviewPhoto}
@@ -206,15 +209,20 @@ const ReviewList = () => {
                                 >
                                   평점 :
                                 </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  id="reviewGrade"
-                                  value={reviewGrade}
-                                  onChange={(e) => {
-                                    setReviewGrade(e.target.value);
-                                  }}
-                                />
+                                <select
+                                className="form-control"
+                                id="reviewGrade"
+                                value={reviewGrade}
+                                onChange={(e) => {
+                                  setReviewGrade(e.target.value);
+                                }}
+                                >
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
                               </div>
 
                               <div>

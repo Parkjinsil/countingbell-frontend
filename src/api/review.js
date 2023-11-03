@@ -15,7 +15,3 @@ export const deleteReview = async (reviewCode) => {
     return await instance.delete("review/"+reviewCode);
 }
 
-// 평점 ?인 리뷰 조회
-export const reviewByGrade = async (reviewGrade) => {
-    return await instance.get("review/"+reviewGrade+"/grade");
-}

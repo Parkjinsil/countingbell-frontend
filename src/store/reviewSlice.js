@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    addReview, updateReview, reviewByGrade
+    addReview, updateReview
 } from "../api/review";
 import { findReviewById } from "../api/user";
 import { findReviewByResCode } from "../api/restaurant";
@@ -41,14 +41,6 @@ const asyncUpdateReview = createAsyncThunk(
     }
 )
 
-// 평점 ?인 리뷰 조회
-const asyncReviewByGrade = createAsyncThunk(
-    "reviewSlice/asyncReviewByGrade",
-    async (reviewGrade) => {
-        const result = await reviewByGrade(reviewGrade);
-        return result.data;
-    }
-)
 
 const reviewSlice = createSlice({
     name: "reviewSlice",
@@ -93,15 +85,9 @@ const reviewSlice = createSlice({
                 alert("리뷰 수정에 실패했습니다.");
             });
 
-        // 평점 ?인 리뷰 조회
-        builder
-            .addCase(asyncReviewByGrade.fulfilled, (state, action) => {
-                state.reviewList = action.payload;
-                return state;
-            })
     }
 });
 
 export default reviewSlice;
-export { asyncAddReview, asyncFindReviewById, asyncFindReviewByResCode, asyncUpdateReview, asyncReviewByGrade };
+export { asyncAddReview, asyncFindReviewById, asyncFindReviewByResCode, asyncUpdateReview };
 export const { setReviewList, setSelectedReview } = reviewSlice.actions;
