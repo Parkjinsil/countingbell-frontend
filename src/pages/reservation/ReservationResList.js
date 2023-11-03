@@ -33,8 +33,8 @@ const ReservationResList = () => {
       }}
     >
       {restaurantList.map((restaurant) => (
-        <Link to={`/restaurant/${restaurant.resCode}`}>
-          <Card key={restaurant.resCode} style={{ width: "18rem" }}>
+        <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
+          <Card style={{ width: "18rem" }}>
             <Card.Img
               variant="top"
               src={"/upload/" + restaurant?.resPicture}
@@ -42,37 +42,49 @@ const ReservationResList = () => {
             />
             <Card.Body>
               <Card.Text style={{}}>
-                <div>
-                  <span
-                    className="restaurant-name"
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {restaurant.resName}
-                  </span>
-                </div>
-
-                <div>
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#fbe94b",
-                      margin: "3px",
-                    }}
-                  />
-                  <span style={{ fontSize: "1.3rem" }}>
-                    평점
-                    {/* {location.rating} */}
-                  </span>
-                </div>
-                <div>
-                  <span className="last-line" style={{ fontSize: "1.1rem" }}>
-                    {restaurant.food.foodType}
-                  </span>
-                </div>
+              <span
+                  className="restaurant-name"
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    display: "block",
+                    paddingBottom: "5px",
+                  }}
+                >
+                  {restaurant.resName}
+                </span>
+                <span
+                  className="restaurant-addr"
+                  style={{
+                    fontSize: "1rem",
+                    display: "block",
+                    paddingBottom: "5px",
+                  }}
+                >
+                  {restaurant.resAddr}
+                </span>
+                <StarFill
+                  className="bi bi-star-fill"
+                  style={{
+                    fontSize: "1.3rem",
+                    color: "#FBE94B",
+                    margin: "3px",
+                  }}
+                />
+                <span style={{ fontSize: "1rem" }}>
+                  평점
+                  {/* {restaurant.location.rating} */}
+                </span>
+                <span
+                  className="last-line"
+                  style={{
+                    fontSize: "1.1rem",
+                    display: "block",
+                    paddingBottom: "5px",
+                  }}
+                >
+                  {restaurant.food.foodType}
+                </span>
               </Card.Text>
             </Card.Body>
           </Card>
