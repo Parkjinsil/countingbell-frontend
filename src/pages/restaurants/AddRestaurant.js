@@ -274,7 +274,7 @@ const AddRestaurant = () => {
                   <select id="localCode" value={localCode} onChange={onChange}>
                     <option>지역</option>
                     {locations.slice().reverse().map((location, index) => (
-                      <option option key={index} value={location.localCode}>
+                      <option key={index} value={location.localCode}>
                         {location.localName}
                       </option>
                     ))}
@@ -289,7 +289,7 @@ const AddRestaurant = () => {
                   <select id="foodCode" value={foodCode} onChange={onChange}>
                     <option>음식 종류</option>
                     {foods.slice().reverse().map((food, index) => (
-                      <option option key={index} value={food.foodCode}>
+                      <option key={index} value={food.foodCode}>
                         {food.foodType}
                       </option>
                     ))}
