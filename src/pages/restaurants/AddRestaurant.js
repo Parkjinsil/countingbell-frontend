@@ -171,7 +171,11 @@ const AddRestaurant = () => {
 
   return (
     <Container>
-      <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
+      <form
+        className="addRestaurantForm"
+        onSubmit={addRestaurantHandler}
+        style={{ paddingTop: "320px" }}
+      >
         <Wrapper>
           <Title>
             <h1>식당 등록</h1>
@@ -272,12 +276,15 @@ const AddRestaurant = () => {
                 <p>지역</p>
                 <label>
                   <select id="localCode" value={localCode} onChange={onChange}>
-                    <option>지역</option>
-                    {locations.slice().reverse().map((location, index) => (
-                      <option option key={index} value={location.localCode}>
-                        {location.localName}
-                      </option>
-                    ))}
+                    <option value="">지역</option>
+                    {locations
+                      .slice()
+                      .reverse()
+                      .map((location, index) => (
+                        <option key={index} value={location.localCode}>
+                          {location.localName}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
@@ -287,12 +294,15 @@ const AddRestaurant = () => {
                 <p>음식 종류</p>
                 <label>
                   <select id="foodCode" value={foodCode} onChange={onChange}>
-                    <option>음식 종류</option>
-                    {foods.slice().reverse().map((food, index) => (
-                      <option option key={index} value={food.foodCode}>
-                        {food.foodType}
-                      </option>
-                    ))}
+                    <option value="">음식 종류</option>
+                    {foods
+                      .slice()
+                      .reverse()
+                      .map((food, index) => (
+                        <option key={index} value={food.foodCode}>
+                          {food.foodType}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
