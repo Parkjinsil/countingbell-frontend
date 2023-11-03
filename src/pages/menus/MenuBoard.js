@@ -148,8 +148,8 @@ const MenuBoard = () => {
                       aria-labelledby={`exampleModalLabel${menu.menuCode}`}
                       aria-hidden="true"
                     >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
+                      <div className="modal-dialog ">
+                        <div className="modal-content ">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
                               메뉴 수정하기

@@ -40,7 +40,6 @@ const ReserveHeader = styled.div`
   }
 `;
 
-
 const ReserveMain = styled.div`
   display: flex;
   margin: 0 auto;
@@ -117,70 +116,68 @@ const Reservation = () => {
     const foodCode = food.foodCode;
 
     setSelectedFoodCode(foodCode);
-
   };
 
   const takeValueclick2 = (location) => {
     const localCode = location.localCode;
 
     setSelectedLocalCode(localCode);
-  }
+  };
 
   const handleReservation = () => {
     const foodCode = selectedFoodCode;
     const localCode = selectedLocalCode;
 
-    console.log("foodCode : " + foodCode, 
-                "localCode : " + localCode);
+    console.log("foodCode : " + foodCode, "localCode : " + localCode);
     if (foodCode && localCode) {
-      
       navigate(`/reservationResList/${foodCode}/${localCode}`);
-    } 
-   
-  else {
+    } else {
       navigate("/reservation");
     }
-  }
+  };
 
   return (
     <Wrap id="wrap">
       <Reserve id="reserve">
         <Container>
-        <ReserveHeader className="reserve-header">
-          <div>
-            <img src={image1} alt="" />
-            <span>식당예약</span>
+          <ReserveHeader className="reserve-header">
+            <div>
+              <img src={image1} alt="" />
+              <span>식당예약</span>
+            </div>
+          </ReserveHeader>
+          <div id="reserve-center">
+            <ReserveMain className="reserve-main">
+              <ReserveMainType className="reserve-main-type" id="food-type">
+                <span>종류</span>
+                {foods
+                  .slice()
+                  .reverse()
+                  .map((food, index) => (
+                    <button
+                      key={food.foodCode}
+                      onClick={() => takeValueclick1(food)}
+                    >
+                      {food.foodType}
+                    </button>
+                  ))}
+              </ReserveMainType>
+              <ReserveMainType className="reserve-main-type" id="location">
+                <span>위치</span>
+                {locations.map((location, index) => (
+                  <button
+                    key={location.localCode}
+                    onClick={() => takeValueclick2(location)}
+                  >
+                    {location.localName}
+                  </button>
+                ))}
+              </ReserveMainType>
+            </ReserveMain>
+            <ReserveCenterFooter className="reserve-center-footer">
+              <button onClick={handleReservation}>예약하러 가기</button>
+            </ReserveCenterFooter>
           </div>
-        </ReserveHeader>
-        <div id="reserve-center">
-          <ReserveMain className="reserve-main">
-            <ReserveMainType className="reserve-main-type" id="food-type">
-              <span>종류</span>
-              {foods.slice().reverse().map((food, index) => (
-                <button
-                  key={food.foodCode}
-                  onClick={() => takeValueclick1(food)}
-                >
-                  {food.foodType}
-                </button>
-              ))}
-            </ReserveMainType>
-            <ReserveMainType className="reserve-main-type" id="location">
-              <span>위치</span>
-              {locations.map((location, index) => (
-                <button 
-                key={location.localCode}
-                onClick={() => takeValueclick2(location)}
-                >
-                  {location.localName}
-                </button>
-              ))}
-            </ReserveMainType>
-          </ReserveMain>
-          <ReserveCenterFooter className="reserve-center-footer">
-            <button onClick={handleReservation}>예약하러 가기</button>
-          </ReserveCenterFooter>
-        </div>
         </Container>
       </Reserve>
     </Wrap>
