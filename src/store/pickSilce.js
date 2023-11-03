@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addPick, delPick, putPick, getTotalPick, getPick } from "../api/Pick";
 
-let selectPage = 0;
+// let selectPage = 0;
 
 const asyncAddPick = createAsyncThunk(
   "pickSlice/asyncAddPick",
@@ -34,6 +34,7 @@ const asyncUpdatePick = createAsyncThunk(
 const asyncViewTotalPick = createAsyncThunk(
   "pickSilce/asyncViewTotalPick",
   async (page) => {
+    // selectPage = page;
     const result = await getTotalPick(page);
     return result.data;
   }
@@ -107,18 +108,21 @@ const pickSlice = createSlice({
         state.loading = false;
       })
       .addCase(asyncViewTotalPick.fulfilled, (state, action) => {
-        if (selectPage > 1) {
-          // 2페이지, 3페이지, ....
-          state.resPicksList = [...state.resPicksList, ...action.payload];
-        } else {
-          state.resPicksList = action.payload;
-        }
-        console.log("엑스트라리듀서:", state.resPicksList);
-        return state;
-      })
-      .addCase(asyncViewTotalPick.pending, (state) => {
-        state.loading = true;
+        state.resPicksList = action.payload;
       });
+    // .addCase(asyncViewTotalPick.fulfilled, (state, action) => {
+    //   if (selectPage > 1) {
+    //     // 2페이지, 3페이지, ....
+    //     state.resPicksList = [...state.resPicksList, ...action.payload];
+    //   } else {
+    //     state.resPicksList = action.payload;
+    //   }
+    //   console.log("엑스트라리듀서:", state.resPicksList);
+    //   return state;
+    // })
+    // .addCase(asyncViewTotalPick.pending, (state) => {
+    //   state.loading = true;
+    // });
 
     builder
       .addCase(asyncViewPick.rejected, (state, action) => {

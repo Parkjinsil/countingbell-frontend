@@ -75,7 +75,8 @@ const discountSlice = createSlice({
     loading: false,
     discountList: [],
     selectedDiscount: null,
-    disList: [], // disList 초기화 (빈 배열로 초기화)
+    disList: [],
+    discountsList: [],
   },
   reducers: {
     resetState: (state) => {
@@ -91,6 +92,9 @@ const discountSlice = createSlice({
     setSelectedDiscount: (state, action) => {
       state.selectedDiscount = action.payload; // 선택한 할인 정보를 업데이트
     },
+    discountsList: (state, action) => {
+      state.discountsList = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // 할인 추가 액션 성공,실패,로딩시 상태 업데이트
@@ -104,6 +108,7 @@ const discountSlice = createSlice({
       .addCase(asyncAddDiscount.fulfilled, (state, action) => {
         state.success = "할인이 성공적으로 등록되었습니다.";
         state.data = action.payload;
+        state.discountsList = action.payload;
         state.loading = false;
       })
       // 액션이 아직 처리중일 때의 상태
@@ -119,6 +124,7 @@ const discountSlice = createSlice({
       })
       .addCase(asyncViewDiscounts.fulfilled, (state, action) => {
         state.data = action.payload;
+        state.discountsList = action.payload;
         state.loading = false;
       })
       .addCase(asyncViewDiscounts.pending, (state) => {

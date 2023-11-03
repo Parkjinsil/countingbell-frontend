@@ -186,12 +186,12 @@ const Home = () => {
             <img src={image4} alt="위치별" className="category-image" />
             <span className="category-text">위치별</span>
           </Link>
-          <a href="/restaurantList" className="category-link">
+          <Link to="/resPicksList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="인기순" className="category-image" />
               <span className="category-text">인기순</span>
             </span>
-          </a>
+          </Link>
           <Link to="/foodList" className="category-link">
             <span className="category-content">
               <img src={image4} alt="음식별" className="category-image" />
