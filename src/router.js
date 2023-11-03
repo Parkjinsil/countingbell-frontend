@@ -286,16 +286,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "discountboard",
-  //   element: <Layout header={<Header2 />} />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <DiscountBoard />,
-  //     },
-  //   ],
-  // },
+  {
+    path: "discountboard",
+    element: <Layout header={<Header2 />} />,
+    children: [
+      {
+        index: true,
+        element: <DiscountBoard />,
+      },
+    ],
+  },
   {
     path: "userPicksList/:id/picks",
     element: <Layout header={<Header2 />} />,

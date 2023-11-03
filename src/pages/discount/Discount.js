@@ -295,6 +295,10 @@ const Discount = () => {
                       </Form.Group>
                     </Form>
                     <div className="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-3 mt-5">
+                      {discountError && <p>{discountError}</p>}
+
+                      {discountSuccess && <p>{discountSuccess}</p>}
+
                       {discounts.map((discount) => (
                         <div key={discount.disCode}>
                           <P>할인 코드: {discount.disCode}</P>

@@ -12,12 +12,9 @@ import {
   updatePick,
   deletePick,
   searchResByResName,
-  updatePick,
-  deletePick,
   fetchUserPicks,
   resPickList,
 } from "../api/restaurant";
-import { updatePick , deletePick} from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
   "restaurantSlice/asyncAddRestaurant",
@@ -35,7 +32,7 @@ const asyncFindReviewByResCode = createAsyncThunk(
     const result = await findReviewByResCode(resCode);
     return result.data;
   }
-)
+);
 let selectPage = 0;
 
 // 식당 전체 가져오기
@@ -266,7 +263,7 @@ const restaurantSlice = createSlice({
     builder.addCase(asyncFindReviewByResCode.fulfilled, (state, action) => {
       state.reviewList = action.payload;
       return state;
-    })
+    });
 
     // 찜추가
     builder

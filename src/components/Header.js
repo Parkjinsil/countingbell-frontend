@@ -151,7 +151,7 @@ const HeadMenu = styled.div`
         background-color: #fcf1f1;
         padding-right: 10px;
         padding-left: 7px;
-        width: 700px;
+        width: 600px;
       }
 
       #select {
@@ -288,7 +288,7 @@ const Header = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="favoriteList">
+                    <Link to="/userPicksList/${user.id}/picks">
                       <span>찜한식당</span>
                     </Link>
                   </li>
@@ -347,16 +347,11 @@ const Header = () => {
                 <span>빠른예약</span>
               </a>
             </li>
-            {/* <li>
-              <a href="#">
-                <span>EVENT</span>
-              </a>
-            </li>
             <li>
-              <a href="#">
-                <span>고객센터</span>
-              </a>
-            </li> */}
+              <Link to={`discountboard`}>
+                <span>할인정보</span>
+              </Link>
+            </li>
             <li>
               <Link to={`myPage/${user.id}`}>
                 <span>마이페이지</span>

@@ -186,23 +186,16 @@ const MyPage = () => {
 
   const onReserList = () => {
     navigate(`/ReserList/${id}`);
-  }
+  };
 
   const onReviewList = () => {
     navigate(`/ReviewList/${id}`);
-  }
+  };
   // 내찜목록
   const onMyPicks = () => {
     console.log("id 어떻게 보내지? : " + id);
     navigate(`/userPicksList/${user.id}/picks`);
   };
-
-  useEffect(() => {
-    const save = localStorage.getItem("user");
-    if (Object.keys(user).length === 0 && save !== null) {
-      dispatch(userSave(JSON.parse(save)));
-    }
-  }, []);
 
   return (
     <Wrap id="wrap">

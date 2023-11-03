@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
-import { StarFill } from "react-bootstrap-icons";
+import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { asyncFetchUserPicks } from "../../store/restaurantSlice";
@@ -37,11 +37,11 @@ const UserPicksList = () => {
             to={`/restaurant/${restaurant.restaurant.resCode}`}
             key={restaurant?.restaurant.resCode}
           >
-            <Card style={{ width: "18rem" }}>
+            <Card style={{ width: "250px", height: "400px" }}>
               <Card.Img
                 variant="top"
                 src={"/upload/" + restaurant?.restaurant?.resPicture}
-                style={{ height: "200px" }}
+                style={{ height: "60%" }}
               />
               <Card.Body>
                 <Card.Text>
@@ -73,6 +73,15 @@ const UserPicksList = () => {
                   >
                     {restaurant.restaurant.food.foodType}
                   </span>
+                  <div style={{ paddingLeft: "180px" }}>
+                    <span>
+                      <SuitHeartFill
+                        className="bi bi-suit-heart fs-5"
+                        style={{ color: "red" }}
+                      />{" "}
+                      {restaurant.restaurant.resPicks}
+                    </span>
+                  </div>
                 </Card.Text>
               </Card.Body>
             </Card>

@@ -17,6 +17,7 @@ export const putPick = async (data) => {
 };
 
 export const getTotalPick = async (page) => {
+  console.log("axios 몇페이지? " + page);
   let url = `public/pick?page=${page}`;
   return await instance.get(url);
 };
