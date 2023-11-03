@@ -473,7 +473,7 @@ const Restaurant = () => {
               </tbody>
               <tfoot>
                 <tr>
-                  <td className="align-top" colspan="2" align="left" >{restaurant?.resDesc}ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </td>
+                  <td className="align-top" colSpan="2" align="left" >{restaurant?.resDesc}ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </td>
                 </tr>
                 <tr>
                   <td colSpan="4">
@@ -489,7 +489,7 @@ const Restaurant = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="2" width="75" align="right">
+                  <td colSpan="2" width="75" align="right">
                     {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
                       user.role === "관리자" ? (
