@@ -355,7 +355,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "addRestaurant",
+    path: "addRestaurant/:id",
     children: [
       {
         index: true,
