@@ -9,12 +9,10 @@ import { useEffect } from "react";
 import { userSave, userLogout } from "../store/userSlice";
 import { asyncSearchResByMenuName } from "../store/restaurantSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 const HeaderContainer = styled.div`
   width: 100vw;
   display: inline-block;
 `;
-
 const HeadTopContainer = styled.div`
   position: fixed;
   left: 0;
@@ -23,7 +21,6 @@ const HeadTopContainer = styled.div`
   width: 100vw;
   background: #ff5e33;
 `;
-
 const HeadLogoContainer = styled.div`
   align-items: center;
   justify-content: center;
@@ -33,7 +30,6 @@ const HeadLogoContainer = styled.div`
   margin-top: 20px;
   background-color: white;
 `;
-
 const HeadLogo = styled.div`
   display: flex;
   img {
@@ -53,7 +49,6 @@ const HeadLogo = styled.div`
     text-shadow: 2px 2px 3px rgb(66, 61, 61);
   }
 `;
-
 const HeadRight = styled.div`
   position: absolute;
   right: 0;
@@ -61,39 +56,32 @@ const HeadRight = styled.div`
   line-height: 80px;
   overflow: hidden;
   white-space: nowrap;
-
   li {
     display: inline-block;
     font-family: "omyu_pretty";
     font-size: 20px;
     line-height: 35px;
     padding: 0 15px;
-
     a {
       text-decoration: none;
       color: rgb(255, 94, 51, 0.7);
-
       &:hover {
         color: #ff5e33;
       }
     }
-
     button {
       border: none;
       color: rgb(255, 94, 51, 0.7);
       background-color: white;
-
       &:hover {
         color: #ff5e33;
       }
     }
   }
-
   @media screen and (max-width: 1200px) {
     display: none;
   }
 `;
-
 const HeadMenu = styled.div`
   padding-top: 100px;
   width: 100vw;
@@ -107,45 +95,37 @@ const HeadMenu = styled.div`
   white-space: nowrap;
   background-color: #f8cdc1;
   transition: transform 0.3s;
-
   /* &.hidden {
     transform: translateY(-100%);
   } */
-
   ul {
     display: inline-block;
     height: 50px;
   }
-
   li {
     display: inline-block;
     align-items: center;
     padding: 0 30px;
     line-height: 40px;
-
     a {
       text-decoration: none;
       color: #ff5e33;
       padding: 10px;
       border-radius: 5px;
-
       &:hover {
         background-color: #ff5e33;
         color: white;
         line-height: 50px;
       }
-
       span {
         font-family: "omyu_pretty";
         font-size: 1.6rem;
         padding: 0 30px;
       }
     }
-
     .search-btn {
       display: flex;
       align-items: center;
-
       #search {
         border: none;
         background-color: #fcf1f1;
@@ -153,7 +133,6 @@ const HeadMenu = styled.div`
         padding-left: 7px;
         width: 600px;
       }
-
       #select {
         border: none;
         background-color: #fcf1f1;
@@ -163,7 +142,6 @@ const HeadMenu = styled.div`
         border-bottom-left-radius: 10px;
         border-right: 1px solid #666; /* 오른쪽에 경계선 추가 */
       }
-
       button {
         background: #e2d5d5;
         border: none;
@@ -171,7 +149,6 @@ const HeadMenu = styled.div`
         padding-right: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
-
         #icon {
           font-size: 25px;
           cursor: pointer;
@@ -181,7 +158,6 @@ const HeadMenu = styled.div`
     }
   }
 `;
-
 const ScrollToTop = styled.div`
   width: 50px;
   height: 50px;
@@ -190,7 +166,6 @@ const ScrollToTop = styled.div`
   position: fixed;
   right: 20px;
   bottom: 20px;
-
   a {
     text-decoration: none;
     color: white;
@@ -201,30 +176,24 @@ const ScrollToTop = styled.div`
     align-items: center;
     font-weight: bold;
   }
-
   @media screen and (max-width: 1500px) {
     display: none;
   }
 `;
-
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [keyword, setKeyword] = useState("");
-
   const user = useSelector((state) => {
     return state.user;
   });
-
   // 검색 필터
   const [filter, setFilter] = useState("resName");
-
   // 검색 필터 선택 시 필터값 처리하는 함수
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
-
   const handleSearch = () => {
     // console.log("keyword값 보내지나? : " + keyword);
     // navigate(`/resSearch/${keyword}`);
@@ -236,7 +205,6 @@ const Header = () => {
       }
     }
   };
-
   // 로그인 유지
   useEffect(() => {
     const save = localStorage.getItem("user");
@@ -244,7 +212,6 @@ const Header = () => {
       dispatch(userSave(JSON.parse(save)));
     }
   }, []);
-
   // 로그아웃
   const logout = () => {
     console.log("logout!");
@@ -252,7 +219,6 @@ const Header = () => {
     localStorage.removeItem("user");
     dispatch(userLogout());
   };
-
   return (
     <HeaderContainer>
       <HeadTopContainer>
@@ -271,7 +237,6 @@ const Header = () => {
                   <span>최근본식당</span>
                 </Link>
               </li>
-
               {Object.keys(user).length === 0 ? (
                 <>
                   <li>
@@ -288,7 +253,7 @@ const Header = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="/userPicksList/${user.id}/picks">
+                    <Link to={`/userPicksList/${user.id}/picks`}>
                       <span>찜한식당</span>
                     </Link>
                   </li>
@@ -325,7 +290,6 @@ const Header = () => {
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-
               <button type="button" onClick={handleSearch}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
               </button>
@@ -366,5 +330,4 @@ const Header = () => {
     </HeaderContainer>
   );
 };
-
 export default Header;

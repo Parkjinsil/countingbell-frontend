@@ -155,8 +155,8 @@ const MyPageGrid = styled.div`
     /* border: 1px solid#ff5e33; */
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.12);
     border-radius: 10px;
-    background-color:transparent;
-    border:none;
+    background-color: transparent;
+    border: none;
   }
   button img {
     width: 100px;

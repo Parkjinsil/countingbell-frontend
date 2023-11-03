@@ -279,7 +279,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "discount",
+    path: "discount/:resCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {
