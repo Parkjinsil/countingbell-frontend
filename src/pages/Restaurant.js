@@ -4,6 +4,7 @@ import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
+import ResMap from "./restaurants/ResMap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { asyncFindByDisCode } from "../store/discountSlice";
@@ -522,12 +523,12 @@ const Restaurant = () => {
             </table>
           </div>
           <div className="col-4">
-            <img
-              src="img/map1.png"
+            <div
               className="rounded m-1 mx-auto d-block"
-              alt=""
               style={{ height: "300px", width: "282px" }}
-            />
+            >
+              <ResMap resAddr={restaurant.resAddr} />
+            </div>
           </div>
         </div>
       </section>

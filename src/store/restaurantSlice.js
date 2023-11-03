@@ -12,6 +12,8 @@ import {
   searchResByResName,
   fetchUserPicks,
   resPickList,
+  updatePick,
+  deletePick
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
