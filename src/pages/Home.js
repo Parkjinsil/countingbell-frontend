@@ -35,21 +35,26 @@ const Section = styled.section`
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
+  margin-top: 20px;
 
   .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
     gap: 10px;
     width: 100vw;
+    justify-content: space-between; /* 각 이미지를 좌우 정렬합니다. */
+    position: relative;
   }
 
   .slides img {
-    /* width: 800px; */
-    height: 500px;
+    width: 50%;
+    height: 400px;
+    object-fit: cover; // 이미지가 잘리지 않고 화면에 꽉 차게 표시됩니다.
     border-radius: 10%;
     display: block;
+    /* top: 0; */
   }
 `;
 
@@ -58,7 +63,7 @@ const ButtonContainer = styled.div`
   z-index: 2;
   left: 50%;
   bottom: 10px;
-  transform: translateX(-100%);
+  transform: translateX(-50%);
 
   .slide-btn {
     border: none;
@@ -88,9 +93,9 @@ const Category = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 200px;
+  height: 220px;
   background-color: #f8cdc1;
-  gap: 120px;
+  gap: 100px;
   overflow: hidden;
 
   .category-content {
@@ -101,14 +106,14 @@ const Category = styled.div`
     text-decoration: none;
     color: white;
     font-family: "omyu_pretty";
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     position: relative;
   }
 
   .category-image {
-    width: 170px;
-    height: 170px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     display: block;
   }
@@ -202,7 +207,7 @@ const Home = () => {
           <Link to="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />
-              <span className="category-text">전체보기</span>
+              <span className="category-text">전체순</span>
             </span>
           </Link>
         </Category>

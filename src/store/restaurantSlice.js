@@ -10,8 +10,6 @@ import {
   searchResByMenuName,
   findReviewByResCode,
   searchResByResName,
-  updatePick,
-  deletePick,
   fetchUserPicks,
   resPickList,
 } from "../api/restaurant";
@@ -32,7 +30,8 @@ const asyncFindReviewByResCode = createAsyncThunk(
     const result = await findReviewByResCode(resCode);
     return result.data;
   }
-)
+);
+
 let selectPage = 0;
 
 // 식당 전체 가져오기
@@ -119,7 +118,6 @@ const asyncUpdatePick = createAsyncThunk(
     return result.data;
   }
 );
-
 const asyncDeletePick = createAsyncThunk(
   "restaurantSlice/asyncDeletePick",
   async (id) => {
@@ -127,7 +125,6 @@ const asyncDeletePick = createAsyncThunk(
     return result.data;
   }
 );
-
 // 사용자별 식당찜목록 가져오기
 const asyncFetchUserPicks = createAsyncThunk(
   "restaurantSlice/asyncFetchUserPicks",
@@ -137,7 +134,6 @@ const asyncFetchUserPicks = createAsyncThunk(
     return result.data;
   }
 );
-
 // 식당1개에 따른 찜
 const asyncResPickList = createAsyncThunk(
   "restaurantSlice/asyncResPickList",
@@ -161,6 +157,7 @@ const restaurantSlice = createSlice({
       state.userPicks = action.payload;
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(asyncAddRestaurant.rejected, (state, action) => {
@@ -194,7 +191,8 @@ const restaurantSlice = createSlice({
     builder
       .addCase(asyncSearchResByResName.fulfilled, (state, action) => {
         state.restaurantList = action.payload;
-        // console.log("엑스트라리듀서:", state.locationList);
+        console.log("식당이름으로 식당찾기?:", state.locationList);
+
         return state;
       })
       .addCase(asyncSearchResByResName.rejected, (state, action) => {
@@ -219,7 +217,6 @@ const restaurantSlice = createSlice({
     // 음식타입별 식당찾기
     builder.addCase(asyncFindByFoodCode.fulfilled, (state, action) => {
       state.restaurantList = action.payload;
-
       return state;
     });
 
@@ -263,7 +260,7 @@ const restaurantSlice = createSlice({
     builder.addCase(asyncFindReviewByResCode.fulfilled, (state, action) => {
       state.reviewList = action.payload;
       return state;
-    })
+    });
 
     // 찜추가
     builder
@@ -293,6 +290,7 @@ const restaurantSlice = createSlice({
     });
   },
 });
+
 export default restaurantSlice;
 export {
   asyncGetRestaurants,

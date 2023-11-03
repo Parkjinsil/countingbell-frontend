@@ -50,35 +50,37 @@ const ReservationCom = () => {
           height="48px"
         />
         <h1 className="text-body-emphasis fw-bold fs-1">예약완료</h1>
-        <p className="col-lg-6 mx-auto mb-4 mt-5">
+        <span className="col-lg-6 mx-auto mb-4 mt-5">
           고객님, 예약이 완료되었습니다.
           <div style={{ paddingTop: "5px" }}>
             아래 예약내용을 다시 한번 확인해 주시기 바랍니다.
           </div>
-        </p>
+        </span>
 
         <CenteredContainer>
           <table>
-            <tr>
-              <td width="100px" height="22px">
-                매장명 :
-              </td>
-              <td>{restaurant?.resName}</td>
-            </tr>
-            <tr>
-              <td width="100px" height="22px">
-                인원 :
-              </td>
-              <td>{reserPer}</td>
-            </tr>
-            <tr>
-              <td width="100px" height="22px">
-                예약일시 :
-              </td>
-              <td>
-                {reserDate} {reserTime}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td width="100px" height="22px">
+                  매장명 :
+                </td>
+                <td>{restaurant?.resName}</td>
+              </tr>
+              <tr>
+                <td width="100px" height="22px">
+                  인원 :
+                </td>
+                <td>{reserPer}</td>
+              </tr>
+              <tr>
+                <td width="100px" height="22px">
+                  예약일시 :
+                </td>
+                <td>
+                  {reserDate} {reserTime}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </CenteredContainer>
 

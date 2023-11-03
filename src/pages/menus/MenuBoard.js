@@ -11,6 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import {
   asyncFindByMenuCode,
+  asyncGetMenu,
   asyncGetMenus,
   asyncUpdateMenu,
 } from "../../store/menuSlice";
@@ -21,7 +22,7 @@ const MenuBoard = () => {
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
   const [menuCode, setMenuCode] = useState("");
   const { resCode } = useParams(); // URL에서 가져온 resCodes
 
@@ -46,8 +47,7 @@ const MenuBoard = () => {
     try {
       await deleteMenu(menuCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
       alert(`메뉴를 삭제했습니다.`);
-
-      await dispatch(asyncGetMenus(1)); // Redux 상태 업데이트
+      await dispatch(asyncGetMenus({ page: 1, resCode: resCode })); // Redux 상태 업데이트
     } catch (error) {
       alert(`메뉴 삭제에 실패했습니다. 에러: ${error.message}`);
     }
@@ -76,7 +76,7 @@ const MenuBoard = () => {
 
     console.log(formData);
 
-    dispatch(asyncUpdateMenu(formData));
+    await dispatch(asyncUpdateMenu(formData));
   };
 
   return (
@@ -148,8 +148,8 @@ const MenuBoard = () => {
                       aria-labelledby={`exampleModalLabel${menu.menuCode}`}
                       aria-hidden="true"
                     >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
+                      <div className="modal-dialog ">
+                        <div className="modal-content ">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
                               메뉴 수정하기

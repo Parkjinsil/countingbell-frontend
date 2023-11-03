@@ -8,7 +8,6 @@ import { Link, useParams } from "react-router-dom";
 
 const ResSearch = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
   const { keyword } = useParams();
 
   const restaurantList = useSelector(

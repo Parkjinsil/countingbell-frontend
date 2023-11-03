@@ -45,7 +45,7 @@ const ResIdBoard = () => {
           to={`/restaurant/${restaurant.resCode}`}
           key={restaurant?.resCode}
         >
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "250px" }}>
             <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
             <Card.Body>
               <Card.Text>

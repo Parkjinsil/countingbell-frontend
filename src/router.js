@@ -209,6 +209,7 @@ const router = createBrowserRouter([
   },
   {
     path: "ReserList/:id",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -228,6 +229,7 @@ const router = createBrowserRouter([
   },
   {
     path: "restaurant/:resCode/reser",
+
     children: [
       {
         index: true,
@@ -308,6 +310,7 @@ const router = createBrowserRouter([
   },
   {
     path: "resPicksList",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -337,6 +340,7 @@ const router = createBrowserRouter([
   },
   {
     path: "updatemenu",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -365,6 +369,7 @@ const router = createBrowserRouter([
   },
   {
     path: "location",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
