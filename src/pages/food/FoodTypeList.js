@@ -33,10 +33,10 @@ const FoodTypeList = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "80vh",
       }}
     >
-      <div className="position-relative p-5  bg-body border border-dashed rounded-5">
+      <div className="position-relative p-5  bg-body border-none border-dashed rounded-5">
         <Container>
           <div
             className="d-flex flex-wrap"
@@ -47,13 +47,15 @@ const FoodTypeList = () => {
               .reverse()
               .map((food, index) => (
                 <button
-                  className="btn btn-outline-primary m-2"
                   key={food.foodCode}
+                  className="btn"
                   style={{
                     fontSize: "1.2em",
                     fontWeight: "bold",
                     minWidth: "150px",
                     minHeight: "90px",
+                    border: "solid 1px #FF6B01",
+                    color: "#FF6B01"
                   }}
                   onClick={() => takeValueclick(food)}
                 >

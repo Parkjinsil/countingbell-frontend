@@ -249,18 +249,14 @@ const MyPage = () => {
                   <img src={image55} alt="" />
                   <span>내 식당 관리</span>
                 </button>
-                <a href="">
+                <button onClick={onReserList}>
                   <img src={image66} alt="" />
                   <span>예약 관리</span>
-                </a>
-                <a href="">
+                </button>
+                <button onClick={onReviewList}>
                   <img src={image77} alt="" />
                   <span>리뷰 관리</span>
-                </a>
-                <a href="">
-                  <img src={image100} alt="" />
-                  <span>찜 관리</span>
-                </a>
+                </button>
               </>
             ) : (
               <>
@@ -268,24 +264,12 @@ const MyPage = () => {
                   <img src={image55} alt="" />
                   <span>예약내역</span>
                 </button>
-                <a href="">
-                  <img src={image66} alt="" />
-                  <span>줄서기</span>
-                </a>
+
                 <button onClick={onReviewList}>
                   <img src={image77} alt="" />
                   <span>리뷰관리</span>
                 </button>
-                <a href="">
-                  <img src={image88} alt="" />
-                  <span>포인트 </span>
-                  <span>14원</span>
-                </a>
-                <a href="">
-                  <img src={image99} alt="" />
-                  <span>쿠폰함 </span>
-                  <span>3장</span>
-                </a>
+
                 <button onClick={onMyPicks}>
                   <img src={image100} alt="" />
                   <span>찜</span>
