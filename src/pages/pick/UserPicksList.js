@@ -37,7 +37,12 @@ const UserPicksList = () => {
             to={`/restaurant/${restaurant.restaurant.resCode}`}
             key={restaurant?.restaurant.resCode}
           >
-            <Card style={{ width: "250px", height: "400px" }}>
+            <Card
+              style={{
+                width: "300px",
+                height: "450px",
+              }}
+            >
               <Card.Img
                 variant="top"
                 src={"/upload/" + restaurant?.restaurant?.resPicture}
@@ -55,30 +60,44 @@ const UserPicksList = () => {
                   >
                     {restaurant.restaurant.resName}
                   </span>
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#FBE94B",
-                      margin: "3px",
-                    }}
-                  />
-
                   <span
                     className="last-line"
-                    style={{ fontSize: "1.1rem", display: "block" }}
+                    style={{
+                      fontSize: "1.1rem",
+                      display: "block",
+                      margin: "1px 0px 0px 0px",
+                    }}
                   >
                     {restaurant.restaurant.food.foodType}
                   </span>
-                  <div style={{ paddingLeft: "180px" }}>
-                    <span>
-                      <SuitHeartFill
-                        className="bi bi-suit-heart fs-5"
-                        style={{ color: "red" }}
-                      />{" "}
-                      {restaurant.restaurant.resPicks}
-                    </span>
-                  </div>
+                  <span
+                    className="restaurant-addr"
+                    style={{
+                      fontSize: "1.1rem",
+                      display: "block",
+                      margin: "7px 0px 4px 0px",
+                    }}
+                  >
+                    주소 : {restaurant.restaurant.resAddr}
+                  </span>
+                  <span
+                    className="restaurant-time"
+                    style={{
+                      fontSize: "1.1rem",
+                      display: "block",
+                    }}
+                  >
+                    영업시간 : {restaurant.restaurant.resOpenHour} -{" "}
+                    {restaurant.restaurant.resClose}
+                  </span>
+
+                  <span style={{ paddingLeft: "230px" }}>
+                    <SuitHeartFill
+                      className="bi bi-suit-heart fs-5"
+                      style={{ color: "red" }}
+                    />{" "}
+                    {restaurant.restaurant.resPicks}
+                  </span>
                 </Card.Text>
               </Card.Body>
             </Card>

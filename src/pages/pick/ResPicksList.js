@@ -74,8 +74,8 @@ const ResPicksList = () => {
         >
           <Card
             style={{
-              width: "250px",
-              height: "400px",
+              width: "300px",
+              height: "450px",
             }}
           >
             <Card.Img
@@ -96,40 +96,37 @@ const ResPicksList = () => {
                   {restaurant.restaurant.resName}
                 </span>
                 <span
-                  className="restaurant-addr"
-                  style={{
-                    fontSize: "1.2rem",
-                    display: "block",
-                  }}
-                >
-                  {restaurant.resAddr}
-                </span>
-
-                <span
-                  style={{
-                    fontSize: "1.3rem",
-                    display: "block",
-                    paddingTop: "3px",
-                  }}
-                >
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#fbe94b",
-                      margin: "3px",
-                    }}
-                  />
-                  평점
-                </span>
-
-                <span
                   className="last-line"
-                  style={{ fontSize: "1.1rem", display: "block" }}
+                  style={{
+                    fontSize: "1.1rem",
+                    display: "block",
+                    margin: "1px 0px 0px 0px",
+                  }}
                 >
                   {restaurant.restaurant.food.foodType}
                 </span>
-                <span style={{ paddingLeft: "180px" }}>
+                <span
+                  className="restaurant-addr"
+                  style={{
+                    fontSize: "1.1rem",
+                    display: "block",
+                    margin: "7px 0px 4px 0px",
+                  }}
+                >
+                  주소 : {restaurant.restaurant.resAddr}
+                </span>
+                <span
+                  className="restaurant-time"
+                  style={{
+                    fontSize: "1.1rem",
+                    display: "block",
+                  }}
+                >
+                  영업시간 : {restaurant.restaurant.resOpenHour} -{" "}
+                  {restaurant.restaurant.resClose}
+                </span>
+
+                <span style={{ paddingLeft: "230px" }}>
                   <SuitHeartFill
                     className="bi bi-suit-heart fs-5"
                     style={{ color: "red" }}

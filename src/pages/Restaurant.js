@@ -404,6 +404,10 @@ const Restaurant = () => {
     navigate(`/menuboard/${resCode}`);
   };
 
+  const onNavDiscount = () => {
+    navigate(`/discount/${resCode}`);
+  };
+
   return (
     <div
       style={{ marginTop: "80px", overflow: "hidden", whiteSpace: "nowrap" }}
@@ -466,9 +470,12 @@ const Restaurant = () => {
                 </tr>
                 <tr>
                   <td className="align-top">주차</td>
-                  <td className="align-top">{restaurant?.resDesc} </td>
-
-                  <td width="75">
+                  <td colSpan="2" className="align-top">
+                    {restaurant?.resDesc}{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="3" width="75">
                     {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
                     user.role === "관리자" ? (
@@ -496,6 +503,22 @@ const Restaurant = () => {
                         예약
                       </Link>
                     )}
+                    {(user.role === "사장" &&
+                      restaurant?.member?.id === user.id) ||
+                    user.role === "관리자" ? (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                          marginLeft: "15px",
+                        }}
+                        onClick={onNavDiscount}
+                      >
+                        할인 관리
+                      </button>
+                    ) : null}
                   </td>
                 </tr>
                 <tr>
