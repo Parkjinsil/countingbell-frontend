@@ -35,7 +35,7 @@ const Section = styled.section`
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
   margin-top: 20px;
 
@@ -109,6 +109,10 @@ const Category = styled.div`
     font-size: 1.6rem;
     font-weight: bold;
     position: relative;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
   }
 
   .category-image {

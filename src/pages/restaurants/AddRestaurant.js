@@ -171,7 +171,11 @@ const AddRestaurant = () => {
 
   return (
     <Container>
-      <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
+      <form
+        className="addRestaurantForm"
+        onSubmit={addRestaurantHandler}
+        style={{ paddingTop: "320px" }}
+      >
         <Wrapper>
           <Title>
             <h1>식당 등록</h1>
@@ -223,7 +227,7 @@ const AddRestaurant = () => {
             </div>
 
             <div className="resOpenHour">
-              <p>식당 영업시간</p>
+              <p>식당 오픈 시간</p>
               <label>
                 <input
                   id="resOpenHour"
@@ -272,12 +276,15 @@ const AddRestaurant = () => {
                 <p>지역</p>
                 <label>
                   <select id="localCode" value={localCode} onChange={onChange}>
-                    <option>지역</option>
-                    {locations.slice().reverse().map((location, index) => (
-                      <option key={index} value={location.localCode}>
-                        {location.localName}
-                      </option>
-                    ))}
+                    <option value="">지역</option>
+                    {locations
+                      .slice()
+                      .reverse()
+                      .map((location, index) => (
+                        <option key={index} value={location.localCode}>
+                          {location.localName}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
@@ -287,12 +294,15 @@ const AddRestaurant = () => {
                 <p>음식 종류</p>
                 <label>
                   <select id="foodCode" value={foodCode} onChange={onChange}>
-                    <option>음식 종류</option>
-                    {foods.slice().reverse().map((food, index) => (
-                      <option key={index} value={food.foodCode}>
-                        {food.foodType}
-                      </option>
-                    ))}
+                    <option value="">음식 종류</option>
+                    {foods
+                      .slice()
+                      .reverse()
+                      .map((food, index) => (
+                        <option key={index} value={food.foodCode}>
+                          {food.foodType}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>

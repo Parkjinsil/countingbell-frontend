@@ -10,6 +10,7 @@ import {
   asyncUpdateDiscount,
   asyncDeleteDiscount,
 } from "../../store/discountSlice";
+import { useParams } from "react-router-dom";
 
 const StyleNav = styled.div`
   .nav-pills > .nav-item.active > .nav-link {
@@ -29,10 +30,11 @@ const P = styled.p`
 `;
 
 const Discount = () => {
+  const { resCode } = useParams();
   const dispatch = useDispatch();
   const [disDesc, setDisDesc] = useState(""); // 할인설명 상태
   const [disPeriod, setDisPeriod] = useState(""); // 할인기간 상태
-  const [resCode, setResCode] = useState(""); // 식당코드 상태
+  // const [resCode, setResCode] = useState(""); // 식당코드 상태
   const [disCode, setDisCode] = useState(""); // 할인코드 상태
   const [activeTab, setActiveTab] = useState("add");
 
@@ -70,7 +72,7 @@ const Discount = () => {
       // 추가가 성공한 경우, 입력 폼 초기화
       setDisDesc("");
       setDisPeriod("");
-      setResCode("");
+      //setResCode("");
     });
   };
 
@@ -82,7 +84,7 @@ const Discount = () => {
 
     dispatch(asyncFindByDisCode(resCode)).then(() => {
       // 조회가 성공한 경우, 입력 폼 초기화
-      setResCode("");
+      //setResCode("");
     });
   };
 
@@ -104,7 +106,7 @@ const Discount = () => {
       setDisCode("");
       setDisDesc("");
       setDisPeriod("");
-      setResCode("");
+      //setResCode("");
     });
   };
 
@@ -219,7 +221,7 @@ const Discount = () => {
                         <Form.Label>할인기간</Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="할인기간을 작성해주세요. / ex) 2023.10.29 ~ 2023.11.06"
+                          placeholder="할인기간을 작성해주세요. / ex) 23.10.29 ~ 23.11.06"
                           name="disPeriod"
                           value={disPeriod}
                           onChange={(e) => setDisPeriod(e.target.value)}
@@ -229,10 +231,10 @@ const Discount = () => {
                         <Form.Label>식당코드</Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="식당(코드번호)을 작성해주세요. / ex) 1"
+                          //placeholder="식당(코드번호)을 작성해주세요. / ex) 1"
                           name="resCode"
                           value={resCode}
-                          onChange={(e) => setResCode(e.target.value)}
+                          // onChange={(e) => setResCode(e.target.value)}
                         />
                       </Form.Group>
                       <Form.Group className="mb-3 d-flex justify-content-center">
@@ -276,10 +278,11 @@ const Discount = () => {
                         <Form.Label>식당코드</Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="식당(코드번호)을 작성해주세요. / ex) 1"
+                          //placeholder="식당(코드번호)을 작성해주세요. / ex) 1"
                           name="resCode"
                           value={resCode}
-                          onChange={(e) => setResCode(e.target.value)}
+
+                          //onChange={(e) => setResCode(e.target.value)}
                         />
                       </Form.Group>
                       <Form.Group className="mb-3 d-flex justify-content-center">
@@ -346,10 +349,10 @@ const Discount = () => {
                         <Form.Label>식당코드</Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="수정을 원하는 식당(코드번호)을 작성해주세요."
+                          //placeholder="수정을 원하는 식당(코드번호)을 작성해주세요."
                           name="resCode"
                           value={resCode}
-                          onChange={(e) => setResCode(e.target.value)}
+                          // onChange={(e) => setResCode(e.target.value)}
                         />
                       </Form.Group>
                       <Form.Group className="mb-4">

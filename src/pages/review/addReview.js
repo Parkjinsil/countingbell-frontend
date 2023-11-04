@@ -41,10 +41,7 @@ const AddReview = () => {
           <Form.Control type="text" placeholder="아이디" name="id" />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Control
-            as="select"
-            name="reviewGrade"
-          >
+          <Form.Control as="select" name="reviewGrade">
             <option value="">평점</option>
             <option value="1">1</option>
             <option value="2">2</option>

@@ -386,6 +386,10 @@ const Restaurant = () => {
     }
   }, [picks]);
 
+  const onNavDiscount = () => {
+    navigate(`/discount/${resCode}`);
+  };
+
   useEffect(() => {
     console.log(isHearted);
   }, [isHearted]);
@@ -517,6 +521,22 @@ const Restaurant = () => {
                         예약
                       </Link>
                     )}
+                     {(user.role === "사장" &&
+                      restaurant?.member?.id === user.id) ||
+                    user.role === "관리자" ? (
+                      <button
+                        type="button"
+                        className="btn text-white fw-bold"
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "#FF6B01",
+                          marginLeft: "15px",
+                        }}
+                        onClick={onNavDiscount}
+                      >
+                        할인 관리
+                      </button>
+                    ) : null}
                   </td>
                 </tr>
 

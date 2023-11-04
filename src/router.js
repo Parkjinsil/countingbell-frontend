@@ -31,7 +31,6 @@ import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import AddReview from "./pages/review/AddReview";
 import ResPicksList from "./pages/pick/ResPicksList";
-
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 import Reser from "./pages/reser/Reser";
@@ -229,7 +228,7 @@ const router = createBrowserRouter([
   },
   {
     path: "restaurant/:resCode/reser",
-
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -279,7 +278,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "discount",
+    path: "discount/:resCode",
     element: <Layout header={<Header2 />} />,
     children: [
       {
@@ -360,6 +359,7 @@ const router = createBrowserRouter([
   },
   {
     path: "addRestaurant/:id",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

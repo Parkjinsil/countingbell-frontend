@@ -8,6 +8,8 @@ import {
   findByDisCode,
 } from "../api/Discount";
 
+let selectPage = 0;
+
 // 할인 추가 비동기 액션 생성
 const asyncAddDiscount = createAsyncThunk(
   "discountSlice/asyncAddDiscount",
@@ -25,6 +27,7 @@ const asyncAddDiscount = createAsyncThunk(
 const asyncViewDiscounts = createAsyncThunk(
   "discountSlice/asyncViewDiscounts",
   async (page) => {
+    selectPage = page;
     const result = await getDiscounts(page);
     return result.data;
   }
@@ -118,14 +121,20 @@ const discountSlice = createSlice({
 
     // 할인 전체 조회 액션 성공,실패,로딩시 상태 업데이트
     builder
-      .addCase(asyncViewDiscounts.rejected, (state, action) => {
-        state.error = "할인 조회에 실패했습니다. 다시 시도해주세요.";
-        state.loading = false;
-      })
+      // .addCase(asyncViewDiscounts.fulfilled, (state, action) => {
+      //   state.data = action.payload;
+      //   state.discountsList = action.payload;
+      //   state.loading = false;
+      // })
       .addCase(asyncViewDiscounts.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.discountsList = action.payload;
-        state.loading = false;
+        if (selectPage > 1) {
+          // 2페이지, 3페이지, ....
+          state.discountsList = [...state.discountsList, ...action.payload];
+        } else {
+          state.discountsList = action.payload;
+        }
+        console.log("엑스트라리듀서:", state.discountsList);
+        return state;
       })
       .addCase(asyncViewDiscounts.pending, (state) => {
         state.loading = true;
