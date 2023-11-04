@@ -63,7 +63,7 @@ const ReserList = () => {
                   <td>{reser.restaurant.resName}</td>
                   <td>{reser.reserPer}</td>
                   <td>
-                    {reser.reserDate} {reser.reserTime}
+                    {reser.reserDate.substring(0,10)} &nbsp;&nbsp; {reser.reserTime}
                   </td>
                   <td>
                     <button style={{

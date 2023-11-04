@@ -477,7 +477,7 @@ const Restaurant = () => {
               </tbody>
               <tfoot>
                 <tr>
-                  <td className="align-top" colSpan="2" align="left" >{restaurant?.resDesc}ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </td>
+                  <td className="align-top" colSpan="2" align="left" >{restaurant?.resDesc}</td>
                 </tr>
                 <tr>
                   <td colSpan="4">

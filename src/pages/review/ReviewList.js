@@ -100,7 +100,7 @@ const ReviewList = () => {
                     />
                   </td>
                   <td style={{}}>{review.reviewContent}</td>
-                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>{review.reviewDate}</td>
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>{review.reviewDate.substring(0,10)}</td>
 
                   <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>
                     <button style={{
