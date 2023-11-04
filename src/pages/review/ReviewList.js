@@ -28,16 +28,9 @@ const ReviewList = () => {
     dispatch(asyncFindReviewById(id));
   }, []);
 
-  // 메뉴 수정
+  // 리뷰 수정
   const onUpdate = async (e) => {
     e.preventDefault();
-
-    // console.log("리뷰코드"+reviewCode);
-    // console.log("평점"+reviewGrade);
-    // console.log("사진"+reviewPhoto);
-    // console.log("내용"+reviewContent);
-    // console.log("아이디"+id);
-    // console.log("식당코드"+resCode);
 
     const formData = new FormData();
 
@@ -56,8 +49,8 @@ const ReviewList = () => {
       await deleteReview(reviewCode);
       alert("리뷰를 삭제했습니다.");
 
-        // 취소 후 화면을 새로 고침
-        window.location.reload();
+      // 취소 후 화면을 새로 고침
+      window.location.reload();
     } catch (error) {
       // console.log(reviewCode);
       alert(`리뷰 삭제에 실패했습니다. 에러: ${error.message}`);
@@ -76,27 +69,27 @@ const ReviewList = () => {
         >
         </div>
         <Container>
-          <table className="table table-hover" style={{ marginTop: "30px" }}>
+          <table className="table table-hover" style={{ marginTop: "30px", tableLayout: "fixed", width: "100%" }}>
             <thead>
               <tr>
-                <th>식당명</th>
-                <th>평점</th>
-                <th>이미지</th>
-                <th>리뷰내용</th>
-                <th>작성날짜</th>
-                <th>수정</th>
-                <th>삭제</th>
+                <th style={{ width: "10%", textAlign: "center" }}>식당명</th>
+                <th style={{ width: "5%", textAlign: "center" }}>평점</th>
+                <th style={{ width: "15%", textAlign: "center" }}>이미지</th>
+                <th style={{ width: "30%", textAlign: "center" }}>리뷰내용</th>
+                <th style={{ width: "20%", textAlign: "center" }}>작성날짜</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody
               className="table-group-divider"
-              style={{ lineHeight: " 100px" }}
+              style={{}}
             >
               {reviews.map((review, index) => (
-                <tr key={review.reviewCode} style={{ lineHeight: "150px" }}>
-                  <td>{review.restaurant.resName}</td>
-                  <td>{review.reviewGrade}점</td>
-                  <td style={{ alignItems: "center" }}>
+                <tr key={review.reviewCode} style={{}}>
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>{review.restaurant.resName}</td>
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>{review.reviewGrade}점</td>
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>
                     <img
                       src={"/upload/" + review.reviewPhoto}
                       style={{
@@ -106,11 +99,16 @@ const ReviewList = () => {
                       }}
                     />
                   </td>
-                  <td>{review.reviewContent}</td>
-                  <td>{review.reviewDate}</td>
+                  <td style={{}}>{review.reviewContent}</td>
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>{review.reviewDate}</td>
 
-                  <td>
-                    <button
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>
+                    <button style={{
+                      fontSize: "1em",
+                      border: "solid 1px #FF6B01",
+                      color: "#FF6B01",
+                      backgroundColor: "transparent"
+                    }}
                       type="button"
                       className="btn btn-outline-primary"
                       data-bs-toggle="modal"
@@ -210,12 +208,12 @@ const ReviewList = () => {
                                   평점 :
                                 </label>
                                 <select
-                                className="form-control"
-                                id="reviewGrade"
-                                value={reviewGrade}
-                                onChange={(e) => {
-                                  setReviewGrade(e.target.value);
-                                }}
+                                  className="form-control"
+                                  id="reviewGrade"
+                                  value={reviewGrade}
+                                  onChange={(e) => {
+                                    setReviewGrade(e.target.value);
+                                  }}
                                 >
                                   <option value="1">1</option>
                                   <option value="2">2</option>
@@ -282,8 +280,13 @@ const ReviewList = () => {
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <button
+                  <td style={{ height: "100%", verticalAlign: "middle", textAlign: "center" }}>
+                    <button style={{
+                      fontSize: "1em",
+                      border: "solid 1px #FF6B01",
+                      color: "#FF6B01",
+                      backgroundColor: "transparent"
+                    }}
                       className="btn btn-outline-danger"
                       onClick={() => onDelete(review.reviewCode)}
                     >
