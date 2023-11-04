@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { asyncAddReview } from "../../store/reviewSlice";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
+import { userSave } from "../../store/userSlice";
 
 const H1 = styled.h1`
   font-size: 20px;
@@ -20,6 +21,17 @@ const AddReview = () => {
 
   const { resCode } = useParams();
 
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
+  useEffect(() => {
+    const save = localStorage.getItem("user");
+    if (Object.keys(user).length === 0 && save !== null) {
+      dispatch(userSave(JSON.parse(save)));
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +39,7 @@ const AddReview = () => {
     formData.append("reviewGrade", e.target.reviewGrade.value);
     formData.append("reviewContent", e.target.reviewContent.value);
     formData.append("reviewPhoto", e.target.reviewPhoto.files[0]);
-    formData.append("id", e.target.id.value);
+    formData.append("id", user.id);
     formData.append("resCode", resCode);
 
     dispatch(asyncAddReview(formData));
@@ -37,9 +49,6 @@ const AddReview = () => {
     <Container>
       <H1>리뷰 작성하기</H1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Control type="text" placeholder="아이디" name="id" />
-        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Control as="select" name="reviewGrade">
             <option value="">평점</option>

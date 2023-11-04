@@ -308,21 +308,6 @@ const AddRestaurant = () => {
               </div>
             </div>
 
-            {/* <div className="id">
-              <p>아이디</p>
-              <label>
-                <input
-                  id="id"
-                  value={id}
-                  type="text"
-                  placeholder="본인 아이디를 입력해주세요."
-                  onChange={onChange}
-                  required
-                ></input>
-              </label>
-              <div className="idError"></div>
-            </div> */}
-
             <div className="id">
               <p>찜 관리</p>
               <label>
