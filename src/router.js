@@ -229,7 +229,7 @@ const router = createBrowserRouter([
   },
   {
     path: "restaurant/:resCode/reser",
-
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,
@@ -360,6 +360,7 @@ const router = createBrowserRouter([
   },
   {
     path: "addRestaurant/:id",
+    element: <Layout header={<Header2 />} />,
     children: [
       {
         index: true,

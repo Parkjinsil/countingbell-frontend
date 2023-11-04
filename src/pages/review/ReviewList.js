@@ -28,16 +28,9 @@ const ReviewList = () => {
     dispatch(asyncFindReviewById(id));
   }, []);
 
-  // 메뉴 수정
+  // 리뷰 수정
   const onUpdate = async (e) => {
     e.preventDefault();
-
-    // console.log("리뷰코드"+reviewCode);
-    // console.log("평점"+reviewGrade);
-    // console.log("사진"+reviewPhoto);
-    // console.log("내용"+reviewContent);
-    // console.log("아이디"+id);
-    // console.log("식당코드"+resCode);
 
     const formData = new FormData();
 

@@ -124,10 +124,11 @@ const HeadMenu = styled.div`
     line-height: 40px;
 
     a {
-      text-decoration: none;
       color: #ff5e33;
       padding: 10px;
       border-radius: 5px;
+      line-height: 50px;
+      background-color:transparent;
 
       &:hover {
         background-color: #ff5e33;
@@ -332,16 +333,6 @@ const Header = () => {
             </div>
           </li>
           <ul>
-            {/* <li>
-              <a href="#">
-                <span>카테고리</span>
-              </a>
-            </li> */}
-            {/* <li>
-              <a href="waiting">
-                <span>온라인 줄서기</span>
-              </a>
-            </li> */}
             <li>
               <a href="reservation">
                 <span>빠른예약</span>

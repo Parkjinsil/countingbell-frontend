@@ -170,8 +170,8 @@ const AddRestaurant = () => {
   };
 
   return (
-    <Container>
-      <form className="addRestaurantForm" onSubmit={addRestaurantHandler}>
+    <Container >
+      <form className="addRestaurantForm" onSubmit={addRestaurantHandler} style={{paddingTop: "320px"}}>
         <Wrapper>
           <Title>
             <h1>식당 등록</h1>
@@ -223,7 +223,7 @@ const AddRestaurant = () => {
             </div>
 
             <div className="resOpenHour">
-              <p>식당 영업시간</p>
+              <p>식당 오픈 시간</p>
               <label>
                 <input
                   id="resOpenHour"
@@ -274,7 +274,7 @@ const AddRestaurant = () => {
                   <select id="localCode" value={localCode} onChange={onChange}>
                     <option value="">지역</option>
                     {locations.slice().reverse().map((location, index) => (
-                      <option option="true" key={index} value={location.localCode}>
+                      <option key={index} value={location.localCode}>
                         {location.localName}
                       </option>
                     ))}
@@ -289,7 +289,7 @@ const AddRestaurant = () => {
                   <select id="foodCode" value={foodCode} onChange={onChange}>
                     <option value="">음식 종류</option>
                     {foods.slice().reverse().map((food, index) => (
-                      <option option="true" key={index} value={food.foodCode}>
+                      <option key={index} value={food.foodCode}>
                         {food.foodType}
                       </option>
                     ))}

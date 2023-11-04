@@ -23,6 +23,22 @@ const H1 = styled.h1`
   paddingbottom: 20px;
 `;
 
+const BtnOrange = styled.div`
+    height: 35px;
+    width: 90px;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #f8cdc1;
+    font-family: "omyu_pretty";
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #ff5e33;
+      color: #fff;
+    }
+`
+
 const BtnArea = styled.div`
   display: flex;
   justify-content: center;
@@ -219,7 +235,7 @@ const MemberUpdate = () => {
               setNickDup(false); // 닉네임이 변경되면 중복 상태 초기화
             }}
           />
-          <button
+          <BtnOrange
             type="button"
             id="signupbtn2"
             className="btn btn-primary"
@@ -227,7 +243,7 @@ const MemberUpdate = () => {
             onClick={NicknameCheck}
           >
             중복 확인
-          </button>
+          </BtnOrange>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>전화번호</Form.Label>
