@@ -9,7 +9,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: azure;
+  /* background-color: azure; */
 `;
 
 const HorizontalLine = styled.div`
@@ -112,17 +112,6 @@ const Find = () => {
 
   const user = useSelector((state) => state.user);
 
-  //const [id, setId] = useState("");
-  //const [name, setName] = useState("");
-
-  /*
-  useEffect(() => {
-    if (user) {
-      setId(user.id);
-    }
-    console.log("아이디는:" + user);
-  }, [user.id]);
-  */
   // 로그인 페이지로 이동
   const handleLogin = (e) => {
     e.preventDefault();

@@ -24,20 +24,20 @@ const H1 = styled.h1`
 `;
 
 const BtnOrange = styled.div`
-    height: 35px;
-    width: 90px;
-    border: none;
-    margin-top: 5px;
-    cursor: pointer;
-    background-color: #f8cdc1;
-    font-family: "omyu_pretty";
-    font-size: 1.1rem;
+  height: 35px;
+  width: 90px;
+  border: none;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #f8cdc1;
+  font-family: "omyu_pretty";
+  font-size: 1.1rem;
 
-    &:hover {
-      background-color: #ff5e33;
-      color: #fff;
-    }
-`
+  &:hover {
+    background-color: #ff5e33;
+    color: #fff;
+  }
+`;
 
 const BtnArea = styled.div`
   display: flex;
@@ -143,14 +143,14 @@ const MemberUpdate = () => {
   const onUpdateMember = async (e) => {
     e.preventDefault();
     console.log(e); // 확인용 출력
-    console.log(e.target.password); // 비밀번호 확인용 출력 == undefined떠
+    console.log(e.target.password);
 
     console.log(password);
 
     const updateMember = {
       token: localStorage.getItem("token"),
       id: user.id,
-      password: password, // 여기서 값을 못받아옴 == undefined떠
+      password: password,
       name: name,
       nickname: nickname,
       phone: phone,
