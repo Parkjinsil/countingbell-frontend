@@ -40,7 +40,7 @@ const Reser = () => {
     formData.append("resCode", resCode);
     formData.append("reserTime", e.target.reserTime.value);
     formData.append("reserDate", e.target.reserDate.value);
-    formData.append("id", e.target.id.value);
+    formData.append("id", user.id);
 
     // FormData를 URL 쿼리 매개변수로 인코딩
     const queryParams = new URLSearchParams(formData);
@@ -65,19 +65,19 @@ const Reser = () => {
       });
   };
   return (
-    <Container>
+    <Container style={{paddingTop: "90px"}}>
       <H1>예약 하기</H1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Control type="text" defaultValue={user.id} name="id" />
-        </Form.Group>
-        <Form.Group className="mb-3">
+      <Form onSubmit={handleSubmit} style={{width: "100%",
+                                            display: "flex",
+                                            flexFlow: "column",
+                                            alignItems: "center"}}>
+        <Form.Group className="mb-3" style={{width:"300px"}}>
           <Form.Control type="text" placeholder="인원 수" name="reserPer" />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" style={{width:"300px"}}>
           <Form.Control type="date" placeholder="날짜" name="reserDate" />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" style={{width:"300px"}}>
           <Form.Control type="time" placeholder="시간" name="reserTime" />
         </Form.Group>
         <Form.Group className="mb-3">

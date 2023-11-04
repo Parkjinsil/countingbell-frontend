@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {} from "react-bootstrap";
 import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import styled from "styled-components";
@@ -948,11 +949,15 @@ const Restaurant = () => {
                                             />
                                           </div>
                                         </div>
+
                                         <div
                                           style={{
                                             width: "300px",
                                             height: "100px",
                                             padding: "10px 30px",
+                                            flex: "1",
+                                            justifyContent: "center",
+                                            AlignCenter: "center",
                                           }}
                                         >
                                           <span

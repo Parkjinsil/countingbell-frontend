@@ -49,15 +49,15 @@ const ReservationCom = () => {
           width="48px"
           height="48px"
         />
-        <h1 className="text-body-emphasis fw-bold fs-1">예약완료</h1>
-        <span className="col-lg-6 mx-auto mb-4 mt-5">
+        <h1 className="text-body-emphasis fw-bold fs-1" style={{paddingBottom: "20px"}}>예약완료</h1>
+        <span className="col-lg-6 mx-auto mb-4 mt-5" style={{paddingBottom: "20px"}}>
           고객님, 예약이 완료되었습니다.
           <div style={{ paddingTop: "5px" }}>
             아래 예약내용을 다시 한번 확인해 주시기 바랍니다.
           </div>
         </span>
 
-        <CenteredContainer>
+        <CenteredContainer style={{paddingTop: "20px"}}>
           <table>
             <tbody>
               <tr>

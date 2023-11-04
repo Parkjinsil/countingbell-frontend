@@ -66,7 +66,12 @@ const ReserList = () => {
                     {reser.reserDate} {reser.reserTime}
                   </td>
                   <td>
-                    <button
+                    <button style={{
+                      fontSize: "1em",
+                      border: "solid 1px #FF6B01",
+                      color: "#FF6B01",
+                      backgroundColor: "transparent"
+                    }}
                       className="btn btn-outline-danger"
                       onClick={() => onDelete(reser.reserCode)}
                     >
