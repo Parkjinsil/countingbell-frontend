@@ -35,7 +35,7 @@ const Section = styled.section`
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
   margin-top: 20px;
 

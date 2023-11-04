@@ -20,8 +20,8 @@ const ReservationResList = () => {
   );
 
   useEffect(() => {
-    dispatch(asyncFindResByFilter({foodCode, localCode}));
-  }, [dispatch, {foodCode,localCode}]);
+    dispatch(asyncFindResByFilter({ foodCode, localCode }));
+  }, [dispatch, { foodCode, localCode }]);
 
   return (
     <Container
@@ -42,7 +42,7 @@ const ReservationResList = () => {
             />
             <Card.Body>
               <Card.Text style={{}}>
-              <span
+                <span
                   className="restaurant-name"
                   style={{
                     fontSize: "1.5rem",
@@ -71,10 +71,7 @@ const ReservationResList = () => {
                     margin: "3px",
                   }}
                 />
-                <span style={{ fontSize: "1rem" }}>
-                  평점
-                  {/* {restaurant.location.rating} */}
-                </span>
+
                 <span
                   className="last-line"
                   style={{

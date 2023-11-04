@@ -170,8 +170,12 @@ const AddRestaurant = () => {
   };
 
   return (
-    <Container >
-      <form className="addRestaurantForm" onSubmit={addRestaurantHandler} style={{paddingTop: "320px"}}>
+    <Container>
+      <form
+        className="addRestaurantForm"
+        onSubmit={addRestaurantHandler}
+        style={{ paddingTop: "320px" }}
+      >
         <Wrapper>
           <Title>
             <h1>식당 등록</h1>
@@ -273,11 +277,14 @@ const AddRestaurant = () => {
                 <label>
                   <select id="localCode" value={localCode} onChange={onChange}>
                     <option value="">지역</option>
-                    {locations.slice().reverse().map((location, index) => (
-                      <option key={index} value={location.localCode}>
-                        {location.localName}
-                      </option>
-                    ))}
+                    {locations
+                      .slice()
+                      .reverse()
+                      .map((location, index) => (
+                        <option key={index} value={location.localCode}>
+                          {location.localName}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
@@ -288,11 +295,14 @@ const AddRestaurant = () => {
                 <label>
                   <select id="foodCode" value={foodCode} onChange={onChange}>
                     <option value="">음식 종류</option>
-                    {foods.slice().reverse().map((food, index) => (
-                      <option key={index} value={food.foodCode}>
-                        {food.foodType}
-                      </option>
-                    ))}
+                    {foods
+                      .slice()
+                      .reverse()
+                      .map((food, index) => (
+                        <option key={index} value={food.foodCode}>
+                          {food.foodType}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>

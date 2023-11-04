@@ -203,7 +203,7 @@ const ScrollToTop = styled.div`
     font-weight: bold;
   }
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: "1500px") {
     display: none;
   }
 `;

@@ -31,7 +31,6 @@ import FoodTypeList from "./pages/food/FoodTypeList";
 import FoodResList from "./pages/food/FoodResList";
 import AddReview from "./pages/review/AddReview";
 import ResPicksList from "./pages/pick/ResPicksList";
-
 import MemberUpdate from "./pages/member/MemberUpdate";
 import ReservationResList from "./pages/reservation/ReservationResList";
 import Reser from "./pages/reser/Reser";
