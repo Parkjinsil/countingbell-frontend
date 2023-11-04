@@ -155,8 +155,8 @@ const MyPageGrid = styled.div`
     /* border: 1px solid#ff5e33; */
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.12);
     border-radius: 10px;
-    background-color: transparent;
-    border: none;
+    background-color:transparent;
+    border:none;
   }
   button img {
     width: 100px;
@@ -249,11 +249,11 @@ const MyPage = () => {
                   <img src={image55} alt="" />
                   <span>내 식당 관리</span>
                 </button>
-                <button>
+                <button onClick={onReserList}>
                   <img src={image66} alt="" />
                   <span>예약 관리</span>
                 </button>
-                <button>
+                <button onClick={onReviewList}>
                   <img src={image77} alt="" />
                   <span>리뷰 관리</span>
                 </button>
@@ -269,6 +269,7 @@ const MyPage = () => {
                   <img src={image77} alt="" />
                   <span>리뷰관리</span>
                 </button>
+
                 <button onClick={onMyPicks}>
                   <img src={image100} alt="" />
                   <span>찜</span>
