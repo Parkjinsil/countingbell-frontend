@@ -291,7 +291,8 @@ const Header = () => {
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <button type="button" onClick={handleSearch}>
+              <button type="button"
+                onClick={handleSearch}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} id="icon" />
               </button>
             </div>

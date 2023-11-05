@@ -90,3 +90,13 @@ export const resPickList = async (id) => {
   let url = `restaurant/${id}/pick`;
   return await instance.get(url);
 };
+
+// 식당 삭제
+export const deleteRestaurant = async (id) => {
+  return await instance.delete("restaurant/" + id);
+}
+
+// 식당 수정
+export const updateRestaurant = async (data) => {
+  return await instance.put("restaurant/" + data);
+}

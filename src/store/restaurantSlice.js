@@ -13,7 +13,8 @@ import {
   fetchUserPicks,
   resPickList,
   updatePick,
-  deletePick
+  deletePick,
+  updateRestaurant
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
@@ -144,6 +145,16 @@ const asyncResPickList = createAsyncThunk(
     return result.data;
   }
 );
+
+// 식당 수정
+const asyncUpdateRestaurant = createAsyncThunk(
+  "restaurantSlice/asyncUpdateRestaurant",
+  async (data) => {
+    const result = await updateRestaurant(data);
+    return result.data;
+  }
+)
+
 
 const restaurantSlice = createSlice({
   name: "restaurantSlice",
@@ -290,6 +301,14 @@ const restaurantSlice = createSlice({
       state.restaurantList = action.payload;
       return state;
     });
+    // 식당 수정
+    builder
+      .addCase(asyncUpdateRestaurant.fulfilled, (state, action) => {
+        alert("식당 수정에 성공했습니다.");
+      })
+      .addCase(asyncUpdateRestaurant.rejected, (state, action) => {
+        alert("식당 수정에 실패했습니다.");
+      })
   },
 });
 
@@ -309,6 +328,7 @@ export {
   asyncSearchResByResName,
   asyncFetchUserPicks,
   asyncResPickList,
+  asyncUpdateRestaurant
 };
 export const { setRestaurantList, setSelectedRestaurant, userPicks } =
   restaurantSlice.actions;
