@@ -35,7 +35,7 @@ const Section = styled.section`
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  /* overflow: hidden; */ // 넣으면 사진 가려짐
   position: relative;
   margin-top: 20px;
 
@@ -44,14 +44,14 @@ const SliderContainer = styled.div`
     transition: transform 0.5s ease-in-out;
     gap: 10px;
     width: 100vw;
-    justify-content: space-between; /* 각 이미지를 좌우 정렬합니다. */
+    justify-content: space-between; /* 이미지 좌우 정렬합니다. */
     position: relative;
   }
 
   .slides img {
     width: 50%;
     height: 400px;
-    object-fit: cover; // 이미지가 잘리지 않고 화면에 꽉 차게 표시됩니다.
+    object-fit: cover;
     border-radius: 10%;
     display: block;
     /* top: 0; */

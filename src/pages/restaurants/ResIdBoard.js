@@ -23,7 +23,7 @@ const ResIdBoard = () => {
 
   const onAddRes = () => {
     navigate(`/addRestaurant/${id}`);
-  }
+  };
 
   useEffect(() => {
     console.log(id);
@@ -39,13 +39,12 @@ const ResIdBoard = () => {
         flexWrap: "wrap",
       }}
     >
-
       {restaurantList.map((restaurant) => (
         <Link
           to={`/restaurant/${restaurant.resCode}`}
           key={restaurant?.resCode}
         >
-          <Card style={{ width: "250px" }}>
+          <Card style={{ width: "250px", height: "400px" }}>
             <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
             <Card.Body>
               <Card.Text>
@@ -86,9 +85,9 @@ const ResIdBoard = () => {
                     border: "solid 1px #888",
                     backgroundColor: "transparent",
                     float: "right",
-                    marginLeft: "5px"
+                    marginLeft: "5px",
                   }}
-                // onClick={onNavigate}
+                  // onClick={onNavigate}
                 >
                   삭제
                 </button>
@@ -101,7 +100,7 @@ const ResIdBoard = () => {
                     backgroundColor: "transparent",
                     float: "right",
                   }}
-                // onClick={onNavigate}
+                  // onClick={onNavigate}
                 >
                   수정
                 </button>
@@ -121,7 +120,7 @@ const ResIdBoard = () => {
           backgroundColor: "transparent",
           width: "200 px",
           height: "50px",
-          margin: "0 200px"
+          margin: "0 200px",
         }}
         onClick={onAddRes}
       >

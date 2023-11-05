@@ -257,6 +257,12 @@ const restaurantSlice = createSlice({
         console.log(arr);
         localStorage.setItem("watch", JSON.stringify(arr));
       }
+      //   if (arr.length > 50) {
+      //     localStorage.removeItem("watch"); // 로컬 스토리지 삭제
+      //   } else {
+      //     localStorage.setItem("watch", JSON.stringify(arr));
+      //   }
+      // }
 
       state.selectedRestaurant = action.payload;
       return state;
