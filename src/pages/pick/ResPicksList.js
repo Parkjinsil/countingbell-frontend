@@ -11,7 +11,6 @@ import { useInView } from "react-intersection-observer";
 
 const ResPicksList = () => {
   const dispatch = useDispatch();
-  //const [page, setPage] = useState(1);
 
   const resPicksList = useSelector((state) => state.pick.resPicksList);
 
@@ -19,36 +18,13 @@ const ResPicksList = () => {
     dispatch(asyncViewTotalPick(1));
   }, [dispatch]);
 
-  // const hasScrollbar = () => {
-  //   return document.documentElement.scrollHeight > window.innerHeight;
-  // };
-
-  // const [ref, inView] = useInView({
-  //   skip: !hasScrollbar(), // 스크롤이 없을 경우 skip
-  // });
-
-  // const PicksListAPI = () => {
-  //   dispatch(asyncViewTotalPick(page));
-  // };
-
   //resPicks 수가 많은 순으로 정렬
   const sortedResPicksList = [...resPicksList].sort(
     (a, b) => b.restaurant.resPicks - a.restaurant.resPicks
   );
 
-  // useEffect(() => {
-  //   console.log("inView : " + inView);
-  //   if (inView) {
-  //     setPage(page + 1);
-  //   }
-  // }, [inView]);
-
-  // useEffect(() => {
-  //   PicksListAPI();
-  // }, [page]); // page 상태가 변화될때마다
-
   //중복된 식당을 제거하기 위한 Set 생성
-  const uniqueResSet = new Set();
+  const uniqueResSet = new Set(); //자바스크립트에 있는 자료구조 중복되지 않는 고유한 값을 저장하는데 사용
   const uniqueResPicksList = sortedResPicksList.filter((restaurant) => {
     if (!uniqueResSet.has(restaurant.restaurant.resCode)) {
       uniqueResSet.add(restaurant.restaurant.resCode);
@@ -67,11 +43,7 @@ const ResPicksList = () => {
       }}
     >
       {uniqueResPicksList.map((restaurant, index) => (
-        <Link
-          to={`/restaurant/${restaurant.restaurant.resCode}`}
-          key={index}
-          // ref={ref}
-        >
+        <Link to={`/restaurant/${restaurant.restaurant.resCode}`} key={index}>
           <Card
             style={{
               width: "300px",
@@ -138,7 +110,6 @@ const ResPicksList = () => {
           </Card>
         </Link>
       ))}
-      {/* <div ref={ref}></div> */}
     </Container>
   );
 };

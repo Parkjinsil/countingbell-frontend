@@ -13,7 +13,7 @@ import {
   fetchUserPicks,
   resPickList,
   updatePick,
-  deletePick
+  deletePick,
 } from "../api/restaurant";
 
 const asyncAddRestaurant = createAsyncThunk(
@@ -112,6 +112,7 @@ const asyncFindResByFilter = createAsyncThunk(
   }
 );
 
+// 식당 찜
 const asyncUpdatePick = createAsyncThunk(
   "restaurantSlice/asyncUpdatePick",
   async (data) => {
@@ -120,6 +121,8 @@ const asyncUpdatePick = createAsyncThunk(
     return result.data;
   }
 );
+
+// 식당 찜 취소
 const asyncDeletePick = createAsyncThunk(
   "restaurantSlice/asyncDeletePick",
   async (id) => {
@@ -127,6 +130,7 @@ const asyncDeletePick = createAsyncThunk(
     return result.data;
   }
 );
+
 // 사용자별 식당찜목록 가져오기
 const asyncFetchUserPicks = createAsyncThunk(
   "restaurantSlice/asyncFetchUserPicks",
@@ -264,7 +268,7 @@ const restaurantSlice = createSlice({
       return state;
     });
 
-    // 찜추가
+    // 식당 찜
     builder
       // 액션이 성공한 경우- 데이터 저장
       .addCase(asyncUpdatePick.fulfilled, (state, action) => {
@@ -272,7 +276,7 @@ const restaurantSlice = createSlice({
         return state;
       });
 
-    //찜삭제
+    // 식당 찜 취소
     builder.addCase(asyncDeletePick.fulfilled, (state, action) => {
       state.selectedRestaurant.resPicks -= 1;
       return state;

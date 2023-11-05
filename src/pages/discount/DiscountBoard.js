@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
-import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
+import { SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { asyncViewDiscounts } from "../../store/discountSlice";
@@ -15,11 +14,6 @@ const DiscountBoard = () => {
   // Redux 스토어에서 사용자와 관련된 정보를 가져오기 위해 useSelector 사용
   const discountsList = useSelector((state) => state.discount.discountsList);
   console.log("DiscountsList:" + discountsList);
-
-  // useEffect(() => {
-  //   //   console.log(id);
-  //   dispatch(asyncViewDiscounts(1));
-  // }, [dispatch]);
 
   const hasScrollbar = () => {
     return document.documentElement.scrollHeight > window.innerHeight;

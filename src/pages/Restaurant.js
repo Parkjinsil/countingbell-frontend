@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { } from "react-bootstrap";
+import {} from "react-bootstrap";
 import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -217,7 +217,6 @@ const Restaurant = () => {
   const navigate = useNavigate();
   const [isHearted, setIsHearted] = useState(false);
   const [heartCount, setHeartCount] = useState();
-  //const [pick, setPick] = useState();
   const [activeTab, setActiveTab] = useState("menu");
   const [code, setCode] = useState(0);
   const [reviews, setReviews] = useState([]); // 리뷰 상태
@@ -241,7 +240,7 @@ const Restaurant = () => {
           setReviews(newReviews); // 리뷰 데이터를 리뷰 상태로 업데이트
         }
       } catch (error) {
-        console.error('리뷰 데이터를 가져오는 중 오류 발생: ', error);
+        console.error("리뷰 데이터를 가져오는 중 오류 발생: ", error);
       }
     };
 
@@ -251,15 +250,19 @@ const Restaurant = () => {
 
   // 리뷰 데이터를 리뷰 평점 순으로 정렬
   const onHighGrade = () => {
-    const sortedReviews = [...reviews].sort((a, b) => b.reviewGrade - a.reviewGrade);
+    const sortedReviews = [...reviews].sort(
+      (a, b) => b.reviewGrade - a.reviewGrade
+    );
     setReviews(sortedReviews); // 정렬된 리뷰를 리뷰 상태로 업데이트
   };
 
   // 리뷰 데이터를 최신 순으로 정렬
   const onRecent = () => {
-    const sortedDates = [...reviews].sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate));
+    const sortedDates = [...reviews].sort(
+      (a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)
+    );
     setReviews(sortedDates);
-  }
+  };
 
   // 리뷰 평점별 개수
   const fiveReviews = reviews.filter((review) => review.reviewGrade === 5);
@@ -269,7 +272,13 @@ const Restaurant = () => {
   const oneReviews = reviews.filter((review) => review.reviewGrade === 1);
 
   // 리뷰 묶음
-  const reviewGroups = [fiveReviews, fourReviews, threeReviews, twoReviews, oneReviews];
+  const reviewGroups = [
+    fiveReviews,
+    fourReviews,
+    threeReviews,
+    twoReviews,
+    oneReviews,
+  ];
   const widths = {};
 
   for (let i = 0; i <= 4; i++) {
@@ -287,7 +296,6 @@ const Restaurant = () => {
     reviewSum += reviews[i].reviewGrade;
   }
   // console.log("총합"+reviewSum);
-
 
   const user = useSelector((state) => {
     return state.user;
@@ -417,9 +425,7 @@ const Restaurant = () => {
   };
 
   return (
-    <div
-      style={{ marginTop: "80px", overflow: "hidden" }}
-    >
+    <div style={{ marginTop: "80px", overflow: "hidden" }}>
       <section className="container">
         <div className="row">
           <div className="col-4">
@@ -463,21 +469,25 @@ const Restaurant = () => {
             <table className="table table-borderless">
               <tbody>
                 <tr>
-                  <td >주소 </td>
+                  <td>주소 </td>
                   <td>{restaurant?.resAddr}</td>
                 </tr>
                 <tr>
-                  <td >영업시간 </td>
-                  <td>{restaurant?.resOpenHour} - {restaurant?.resClose}</td>
+                  <td>영업시간 </td>
+                  <td>
+                    {restaurant?.resOpenHour} - {restaurant?.resClose}
+                  </td>
                 </tr>
-                <tr >
+                <tr>
                   <td>전화번호 </td>
                   <td>{restaurant?.resPhone} </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
-                  <td className="align-top" colSpan="2" align="left" >{restaurant?.resDesc}ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </td>
+                  <td className="align-top" colSpan="2" align="left">
+                    {restaurant?.resDesc}{" "}
+                  </td>
                 </tr>
                 <tr>
                   <td colSpan="4">
@@ -496,7 +506,7 @@ const Restaurant = () => {
                   <td colSpan="2" width="75" align="right">
                     {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
-                      user.role === "관리자" ? (
+                    user.role === "관리자" ? (
                       <button
                         type="button"
                         className="btn text-white fw-bold"
@@ -521,7 +531,7 @@ const Restaurant = () => {
                         예약
                       </Link>
                     )}
-                     {(user.role === "사장" &&
+                    {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
                     user.role === "관리자" ? (
                       <button
@@ -539,7 +549,6 @@ const Restaurant = () => {
                     ) : null}
                   </td>
                 </tr>
-
               </tfoot>
             </table>
           </div>
@@ -552,7 +561,7 @@ const Restaurant = () => {
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       <StyleNav>
         <nav
@@ -564,8 +573,9 @@ const Restaurant = () => {
             style={{ borderBottom: "2px solid #ddd" }}
           >
             <li
-              className={`col nav-item text-center ${activeTab === "menu" ? "active" : ""
-                }`}
+              className={`col nav-item text-center ${
+                activeTab === "menu" ? "active" : ""
+              }`}
             >
               <a
                 className="nav-link fs-3 fw-semibold"
@@ -583,8 +593,9 @@ const Restaurant = () => {
               </a>
             </li>
             <li
-              className={`col nav-item text-center ${activeTab === "review" ? "active" : ""
-                }`}
+              className={`col nav-item text-center ${
+                activeTab === "review" ? "active" : ""
+              }`}
             >
               <a
                 className="nav-link fs-3 fw-semibold"
@@ -672,7 +683,9 @@ const Restaurant = () => {
                     <div className="row align-items-center">
                       {/* 여기부분! div정렬 수정 */}
                       <div className="col-3 text-center d-flex flex-column align-items-center">
-                        <h2 className="fs-1">{Math.round((reviewSum / reviews.length) * 10) / 10}</h2>
+                        <h2 className="fs-1">
+                          {Math.round((reviewSum / reviews.length) * 10) / 10}
+                        </h2>
                         <div className="d-inline">
                           <StarFill
                             className="bi bi-star-fill"
@@ -826,35 +839,38 @@ const Restaurant = () => {
                                   <tr style={{ display: "flex" }}>
                                     <th className="fw-bold">
                                       <span>전체 {reviews.length}건</span>
-                                      <button onClick={onRecent}
+                                      <button
+                                        onClick={onRecent}
                                         style={{
                                           backgroundColor: "transparent",
                                           padding: "10px",
                                           marginLeft: "680px",
                                           borderRadius: "5px",
-                                          border: "1px solid #888"
+                                          border: "1px solid #888",
                                         }}
                                       >
                                         최신순
                                       </button>
-                                      <button onClick={onHighGrade}
+                                      <button
+                                        onClick={onHighGrade}
                                         style={{
                                           backgroundColor: "transparent",
                                           padding: "10px",
                                           marginLeft: "10px",
                                           borderRadius: "5px",
-                                          border: "1px solid #888"
+                                          border: "1px solid #888",
                                         }}
                                       >
                                         평점높은순
                                       </button>
-                                      <button onClick={onHighGrade}
+                                      <button
+                                        onClick={onHighGrade}
                                         style={{
                                           backgroundColor: "transparent",
                                           padding: "10px",
                                           marginLeft: "10px",
                                           borderRadius: "5px",
-                                          border: "1px solid #888"
+                                          border: "1px solid #888",
                                         }}
                                       >
                                         평점낮은순
@@ -869,33 +885,46 @@ const Restaurant = () => {
                                       key={review.reviewCode}
                                       style={{
                                         borderBottom: "1px solid #ddd",
-                                        display: "flex"
+                                        display: "flex",
                                       }}
                                     >
-                                      <td className="title"
-                                        style={{ flex: "1" }}>
+                                      <td
+                                        className="title"
+                                        style={{ flex: "1" }}
+                                      >
                                         <div className="candidate-list-details">
                                           <div>
-                                            <h3 className="mb-0"
+                                            <h3
+                                              className="mb-0"
                                               style={{
                                                 fontSize: "20px",
-                                                marginLeft: "20px"
-                                              }}>
+                                                marginLeft: "20px",
+                                              }}
+                                            >
                                               {review.member.name}
                                             </h3>
                                           </div>
-                                          <div className="candidate-list-star"
+                                          <div
+                                            className="candidate-list-star"
                                             style={{
                                               marginLeft: "20px",
-                                              paddingTop: "45px"
-                                            }}>
+                                              paddingTop: "45px",
+                                            }}
+                                          >
                                             <h5>{review.reviewGrade}점</h5>
                                           </div>
-                                          <div style={{
-                                            marginLeft: "20px",
-                                            paddingTop: "20px"
-                                          }}>
-                                            <h3>{review.reviewDate.substring(0, 10)}</h3>
+                                          <div
+                                            style={{
+                                              marginLeft: "20px",
+                                              paddingTop: "20px",
+                                            }}
+                                          >
+                                            <h3>
+                                              {review.reviewDate.substring(
+                                                0,
+                                                10
+                                              )}
+                                            </h3>
                                           </div>
                                         </div>
                                         <div className="candidate-list-details">
@@ -906,7 +935,9 @@ const Restaurant = () => {
                                             }}
                                           >
                                             <img
-                                              src={"/upload/" + review.reviewPhoto}
+                                              src={
+                                                "/upload/" + review.reviewPhoto
+                                              }
                                               className="rounded m-1"
                                               alt=""
                                               style={{
@@ -916,13 +947,17 @@ const Restaurant = () => {
                                             />
                                           </div>
                                         </div>
-                                        <div style={{
-                                          width: "300px",
-                                          height: "100px",
-                                          padding: "10px 30px"
-                                        }}>
-                                          <span className="candidate-list-time order-1"
-                                            style={{ whiteSpace: "pre-wrap" }}>
+                                        <div
+                                          style={{
+                                            width: "300px",
+                                            height: "100px",
+                                            padding: "10px 30px",
+                                          }}
+                                        >
+                                          <span
+                                            className="candidate-list-time order-1"
+                                            style={{ whiteSpace: "pre-wrap" }}
+                                          >
                                             {review.reviewContent}
                                           </span>
                                         </div>
@@ -941,10 +976,9 @@ const Restaurant = () => {
               </div>
             )}
           </StyleReview>
-
         </div>
       </StyleNav>
-    </div >
+    </div>
   );
 };
 

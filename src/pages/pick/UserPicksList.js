@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
-import { StarFill, SuitHeartFill } from "react-bootstrap-icons";
+import { SuitHeartFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { asyncFetchUserPicks } from "../../store/restaurantSlice";
