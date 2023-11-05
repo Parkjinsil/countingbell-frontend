@@ -18,6 +18,7 @@ const ReviewList = () => {
   const { id } = useParams();
 
   const reviews = useSelector((state) => state.review.reviewList);
+
   const [reviewContent, setReviewContent] = useState("");
   const [reviewPhoto, setReviewPhoto] = useState(null);
   const [reviewGrade, setReviewGrade] = useState("");
@@ -34,10 +35,10 @@ const ReviewList = () => {
 
     const formData = new FormData();
 
-    formData.append("reviewCode", reviewCode);
     formData.append("reviewContent", reviewContent);
-    formData.append("reviewGrade", reviewGrade);
     formData.append("reviewPhoto", reviewPhoto);
+    formData.append("reviewGrade", reviewGrade);
+    formData.append("reviewCode", reviewCode);
     formData.append("resCode", resCode);
     formData.append("id", id);
 
@@ -135,7 +136,7 @@ const ReviewList = () => {
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                              메뉴 수정하기
+                              리뷰 수정하기
                             </h5>
                             <button
                               type="button"
