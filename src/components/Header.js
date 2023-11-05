@@ -112,7 +112,7 @@ const HeadMenu = styled.div`
       padding: 10px;
       border-radius: 5px;
       line-height: 50px;
-      background-color:transparent;
+      background-color: transparent;
       &:hover {
         background-color: #ff5e33;
         color: white;
@@ -159,6 +159,7 @@ const HeadMenu = styled.div`
     }
   }
 `;
+
 const ScrollToTop = styled.div`
   width: 50px;
   height: 50px;
@@ -181,6 +182,7 @@ const ScrollToTop = styled.div`
     display: none;
   }
 `;
+
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
