@@ -26,7 +26,6 @@ const ReserList = () => {
       await deleteReser(reserCode);
       alert("예약을 취소했습니다.");
 
-      // 취소 후 화면을 새로 고침
       window.location.reload();
     } catch (error) {
       alert(`예약 취소에 실패했습니다. 에러: ${error.message}`);

@@ -56,15 +56,7 @@ const MenuBoard = () => {
   // 메뉴수정
   const onUpdate = async (e) => {
     e.preventDefault();
-    console.log(menuName);
-    console.log(menuDesc);
-    console.log(menuPrice);
-    console.log(menuPicture);
-    console.log(typeof menuPicture);
-    console.log(menuCode);
-    console.log(resCode);
 
-    // 객체 formData.append 방식으로 넘기기
     const formData = new FormData();
 
     formData.append("menuCode", menuCode);
@@ -73,8 +65,6 @@ const MenuBoard = () => {
     formData.append("menuPrice", menuPrice);
     formData.append("menuPicture", menuPicture);
     formData.append("resCode", resCode);
-
-    console.log(formData);
 
     await dispatch(asyncUpdateMenu(formData));
   };

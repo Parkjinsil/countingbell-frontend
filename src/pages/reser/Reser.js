@@ -190,13 +190,10 @@ const Reser = () => {
     data.append("resCode", resCode);
     data.append("id", user.id);
 
-    // FormData를 URL 쿼리 매개변수로 인코딩
     const queryParams = new URLSearchParams(data);
 
     dispatch(asyncAddReser(data))
       .then(() => {
-        // 예약 등록 성공하면 예약 성공 페이지로 이동
-        // 이동하면서 URL 쿼리 매개변수를 전달
         navigate(`/reservationCom?${queryParams.toString()}`);
       })
       .catch((error) => {

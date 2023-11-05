@@ -26,16 +26,12 @@ const AddMenu = () => {
     const formData = new FormData(); // 새로운 FormData 객체 생성
     formData.append("resCode", e.target.resCode.value);
     formData.append("menuPicture", e.target.menuPicture.files[0]);
-    // 파일은 e.target.menuPicture.files로 접근
     formData.append("menuName", e.target.menuName.value);
     formData.append("menuDesc", e.target.menuDesc.value);
     formData.append("menuPrice", e.target.menuPrice.value);
 
-    console.log(formData);
-
     dispatch(asyncAddMenu(formData));
 
-    // 메뉴 등록이 성공하면 메뉴 목록을 다시 불러와서 업데이트합니다.
     dispatch(asyncGetMenus(1, null));
     navigate(`/menuboard/${resCode}`);
   };
@@ -60,7 +56,6 @@ const AddMenu = () => {
         <Form.Group className="mb-3">
           <Form.Control type="text" placeholder="메뉴설명" name="menuDesc" />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Control type="text" placeholder="가격" name="menuPrice" />
         </Form.Group>
