@@ -258,7 +258,6 @@ const Find = () => {
                       id="inputPhone"
                       name="inputPhone"
                       ref={inputPhoneRef}
-                      placeholder="'-'를 제외하고 입력하세요."
                     ></input>
                   </div>
                 </div>

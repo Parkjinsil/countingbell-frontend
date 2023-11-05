@@ -63,6 +63,7 @@ const ResPicksList = () => {
                     fontSize: "1.5rem",
                     fontWeight: "bold",
                     display: "block",
+                    paddingBottom: "10px"
                   }}
                 >
                   {restaurant.restaurant.resName}
@@ -73,6 +74,7 @@ const ResPicksList = () => {
                     fontSize: "1.1rem",
                     display: "block",
                     margin: "1px 0px 0px 0px",
+                    paddingBottom: "10px"
                   }}
                 >
                   {restaurant.restaurant.food.foodType}
@@ -83,25 +85,17 @@ const ResPicksList = () => {
                     fontSize: "1.1rem",
                     display: "block",
                     margin: "7px 0px 4px 0px",
+                    paddingBottom: "10px"
                   }}
                 >
                   주소 : {restaurant.restaurant.resAddr}
-                </span>
-                <span
-                  className="restaurant-time"
-                  style={{
-                    fontSize: "1.1rem",
-                    display: "block",
-                  }}
-                >
-                  영업시간 : {restaurant.restaurant.resOpenHour} -{" "}
-                  {restaurant.restaurant.resClose}
                 </span>
 
                 <span style={{ paddingLeft: "230px" }}>
                   <SuitHeartFill
                     className="bi bi-suit-heart fs-5"
                     style={{ color: "red" }}
+                    
                   />{" "}
                   {restaurant.restaurant.resPicks}
                 </span>

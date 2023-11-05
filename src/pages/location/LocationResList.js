@@ -69,13 +69,14 @@ const LocationResList = () => {
               style={{ height: "200px" }}
             />
             <Card.Body>
-              <Card.Text>
+              <Card.Text style={{height: "90px"}}>
                 <span
                   className="restaurant-name"
                   style={{
                     fontSize: "1.5rem",
                     fontWeight: "bold",
                     display: "block",
+                    paddingBottom: "10px"
                   }}
                 >
                   {restaurant.resName}
@@ -85,26 +86,15 @@ const LocationResList = () => {
                   style={{
                     fontSize: "1.2rem",
                     display: "block",
+                    paddingBottom: "10px"
                   }}
                 >
                   {restaurant.resAddr}
                 </span>
 
-                <StarFill
-                  className="bi bi-star-fill"
-                  style={{
-                    fontSize: "1.3rem",
-                    color: "#fbe94b",
-                    margin: "3px",
-                  }}
-                />
-                <span style={{ fontSize: "1.3rem" }}>
-                  평점
-                  {/* {restaurant.location.rating} */}
-                </span>
                 <span
                   className="last-line"
-                  style={{ fontSize: "1.1rem", display: "block" }}
+                  style={{ fontSize: "1.1rem", display: "block", paddingBottom: "10px"}}
                 >
                   {restaurant.food.foodType}
                 </span>

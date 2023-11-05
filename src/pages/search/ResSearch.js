@@ -51,19 +51,6 @@ const ResSearch = () => {
                 >
                   {restaurant.restaurant.resName}
                 </span>
-
-                <StarFill
-                  className="bi bi-star-fill"
-                  style={{
-                    fontSize: "1.3rem",
-                    color: "#fbe94b",
-                    margin: "3px",
-                  }}
-                />
-                <span style={{ fontSize: "1.3rem" }}>
-                  평점
-                  {/* {restaurant.restaurant.location.rating} */}
-                </span>
                 <span
                   className="last-line"
                   style={{ fontSize: "1.1rem", display: "block" }}

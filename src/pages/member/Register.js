@@ -398,7 +398,6 @@ const Register = () => {
                 <span style={{ color: "green" }}>OK!</span>
               ) : (
                 <span style={{ color: "red" }}>
-                  "-"를 제외한 핸드폰번호를 입력해주세요.
                 </span>
               )}
             </div>
