@@ -48,10 +48,12 @@ export const fetchUserPicks = async (id) => {
   return await instance.get(url);
 };
 
+// 식당 찜
 export const updatePick = async (data) => {
   return await instance.post("restaurant/pick", data);
 };
 
+// 식당 찜 취소
 export const deletePick = async (id) => {
   return await instance.delete("restaurant/pick/" + id);
 };

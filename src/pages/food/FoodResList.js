@@ -3,10 +3,7 @@ import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import {
-  asyncFindByFoodCode,
-  asyncGetRestaurants,
-} from "../../store/restaurantSlice";
+import { asyncFindByFoodCode } from "../../store/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";

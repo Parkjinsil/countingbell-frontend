@@ -218,7 +218,6 @@ const Restaurant = () => {
   const navigate = useNavigate();
   const [isHearted, setIsHearted] = useState(false);
   const [heartCount, setHeartCount] = useState();
-  //const [pick, setPick] = useState();
   const [activeTab, setActiveTab] = useState("menu");
   const [code, setCode] = useState(0);
   const [reviews, setReviews] = useState([]); // 리뷰 상태
@@ -488,7 +487,7 @@ const Restaurant = () => {
               <tfoot>
                 <tr>
                   <td className="align-top" colSpan="2" align="left">
-                    {restaurant?.resDesc}
+                    {restaurant?.resDesc}{" "}
                   </td>
                 </tr>
                 <tr>
@@ -949,12 +948,12 @@ const Restaurant = () => {
                                             />
                                           </div>
                                         </div>
-
                                         <div
                                           style={{
                                             width: "300px",
                                             height: "100px",
                                             padding: "10px 30px",
+
                                             flex: "1",
                                             justifyContent: "center",
                                             AlignCenter: "center",
