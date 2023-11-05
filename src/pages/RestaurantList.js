@@ -51,7 +51,7 @@ const RestaurantList = () => {
               style={{ height: "200px" }}
             />
             <Card.Body>
-              <Card.Text>
+              <Card.Text style={{height: "120px"}}>
                 <span
                   className="restaurant-name"
                   style={{
