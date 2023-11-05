@@ -101,32 +101,21 @@ const ResIdBoard = () => {
             to={`/restaurant/${restaurant.resCode}`}
           >
             <Card style={{ width: "250px" }}>
-              <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
+              <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} style={{width: "248px",  height: "248px"}}/>
               <Card.Body>
-                <Card.Text>
+                <Card.Text style={{height: "90px"}}>
                   <span
                     className="restaurant-name"
                     style={{
                       fontSize: "1.5rem",
                       fontWeight: "bold",
                       display: "block",
+                      paddingBottom: "5px"
                     }}
                   >
                     {restaurant.resName}
                   </span>
 
-                  <StarFill
-                    className="bi bi-star-fill"
-                    style={{
-                      fontSize: "1.3rem",
-                      color: "#fbe94b",
-                      margin: "3px",
-                    }}
-                  />
-                  <span style={{ fontSize: "1.3rem" }}>
-                    평점
-                    {/* {location.rating} */}
-                  </span>
                   <span
                     className="last-line"
                     style={{ fontSize: "1.1rem", display: "block" }}

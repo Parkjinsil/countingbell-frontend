@@ -49,7 +49,7 @@ const ReserveMain = styled.div`
 const ReserveMainType = styled.div`
   display: flex;
   flex-flow: column;
-  height: 600px;
+  height: 550px;
   border: 2px solid #ff5e33;
   border-radius: 10px;
   margin: 20px;
@@ -130,13 +130,9 @@ const Reservation = () => {
     const foodCode = selectedFoodCode;
     const localCode = selectedLocalCode;
 
-    console.log("foodCode : " + foodCode,
-      "localCode : " + localCode);
     if (foodCode && localCode) {
-
       navigate(`/reservationResList/${foodCode}/${localCode}`);
     }
-
     else {
       navigate("/reservation");
     }
@@ -178,7 +174,7 @@ const Reservation = () => {
               </ReserveMainType>
             </ReserveMain>
             <ReserveCenterFooter className="reserve-center-footer">
-              <button onClick={handleReservation}>예약하러 가기</button>
+              <button onClick={handleReservation}>식당보러 가기</button>
             </ReserveCenterFooter>
           </div>
         </Container>

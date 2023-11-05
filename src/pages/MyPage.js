@@ -221,14 +221,6 @@ const MyPage = () => {
             <img src={image11} alt="" />
             <span>MY카벨</span>
           </div>
-          <MyPageRight className="right">
-            <a href="#">
-              <img src={image22} alt="" />
-            </a>
-            <a href="">
-              <img src={image33} alt="" />
-            </a>
-          </MyPageRight>
         </MyPageHeader>
 
         <div id="mypage-body">

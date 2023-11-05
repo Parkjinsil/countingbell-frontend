@@ -17,14 +17,16 @@ import {
 } from "../../store/menuSlice";
 
 const MenuBoard = () => {
+
   const menus = useSelector((state) => state.menu.menuList);
+  
   const [menuName, setMenuName] = useState("");
   const [menuDesc, setMenuDesc] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuPicture, setMenuPicture] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [menuCode, setMenuCode] = useState("");
-  const { resCode } = useParams(); // URL에서 가져온 resCodes
+  const { resCode } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,16 +40,15 @@ const MenuBoard = () => {
 
   // 메뉴 등록하러 가기
   const onAddmenu = () => {
-    console.log("resCode22 어떻게 보내지? : " + resCode);
     navigate(`/addmenu/${resCode}`);
   };
 
   // 메뉴 삭제
   const onDelete = async (menuCode) => {
     try {
-      await deleteMenu(menuCode); // 해당 메뉴를 삭제하는 비동기 함수를 호출
+      await deleteMenu(menuCode);
       alert(`메뉴를 삭제했습니다.`);
-      await dispatch(asyncGetMenus({ page: 1, resCode: resCode })); // Redux 상태 업데이트
+      await dispatch(asyncGetMenus({ page: 1, resCode: resCode }));
     } catch (error) {
       alert(`메뉴 삭제에 실패했습니다. 에러: ${error.message}`);
     }

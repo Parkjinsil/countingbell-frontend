@@ -298,6 +298,13 @@ const Restaurant = () => {
   }
   // console.log("총합"+reviewSum);
 
+  let average =0;
+  if(reviews.lengths!==0){
+    average = Math.round((reviewSum/reviews.length) * 10) / 10;
+  } else {
+    average =0;
+  }
+
   const user = useSelector((state) => {
     return state.user;
   });
@@ -450,7 +457,7 @@ const Restaurant = () => {
                     className="bi bi-star-fill mb-1"
                     style={{ fontSize: "1.5rem", color: "#FBE94B" }}
                   />{" "}
-                  {Math.round((reviewSum / reviews.length) * 10) / 10}
+                  {average}
                 </span>
                 {/* <span className="res3 fs-6 fw-bold text-muted">
                   {reviews.length}
@@ -685,7 +692,7 @@ const Restaurant = () => {
                       {/* 여기부분! div정렬 수정 */}
                       <div className="col-3 text-center d-flex flex-column align-items-center">
                         <h2 className="fs-1">
-                          {Math.round((reviewSum / reviews.length) * 10) / 10}
+                        {average}
                         </h2>
                         <div className="d-inline">
                           <StarFill
