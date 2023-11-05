@@ -35,7 +35,7 @@ const Section = styled.section`
 const SliderContainer = styled.div`
   display: flex;
   justify-content: center;
-  /* overflow: hidden; */ // 넣으면 사진 가려짐
+  overflow: hidden; // 넣으면 사진 가려짐
   position: relative;
   margin-top: 20px;
 
@@ -201,12 +201,12 @@ const Home = () => {
               <span className="category-text">음식별</span>
             </span>
           </Link>
-          <a href="/restaurantList" className="category-link">
+          {/* <a href="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image5} alt="리뷰순" className="category-image" />
               <span className="category-text">리뷰순</span>
             </span>
-          </a>
+          </a> */}
           <Link to="/restaurantList" className="category-link">
             <span className="category-content">
               <img src={image3} alt="기타" className="category-image" />

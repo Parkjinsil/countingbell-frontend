@@ -233,7 +233,8 @@ const Discount = () => {
                           type="text"
                           //placeholder="식당(코드번호)을 작성해주세요. / ex) 1"
                           name="resCode"
-                          value={resCode}
+                          defaultValue={resCode}
+                          readOnly
                           // onChange={(e) => setResCode(e.target.value)}
                         />
                       </Form.Group>
@@ -351,7 +352,8 @@ const Discount = () => {
                           type="text"
                           //placeholder="수정을 원하는 식당(코드번호)을 작성해주세요."
                           name="resCode"
-                          value={resCode}
+                          defaultValue={resCode}
+                          readOnly
                           // onChange={(e) => setResCode(e.target.value)}
                         />
                       </Form.Group>
