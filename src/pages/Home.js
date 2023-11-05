@@ -8,7 +8,7 @@ import image4 from "../assets/444.jpg";
 import image5 from "../assets/555.jpg";
 
 import { Link } from "react-router-dom";
-import {} from "react-bootstrap";
+import { } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -176,9 +176,8 @@ const Home = () => {
               <button
                 key={index}
                 type="button"
-                className={`slide-btn ${
-                  currentSlide === index ? "active" : ""
-                }`}
+                className={`slide-btn ${currentSlide === index ? "active" : ""
+                  }`}
                 onClick={() => onClick(index)}
               ></button>
             ))}

@@ -535,7 +535,7 @@ const Restaurant = () => {
                     )}
                     {(user.role === "사장" &&
                       restaurant?.member?.id === user.id) ||
-                    user.role === "관리자" ? (
+                      user.role === "관리자" ? (
                       <button
                         type="button"
                         className="btn text-white fw-bold"
@@ -732,13 +732,13 @@ const Restaurant = () => {
                         </div>
                         <Link
                           to={`addReview`}
-                          className="btn mt-3"
+                          className="btn mt-3 text-bottom"
                           type="button"
                           style={{
-                            height: "50px",
+                            height: "38px",
                             width: "200px",
                             backgroundColor: "#ff6b01",
-                            color: "white",
+                            color: "white"
                           }}
                         >
                           리뷰쓰기
