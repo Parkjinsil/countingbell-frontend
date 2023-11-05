@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Card } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-import image1 from "../../assets/111.jpg";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -35,11 +34,7 @@ const ReservationResList = () => {
       {restaurantList.map((restaurant) => (
         <Link to={`/restaurant/${restaurant.resCode}`} key={restaurant.resCode}>
           <Card style={{ width: "18rem" }}>
-            <Card.Img
-              variant="top"
-              src={"/upload/" + restaurant?.resPicture}
-              // src={restaurant.resPhoto} // 식당테이블에 사진추가해야함
-            />
+            <Card.Img variant="top" src={"/upload/" + restaurant?.resPicture} />
             <Card.Body>
               <Card.Text style={{}}>
                 <span
